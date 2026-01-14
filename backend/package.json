@@ -1,0 +1,35 @@
+{
+  "name": "food-backend",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "prisma:deploy": "prisma migrate deploy",
+    "seed": "node scripts/seed.js",
+    "db:setup": "pnpm run prisma:push && pnpm run prisma:generate && pnpm run seed"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.0",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^1.20.2",
+    "cloudinary": "^1.41.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.0.0",
+    "json2csv": "^6.0.0-alpha.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "prisma": "^5.7.0"
+  }
+}
