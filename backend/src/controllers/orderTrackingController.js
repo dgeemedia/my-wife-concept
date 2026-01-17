@@ -1,4 +1,3 @@
-// backend/src/controllers/orderTrackingController.js
 const { PrismaClient } = require('@prisma/client');
 const { AppError } = require('../middleware/errorHandler');
 const { formatOrderMessage } = require('../utils/whatsapp');
@@ -73,9 +72,6 @@ async function updateOrderStatus(orderId, status, notes = null, userId = null) {
     status,
     userId,
   });
-
-  // TODO: Send notification to customer (WhatsApp/SMS/Email)
-  // await notifyCustomer(updatedOrder, status);
 
   return {
     ok: true,

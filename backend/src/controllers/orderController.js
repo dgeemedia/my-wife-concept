@@ -1,22 +1,19 @@
-// backend/src/controllers/orderController.js
+// backend/src/controllers/orderController.js 
 const { PrismaClient } = require('@prisma/client');
 const { AppError } = require('../middleware/errorHandler');
 
 const prisma = new PrismaClient();
 
 /**
- * Create quick order (TENANT SCOPED)
+ * Create quick order - SINGLE TENANT
  */
-async function createQuickOrder(req, data) {
+async function createQuickOrder(data) {
   const { customerName, address, phone, email, message, productId, quantity } = data;
   const qty = quantity && Number.isInteger(quantity) ? quantity : 1;
 
   const order = await prisma.$transaction(async (tx) => {
-    const product = await tx.product.findFirst({
-      where: { 
-        id: Number(productId),
-        tenantId: req.tenant.id, // CRITICAL: Verify product belongs to tenant
-      },
+    const product = await tx.product.findUnique({
+      where: { id: Number(productId) },
     });
 
     if (!product) {
@@ -27,7 +24,6 @@ async function createQuickOrder(req, data) {
       throw new AppError(`Insufficient stock. Only ${product.stock} available`, 400);
     }
 
-    // Create order (stock updated after payment confirmation)
     return tx.order.create({
       data: {
         customerName,
@@ -37,7 +33,6 @@ async function createQuickOrder(req, data) {
         message: message || '',
         totalAmount: product.price * qty,
         paymentStatus: 'PENDING',
-        tenantId: req.tenant.id, // CRITICAL: Assign to tenant
         items: {
           create: {
             productId: product.id,
@@ -58,9 +53,9 @@ async function createQuickOrder(req, data) {
 }
 
 /**
- * Checkout with multiple items (TENANT SCOPED)
+ * Checkout with multiple items
  */
-async function checkout(req, data) {
+async function checkout(data) {
   const { customerName, phone, address, email, message, items } = data;
 
   const order = await prisma.$transaction(async (tx) => {
@@ -68,11 +63,8 @@ async function checkout(req, data) {
     const orderItemsData = [];
 
     for (const item of items) {
-      const product = await tx.product.findFirst({
-        where: { 
-          id: Number(item.productId),
-          tenantId: req.tenant.id, // CRITICAL: Verify product belongs to tenant
-        },
+      const product = await tx.product.findUnique({
+        where: { id: Number(item.productId) },
       });
 
       if (!product) {
@@ -103,7 +95,6 @@ async function checkout(req, data) {
         message: message || '',
         totalAmount,
         paymentStatus: 'PENDING',
-        tenantId: req.tenant.id, // CRITICAL: Assign to tenant
         items: { create: orderItemsData },
       },
       include: {
@@ -118,17 +109,14 @@ async function checkout(req, data) {
 }
 
 /**
- * Confirm payment (TENANT FILTERED)
+ * Confirm payment
  */
-async function confirmPayment(req, orderId, paymentData, userId) {
+async function confirmPayment(orderId, paymentData, userId) {
   const { paymentMethod, paymentProof } = paymentData;
 
   const order = await prisma.$transaction(async (tx) => {
-    const existingOrder = await tx.order.findFirst({
-      where: { 
-        id: Number(orderId),
-        tenantId: req.tenant.id, // CRITICAL: Verify tenant owns order
-      },
+    const existingOrder = await tx.order.findUnique({
+      where: { id: Number(orderId) },
       include: {
         items: {
           include: { product: true },
@@ -185,54 +173,28 @@ async function confirmPayment(req, orderId, paymentData, userId) {
 }
 
 /**
- * Reject payment (TENANT SCOPED)
+ * Reject payment
  */
-async function rejectPayment(req, orderId, reason, userId) {
-  const order = await prisma.$transaction(async (tx) => {
-    const existingOrder = await tx.order.findFirst({
-      where: {
-        id: Number(orderId),
-        tenantId: req.tenant.id, // 🔐 TENANT CHECK
-      },
-    });
-
-    if (!existingOrder) {
-      throw new AppError('Order not found', 404);
-    }
-
-    if (existingOrder.paymentStatus === 'CONFIRMED') {
-      throw new AppError('Cannot reject a confirmed payment', 400);
-    }
-
-    if (existingOrder.paymentStatus === 'REJECTED') {
-      throw new AppError('Payment already rejected', 400);
-    }
-
-    return tx.order.update({
-      where: { id: Number(orderId) },
-      data: {
-        paymentStatus: 'REJECTED',
-        status: 'CANCELLED',
-        paymentRejectedAt: new Date(),
-        paymentRejectedBy: userId,
-        notes: reason ? `Payment rejected: ${reason}` : 'Payment rejected',
-      },
-    });
+async function rejectPayment(orderId, reason, userId) {
+  const order = await prisma.order.update({
+    where: { id: Number(orderId) },
+    data: {
+      paymentStatus: 'REJECTED',
+      status: 'CANCELLED',
+      notes: reason ? `Payment rejected: ${reason}` : 'Payment rejected',
+    },
   });
 
   return { ok: true, order, message: 'Payment rejected successfully' };
 }
 
 /**
- * Get all orders (TENANT FILTERED)
+ * Get all orders
  */
-async function getAllOrders(req, query) {
+async function getAllOrders(query) {
   const { limit, offset } = query;
 
   const orders = await prisma.order.findMany({
-    where: {
-      tenantId: req.tenant.id, // CRITICAL: Filter by tenant
-    },
     include: {
       items: {
         include: { product: true },
@@ -243,11 +205,7 @@ async function getAllOrders(req, query) {
     ...(offset && { skip: Number(offset) }),
   });
 
-  const total = await prisma.order.count({
-    where: {
-      tenantId: req.tenant.id, // CRITICAL: Count only tenant's orders
-    },
-  });
+  const total = await prisma.order.count();
 
   return {
     orders,
@@ -258,14 +216,11 @@ async function getAllOrders(req, query) {
 }
 
 /**
- * Get single order (TENANT FILTERED)
+ * Get single order
  */
-async function getOrderById(req, id) {
-  const order = await prisma.order.findFirst({
-    where: { 
-      id: Number(id),
-      tenantId: req.tenant.id, // CRITICAL: Verify tenant owns this order
-    },
+async function getOrderById(id) {
+  const order = await prisma.order.findUnique({
+    where: { id: Number(id) },
     include: {
       items: {
         include: { product: true },
@@ -281,13 +236,10 @@ async function getOrderById(req, id) {
 }
 
 /**
- * Get orders for CSV export (TENANT FILTERED)
+ * Get orders for CSV export
  */
-async function getOrdersForExport(req) {
+async function getOrdersForExport() {
   const orders = await prisma.order.findMany({
-    where: {
-      tenantId: req.tenant.id, // CRITICAL: Export only tenant's orders
-    },
     include: {
       items: {
         include: { product: true },
@@ -300,12 +252,9 @@ async function getOrdersForExport(req) {
 }
 
 /**
- * Delete order (TENANT FILTERED)
+ * Delete order
  */
-async function deleteOrder(req, id) {
-  // Verify tenant owns order
-  await getOrderById(req, id);
-
+async function deleteOrder(id) {
   await prisma.order.delete({
     where: { id: Number(id) },
   });

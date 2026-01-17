@@ -1,4 +1,3 @@
-// frontend/pages/admin/login.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -25,10 +24,13 @@ export default function AdminLogin() {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
 
+        // 🚨 CRITICAL: Check security setup needs
         if (response.user.forcePasswordChange) {
-          router.push('/admin/change-password');
+            router.push('/admin/first-login');
+        } else if (!response.user.hasSecurityQuestion) {
+            router.push('/admin/set-security');
         } else {
-          router.push('/admin');
+            router.push('/admin');
         }
       } else {
         setError(response.error || 'Login failed');

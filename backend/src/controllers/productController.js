@@ -1,17 +1,15 @@
-// backend/src/controllers/productController.js
+// backend/src/controllers/productController.js 
 const { PrismaClient } = require('@prisma/client');
 const { AppError } = require('../middleware/errorHandler');
 
 const prisma = new PrismaClient();
 
 /**
- * Get all products (TENANT FILTERED)
+ * Get all products - SINGLE TENANT
  */
-async function getAllProducts(req, query) {
+async function getAllProducts(query) {
   const { search, inStock } = query;
-  const where = {
-    tenantId: req.tenant.id, // CRITICAL: Filter by tenant
-  };
+  const where = {};
 
   if (search) {
     where.name = {
@@ -33,14 +31,11 @@ async function getAllProducts(req, query) {
 }
 
 /**
- * Get single product (TENANT FILTERED)
+ * Get single product
  */
-async function getProductById(req, id) {
-  const product = await prisma.product.findFirst({
-    where: { 
-      id: Number(id),
-      tenantId: req.tenant.id, // CRITICAL: Verify tenant owns this product
-    },
+async function getProductById(id) {
+  const product = await prisma.product.findUnique({
+    where: { id: Number(id) },
   });
 
   if (!product) {
@@ -51,9 +46,9 @@ async function getProductById(req, id) {
 }
 
 /**
- * Create product (TENANT SCOPED)
+ * Create product
  */
-async function createProduct(req, data) {
+async function createProduct(data) {
   const { name, price, stock, description, imageUrl } = data;
 
   const product = await prisma.product.create({
@@ -63,7 +58,6 @@ async function createProduct(req, data) {
       stock: Number(stock),
       description: description || '',
       imageUrl: imageUrl || '',
-      tenantId: req.tenant.id, // CRITICAL: Assign to tenant
     },
   });
 
@@ -71,13 +65,10 @@ async function createProduct(req, data) {
 }
 
 /**
- * Update product (TENANT FILTERED)
+ * Update product
  */
-async function updateProduct(req, id, data) {
+async function updateProduct(id, data) {
   const { name, price, stock, description, imageUrl } = data;
-
-  // Verify tenant owns product before updating
-  await getProductById(req, id);
 
   const product = await prisma.product.update({
     where: { id: Number(id) },
@@ -94,12 +85,9 @@ async function updateProduct(req, id, data) {
 }
 
 /**
- * Update product stock (TENANT FILTERED)
+ * Update product stock
  */
-async function updateProductStock(req, id, stock) {
-  // Verify tenant owns product
-  await getProductById(req, id);
-
+async function updateProductStock(id, stock) {
   const product = await prisma.product.update({
     where: { id: Number(id) },
     data: { stock: Number(stock) },
@@ -109,18 +97,12 @@ async function updateProductStock(req, id, stock) {
 }
 
 /**
- * Delete product (TENANT FILTERED)
+ * Delete product
  */
-async function deleteProduct(req, id) {
-  // Verify tenant owns product
-  await getProductById(req, id);
-
-  // Check if product has orders for this tenant
+async function deleteProduct(id) {
+  // Check if product has orders
   const orderItems = await prisma.orderItem.count({
-    where: {
-      productId: Number(id),
-      order: { tenantId: req.tenant.id }, // ensure count scoped to the tenant
-    },
+    where: { productId: Number(id) },
   });
 
   if (orderItems > 0) {

@@ -6,8 +6,10 @@ const { adminAuth } = require('../middleware/auth');
 const {
   updateOrderStatus,
   getOrderStatus,
+  getOrderStatusHistory,
   getOrdersByStatus,
   getStatusStatistics,
+  bulkUpdateStatus,
   cancelOrder,
 } = require('../controllers/orderTrackingController');
 
@@ -98,13 +100,24 @@ router.patch(
   })
 );
 
+// Get order status history
+router.get(
+  '/:orderId/history',
+  adminAuth,
+  asyncHandler(async (req, res) => {
+    const { orderId } = req.params;
+    const result = await getOrderStatusHistory(orderId);
+    res.json(result);
+  })
+);
+
 // Get orders by status
 router.get(
   '/status/:status',
   adminAuth,
   asyncHandler(async (req, res) => {
     const { status } = req.params;
-    const { limit, offset } = req.query;
+    const { limit = 50, offset = 0 } = req.query;
 
     const result = await getOrdersByStatus(status, limit, offset);
     res.json(result);
@@ -131,6 +144,27 @@ router.post(
     const userId = req.user.id;
 
     const result = await cancelOrder(orderId, reason, userId);
+    res.json(result);
+  })
+);
+
+// Bulk update order statuses
+router.post(
+  '/bulk-update',
+  adminAuth,
+  asyncHandler(async (req, res) => {
+    const { orderIds, status, notes } = req.body;
+    const userId = req.user.id;
+
+    if (!orderIds || !Array.isArray(orderIds) || orderIds.length === 0) {
+      throw new AppError('orderIds array is required', 400);
+    }
+
+    if (!status) {
+      throw new AppError('status is required', 400);
+    }
+
+    const result = await bulkUpdateStatus(orderIds, status, notes, userId);
     res.json(result);
   })
 );

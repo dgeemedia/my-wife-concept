@@ -4,16 +4,29 @@ const crypto = require('crypto');
 /**
  * Generate secure random password
  */
-function generateSecurePassword(length = 16) {
+function generateSecurePassword(length = 8) {  // CHANGED FROM 12 TO 8
   const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
   let password = '';
-  const randomBytes = crypto.randomBytes(length);
   
-  for (let i = 0; i < length; i++) {
-    password += charset[randomBytes[i] % charset.length];
+  // Ensure at least one uppercase, one lowercase, one number, and one special char
+  const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+  const numbers = '0123456789';
+  const special = '!@#$%^&*';
+  
+  password += uppercase[Math.floor(Math.random() * uppercase.length)];
+  password += lowercase[Math.floor(Math.random() * lowercase.length)];
+  password += numbers[Math.floor(Math.random() * numbers.length)];
+  password += special[Math.floor(Math.random() * special.length)];
+  
+  // Fill remaining characters
+  for (let i = 4; i < length; i++) {
+    const randomBytes = crypto.randomBytes(1);
+    password += charset[randomBytes[0] % charset.length];
   }
   
-  return password;
+  // Shuffle the password
+  return password.split('').sort(() => Math.random() - 0.5).join('');
 }
 
 /**
@@ -37,8 +50,8 @@ module.exports = {
     WINDOW_MS: 15 * 60 * 1000, // 15 minutes
     MAX_AUTH_ATTEMPTS: 5,
     MAX_API_REQUESTS: 100,
-    MAX_ORDER_ATTEMPTS: 10, // NEW: Specific limit for orders
-    MAX_UPLOAD_ATTEMPTS: 20, // NEW: For image uploads
+    MAX_ORDER_ATTEMPTS: 10,
+    MAX_UPLOAD_ATTEMPTS: 20,
   },
 
   // Cloudinary Configuration
@@ -70,11 +83,8 @@ module.exports = {
     ADMIN: 'admin',
   },
 
-  // Default Credentials - SECURITY IMPROVED
-  DEFAULT: {
-    PASSWORD_LENGTH: 16,
-    generatePassword: generateSecurePassword,
-  },
+  // Password Generation
+  generateSecurePassword,
 
   // Order Configuration
   ORDER: {
@@ -93,14 +103,6 @@ module.exports = {
   // Session Configuration
   SESSION: {
     PENDING_ORDER_TTL: 30 * 60 * 1000, // 30 minutes
-  },
-
-  // Backup Configuration
-  BACKUP: {
-    ENABLED: process.env.BACKUP_ENABLED === 'true',
-    SCHEDULE: '0 2 * * *', // Daily at 2 AM
-    RETENTION_DAYS: 30,
-    DIRECTORY: process.env.BACKUP_DIR || './backups',
   },
 
   // Notification Configuration

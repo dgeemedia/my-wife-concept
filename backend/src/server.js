@@ -17,6 +17,8 @@ const productsRoutes = require('./routes/products');
 const ordersRoutes = require('./routes/orders');
 const usersRoutes = require('./routes/users');
 const trackingRoutes = require('./routes/tracking');
+const settingsRoutes = require('./routes/settings');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 const prisma = new PrismaClient();
@@ -154,6 +156,8 @@ app.use('/api/products', productsRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/tracking', trackingRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Image upload
 app.post('/api/upload', upload.single('image'), asyncHandler(async (req, res) => {

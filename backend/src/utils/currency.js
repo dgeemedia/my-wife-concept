@@ -1,4 +1,4 @@
-// frontend/lib/currency.js
+// backend/src/utils/currency.js
 // Currency formatting and conversion utilities
 
 /**

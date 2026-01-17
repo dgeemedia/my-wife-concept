@@ -1,4 +1,3 @@
-// frontend/lib/api.js
 /**
  * API utility functions
  */
@@ -85,6 +84,27 @@ export const authApi = {
   
   getMe: () => 
     apiRequest('/api/auth/me', { requiresAuth: true }),
+
+  firstLogin: (data) => 
+    apiRequest('/api/auth/first-login', { 
+      method: 'POST', 
+      body: data, 
+      requiresAuth: true 
+    }),
+  
+  setSecurityQuestion: (data) => 
+    apiRequest('/api/auth/security-question', { 
+      method: 'POST', 
+      body: data, 
+      requiresAuth: true 
+    }),
+  
+  changePasswordWithCurrent: (data) => 
+    apiRequest('/api/auth/change-password-with-current', { 
+      method: 'POST', 
+      body: data, 
+      requiresAuth: true 
+    }),
 };
 
 // Products API
@@ -144,28 +164,42 @@ export const ordersApi = {
   exportCSV: async () => {
     const token = localStorage.getItem('token');
     const response = await fetch(`${API_URL}/api/orders/export/csv`, {
-        headers: {
+      headers: {
         Authorization: `Bearer ${token}`,
-        },
+      },
     });
     
     if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `orders-export-${new Date().toISOString().slice(0, 10)}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `orders-export-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
     }
-    },
-    
+  },
+  
   delete: (id) => 
     apiRequest(`/api/orders/${id}`, { 
       method: 'DELETE', 
       requiresAuth: true 
+    }),
+
+  confirmPayment: (orderId, data) =>
+    apiRequest(`/api/orders/${orderId}/confirm-payment`, {
+      method: 'POST',
+      body: data,
+      requiresAuth: true
+    }),
+
+  rejectPayment: (orderId, data) =>
+    apiRequest(`/api/orders/${orderId}/reject-payment`, {
+      method: 'POST',
+      body: data,
+      requiresAuth: true
     }),
 };
 
@@ -211,10 +245,70 @@ export const usersApi = {
     }),
 };
 
+// Tracking API - NEW
+export const trackingApi = {
+  getOrdersByStatus: (status, limit = 50, offset = 0) => {
+    const query = new URLSearchParams({ limit, offset }).toString();
+    return apiRequest(`/api/tracking/status/${status}${query ? `?${query}` : ''}`, { 
+      requiresAuth: true 
+    });
+  },
+  
+  getStatusStatistics: () => 
+    apiRequest('/api/tracking/statistics', { requiresAuth: true }),
+  
+  updateOrderStatus: (orderId, status, notes) => 
+    apiRequest(`/api/tracking/${orderId}/status`, {
+      method: 'PATCH',
+      body: { status, notes },
+      requiresAuth: true
+    }),
+  
+  cancelOrder: (orderId, reason) => 
+    apiRequest(`/api/tracking/${orderId}/cancel`, {
+      method: 'POST',
+      body: { reason },
+      requiresAuth: true
+    }),
+  
+  getOrderStatusHistory: (orderId) => 
+    apiRequest(`/api/tracking/${orderId}/history`, {
+      requiresAuth: true
+    }),
+  
+  bulkUpdateStatus: (orderIds, status, notes) => 
+    apiRequest('/api/tracking/bulk-update', {
+      method: 'POST',
+      body: { orderIds, status, notes },
+      requiresAuth: true
+    }),
+};
+
 // Analytics API
 export const analyticsApi = {
   getStats: () => 
     apiRequest('/api/admin/analytics', { requiresAuth: true }),
+};
+
+// Admin API
+export const adminApi = {
+  getAnalytics: () => 
+    apiRequest('/api/admin/analytics', { requiresAuth: true }),
+  
+  getSalesStats: (period) => 
+    apiRequest(`/api/admin/sales-stats/${period}`, { requiresAuth: true }),
+  
+  getDailySales: (days = 30) => 
+    apiRequest(`/api/admin/daily-sales?days=${days}`, { requiresAuth: true }),
+  
+  getProductPerformance: () => 
+    apiRequest('/api/admin/product-performance', { requiresAuth: true }),
+  
+  getCustomerInsights: () => 
+    apiRequest('/api/admin/customer-insights', { requiresAuth: true }),
+  
+  getPaymentStats: () => 
+    apiRequest('/api/admin/payment-stats', { requiresAuth: true }),
 };
 
 // Upload API
@@ -252,7 +346,9 @@ export default {
   products: productsApi,
   orders: ordersApi,
   users: usersApi,
+  tracking: trackingApi,
   analytics: analyticsApi,
+  admin: adminApi,
   upload: uploadApi,
   testimonials: testimonialsApi,
 };

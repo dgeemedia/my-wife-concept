@@ -190,4 +190,46 @@ router.post(
   })
 );
 
+/**
+ * POST /first-login
+ * First login - change password and set security question
+ */
+router.post(
+  '/first-login',
+  authMiddleware,
+  asyncHandler(async (req, res) => {
+    const result = await firstLogin(req, res);
+    res.json(result);
+  })
+);
+
+/**
+ * POST /security-question
+ * Set security question and answer
+ */
+router.post(
+  '/security-question',
+  authMiddleware,
+  asyncHandler(async (req, res) => {
+    const result = await setSecurityQuestion(req, res, req.user.id);
+    res.json(result);
+  })
+);
+
+/**
+ * POST /change-password-with-current
+ * Change password with current password verification
+ */
+router.post(
+  '/change-password-with-current',
+  authMiddleware,
+  asyncHandler(async (req, res) => {
+    const requestUserId = req.user.id;
+    const targetUserId = req.body.userId ? Number(req.body.userId) : requestUserId;
+    
+    const result = await changePasswordWithCurrent(req, res, requestUserId, targetUserId);
+    res.json(result);
+  })
+);
+
 module.exports = router;

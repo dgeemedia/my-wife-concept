@@ -176,6 +176,53 @@ async function resetUserPassword(id) {
   };
 }
 
+async function createUserWithOnboarding(data) {
+  const { email, role } = data;
+  
+  // Generate secure temporary password
+  const tempPassword = generateSecurePassword(12);
+  const passwordHash = await bcrypt.hash(tempPassword, BCRYPT.SALT_ROUNDS);
+  
+  const user = await prisma.user.create({
+    data: {
+      email,
+      role: role || ROLES.ADMIN,
+      passwordHash,
+      forcePasswordChange: true, // Force password change on first login
+      securityQuestion: null, // Will be set by user
+      securityAnswerHash: null,
+      active: true,
+    },
+  });
+  
+  return {
+    ok: true,
+    user,
+    tempPassword, // Send to super admin only
+    message: 'User created. They must change password and set security question on first login.'
+  };
+}
+
+/**
+ * Reset user's security question (super-admin only)
+ */
+async function resetUserSecurityQuestion(id) {
+  await prisma.user.update({
+    where: { id: Number(id) },
+    data: {
+      securityQuestion: null,
+      securityAnswerHash: null,
+      hasSecurityQuestion: false,
+      forcePasswordChange: false, // Don't force password change
+    },
+  });
+
+  return {
+    ok: true,
+    message: 'Security question reset successfully. User will be prompted to set a new one on next login.',
+  };
+}
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -184,4 +231,6 @@ module.exports = {
   updateUser,
   deleteUser,
   resetUserPassword,
+  createUserWithOnboarding,
+  resetUserSecurityQuestion,
 };

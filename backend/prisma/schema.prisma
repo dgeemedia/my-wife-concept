@@ -90,11 +90,33 @@ model User {
   phone               String?
   lastLogin           DateTime?
   
+  // Security tracking
+  securityQuestionResetAt    DateTime?  // When security question was last reset
+  securityQuestionResetBy    Int?       // Which admin reset it (self-relation)
+  securityQuestionResetReason String?   // Reason for reset
+  
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
+  // Add index for security recovery
+  @@index([email, securityQuestion])
+  
+  // Security features
+  hasSecurityQuestion  Boolean  @default(false)
+  lastPasswordChange   DateTime?
+  failedLoginAttempts  Int      @default(0)
+  accountLockedUntil  DateTime?
+  
+  // Add indexes for security features
+  @@index([hasSecurityQuestion])
+  @@index([accountLockedUntil])
+
   @@index([email])
   @@index([active])
+  
+  // Self-relation for security resets (optional)
+  resetByUser User?  @relation("SecurityQuestionReset", fields: [securityQuestionResetBy], references: [id])
+  resetUsers  User[] @relation("SecurityQuestionReset")
 }
 
 // Business settings (single record)
@@ -132,6 +154,18 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
   REFUNDED
+}
+
+// Analytics model for storing aggregated data
+model AnalyticsSnapshot {
+  id         Int      @id @default(autoincrement())
+  date       DateTime @default(now())
+  metricType String   // "daily", "weekly", "monthly"
+  data       Json     // Store aggregated metrics
+  createdAt  DateTime @default(now())
+  
+  @@index([date])
+  @@index([metricType, date])
 }
 
 // NOTE: Tenant model commented out for Phase 1
