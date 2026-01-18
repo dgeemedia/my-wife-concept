@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import '../styles/globals.css';
+import '../styles/admin-dashboard.css';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 export default function App({ Component, pageProps }) {

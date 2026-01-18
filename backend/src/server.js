@@ -1,4 +1,4 @@
-// backend/src/server.js - SINGLE-TENANT VERSION (Phase 1)
+// backend/src/server.js - PRODUCTION-READY VERSION
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { PrismaClient } = require('@prisma/client');
+const crypto = require('crypto');
 const { SERVER, RATE_LIMIT, CLOUDINARY } = require('./config/constants');
 const { errorHandler, notFoundHandler, asyncHandler } = require('./middleware/errorHandler');
 const { createLogger } = require('./utils/logger');
@@ -21,82 +22,178 @@ const settingsRoutes = require('./routes/settings');
 const adminRoutes = require('./routes/admin');
 
 const app = express();
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: SERVER.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+});
 const logger = createLogger('Server');
 
-// Security middleware
+// ============================================================================
+// SECURITY CONFIGURATIONS
+// ============================================================================
+
+// Trust proxy in production (for rate limiting behind reverse proxy)
+if (SERVER.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
+// Helmet security headers with production-ready settings
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "https:"],
+      styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles for React
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // Required for Next.js
+      imgSrc: ["'self'", "data:", "https:", "blob:"],
+      connectSrc: ["'self'", process.env.CORS_ORIGIN || "*"],
+      fontSrc: ["'self'", "data:"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
     },
   },
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" },
 }));
+
+// CORS configuration with validation
+const allowedOrigins = SERVER.CORS_ORIGIN 
+  ? SERVER.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : ['http://localhost:3000'];
 
 app.use(cors({
-  origin: SERVER.CORS_ORIGIN,
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    // Allow all origins in development
+    if (SERVER.NODE_ENV === 'development') {
+      return callback(null, true);
+    }
+    
+    // Check against allowed origins in production
+    if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      callback(null, true);
+    } else {
+      logger.warn('CORS blocked origin:', { origin });
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  maxAge: 86400, // 24 hours
 }));
 
+// Body parsing with limits
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Request logging
+// ============================================================================
+// REQUEST LOGGING & MONITORING
+// ============================================================================
+
+// Request ID middleware for tracking
 app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.path}`, {
-    ip: req.ip,
-    userAgent: req.get('user-agent'),
-  });
+  req.id = crypto.randomBytes(16).toString('hex');
+  res.setHeader('X-Request-ID', req.id);
   next();
 });
 
-// Rate limiting
+// Request logging with sanitization
+app.use((req, res, next) => {
+  const startTime = Date.now();
+  
+  // Log request
+  logger.info(`${req.method} ${req.path}`, {
+    requestId: req.id,
+    ip: req.ip || req.connection.remoteAddress,
+    userAgent: req.get('user-agent'),
+  });
+
+  // Log response
+  res.on('finish', () => {
+    const duration = Date.now() - startTime;
+    const logLevel = res.statusCode >= 400 ? 'error' : 'info';
+    
+    logger[logLevel](`${req.method} ${req.path} ${res.statusCode}`, {
+      requestId: req.id,
+      duration: `${duration}ms`,
+      statusCode: res.statusCode,
+    });
+  });
+
+  next();
+});
+
+// ============================================================================
+// RATE LIMITING
+// ============================================================================
+
+// General API rate limiter
 const apiLimiter = rateLimit({
   windowMs: RATE_LIMIT.WINDOW_MS,
   max: RATE_LIMIT.MAX_API_REQUESTS,
-  message: 'Too many requests, please try again later',
+  message: { error: 'Too many requests, please try again later' },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (req) => SERVER.NODE_ENV === 'development', // Skip in development
 });
 
+// Strict auth limiter
 const authLimiter = rateLimit({
   windowMs: RATE_LIMIT.WINDOW_MS,
   max: RATE_LIMIT.MAX_AUTH_ATTEMPTS,
-  message: 'Too many authentication attempts',
+  message: { error: 'Too many authentication attempts, please try again later' },
   skipSuccessfulRequests: true,
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
+// Order creation limiter
 const orderLimiter = rateLimit({
   windowMs: RATE_LIMIT.WINDOW_MS,
   max: RATE_LIMIT.MAX_ORDER_ATTEMPTS,
-  message: 'Too many order attempts',
+  message: { error: 'Too many order attempts, please slow down' },
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
+// Upload limiter
 const uploadLimiter = rateLimit({
   windowMs: RATE_LIMIT.WINDOW_MS,
   max: RATE_LIMIT.MAX_UPLOAD_ATTEMPTS,
-  message: 'Too many upload attempts',
+  message: { error: 'Too many upload attempts, please try again later' },
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
 // Apply rate limiting
 app.use('/api/', apiLimiter);
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
+app.use('/api/auth/recover-password', authLimiter);
 app.use('/api/orders', orderLimiter);
 app.use('/api/upload', uploadLimiter);
 
-// Cloudinary configuration
+// ============================================================================
+// CLOUDINARY CONFIGURATION
+// ============================================================================
+
 if (CLOUDINARY.CLOUD_NAME) {
   cloudinary.config({
     cloud_name: CLOUDINARY.CLOUD_NAME,
     api_key: CLOUDINARY.API_KEY,
     api_secret: CLOUDINARY.API_SECRET,
   });
-  logger.info('Cloudinary configured');
+  logger.info('Cloudinary configured successfully');
+} else {
+  logger.warn('Cloudinary not configured - image uploads will fail');
 }
 
-// Multer for file uploads
+// ============================================================================
+// MULTER FILE UPLOAD CONFIGURATION
+// ============================================================================
+
 const upload = multer({ 
   dest: '/tmp/uploads',
   limits: {
@@ -113,42 +210,75 @@ const upload = multer({
   },
 });
 
-// Health check
+// ============================================================================
+// HEALTH CHECK ENDPOINTS
+// ============================================================================
+
+// Liveness probe
+app.get('/alive', (req, res) => {
+  res.status(200).json({ 
+    alive: true,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// Readiness probe
+app.get('/ready', asyncHandler(async (req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.status(200).json({ 
+      ready: true,
+      database: 'connected',
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Readiness check failed', { error: error.message });
+    res.status(503).json({ 
+      ready: false, 
+      database: 'disconnected',
+      error: error.message,
+    });
+  }
+}));
+
+// Comprehensive health check
 app.get('/health', asyncHandler(async (req, res) => {
   const healthCheck = {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     environment: SERVER.NODE_ENV,
+    version: process.env.npm_package_version || '1.0.0',
+    node: process.version,
   };
 
   try {
+    // Database check
     await prisma.$queryRaw`SELECT 1`;
     healthCheck.database = 'connected';
+    
+    // Cloudinary check
+    healthCheck.cloudinary = CLOUDINARY.CLOUD_NAME ? 'configured' : 'not configured';
+    
+    // Memory check
+    const memUsage = process.memoryUsage();
+    healthCheck.memory = {
+      heapUsed: `${Math.round(memUsage.heapUsed / 1024 / 1024)}MB`,
+      heapTotal: `${Math.round(memUsage.heapTotal / 1024 / 1024)}MB`,
+    };
+
   } catch (error) {
     healthCheck.database = 'disconnected';
     healthCheck.status = 'unhealthy';
-    logger.error('Database health check failed', { error: error.message });
+    logger.error('Health check failed', { error: error.message });
   }
 
-  res.status(healthCheck.status === 'healthy' ? 200 : 503).json(healthCheck);
+  const statusCode = healthCheck.status === 'healthy' ? 200 : 503;
+  res.status(statusCode).json(healthCheck);
 }));
-
-app.get('/ready', asyncHandler(async (req, res) => {
-  try {
-    await prisma.$queryRaw`SELECT 1`;
-    res.status(200).json({ ready: true });
-  } catch (error) {
-    res.status(503).json({ ready: false, error: error.message });
-  }
-}));
-
-app.get('/alive', (req, res) => {
-  res.status(200).json({ alive: true });
-});
 
 // ============================================================================
-// API ROUTES - SINGLE TENANT (NO MIDDLEWARE)
+// API ROUTES - SINGLE TENANT
 // ============================================================================
 
 app.use('/api/auth', authRoutes);
@@ -159,14 +289,19 @@ app.use('/api/tracking', trackingRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Image upload
+// ============================================================================
+// IMAGE UPLOAD ENDPOINT
+// ============================================================================
+
 app.post('/api/upload', upload.single('image'), asyncHandler(async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' });
   }
 
   if (!CLOUDINARY.CLOUD_NAME) {
-    return res.status(500).json({ error: 'Cloudinary not configured' });
+    return res.status(500).json({ 
+      error: 'Image upload not configured. Please contact administrator.' 
+    });
   }
 
   try {
@@ -175,11 +310,15 @@ app.post('/api/upload', upload.single('image'), asyncHandler(async (req, res) =>
       resource_type: 'auto',
       transformation: [
         { width: 800, height: 600, crop: 'limit' },
-        { quality: 'auto' },
+        { quality: 'auto:good' },
+        { fetch_format: 'auto' },
       ],
     });
 
-    logger.info('Image uploaded successfully', { publicId: result.public_id });
+    logger.info('Image uploaded successfully', { 
+      publicId: result.public_id,
+      requestId: req.id,
+    });
 
     res.json({
       ok: true,
@@ -187,12 +326,19 @@ app.post('/api/upload', upload.single('image'), asyncHandler(async (req, res) =>
       publicId: result.public_id,
     });
   } catch (error) {
-    logger.error('Image upload failed', { error: error.message });
+    logger.error('Image upload failed', { 
+      error: error.message,
+      requestId: req.id,
+    });
     throw error;
   }
 }));
 
-// Public endpoints
+// ============================================================================
+// PUBLIC ENDPOINTS
+// ============================================================================
+
+// Testimonials (public)
 app.get('/api/testimonials', (req, res) => {
   res.json([
     { id: 1, author: 'Ada Okafor', content: 'Delicious pies! Fast delivery and excellent service.' },
@@ -210,72 +356,58 @@ app.get('/api/admin/analytics', adminAuth, asyncHandler(async (req, res) => {
   res.json(analytics);
 }));
 
-// Business settings endpoint
-app.get('/api/settings', asyncHandler(async (req, res) => {
-  let settings = await prisma.businessSettings.findFirst();
-  
-  if (!settings) {
-    // Create default settings
-    settings = await prisma.businessSettings.create({
-      data: {
-        businessName: process.env.BUSINESS_NAME || 'My Business',
-        businessType: process.env.BUSINESS_TYPE || 'general',
-        phone: process.env.WHATSAPP_NUMBER || '',
-        whatsappNumber: process.env.WHATSAPP_NUMBER || '',
-        currency: process.env.DEFAULT_CURRENCY || 'NGN',
-        language: 'en',
-      },
-    });
-  }
-  
-  res.json(settings);
-}));
-
-// Update settings (admin only)
-app.patch('/api/settings', adminAuth, asyncHandler(async (req, res) => {
-  const settings = await prisma.businessSettings.findFirst();
-  
-  const updated = await prisma.businessSettings.update({
-    where: { id: settings.id },
-    data: req.body,
-  });
-  
-  res.json(updated);
-}));
+// ============================================================================
+// ERROR HANDLERS
+// ============================================================================
 
 // 404 handler
 app.use(notFoundHandler);
 
 // Global error handler
 app.use((err, req, res, next) => {
-  logger.error('Unhandled error', {
-    message: err.message,
-    stack: err.stack,
-    path: req.path,
-    method: req.method,
-  });
+  // Don't log client errors in production
+  if (err.statusCode >= 500 || SERVER.NODE_ENV === 'development') {
+    logger.error('Unhandled error', {
+      requestId: req.id,
+      message: err.message,
+      stack: SERVER.NODE_ENV === 'development' ? err.stack : undefined,
+      path: req.path,
+      method: req.method,
+    });
+  }
+  
   errorHandler(err, req, res, next);
 });
 
-// Start server
+// ============================================================================
+// SERVER STARTUP & SHUTDOWN
+// ============================================================================
+
 const PORT = SERVER.PORT;
 const server = app.listen(PORT, () => {
+  logger.info('='.repeat(60));
   logger.info(`✅ Server running on port ${PORT}`);
   logger.info(`🌍 Environment: ${SERVER.NODE_ENV}`);
   logger.info(`📡 Health: http://localhost:${PORT}/health`);
   logger.info(`🏪 Mode: Single-Tenant`);
+  logger.info(`🔒 CORS Origins: ${allowedOrigins.join(', ')}`);
+  logger.info('='.repeat(60));
 });
 
-// Graceful shutdown
+// Graceful shutdown handler
 const gracefulShutdown = async (signal) => {
   logger.info(`${signal} received, shutting down gracefully`);
   
+  // Stop accepting new connections
   server.close(async () => {
     logger.info('HTTP server closed');
     
     try {
+      // Close database connections
       await prisma.$disconnect();
       logger.info('Database connection closed');
+      
+      // Exit successfully
       process.exit(0);
     } catch (error) {
       logger.error('Error during shutdown', { error: error.message });
@@ -283,23 +415,39 @@ const gracefulShutdown = async (signal) => {
     }
   });
 
+  // Force shutdown after 30 seconds
   setTimeout(() => {
     logger.error('Forced shutdown after timeout');
     process.exit(1);
   }, 30000);
 };
 
+// Handle shutdown signals
 process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Handle unhandled promise rejections
 process.on('unhandledRejection', (reason, promise) => {
-  logger.error('Unhandled Rejection', { reason, promise });
+  logger.error('Unhandled Rejection', { 
+    reason: reason instanceof Error ? reason.message : reason,
+    stack: reason instanceof Error ? reason.stack : undefined,
+  });
+  
+  // In production, exit on unhandled rejection
+  if (SERVER.NODE_ENV === 'production') {
+    gracefulShutdown('UNHANDLED_REJECTION');
+  }
 });
+
+// Handle uncaught exceptions
 process.on('uncaughtException', (error) => {
   logger.error('Uncaught Exception', {
     message: error.message,
     stack: error.stack,
   });
-  process.exit(1);
+  
+  // Always exit on uncaught exception
+  gracefulShutdown('UNCAUGHT_EXCEPTION');
 });
 
 module.exports = app;

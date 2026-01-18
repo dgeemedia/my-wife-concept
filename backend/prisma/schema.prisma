@@ -119,6 +119,21 @@ model User {
   resetUsers  User[] @relation("SecurityQuestionReset")
 }
 
+model ActivityLog {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  action      String   // LOGIN, LOGOUT, CREATE_ORDER, UPDATE_PRODUCT, etc.
+  entity      String?  // order, product, user
+  entityId    Int?
+  details     Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([action])
+}
+
 // Business settings (single record)
 model BusinessSettings {
   id              Int      @id @default(autoincrement())

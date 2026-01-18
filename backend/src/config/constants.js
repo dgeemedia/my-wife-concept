@@ -4,7 +4,7 @@ const crypto = require('crypto');
 /**
  * Generate secure random password
  */
-function generateSecurePassword(length = 8) {  // CHANGED FROM 12 TO 8
+function generateSecurePassword(length = 8) {
   const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
   let password = '';
   
@@ -35,7 +35,7 @@ function generateSecurePassword(length = 8) {  // CHANGED FROM 12 TO 8
 module.exports = {
   // JWT Configuration
   JWT: {
-    SECRET: process.env.JWT_SECRET || 'supersecret-change-in-production',
+    SECRET: process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex'),
     EXPIRES_IN: '4h',
     REFRESH_EXPIRES_IN: '7d',
   },
@@ -43,6 +43,11 @@ module.exports = {
   // Bcrypt Configuration
   BCRYPT: {
     SALT_ROUNDS: 10,
+  },
+
+  // Default Values for User Creation
+  DEFAULT: {
+    PASSWORD: process.env.DEFAULT_USER_PASSWORD || generateSecurePassword(8),
   },
 
   // Rate Limiting
@@ -83,7 +88,7 @@ module.exports = {
     ADMIN: 'admin',
   },
 
-  // Password Generation
+  // Password Generation Function
   generateSecurePassword,
 
   // Order Configuration
@@ -92,6 +97,14 @@ module.exports = {
     MAX_QUANTITY_PER_ITEM: 100,
     MIN_TOTAL_AMOUNT: 0,
     MAX_TOTAL_AMOUNT: 10000000, // 10M Naira
+  },
+
+  // Product Configuration
+  PRODUCT: {
+    MAX_PRICE: 10000000,
+    MAX_STOCK: 1000000,
+    MAX_NAME_LENGTH: 200,
+    MIN_NAME_LENGTH: 2,
   },
 
   // Cache Configuration
@@ -143,5 +156,12 @@ module.exports = {
     EMAIL_NOTIFICATIONS: process.env.FEATURE_EMAIL === 'true',
     ANALYTICS: process.env.FEATURE_ANALYTICS !== 'false', // Default true
     MULTI_CURRENCY: process.env.FEATURE_MULTI_CURRENCY === 'true',
+  },
+
+  // Alert Thresholds
+  ALERTS: {
+    STALE_PAYMENT_HOURS: 24,
+    LOW_STOCK_THRESHOLD: 5,
+    ACTIVITY_LOG_RETENTION_DAYS: 90,
   },
 };

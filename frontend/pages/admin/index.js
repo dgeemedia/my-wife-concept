@@ -1,6 +1,6 @@
 // frontend/pages/admin/index.js
-import Dashboard from './dashboard';
+import AdminDashboard from './dashboard';
 
 export default function AdminIndex() {
-  return <Dashboard />;
+  return <AdminDashboard />;
 }

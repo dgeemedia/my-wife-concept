@@ -6,6 +6,9 @@ export const auth = {
   setToken(token) {
     // Consider using httpOnly cookies in production
     localStorage.setItem(TOKEN_KEY, token);
+    // Store expiry time
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    localStorage.setItem('token_expiry', payload.exp * 1000);
   },
   
   getToken() {
@@ -28,14 +31,24 @@ export const auth = {
   
   isAuthenticated() {
     const token = this.getToken();
-    if (!token) return false;
+    const expiry = localStorage.getItem('token_expiry');
+    if (!token || !expiry) return false;
     
-    // Check token expiration (JWT)
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.exp > Date.now() / 1000;
-    } catch {
+    // Check if token expired
+    if (Date.now() > parseInt(expiry)) {
+      this.clear();
       return false;
     }
+    
+    return true;
+  },
+  
+  // Add auto-refresh before expiry
+  shouldRefresh() {
+    const expiry = localStorage.getItem('token_expiry');
+    if (!expiry) return false;
+    
+    // Refresh 5 minutes before expiry
+    return Date.now() > (parseInt(expiry) - 5 * 60 * 1000);
   },
 };

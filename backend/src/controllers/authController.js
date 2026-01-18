@@ -320,6 +320,23 @@ async function firstLogin(req, res) {
     message: 'Password changed and security question set successfully' 
   };
 }
+/** * Logout user
+ */
+async function logout(req, res) {
+  const userId = req.user.id;
+  
+  // Optional: Track logout in activity log
+  await prisma.activityLog.create({
+    data: {
+      userId,
+      action: 'LOGOUT',
+      ipAddress: req.ip,
+      userAgent: req.get('user-agent'),
+    },
+  });
+
+  return { ok: true, message: 'Logged out successfully' };
+}
 
 module.exports = {
   register,
@@ -331,4 +348,5 @@ module.exports = {
   changePasswordWithCurrent,
   setSecurityQuestion,
   firstLogin,
+  logout,
 };

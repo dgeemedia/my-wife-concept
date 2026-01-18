@@ -3,8 +3,33 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 /**
+ * Helper: Get start date for period
+ */
+function getStartDate(period) {
+  const now = new Date();
+  
+  switch (period) {
+    case 'today':
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return today;
+      
+    case 'week':
+      return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      
+    case 'month':
+      return new Date(now.getFullYear(), now.getMonth(), 1);
+      
+    case 'year':
+      return new Date(now.getFullYear(), 0, 1);
+      
+    default:
+      return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  }
+}
+
+/**
  * Get analytics data for dashboard
- * NO TENANT FILTERING - Single tenant system
  */
 async function getAnalytics() {
   const today = new Date();
@@ -109,7 +134,7 @@ async function getAnalytics() {
     ordersToday,
     revenueToday: revenueTodayAggregate?._sum?.totalAmount || 0,
     totalOrders,
-    totalRevenue: totalRevenueAggregate?._sum?.totalRevenue || 0,
+    totalRevenue: totalRevenueAggregate?._sum?.totalAmount || 0,
     topProducts: topProductsWithDetails,
     lowStockProducts,
     recentOrders,
@@ -161,26 +186,7 @@ async function getOrdersByDateRange(startDate, endDate) {
  * Get sales statistics for a specific period
  */
 async function getSalesStatistics(period = 'week') {
-  const now = new Date();
-  let startDate;
-
-  switch (period) {
-    case 'today':
-      startDate = new Date();
-      startDate.setHours(0, 0, 0, 0);
-      break;
-    case 'week':
-      startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-      break;
-    case 'month':
-      startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-      break;
-    case 'year':
-      startDate = new Date(now.getFullYear(), 0, 1);
-      break;
-    default:
-      startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-  }
+  const startDate = getStartDate(period);
 
   const [orderCount, revenue, averageOrderValue] = await Promise.all([
     prisma.order.count({
@@ -206,6 +212,7 @@ async function getSalesStatistics(period = 'week') {
 
   return {
     period,
+    startDate: startDate.toISOString(),
     orderCount,
     revenue: revenue._sum.totalAmount || 0,
     averageOrderValue: averageOrderValue._avg.totalAmount || 0,
@@ -213,7 +220,7 @@ async function getSalesStatistics(period = 'week') {
 }
 
 /**
- * Get daily sales for chart (last 30 days)
+ * Get daily sales for chart (last N days)
  */
 async function getDailySales(days = 30) {
   const startDate = new Date();
@@ -322,6 +329,33 @@ async function getPaymentStatistics() {
   };
 }
 
+/**
+ * Get revenue breakdown by payment method
+ */
+async function getRevenueBreakdown(period = 'month') {
+  const startDate = getStartDate(period);
+
+  const breakdown = await prisma.order.groupBy({
+    by: ['paymentMethod'],
+    where: {
+      paymentStatus: 'CONFIRMED',
+      createdAt: { gte: startDate },
+    },
+    _sum: { totalAmount: true },
+    _count: { id: true },
+  });
+
+  return {
+    period,
+    startDate: startDate.toISOString(),
+    breakdown: breakdown.map(item => ({
+      paymentMethod: item.paymentMethod || 'UNSPECIFIED',
+      revenue: item._sum.totalAmount || 0,
+      orderCount: item._count.id,
+    })),
+  };
+}
+
 module.exports = {
   getAnalytics,
   getRevenueByDateRange,
@@ -331,4 +365,5 @@ module.exports = {
   getProductPerformance,
   getCustomerInsights,
   getPaymentStatistics,
+  getRevenueBreakdown,
 };
