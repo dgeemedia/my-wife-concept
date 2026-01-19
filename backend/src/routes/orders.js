@@ -1,25 +1,13 @@
-// backend/src/routes/orders.js
-/**
- * Order routes
- * Location: backend/src/routes/orders.js
- *
- * Routes:
- *  POST /api/orders                (public - single item quick order)
- *  POST /api/orders/checkout       (public - cart checkout)
- *  GET  /api/orders                (admin)
- *  GET  /api/orders/:id            (admin)
- *  GET  /api/orders/export/csv     (admin)
- *  DELETE /api/orders/:id          (admin)
- */
-
+// backend/src/routes/orders.js - PRODUCTION READY
 const express = require('express');
 const { Parser } = require('json2csv');
 const { asyncHandler, AppError } = require('../middleware/errorHandler');
-const { adminAuth } = require('../middleware/auth');
+const { adminAuth, superAdminAuth } = require('../middleware/auth');
 const {
   validateOrder,
   validateCheckout,
   validateIdParam,
+  validatePaymentConfirmation,
 } = require('../middleware/validation');
 
 const {
@@ -29,14 +17,16 @@ const {
   getOrderById,
   getOrdersForExport,
   deleteOrder,
+  confirmPayment,
+  rejectPayment,
 } = require('../controllers/orderController');
-const { confirmPayment, rejectPayment } = require('../controllers/orderController');
 
 const router = express.Router();
 
 /**
  * POST /api/orders
  * Quick single-item order (public)
+ * Rate limited to prevent spam
  */
 router.post(
   '/',
@@ -50,6 +40,7 @@ router.post(
 /**
  * POST /api/orders/checkout
  * Cart checkout (public)
+ * Rate limited to prevent spam
  */
 router.post(
   '/checkout',
@@ -62,7 +53,7 @@ router.post(
 
 /**
  * GET /api/orders
- * Admin - list orders (support limit/offset query)
+ * Admin only - list orders with advanced filtering
  */
 router.get(
   '/',
@@ -75,7 +66,7 @@ router.get(
 
 /**
  * GET /api/orders/:id
- * Admin - single order
+ * Admin only - single order
  */
 router.get(
   '/:id',
@@ -89,11 +80,11 @@ router.get(
 
 /**
  * GET /api/orders/export/csv
- * Admin - export orders as CSV using json2csv for robust handling
+ * Super admin only - export orders as CSV
  */
 router.get(
   '/export/csv',
-  adminAuth,
+  superAdminAuth,
   asyncHandler(async (req, res) => {
     const orders = await getOrdersForExport();
 
@@ -106,6 +97,9 @@ router.get(
       email: order.email || '',
       message: order.message || '',
       totalAmount: order.totalAmount,
+      paymentStatus: order.paymentStatus,
+      orderStatus: order.status,
+      currency: order.currency,
       createdAt: order.createdAt.toISOString(),
       items: order.items.map(item => ({
         productId: item.productId,
@@ -128,6 +122,9 @@ router.get(
       { label: 'Address', value: 'address' },
       { label: 'Email', value: 'email' },
       { label: 'Total Amount', value: 'totalAmount' },
+      { label: 'Payment Status', value: 'paymentStatus' },
+      { label: 'Order Status', value: 'orderStatus' },
+      { label: 'Currency', value: 'currency' },
       { label: 'Date', value: 'createdAt' },
       { label: 'Items Count', value: 'itemsCount' },
       { label: 'Items Summary', value: 'itemsSummary' }
@@ -151,11 +148,11 @@ router.get(
 
 /**
  * GET /api/orders/export/json
- * Admin - export orders as JSON (optional bonus endpoint)
+ * Super admin only - export orders as JSON
  */
 router.get(
   '/export/json',
-  adminAuth,
+  superAdminAuth,
   asyncHandler(async (req, res) => {
     const orders = await getOrdersForExport();
     
@@ -169,11 +166,11 @@ router.get(
 
 /**
  * DELETE /api/orders/:id
- * Admin - delete an order
+ * Super admin only - delete an order
  */
 router.delete(
   '/:id',
-  adminAuth,
+  superAdminAuth,
   validateIdParam,
   asyncHandler(async (req, res) => {
     const result = await deleteOrder(req.params.id);
@@ -183,18 +180,20 @@ router.delete(
 
 /**
  * POST /api/orders/:id/confirm-payment
+ * Admin only - confirm payment
  */
 router.post(
   '/:id/confirm-payment',
   adminAuth,
   validateIdParam,
+  validatePaymentConfirmation,
   asyncHandler(async (req, res) => {
-    const { paymentMethod, paymentProof } = req.body;
+    const { paymentMethod, paymentProof, amount } = req.body;
     const userId = req.user.id;
 
     const result = await confirmPayment(
       req.params.id,
-      { paymentMethod, paymentProof },
+      { paymentMethod, paymentProof, amount },
       userId
     );
     res.json(result);
@@ -203,6 +202,7 @@ router.post(
 
 /**
  * POST /api/orders/:id/reject-payment
+ * Admin only - reject payment
  */
 router.post(
   '/:id/reject-payment',
@@ -212,8 +212,72 @@ router.post(
     const { reason } = req.body;
     const userId = req.user.id;
 
+    if (!reason || reason.trim().length < 5) {
+      throw new AppError('Rejection reason must be at least 5 characters', 400);
+    }
+
     const result = await rejectPayment(req.params.id, reason, userId);
     res.json(result);
+  })
+);
+
+/**
+ * GET /api/orders/stats/summary
+ * Admin only - order statistics summary
+ */
+router.get(
+  '/stats/summary',
+  adminAuth,
+  asyncHandler(async (req, res) => {
+    const { startDate, endDate } = req.query;
+    
+    const where = {};
+    if (startDate || endDate) {
+      where.createdAt = {};
+      if (startDate) where.createdAt.gte = new Date(startDate);
+      if (endDate) where.createdAt.lte = new Date(endDate);
+    }
+
+    const [
+      totalOrders,
+      pendingPayments,
+      confirmedPayments,
+      totalRevenue,
+      recentOrders,
+    ] = await Promise.all([
+      prisma.order.count({ where }),
+      prisma.order.count({ 
+        where: { ...where, paymentStatus: 'PENDING' } 
+      }),
+      prisma.order.count({ 
+        where: { ...where, paymentStatus: 'CONFIRMED' } 
+      }),
+      prisma.order.aggregate({
+        _sum: { totalAmount: true },
+        where: { ...where, paymentStatus: 'CONFIRMED' },
+      }),
+      prisma.order.findMany({
+        where,
+        take: 10,
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          customerName: true,
+          totalAmount: true,
+          status: true,
+          createdAt: true,
+        },
+      }),
+    ]);
+
+    res.json({
+      totalOrders,
+      pendingPayments,
+      confirmedPayments,
+      totalRevenue: totalRevenue._sum.totalAmount || 0,
+      recentOrders,
+      period: { startDate, endDate },
+    });
   })
 );
 

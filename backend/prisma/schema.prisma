@@ -25,6 +25,7 @@ model Product {
   @@index([createdAt])
   @@index([stock])
   @@index([name])
+  version Int @default(0)
 }
 
 model Order {
