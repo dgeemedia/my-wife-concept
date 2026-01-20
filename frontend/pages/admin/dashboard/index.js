@@ -210,18 +210,44 @@ export default function AdminDashboard() {
   };
 
   const handleCreateProduct = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  
+  try {
+    // Validate required fields before sending
+    if (!newProduct.name || !newProduct.name.trim()) {
+      alert('Product name is required');
+      return;
+    }
     
-    try {
-      await productsApi.create(newProduct);
+    if (!newProduct.price || isNaN(Number(newProduct.price)) || Number(newProduct.price) <= 0) {
+      alert('Please enter a valid price greater than 0');
+      return;
+    }
+    
+    if (!newProduct.stock || isNaN(Number(newProduct.stock)) || Number(newProduct.stock) < 0) {
+      alert('Please enter a valid stock quantity');
+      return;
+    }
+    
+    // Prepare data with proper types
+      const productData = {
+        name: newProduct.name.trim(),
+        price: Number(newProduct.price),
+        stock: Number(newProduct.stock),
+        description: newProduct.description?.trim() || '',
+        imageUrl: newProduct.imageUrl?.trim() || '',
+      };
+      
+      await productsApi.create(productData);
       alert('Product created successfully!');
       setNewProduct({ name: '', price: '', stock: '', description: '', imageUrl: '' });
       await fetchAllData();
     } catch (err) {
+      console.error('Product creation error details:', err);
       alert('Error creating product: ' + err.message);
     }
   };
-
+  
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
     

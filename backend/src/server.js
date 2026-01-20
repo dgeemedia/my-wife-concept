@@ -461,6 +461,9 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/testimonials', testimonialsRoutes);
 
 // Upload endpoint with enhanced security
+// REPLACE the upload endpoint in your server.js with this:
+// Find the section with: app.post('/api/upload', ...)
+
 app.post('/api/upload', upload.single('image'), asyncHandler(async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' });
@@ -468,49 +471,61 @@ app.post('/api/upload', upload.single('image'), asyncHandler(async (req, res) =>
 
   if (!CLOUDINARY.CLOUD_NAME) {
     return res.status(500).json({ 
-      error: 'Image upload service not available' 
+      error: 'Image upload service not configured. Please add Cloudinary credentials to .env file.' 
     });
   }
 
   try {
     // Additional security check
     if (req.file.size > (CLOUDINARY.MAX_FILE_SIZE || 5 * 1024 * 1024)) {
-      return res.status(400).json({ error: 'File too large' });
+      return res.status(400).json({ error: 'File too large (max 5MB)' });
     }
 
-    // Upload to Cloudinary with optimization
-    const result = await cloudinary.uploader.upload_stream({
-      folder: CLOUDINARY.FOLDER || 'mypadifood',
-      resource_type: 'image',
-      transformation: [
-        { width: 1200, height: 800, crop: 'limit' },
-        { quality: 'auto:good' },
-        { fetch_format: 'auto' },
-      ],
-      public_id: `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    }, (error, result) => {
-      if (error) {
-        throw error;
-      }
-      
-      logger.info('Image uploaded successfully', { 
-        publicId: result.public_id,
-        requestId: req.id,
-        size: req.file.size,
-      });
+    // Upload to Cloudinary using upload method with buffer
+    const uploadPromise = new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: CLOUDINARY.FOLDER || 'mypadifood',
+          resource_type: 'image',
+          transformation: [
+            { width: 1200, height: 800, crop: 'limit' },
+            { quality: 'auto:good' },
+            { fetch_format: 'auto' },
+          ],
+          public_id: `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        },
+        (error, result) => {
+          if (error) {
+            logger.error('Cloudinary upload error', { 
+              error: error.message,
+              requestId: req.id,
+            });
+            reject(error);
+          } else {
+            logger.info('Image uploaded successfully', { 
+              publicId: result.public_id,
+              requestId: req.id,
+              size: req.file.size,
+            });
+            resolve(result);
+          }
+        }
+      );
 
-      res.json({
-        ok: true,
-        url: result.secure_url,
-        publicId: result.public_id,
-        width: result.width,
-        height: result.height,
-        format: result.format,
-      });
+      // Write buffer to stream
+      uploadStream.end(req.file.buffer);
     });
 
-    // Convert buffer to stream and upload
-    require('stream').Readable.from(req.file.buffer).pipe(result);
+    const result = await uploadPromise;
+
+    res.json({
+      ok: true,
+      url: result.secure_url,
+      publicId: result.public_id,
+      width: result.width,
+      height: result.height,
+      format: result.format,
+    });
     
   } catch (error) {
     logger.error('Image upload failed', { 
@@ -519,12 +534,9 @@ app.post('/api/upload', upload.single('image'), asyncHandler(async (req, res) =>
       fileSize: req.file?.size,
     });
     
-    // Clean up temp file if it exists
-    if (req.file.path) {
-      require('fs').unlink(req.file.path, () => {});
-    }
-    
-    throw error;
+    res.status(500).json({
+      error: 'Upload failed: ' + error.message
+    });
   }
 }));
 

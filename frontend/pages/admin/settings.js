@@ -74,23 +74,43 @@ export default function AdminSettings() {
     }
   };
 
+  // In frontend/pages/admin/settings.js - update handleLogoUpload
   const handleLogoUpload = async () => {
     if (!logoFile) return;
+
+    // Validate file type and size
+    const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+    if (!validTypes.includes(logoFile.type)) {
+      setError('Invalid file type. Please use JPEG, PNG, or WebP.');
+      return;
+    }
+
+    if (logoFile.size > 2 * 1024 * 1024) {
+      setError('File size must be under 2MB');
+      return;
+    }
 
     const formData = new FormData();
     formData.append('logo', logoFile);
 
     try {
       setSaving(true);
+      setError('');
+      
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings/logo`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
+          // Note: Don't set Content-Type when using FormData
         },
         body: formData,
       });
 
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed');
+      }
 
       if (data.ok) {
         setMessage('✓ Logo uploaded successfully!');
@@ -101,12 +121,12 @@ export default function AdminSettings() {
         setError(data.error || 'Upload failed');
       }
     } catch (err) {
-      setError('Upload failed: ' + err.message);
+      setError('Logo upload failed: ' + err.message);
+      console.error('Logo upload error:', err);
     } finally {
       setSaving(false);
     }
   };
-
   const handleDeleteLogo = async () => {
     if (!confirm('Delete logo?')) return;
 

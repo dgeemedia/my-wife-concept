@@ -28,6 +28,7 @@ function handleApiError(error) {
 /**
  * Generic API request function
  */
+// In lib/api.js - Update apiRequest function
 async function apiRequest(endpoint, options = {}) {
   const { method = 'GET', body, headers = {}, requiresAuth = false } = options;
 
@@ -42,32 +43,36 @@ async function apiRequest(endpoint, options = {}) {
     headers: requestHeaders,
   };
 
-  if (body) {
+  if (body && !(body instanceof FormData)) {
     config.body = JSON.stringify(body);
+  } else if (body) {
+    // Don't set Content-Type for FormData
+    config.body = body;
+    delete requestHeaders['Content-Type'];
   }
 
   try {
     const response = await fetch(`${API_URL}${endpoint}`, config);
     
-    // First get the response text
-    const responseText = await response.text();
+    // Handle non-JSON responses
+    const contentType = response.headers.get('content-type');
     let data;
     
-    try {
-      data = responseText ? JSON.parse(responseText) : {};
-    } catch (e) {
-      console.error('Failed to parse JSON:', responseText);
-      data = { error: 'Invalid server response' };
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      data = { text };
     }
     
-    // Check if response is ok AND data has ok: true
-    if (!response.ok || (data && data.error)) {
-      throw new Error(data.error || `HTTP error! status: ${response.status}`);
+    // Check if response is ok
+    if (!response.ok) {
+      throw new Error(data.error || data.message || `HTTP error! status: ${response.status}`);
     }
     
     return data;
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('API Error:', error.message, endpoint);
     throw error;
   }
 }
