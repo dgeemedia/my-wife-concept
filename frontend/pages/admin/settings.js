@@ -410,7 +410,104 @@ export default function AdminSettings() {
                 </select>
               </div>
             </div>
+            
+            {/* Footer & Social Media Section */}
+            <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', padding: '24px', marginBottom: '24px' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '600', color: '#2c3e50', marginBottom: '24px' }}>
+                Footer & Social Media
+            </h2>
 
+            <div style={{ display: 'grid', gap: '24px' }}>
+                {/* Social Media */}
+                <h3 style={{ fontSize: '16px', color: '#495057' }}>Social Media Links</h3>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+                <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#495057', marginBottom: '8px' }}>
+                    Facebook URL
+                    </label>
+                    <input
+                    type="url"
+                    value={settings.facebookUrl || ''}
+                    onChange={(e) => setSettings({ ...settings, facebookUrl: e.target.value })}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '14px' }}
+                    placeholder="https://facebook.com/yourpage"
+                    />
+                </div>
+                
+                <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#495057', marginBottom: '8px' }}>
+                    Instagram URL
+                    </label>
+                    <input
+                    type="url"
+                    value={settings.instagramUrl || ''}
+                    onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '14px' }}
+                    placeholder="https://instagram.com/yourprofile"
+                    />
+                </div>
+                </div>
+
+                {/* Footer Text */}
+                <div>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#495057', marginBottom: '8px' }}>
+                    Footer Description
+                </label>
+                <textarea
+                    value={settings.footerText || ''}
+                    onChange={(e) => setSettings({ ...settings, footerText: e.target.value })}
+                    rows={3}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '14px', resize: 'vertical' }}
+                    placeholder="Brief description for footer section"
+                />
+                </div>
+
+                {/* Contact Information */}
+                <h3 style={{ fontSize: '16px', color: '#495057' }}>Contact Information</h3>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+                <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#495057', marginBottom: '8px' }}>
+                    Footer Email
+                    </label>
+                    <input
+                    type="email"
+                    value={settings.footerEmail || ''}
+                    onChange={(e) => setSettings({ ...settings, footerEmail: e.target.value })}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '14px' }}
+                    placeholder="contact@example.com"
+                    />
+                </div>
+                
+                <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#495057', marginBottom: '8px' }}>
+                    Footer Phone
+                    </label>
+                    <input
+                    type="tel"
+                    value={settings.footerPhone || ''}
+                    onChange={(e) => setSettings({ ...settings, footerPhone: e.target.value })}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '14px' }}
+                    placeholder="+234 800 000 0000"
+                    />
+                </div>
+                </div>
+
+                <div>
+                <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#495057', marginBottom: '8px' }}>
+                    Footer Address
+                </label>
+                <textarea
+                    value={settings.footerAddress || ''}
+                    onChange={(e) => setSettings({ ...settings, footerAddress: e.target.value })}
+                    rows={2}
+                    style={{ width: '100%', padding: '10px 12px', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '14px', resize: 'vertical' }}
+                    placeholder="Physical address for footer"
+                />
+                </div>
+            </div>
+            </div>
             {/* Submit */}
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', paddingTop: '16px', borderTop: '1px solid #dee2e6' }}>
               <button

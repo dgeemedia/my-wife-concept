@@ -1,6 +1,6 @@
 
 {
-  "name": "food-backend",
+  "name": "single tenant-backend",
   "version": "1.0.0",
   "main": "src/server.js",
   "scripts": {
@@ -12,6 +12,7 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "prisma:deploy": "prisma migrate deploy",
+    "deploy": "prisma migrate deploy && node src/server.js",
     "seed": "node scripts/seed.js",
     "db:setup": "pnpm run prisma:push && pnpm run prisma:generate && pnpm run seed",
     "backup": "node scripts/backup.js"

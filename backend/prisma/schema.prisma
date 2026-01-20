@@ -158,6 +158,32 @@ model BusinessSettings {
   // Features
   orderTrackingEnabled Boolean @default(true)
   
+  // 🔥 ADD THESE FOOTER/SOCIAL MEDIA FIELDS:
+  facebookUrl     String?
+  twitterUrl      String?
+  instagramUrl    String?
+  youtubeUrl      String?
+  linkedinUrl     String?
+  tiktokUrl       String?
+  whatsappUrl     String?  // For direct chat
+  
+  // Footer Information
+  footerText      String?  @db.Text
+  footerCopyright String?  @default("© {year} All rights reserved.")
+  footerAddress   String?  @db.Text
+  footerEmail     String?
+  footerPhone     String?
+  
+  // Legal Pages
+  termsUrl        String?
+  privacyUrl      String?
+  refundPolicyUrl String?
+  
+  // Contact Information
+  contactEmail    String?
+  contactPhone    String?
+  contactAddress  String?  @db.Text
+
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }

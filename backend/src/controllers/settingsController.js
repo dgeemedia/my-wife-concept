@@ -53,7 +53,19 @@ async function updateSettings(data, userId) {
     'secondaryColor',
     'currency',
     'language',
+    'logo'
   ];
+
+  // 🔥 ADD NEW FOOTER FIELDS
+  const footerFields = [
+    'facebookUrl', 'twitterUrl', 'instagramUrl', 'youtubeUrl',
+    'linkedinUrl', 'tiktokUrl', 'whatsappUrl', 'footerText',
+    'footerCopyright', 'footerAddress', 'footerEmail', 'footerPhone',
+    'termsUrl', 'privacyUrl', 'refundPolicyUrl', 'contactEmail',
+    'contactPhone', 'contactAddress'
+  ];
+  
+  allowedFields.push(...footerFields);
 
   allowedFields.forEach(field => {
     if (data[field] !== undefined) {
