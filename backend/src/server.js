@@ -24,6 +24,7 @@ const usersRoutes = require('./routes/users');
 const trackingRoutes = require('./routes/tracking');
 const settingsRoutes = require('./routes/settings');
 const adminRoutes = require('./routes/admin');
+const testimonialsRoutes = require('./routes/testimonials');
 
 const app = express();
 
@@ -457,6 +458,7 @@ app.use('/api/users', usersRoutes);
 app.use('/api/tracking', trackingRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/testimonials', testimonialsRoutes);
 
 // Upload endpoint with enhanced security
 app.post('/api/upload', upload.single('image'), asyncHandler(async (req, res) => {
