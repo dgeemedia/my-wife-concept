@@ -1,53 +1,79 @@
 // backend/src/middleware/auth.js
-/**
- * Authentication middleware
- * backend/src/middleware/auth.js
- */
 const jwt = require('jsonwebtoken');
-const { JWT, ROLES } = require('../config/constants');
+const { JWT } = require('../config/constants');
+const { PrismaClient } = require('@prisma/client');
+const { logLogin, logLogout } = require('../utils/activityLogger');
+
+const prisma = new PrismaClient();
 
 /**
- * Verify JWT token and attach user to request
+ * Auth middleware - logs admin logins
  */
-function authMiddleware(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ error: 'Unauthorized - No token provided' });
+async function authMiddleware(req, res, next) {
+  const authHeader = req.headers.authorization;
+  
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'No token provided' });
   }
-
+  
+  const token = authHeader.split(' ')[1];
+  
   try {
-    const payload = jwt.verify(token, JWT.SECRET);
-    req.user = payload;
+    const decoded = jwt.verify(token, JWT.SECRET);
+    
+    // Check if user exists and is active
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.id },
+      select: { id: true, email: true, role: true, active: true },
+    });
+    
+    if (!user || !user.active) {
+      return res.status(401).json({ error: 'User not found or inactive' });
+    }
+    
+    // Attach user to request
+    req.user = user;
+    
+    // Log login activity for admin routes
+    if (req.originalUrl.includes('/api/admin') || req.originalUrl.includes('/api/orders')) {
+      logLogin(user.id, req.ip, req.get('user-agent'));
+    }
+    
     next();
-  } catch (err) {
-    return res.status(403).json({ error: 'Invalid or expired token' });
+  } catch (error) {
+    console.error('Auth error:', error);
+    res.status(401).json({ error: 'Invalid token' });
   }
 }
 
 /**
- * Ensure user is admin or super-admin
+ * Admin auth middleware
  */
 function adminAuth(req, res, next) {
-  authMiddleware(req, res, () => {
-    if (req.user.role !== ROLES.ADMIN && req.user.role !== ROLES.SUPER_ADMIN) {
-      return res.status(403).json({ error: 'Forbidden - Admin access required' });
-    }
-    next();
-  });
+  if (!req.user) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  
+  if (req.user.role !== 'admin' && req.user.role !== 'super-admin') {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+  
+  next();
 }
 
 /**
- * Ensure user is super-admin only
+ * Super admin auth middleware
  */
 function superAdminAuth(req, res, next) {
-  authMiddleware(req, res, () => {
-    if (req.user.role !== ROLES.SUPER_ADMIN) {
-      return res.status(403).json({ error: 'Forbidden - Super admin access required' });
-    }
-    next();
-  });
+  if (!req.user) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  
+  if (req.user.role !== 'super-admin') {
+    return res.status(403).json({ error: 'Super admin access required' });
+  }
+  
+  next();
 }
 
 module.exports = {

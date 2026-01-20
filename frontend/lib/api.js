@@ -1,5 +1,6 @@
+// frontend/lib/api.js
 /**
- * API utility functions
+ * API utility functions - FIXED VERSION
  */
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
@@ -8,6 +9,7 @@ const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
  * Get authorization header with token
  */
 function getAuthHeaders() {
+  if (typeof window === 'undefined') return {};
   const token = localStorage.getItem('token');
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
@@ -26,16 +28,15 @@ function handleApiError(error) {
 }
 
 /**
- * Generic API request function
+ * Generic API request function - FIXED
  */
-// In lib/api.js - Update apiRequest function
 async function apiRequest(endpoint, options = {}) {
   const { method = 'GET', body, headers = {}, requiresAuth = false } = options;
 
   const requestHeaders = {
     'Content-Type': 'application/json',
     ...headers,
-    ...(requiresAuth && getAuthHeaders()),
+    ...(requiresAuth ? getAuthHeaders() : {}),
   };
 
   const config = {
@@ -45,14 +46,18 @@ async function apiRequest(endpoint, options = {}) {
 
   if (body && !(body instanceof FormData)) {
     config.body = JSON.stringify(body);
-  } else if (body) {
+  } else if (body instanceof FormData) {
     // Don't set Content-Type for FormData
     config.body = body;
-    delete requestHeaders['Content-Type'];
+    delete config.headers['Content-Type'];
   }
 
   try {
+    console.log('🔵 API Request:', { endpoint, method, body });
+    
     const response = await fetch(`${API_URL}${endpoint}`, config);
+    
+    console.log('🔵 Response status:', response.status, response.statusText);
     
     // Handle non-JSON responses
     const contentType = response.headers.get('content-type');
@@ -60,19 +65,33 @@ async function apiRequest(endpoint, options = {}) {
     
     if (contentType && contentType.includes('application/json')) {
       data = await response.json();
+      console.log('🔵 Response data:', data);
     } else {
       const text = await response.text();
+      console.log('🔵 Response text:', text);
       data = { text };
     }
     
     // Check if response is ok
     if (!response.ok) {
-      throw new Error(data.error || data.message || `HTTP error! status: ${response.status}`);
+      const errorMessage = data.error || data.message || `HTTP error! status: ${response.status}`;
+      console.error('❌ API Error Response:', {
+        status: response.status,
+        statusText: response.statusText,
+        data,
+        errorMessage
+      });
+      throw new Error(errorMessage);
     }
     
     return data;
   } catch (error) {
-    console.error('API Error:', error.message, endpoint);
+    console.error('❌ API Error:', {
+      message: error.message,
+      endpoint,
+      method,
+      stack: error.stack
+    });
     throw error;
   }
 }
@@ -161,23 +180,38 @@ export const productsApi = {
     }),
 };
 
-// Orders API
+// Orders API - FIXED checkout method
 export const ordersApi = {
   createQuick: (data) => 
-    apiRequest('/api/orders', { method: 'POST', body: data }),
+    apiRequest('/api/orders', { 
+      method: 'POST', 
+      body: data 
+    }),
   
+  // FIX: Ensure checkout has proper method and body
   checkout: (data) => 
-    apiRequest('/api/orders/checkout', { method: 'POST', body: data }),
+    apiRequest('/api/orders/checkout', { 
+      method: 'POST', 
+      body: data 
+    }),
   
   getAll: (params = {}) => {
     const query = new URLSearchParams(params).toString();
-    return apiRequest(`/api/orders${query ? `?${query}` : ''}`, { requiresAuth: true });
+    return apiRequest(`/api/orders${query ? `?${query}` : ''}`, { 
+      requiresAuth: true 
+    });
   },
   
   getOne: (id) => 
-    apiRequest(`/api/orders/${id}`, { requiresAuth: true }),
+    apiRequest(`/api/orders/${id}`, { 
+      requiresAuth: true 
+    }),
   
   exportCSV: async () => {
+    if (typeof window === 'undefined') {
+      throw new Error('CSV export can only be called from browser');
+    }
+    
     const token = localStorage.getItem('token');
     const response = await fetch(`${API_URL}/api/orders/export/csv`, {
       headers: {
@@ -195,6 +229,8 @@ export const ordersApi = {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
+    } else {
+      throw new Error('Export failed');
     }
   },
   
@@ -261,7 +297,7 @@ export const usersApi = {
     }),
 };
 
-// Tracking API - NEW
+// Tracking API
 export const trackingApi = {
   getOrdersByStatus: (status, limit = 50, offset = 0) => {
     const query = new URLSearchParams({ limit, offset }).toString();
@@ -330,6 +366,10 @@ export const adminApi = {
 // Upload API
 export const uploadApi = {
   image: async (file) => {
+    if (typeof window === 'undefined') {
+      throw new Error('Image upload can only be called from browser');
+    }
+    
     const formData = new FormData();
     formData.append('image', file);
 

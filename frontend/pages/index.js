@@ -462,7 +462,7 @@ Please confirm my order.
                           onClick={() => orderViaWhatsApp(product)}
                           disabled={product.stock <= 0}
                           className="btn-whatsapp"
-                          title="Order via WhatsApp"
+                          title="Quick Order"
                         >
                           💬
                         </button>

@@ -28,6 +28,7 @@ const {
   updateProductStock,
   deleteProduct,
 } = require('../controllers/productController');
+const { logProductChange } = require('../utils/activityLogger');
 
 const router = express.Router();
 
@@ -67,9 +68,14 @@ router.post(
   validateProduct,
   asyncHandler(async (req, res) => {
     const product = await createProduct(req.body);
+    
+    // Log the creation
+    await logProductChange(req.user.id, 'CREATE_PRODUCT', product.id, req.body, req.ip, req.get('user-agent'));
+    
     res.status(201).json(product);
   })
 );
+
 
 /**
  * PUT /api/products/:id
@@ -81,7 +87,19 @@ router.put(
   validateIdParam,
   validateProduct,
   asyncHandler(async (req, res) => {
+    const oldProduct = await getProductById(req.params.id);
     const product = await updateProduct(req.params.id, req.body);
+    
+    // Log the update
+    const changes = {};
+    Object.keys(req.body).forEach(key => {
+      if (oldProduct[key] !== req.body[key]) {
+        changes[key] = { from: oldProduct[key], to: req.body[key] };
+      }
+    });
+    
+    await logProductChange(req.user.id, 'UPDATE_PRODUCT', product.id, changes, req.ip, req.get('user-agent'));
+    
     res.json(product);
   })
 );

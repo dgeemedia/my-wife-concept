@@ -1,4 +1,4 @@
-// backend/src/routes/orders.js - PRODUCTION READY
+// backend/src/routes/orders.js - FIXED VERSION
 const express = require('express');
 const { Parser } = require('json2csv');
 const { asyncHandler, AppError } = require('../middleware/errorHandler');
@@ -19,6 +19,7 @@ const {
   deleteOrder,
   confirmPayment,
   rejectPayment,
+  getOrderStats,
 } = require('../controllers/orderController');
 
 const router = express.Router();
@@ -26,12 +27,12 @@ const router = express.Router();
 /**
  * POST /api/orders
  * Quick single-item order (public)
- * Rate limited to prevent spam
  */
 router.post(
   '/',
   validateOrder,
   asyncHandler(async (req, res) => {
+    console.log('🔵 Quick order endpoint hit:', req.body);
     const result = await createQuickOrder(req.body);
     res.status(201).json(result);
   })
@@ -39,21 +40,25 @@ router.post(
 
 /**
  * POST /api/orders/checkout
- * Cart checkout (public)
- * Rate limited to prevent spam
+ * Cart checkout (public) - FIXED
  */
 router.post(
   '/checkout',
   validateCheckout,
   asyncHandler(async (req, res) => {
+    console.log('🔵 Checkout endpoint hit');
+    console.log('🔵 Request body:', req.body);
+    
     const result = await checkout(req.body);
+    
+    console.log('🟢 Checkout successful:', result);
     res.status(201).json(result);
   })
 );
 
 /**
  * GET /api/orders
- * Admin only - list orders with advanced filtering
+ * Admin only - list orders with filtering
  */
 router.get(
   '/',
@@ -65,22 +70,21 @@ router.get(
 );
 
 /**
- * GET /api/orders/:id
- * Admin only - single order
+ * GET /api/orders/stats/summary
+ * Admin only - order statistics summary (MUST BE BEFORE /:id)
  */
 router.get(
-  '/:id',
+  '/stats/summary',
   adminAuth,
-  validateIdParam,
   asyncHandler(async (req, res) => {
-    const order = await getOrderById(req.params.id);
-    res.json(order);
+    const result = await getOrderStats(req.query);
+    res.json(result);
   })
 );
 
 /**
  * GET /api/orders/export/csv
- * Super admin only - export orders as CSV
+ * Super admin only - export orders as CSV (MUST BE BEFORE /:id)
  */
 router.get(
   '/export/csv',
@@ -88,7 +92,6 @@ router.get(
   asyncHandler(async (req, res) => {
     const orders = await getOrdersForExport();
 
-    // Format data for CSV export
     const formattedOrders = orders.map(order => ({
       id: order.id,
       customerName: order.customerName,
@@ -101,20 +104,12 @@ router.get(
       orderStatus: order.status,
       currency: order.currency,
       createdAt: order.createdAt.toISOString(),
-      items: order.items.map(item => ({
-        productId: item.productId,
-        productName: item.product?.name || 'Unknown',
-        quantity: item.quantity,
-        unitPrice: item.unitPrice,
-        subtotal: item.quantity * item.unitPrice
-      })),
       itemsCount: order.items.length,
       itemsSummary: order.items.map(item => 
         `${item.product?.name || 'Unknown'} (x${item.quantity})`
       ).join('; ')
     }));
 
-    // Define CSV fields
     const fields = [
       { label: 'Order ID', value: 'id' },
       { label: 'Customer Name', value: 'customerName' },
@@ -148,7 +143,7 @@ router.get(
 
 /**
  * GET /api/orders/export/json
- * Super admin only - export orders as JSON
+ * Super admin only - export orders as JSON (MUST BE BEFORE /:id)
  */
 router.get(
   '/export/json',
@@ -161,6 +156,20 @@ router.get(
     res.header('Content-Type', 'application/json');
     res.header('Content-Disposition', `attachment; filename="${fileName}"`);
     res.send(JSON.stringify(orders, null, 2));
+  })
+);
+
+/**
+ * GET /api/orders/:id
+ * Admin only - single order
+ */
+router.get(
+  '/:id',
+  adminAuth,
+  validateIdParam,
+  asyncHandler(async (req, res) => {
+    const result = await getOrderById(req.params.id);
+    res.json(result);
   })
 );
 
@@ -196,6 +205,7 @@ router.post(
       { paymentMethod, paymentProof, amount },
       userId
     );
+    
     res.json(result);
   })
 );
@@ -218,66 +228,6 @@ router.post(
 
     const result = await rejectPayment(req.params.id, reason, userId);
     res.json(result);
-  })
-);
-
-/**
- * GET /api/orders/stats/summary
- * Admin only - order statistics summary
- */
-router.get(
-  '/stats/summary',
-  adminAuth,
-  asyncHandler(async (req, res) => {
-    const { startDate, endDate } = req.query;
-    
-    const where = {};
-    if (startDate || endDate) {
-      where.createdAt = {};
-      if (startDate) where.createdAt.gte = new Date(startDate);
-      if (endDate) where.createdAt.lte = new Date(endDate);
-    }
-
-    const [
-      totalOrders,
-      pendingPayments,
-      confirmedPayments,
-      totalRevenue,
-      recentOrders,
-    ] = await Promise.all([
-      prisma.order.count({ where }),
-      prisma.order.count({ 
-        where: { ...where, paymentStatus: 'PENDING' } 
-      }),
-      prisma.order.count({ 
-        where: { ...where, paymentStatus: 'CONFIRMED' } 
-      }),
-      prisma.order.aggregate({
-        _sum: { totalAmount: true },
-        where: { ...where, paymentStatus: 'CONFIRMED' },
-      }),
-      prisma.order.findMany({
-        where,
-        take: 10,
-        orderBy: { createdAt: 'desc' },
-        select: {
-          id: true,
-          customerName: true,
-          totalAmount: true,
-          status: true,
-          createdAt: true,
-        },
-      }),
-    ]);
-
-    res.json({
-      totalOrders,
-      pendingPayments,
-      confirmedPayments,
-      totalRevenue: totalRevenue._sum.totalAmount || 0,
-      recentOrders,
-      period: { startDate, endDate },
-    });
   })
 );
 

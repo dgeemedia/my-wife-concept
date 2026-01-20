@@ -1,14 +1,16 @@
-// backend/src/middleware/validation.js - ENHANCED VERSION
+// backend/src/middleware/validation.js - CRITICAL FIX
 const { body, param, validationResult } = require('express-validator');
 
 /**
- * Handle validation errors
+ * Handle validation errors - FIXED
  */
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errorMessages = errors.array().map(err => err.msg).join(', ');
+    console.error('❌ Validation errors:', errors.array());
     return res.status(400).json({ 
+      success: false,
       error: errorMessages,
       details: errors.array() 
     });
@@ -17,7 +19,7 @@ const handleValidationErrors = (req, res, next) => {
 };
 
 /**
- * Validate checkout request
+ * Validate checkout request - FIXED TO MATCH YOUR FRONTEND
  */
 const validateCheckout = [
   body('customerName')
@@ -28,20 +30,22 @@ const validateCheckout = [
     .withMessage('Name must be between 2 and 100 characters'),
   body('phone')
     .trim()
-    .matches(/^[0-9]{10,15}$/)
-    .withMessage('Valid phone number required (10-15 digits)'),
+    .notEmpty()
+    .withMessage('Phone number is required')
+    .isLength({ min: 10, max: 15 })
+    .withMessage('Phone number must be 10-15 characters'),
   body('email')
-    .optional()
+    .optional({ nullable: true, checkFalsy: true })
     .trim()
     .isEmail()
     .withMessage('Valid email required'),
   body('address')
-    .optional()
+    .optional({ nullable: true, checkFalsy: true })
     .trim()
     .isLength({ max: 500 })
     .withMessage('Address too long'),
   body('message')
-    .optional()
+    .optional({ nullable: true, checkFalsy: true })
     .trim()
     .isLength({ max: 1000 })
     .withMessage('Message too long'),
@@ -54,6 +58,10 @@ const validateCheckout = [
   body('items.*.quantity')
     .isInt({ min: 1, max: 100 })
     .withMessage('Quantity must be between 1 and 100'),
+  body('items.*.price')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage('Price must be a positive number'),
   handleValidationErrors,
 ];
 
@@ -67,8 +75,10 @@ const validateOrder = [
     .withMessage('Customer name is required'),
   body('phone')
     .trim()
-    .matches(/^[0-9]{10,15}$/)
-    .withMessage('Valid phone number required'),
+    .notEmpty()
+    .withMessage('Phone number is required')
+    .isLength({ min: 10, max: 15 })
+    .withMessage('Phone number must be 10-15 characters'),
   body('productId')
     .isInt({ min: 1 })
     .withMessage('Valid product ID required'),
@@ -80,7 +90,7 @@ const validateOrder = [
 ];
 
 /**
- * Validate product creation/update - ENHANCED
+ * Validate product creation/update
  */
 const validateProduct = [
   body('name')
@@ -242,15 +252,20 @@ const validateIdParam = [
 ];
 
 /**
- * Validate payment confirmation (admin action)
+ * Validate payment confirmation
  */
 const validatePaymentConfirmation = [
-  body('paymentReference')
+  body('paymentMethod')
     .optional()
     .trim()
-    .isLength({ min: 3, max: 100 })
-    .withMessage('Invalid payment reference'),
-  body('amountPaid')
+    .isLength({ min: 2, max: 50 })
+    .withMessage('Invalid payment method'),
+  body('paymentProof')
+    .optional()
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('Payment proof URL too long'),
+  body('amount')
     .optional()
     .isFloat({ min: 0 })
     .withMessage('Invalid payment amount'),

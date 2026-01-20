@@ -1,19 +1,30 @@
-// frontend/hooks/useCart.js
-/**
- * Custom hook for cart management
- * frontend/hooks/useCart.js
- */
+// frontend/hooks/useCart.js - IMPROVED VERSION
 import { useState, useEffect } from 'react';
 import { getCart, saveCart, clearCart } from '../lib/cart';
 
 export default function useCart() {
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Load cart on mount
+  // Load cart on mount - CLIENT SIDE ONLY
   useEffect(() => {
-    setCart(getCart());
-    setIsLoading(false);
+    setIsMounted(true);
+    
+    // Only access localStorage on client
+    if (typeof window !== 'undefined') {
+      try {
+        const savedCart = getCart();
+        setCart(savedCart);
+      } catch (error) {
+        console.error('Error loading cart:', error);
+        setCart([]);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setIsLoading(false);
+    }
   }, []);
 
   // Calculate total
@@ -24,6 +35,8 @@ export default function useCart() {
 
   // Add item to cart
   const addItem = (product) => {
+    if (!isMounted) return;
+    
     const existingItem = cart.find(item => item.id === product.id);
     
     let newCart;
@@ -47,11 +60,16 @@ export default function useCart() {
     }
 
     setCart(newCart);
-    saveCart(newCart);
+    
+    if (typeof window !== 'undefined') {
+      saveCart(newCart);
+    }
   };
 
   // Update item quantity
   const updateQuantity = (productId, quantity) => {
+    if (!isMounted) return;
+    
     const qty = parseInt(quantity);
     
     if (qty <= 0) {
@@ -64,20 +82,33 @@ export default function useCart() {
     );
 
     setCart(newCart);
-    saveCart(newCart);
+    
+    if (typeof window !== 'undefined') {
+      saveCart(newCart);
+    }
   };
 
   // Remove item from cart
   const removeItem = (productId) => {
+    if (!isMounted) return;
+    
     const newCart = cart.filter(item => item.id !== productId);
     setCart(newCart);
-    saveCart(newCart);
+    
+    if (typeof window !== 'undefined') {
+      saveCart(newCart);
+    }
   };
 
   // Clear entire cart
   const clear = () => {
+    if (!isMounted) return;
+    
     setCart([]);
-    clearCart();
+    
+    if (typeof window !== 'undefined') {
+      clearCart();
+    }
   };
 
   // Check if item is in cart
@@ -96,6 +127,7 @@ export default function useCart() {
     total,
     itemCount,
     isLoading,
+    isMounted,
     addItem,
     updateQuantity,
     removeItem,

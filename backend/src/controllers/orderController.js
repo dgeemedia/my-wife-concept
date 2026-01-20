@@ -1,174 +1,113 @@
-// backend/src/controllers/orderController.js - PRODUCTION READY
+// backend/src/controllers/orderController.js - FIXED VERSION
 const { PrismaClient } = require('@prisma/client');
 const { AppError } = require('../middleware/errorHandler');
-const { createLogger } = require('../utils/logger');
+const { formatOrderMessage } = require('../utils/whatsapp');
 
 const prisma = new PrismaClient();
-const logger = createLogger('OrderController');
 
-// In production, use Redis for idempotency
-let idempotencyStore;
-if (process.env.REDIS_URL) {
-  const Redis = require('ioredis');
-  idempotencyStore = new Redis(process.env.REDIS_URL);
-} else {
-  // Fallback to in-memory for development
-  idempotencyStore = {
-    get: async (key) => {
-      const value = global.idempotencyStore?.[key];
-      return value ? JSON.parse(value) : null;
+/**
+ * Create quick single-item order
+ */
+async function createQuickOrder(data) {
+  const { customerName, phone, productId, quantity = 1, address, email, message } = data;
+
+  // Verify product exists and has stock
+  const product = await prisma.product.findUnique({
+    where: { id: Number(productId) },
+  });
+
+  if (!product) {
+    throw new AppError('Product not found', 404);
+  }
+
+  if (product.stock < quantity) {
+    throw new AppError(`Insufficient stock. Only ${product.stock} available.`, 400);
+  }
+
+  // Calculate total
+  const totalAmount = product.price * quantity;
+
+  // Create order
+  const order = await prisma.order.create({
+    data: {
+      customerName,
+      phone,
+      address: address || '',
+      email: email || '',
+      message: message || '',
+      totalAmount,
+      currency: 'NGN',
+      paymentStatus: 'PENDING',
+      status: 'PENDING',
+      items: {
+        create: [
+          {
+            productId: product.id,
+            quantity,
+            unitPrice: product.price,
+          },
+        ],
+      },
     },
-    set: async (key, value, ttl = 60) => {
-      global.idempotencyStore = global.idempotencyStore || {};
-      global.idempotencyStore[key] = JSON.stringify(value);
+    include: {
+      items: {
+        include: {
+          product: true,
+        },
+      },
     },
+  });
+
+  // Update product stock
+  await prisma.product.update({
+    where: { id: product.id },
+    data: { stock: { decrement: quantity } },
+  });
+
+  return {
+    success: true,
+    order,
+    message: 'Order created successfully',
   };
 }
 
 /**
- * Generate idempotency key
- */
-function generateIdempotencyKey(req) {
-  const { phone, items = [] } = req.body;
-  const itemsHash = items
-    .map(item => `${item.productId}:${item.quantity}`)
-    .sort()
-    .join('|');
-  return `checkout:${phone}:${itemsHash}`;
-}
-
-/**
- * Check and store idempotency
- */
-async function withIdempotency(key, fn) {
-  const existing = await idempotencyStore.get(key);
-  if (existing) {
-    const age = Date.now() - existing.timestamp;
-    if (age < 60000) { // 1 minute
-      logger.info('Idempotent request served from cache', { key });
-      return existing.result;
-    }
-    await idempotencyStore.del(key);
-  }
-  
-  const result = await fn();
-  await idempotencyStore.set(key, {
-    result,
-    timestamp: Date.now(),
-  }, 60);
-  
-  return result;
-}
-
-/**
- * Create quick order - SINGLE TENANT
- */
-async function createQuickOrder(data) {
-  const { customerName, address, phone, email, message, productId, quantity } = data;
-  const qty = quantity && Number.isInteger(quantity) ? quantity : 1;
-
-  // Validate quantity
-  if (qty < 1 || qty > 100) {
-    throw new AppError('Quantity must be between 1 and 100', 400);
-  }
-
-  const order = await prisma.$transaction(async (tx) => {
-    const product = await tx.product.findUnique({
-      where: { id: Number(productId) },
-    });
-
-    if (!product) {
-      throw new AppError('Product not found', 404);
-    }
-
-    if (product.stock < qty) {
-      throw new AppError(`Insufficient stock. Only ${product.stock} available`, 400);
-    }
-
-    const totalAmount = product.price * qty;
-
-    // Validate order amount
-    if (totalAmount < 0 || totalAmount > 10000000) {
-      throw new AppError('Invalid order amount', 400);
-    }
-
-    return tx.order.create({
-      data: {
-        customerName,
-        address: address || '',
-        phone,
-        email: email || '',
-        message: message || '',
-        totalAmount,
-        paymentStatus: 'PENDING',
-        items: {
-          create: {
-            productId: product.id,
-            quantity: qty,
-            unitPrice: product.price,
-          },
-        },
-      },
-      include: {
-        items: {
-          include: { product: true },
-        },
-      },
-    });
-  });
-
-  return { ok: true, order };
-}
-
-/**
- * Checkout with multiple items - WITH RACE CONDITION PROTECTION
+ * Checkout with cart items - FIXED (Optimized for transaction timeout)
  */
 async function checkout(data) {
-  const { customerName, phone, address, email, message, items } = data;
+  console.log('🔵 Checkout function called with:', data);
 
-  // Validate items array
-  if (!Array.isArray(items) || items.length === 0) {
-    throw new AppError('Order must contain at least one item', 400);
-  }
+  try {
+    const { customerName, phone, address, email, message, items } = data;
 
-  if (items.length > 50) {
-    throw new AppError('Order cannot contain more than 50 items', 400);
-  }
+    // Validation
+    if (!customerName || !phone) {
+      throw new AppError('Customer name and phone are required', 400);
+    }
 
-  // Check for duplicate product IDs
-  const productIds = items.map(item => item.productId);
-  const uniqueIds = [...new Set(productIds)];
-  if (uniqueIds.length !== productIds.length) {
-    throw new AppError('Duplicate product IDs in order', 400);
-  }
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      throw new AppError('Cart is empty', 400);
+    }
 
-  const order = await prisma.$transaction(async (tx) => {
-    let calculatedTotal = 0;
-    const orderItemsData = [];
+    console.log('🔵 Validating products...');
 
-    // First, lock all products to prevent race conditions
-    const productIdsToLock = items.map(item => Number(item.productId));
-    
-    // Use raw query with FOR UPDATE SKIP LOCKED to prevent deadlocks
-    const products = await tx.$queryRaw`
-      SELECT * FROM "Product" 
-      WHERE id IN (${Prisma.join(productIdsToLock)})
-      ORDER BY id
-      FOR UPDATE
-    `;
+    // STEP 1: Verify all products exist and calculate total BEFORE transaction
+    let totalAmount = 0;
+    const orderItems = [];
+    const productUpdates = [];
 
-    const productMap = {};
-    products.forEach(product => {
-      productMap[product.id] = product;
+    // Fetch all products in one query for better performance
+    const productIds = items.map(item => Number(item.productId));
+    const products = await prisma.product.findMany({
+      where: { id: { in: productIds } },
     });
 
-    for (const item of items) {
-      // Validate item quantity
-      if (!item.quantity || item.quantity < 1 || item.quantity > 100) {
-        throw new AppError('Each item quantity must be between 1 and 100', 400);
-      }
+    // Create a map for quick lookup
+    const productMap = new Map(products.map(p => [p.id, p]));
 
-      const product = productMap[Number(item.productId)];
+    // Validate and prepare data
+    for (const item of items) {
+      const product = productMap.get(Number(item.productId));
 
       if (!product) {
         throw new AppError(`Product with ID ${item.productId} not found`, 404);
@@ -176,291 +115,132 @@ async function checkout(data) {
 
       if (product.stock < item.quantity) {
         throw new AppError(
-          `Insufficient stock for ${product.name}. Only ${product.stock} available`,
+          `Insufficient stock for ${product.name}. Only ${product.stock} available.`,
           400
         );
       }
 
       const itemTotal = product.price * item.quantity;
-      calculatedTotal += itemTotal;
+      totalAmount += itemTotal;
 
-      orderItemsData.push({
+      orderItems.push({
         productId: product.id,
         quantity: item.quantity,
         unitPrice: product.price,
       });
-    }
 
-    // Validate calculated total
-    if (calculatedTotal < 0 || calculatedTotal > 10000000) {
-      throw new AppError('Invalid order amount', 400);
-    }
-
-    // If totalAmount provided, verify it matches
-    if (data.totalAmount !== undefined) {
-      if (Math.abs(calculatedTotal - data.totalAmount) > 0.01) {
-        throw new AppError(
-          `Order total mismatch. Expected ${calculatedTotal}, received ${data.totalAmount}`,
-          400
-        );
-      }
-    }
-
-    // Create order
-    const newOrder = await tx.order.create({
-      data: {
-        customerName,
-        phone,
-        address: address || '',
-        email: email || '',
-        message: message || '',
-        totalAmount: calculatedTotal,
-        paymentStatus: 'PENDING',
-        items: { create: orderItemsData },
-      },
-      include: {
-        items: {
-          include: { product: true },
-        },
-      },
-    });
-
-    // Update stock AFTER order creation
-    for (const item of items) {
-      await tx.product.update({
-        where: { id: Number(item.productId) },
-        data: { 
-          stock: { 
-            decrement: item.quantity 
-          } 
-        },
+      productUpdates.push({
+        id: product.id,
+        quantity: item.quantity,
       });
     }
 
-    logger.info('Order created', {
-      orderId: newOrder.id,
-      total: calculatedTotal,
-      itemCount: items.length,
-      customerName,
-      phone,
-    });
+    console.log('🔵 Creating order with total:', totalAmount);
 
-    return newOrder;
-  }, {
-    maxWait: 5000,
-    timeout: 10000,
-    isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
-  });
-
-  return { success: true, order };
-}
-
-/**
- * Confirm payment - WITH IDEMPOTENCY AND FRAUD PREVENTION
- */
-async function confirmPayment(orderId, paymentData, userId) {
-  const { paymentMethod, paymentProof, amount } = paymentData;
-
-  // Validate payment method
-  const validMethods = ['CASH', 'TRANSFER', 'CARD', 'QR'];
-  if (!paymentMethod || !validMethods.includes(paymentMethod)) {
-    throw new AppError('Invalid payment method. Must be CASH, TRANSFER, CARD, or QR', 400);
-  }
-
-  // Require payment proof for non-cash payments
-  if (paymentMethod !== 'CASH' && !paymentProof) {
-    throw new AppError('Payment proof required for non-cash payments', 400);
-  }
-
-  // Idempotency key
-  const idempotencyKey = `confirm-payment:${orderId}:${userId}:${Date.now()}`;
-
-  return withIdempotency(idempotencyKey, async () => {
-    const result = await prisma.$transaction(async (tx) => {
-      // Get order with locking
-      const order = await tx.order.findUnique({
-        where: { id: Number(orderId) },
-        include: {
-          items: {
-            include: { product: true },
-          },
-        },
-      });
-
-      if (!order) {
-        throw new AppError('Order not found', 404);
-      }
-
-      // IDEMPOTENCY CHECK: Payment already confirmed
-      if (order.paymentStatus === 'CONFIRMED') {
-        throw new AppError('Payment already confirmed', 400);
-      }
-
-      if (order.paymentStatus === 'REJECTED') {
-        throw new AppError('Cannot confirm rejected payment', 400);
-      }
-
-      // FRAUD CHECK: Validate payment amount
-      if (amount !== undefined && Math.abs(amount - order.totalAmount) > 0.01) {
-        logger.warn('Payment amount mismatch', {
-          orderId,
-          expected: order.totalAmount,
-          received: amount,
-        });
-        throw new AppError(`Payment amount mismatch. Expected ${order.totalAmount}, received ${amount}`, 400);
-      }
-
-      // Verify stock availability
-      for (const item of order.items) {
-        const product = item.product;
-        
-        if (product.stock < item.quantity) {
-          throw new AppError(
-            `Insufficient stock for ${product.name}. Only ${product.stock} available`,
-            400
-          );
-        }
-      }
-
-      // Update stock
-      for (const item of order.items) {
-        await tx.product.update({
-          where: { id: item.productId },
-          data: { 
-            stock: { 
-              decrement: item.quantity 
-            } 
-          },
-        });
-      }
-
-      // Update order payment status
-      const updatedOrder = await tx.order.update({
-        where: { id: Number(orderId) },
-        data: {
-          paymentStatus: 'CONFIRMED',
-          paymentMethod,
-          paymentProof,
-          paymentConfirmedAt: new Date(),
-          paymentConfirmedBy: userId,
-          status: 'CONFIRMED',
-          statusHistory: order.statusHistory 
-            ? JSON.stringify([
-                ...JSON.parse(order.statusHistory),
-                {
-                  status: 'CONFIRMED',
-                  timestamp: new Date().toISOString(),
-                  userId,
-                  notes: 'Payment confirmed',
-                }
-              ])
-            : JSON.stringify([
-                {
-                  status: 'CONFIRMED',
-                  timestamp: new Date().toISOString(),
-                  userId,
-                  notes: 'Payment confirmed',
-                }
-              ]),
-        },
-        include: {
-          items: {
-            include: { product: true },
-          },
-        },
-      });
-
-      logger.info('Payment confirmed', {
-        orderId,
-        paymentMethod,
-        userId,
-        total: updatedOrder.totalAmount,
-      });
-
-      return updatedOrder;
-    }, {
-      maxWait: 5000,
-      timeout: 10000,
-      isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
-    });
-
-    return {
-      ok: true,
-      order: result,
-      message: 'Payment confirmed successfully',
-    };
-  });
-}
-
-/**
- * Reject payment
- */
-async function rejectPayment(orderId, reason, userId) {
-  if (!reason || reason.trim().length < 5) {
-    throw new AppError('Rejection reason must be at least 5 characters', 400);
-  }
-
-  const order = await prisma.order.update({
-    where: { id: Number(orderId) },
-    data: {
-      paymentStatus: 'REJECTED',
-      status: 'CANCELLED',
-      notes: reason ? `Payment rejected: ${reason}` : 'Payment rejected',
-      statusHistory: {
-        upsert: {
-          create: {
-            status: 'CANCELLED',
-            timestamp: new Date().toISOString(),
-            userId,
-            notes: `Payment rejected: ${reason}`,
-          },
-          update: {
-            $push: {
-              statusHistory: {
-                status: 'CANCELLED',
-                timestamp: new Date().toISOString(),
-                userId,
-                notes: `Payment rejected: ${reason}`,
-              },
+    // STEP 2: Fast transaction with optimized queries
+    const order = await prisma.$transaction(
+      async (tx) => {
+        // Create the order with items in one query
+        const newOrder = await tx.order.create({
+          data: {
+            customerName: customerName.trim(),
+            phone: phone.trim(),
+            address: address?.trim() || '',
+            email: email?.trim() || '',
+            message: message?.trim() || '',
+            totalAmount,
+            currency: 'NGN',
+            paymentStatus: 'PENDING',
+            status: 'PENDING',
+            items: {
+              create: orderItems,
             },
           },
+        });
+
+        // Update all product stocks in parallel
+        await Promise.all(
+          productUpdates.map(({ id, quantity }) =>
+            tx.product.update({
+              where: { id },
+              data: { stock: { decrement: quantity } },
+            })
+          )
+        );
+
+        return newOrder;
+      },
+      {
+        maxWait: 10000, // 10 seconds max wait
+        timeout: 15000, // 15 seconds timeout
+      }
+    );
+
+    // STEP 3: Fetch the complete order with relations AFTER transaction
+    const completeOrder = await prisma.order.findUnique({
+      where: { id: order.id },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
         },
       },
-    },
-  });
+    });
 
-  logger.info('Payment rejected', {
-    orderId,
-    reason,
-    userId,
-  });
+    console.log('🟢 Order created successfully:', completeOrder.id);
 
-  return {
-    ok: true,
-    order,
-    message: 'Payment rejected successfully',
-  };
+    return {
+      success: true,
+      order: completeOrder,
+      message: 'Order created successfully',
+    };
+  } catch (error) {
+    console.error('❌ Checkout error:', error);
+    
+    // Re-throw AppError as-is
+    if (error instanceof AppError) {
+      throw error;
+    }
+    
+    // Handle Prisma-specific errors
+    if (error.code === 'P2034') {
+      throw new AppError('Transaction timeout. Please try again.', 500);
+    }
+    
+    // Wrap other errors
+    throw new AppError(error.message || 'Checkout failed', 500);
+  }
 }
 
 /**
- * Get all orders - WITH ENHANCED PAGINATION
+ * Get all orders with filtering
  */
 async function getAllOrders(query) {
-  const { 
-    limit = 50, 
-    offset = 0, 
-    status, 
+  const {
+    page = 1,
+    limit = 50,
+    status,
     paymentStatus,
-    search,
+    phone,
     startDate,
     endDate,
+    search,
   } = query;
 
+  const skip = (Number(page) - 1) * Number(limit);
   const where = {};
-  
+
   if (status) where.status = status;
   if (paymentStatus) where.paymentStatus = paymentStatus;
+  if (phone) where.phone = { contains: phone };
   
+  if (startDate || endDate) {
+    where.createdAt = {};
+    if (startDate) where.createdAt.gte = new Date(startDate);
+    if (endDate) where.createdAt.lte = new Date(endDate);
+  }
+
   if (search) {
     where.OR = [
       { customerName: { contains: search, mode: 'insensitive' } },
@@ -469,45 +249,46 @@ async function getAllOrders(query) {
     ];
   }
 
-  if (startDate || endDate) {
-    where.createdAt = {};
-    if (startDate) where.createdAt.gte = new Date(startDate);
-    if (endDate) where.createdAt.lte = new Date(endDate);
-  }
-
   const [orders, total] = await Promise.all([
     prisma.order.findMany({
       where,
+      skip,
+      take: Number(limit),
+      orderBy: { createdAt: 'desc' },
       include: {
         items: {
-          include: { product: true },
+          include: {
+            product: true,
+          },
         },
       },
-      orderBy: { createdAt: 'desc' },
-      take: Math.min(Number(limit), 100),
-      skip: Number(offset),
     }),
     prisma.order.count({ where }),
   ]);
 
   return {
+    success: true,
     orders,
-    total,
-    limit: Number(limit),
-    offset: Number(offset),
-    hasMore: total > Number(offset) + Number(limit),
+    pagination: {
+      total,
+      page: Number(page),
+      limit: Number(limit),
+      totalPages: Math.ceil(total / Number(limit)),
+    },
   };
 }
 
 /**
- * Get single order
+ * Get single order by ID
  */
 async function getOrderById(id) {
   const order = await prisma.order.findUnique({
     where: { id: Number(id) },
     include: {
       items: {
-        include: { product: true },
+        include: {
+          product: true,
+        },
       },
     },
   });
@@ -516,33 +297,66 @@ async function getOrderById(id) {
     throw new AppError('Order not found', 404);
   }
 
-  return order;
+  return { success: true, order };
 }
 
 /**
- * Get orders for CSV export
+ * Get orders for export
  */
 async function getOrdersForExport() {
-  const orders = await prisma.order.findMany({
+  return prisma.order.findMany({
+    orderBy: { createdAt: 'desc' },
     include: {
       items: {
-        include: { product: true },
+        include: {
+          product: true,
+        },
       },
     },
-    orderBy: { createdAt: 'desc' },
-    take: 1000,
   });
-
-  return orders;
 }
 
 /**
  * Delete order
  */
 async function deleteOrder(id) {
-  // Check if order exists
   const order = await prisma.order.findUnique({
     where: { id: Number(id) },
+    include: { items: true },
+  });
+
+  if (!order) {
+    throw new AppError('Order not found', 404);
+  }
+
+  // Restore stock if order was pending
+  if (order.paymentStatus === 'PENDING') {
+    for (const item of order.items) {
+      await prisma.product.update({
+        where: { id: item.productId },
+        data: { stock: { increment: item.quantity } },
+      });
+    }
+  }
+
+  await prisma.order.delete({
+    where: { id: Number(id) },
+  });
+
+  return {
+    success: true,
+    message: 'Order deleted successfully',
+  };
+}
+
+/**
+ * Confirm payment
+ */
+async function confirmPayment(orderId, paymentData, userId) {
+  const { paymentMethod, paymentProof, amount } = paymentData;
+
+  const order = await prisma.order.findUnique({
+    where: { id: Number(orderId) },
   });
 
   if (!order) {
@@ -550,28 +364,127 @@ async function deleteOrder(id) {
   }
 
   if (order.paymentStatus === 'CONFIRMED') {
-    throw new AppError('Cannot delete order with confirmed payment. Cancel it instead.', 400);
+    throw new AppError('Payment already confirmed', 400);
   }
 
-  await prisma.order.delete({
-    where: { id: Number(id) },
+  const updatedOrder = await prisma.order.update({
+    where: { id: Number(orderId) },
+    data: {
+      paymentStatus: 'CONFIRMED',
+      paymentMethod: paymentMethod || 'CASH',
+      paymentProof: paymentProof || null,
+      paymentConfirmedAt: new Date(),
+      paymentConfirmedBy: userId,
+      status: 'CONFIRMED',
+      totalAmount: amount || order.totalAmount,
+    },
+    include: {
+      items: {
+        include: {
+          product: true,
+        },
+      },
+    },
   });
 
-  logger.info('Order deleted', { orderId: id });
+  return {
+    success: true,
+    order: updatedOrder,
+    message: 'Payment confirmed successfully',
+  };
+}
+
+/**
+ * Reject payment
+ */
+async function rejectPayment(orderId, reason, userId) {
+  const order = await prisma.order.findUnique({
+    where: { id: Number(orderId) },
+    include: { items: true },
+  });
+
+  if (!order) {
+    throw new AppError('Order not found', 404);
+  }
+
+  // Restore stock
+  for (const item of order.items) {
+    await prisma.product.update({
+      where: { id: item.productId },
+      data: { stock: { increment: item.quantity } },
+    });
+  }
+
+  const updatedOrder = await prisma.order.update({
+    where: { id: Number(orderId) },
+    data: {
+      paymentStatus: 'FAILED',
+      status: 'CANCELLED',
+      notes: reason,
+    },
+    include: {
+      items: {
+        include: {
+          product: true,
+        },
+      },
+    },
+  });
 
   return {
-    ok: true,
-    message: 'Order deleted successfully',
+    success: true,
+    order: updatedOrder,
+    message: 'Payment rejected',
+  };
+}
+
+/**
+ * Get order statistics
+ */
+async function getOrderStats(query) {
+  const { startDate, endDate } = query;
+  
+  const where = {};
+  if (startDate || endDate) {
+    where.createdAt = {};
+    if (startDate) where.createdAt.gte = new Date(startDate);
+    if (endDate) where.createdAt.lte = new Date(endDate);
+  }
+
+  const [
+    totalOrders,
+    pendingOrders,
+    confirmedOrders,
+    totalRevenue,
+  ] = await Promise.all([
+    prisma.order.count({ where }),
+    prisma.order.count({ where: { ...where, paymentStatus: 'PENDING' } }),
+    prisma.order.count({ where: { ...where, paymentStatus: 'CONFIRMED' } }),
+    prisma.order.aggregate({
+      _sum: { totalAmount: true },
+      where: { ...where, paymentStatus: 'CONFIRMED' },
+    }),
+  ]);
+
+  return {
+    success: true,
+    stats: {
+      totalOrders,
+      pendingOrders,
+      confirmedOrders,
+      totalRevenue: totalRevenue._sum.totalAmount || 0,
+    },
   };
 }
 
 module.exports = {
   createQuickOrder,
   checkout,
-  confirmPayment,
-  rejectPayment,
   getAllOrders,
   getOrderById,
   getOrdersForExport,
   deleteOrder,
+  confirmPayment,
+  rejectPayment,
+  getOrderStats,
 };

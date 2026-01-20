@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
 const { JWT, BCRYPT, ROLES } = require('../config/constants');
 const { AppError } = require('../middleware/errorHandler');
+const { logLogout } = require('../utils/activityLogger');
 
 const prisma = new PrismaClient();
 
@@ -265,6 +266,14 @@ async function getCurrentUser(userId) {
  * Logout
  */
 async function logout(req) {
+  try {
+    // Log the logout activity
+    await logLogout(req.user.id, req.ip, req.get('user-agent'));
+  } catch (error) {
+    console.error('Failed to log logout activity:', error);
+    // Don't fail the logout if logging fails
+  }
+
   await prisma.activityLog.create({
     data: {
       userId: req.user.id,
