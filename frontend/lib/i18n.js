@@ -1,6 +1,9 @@
 // ============================================================================
 // frontend/lib/i18n.js - Multi-Language Support
 // ============================================================================
+'use client';
+
+import React from 'react';
 
 export const languages = {
   en: {

@@ -79,8 +79,21 @@ app.use(helmet({
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles for React
       scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`],
-      imgSrc: ["'self'", "data:", "https:", "blob:", "https://res.cloudinary.com"],
-      connectSrc: ["'self'", "https://api.mypadifood.com", "wss://api.mypadifood.com"],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+        "https:",
+        "https://res.cloudinary.com"
+      ],
+      connectSrc: [
+        "'self'",
+        "http://localhost:5000",
+        "http://127.0.0.1:5000",
+        "ws://localhost:5000",
+        "https://api.mypadifood.com",
+        "wss://api.mypadifood.com"
+      ],
       fontSrc: ["'self'", "data:"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
@@ -100,25 +113,49 @@ app.use(helmet({
   referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
 }));
 
-// CORS configuration for production
+// ============================================================================
+// CORS CONFIGURATION - UPDATED FOR BOTH PRODUCTION AND DEVELOPMENT
+// ============================================================================
+
+// CORS configuration for production AND development
 const allowedOrigins = SERVER.CORS_ORIGIN 
   ? SERVER.CORS_ORIGIN.split(',').map(origin => origin.trim())
-  : ['http://localhost:3000'];
+  : [];
+
+// ALWAYS add localhost in development
+if (SERVER.NODE_ENV === 'development') {
+  allowedOrigins.push('http://localhost:3000');
+  allowedOrigins.push('http://127.0.0.1:3000');
+  allowedOrigins.push('http://localhost:3001'); // Next.js dev server alternative port
+}
+
+console.log('🔒 CORS Configuration:', {
+  environment: SERVER.NODE_ENV,
+  allowedOrigins: allowedOrigins
+});
 
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, etc.)
-    if (!origin && SERVER.NODE_ENV === 'development') {
+    // Allow requests with NO origin (Postman, curl, direct browser access)
+    if (!origin) {
       return callback(null, true);
+    }
+    
+    // In development, be more permissive
+    if (SERVER.NODE_ENV === 'development') {
+      // Allow localhost with any port
+      if (origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+        return callback(null, true);
+      }
     }
     
     // Check against allowed origins
     if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
-      callback(null, true);
-    } else {
-      logger.warn('CORS blocked origin:', { origin, allowedOrigins });
-      callback(new Error('Not allowed by CORS'));
+      return callback(null, true);
     }
+    
+    logger.warn('CORS blocked origin:', { origin, allowedOrigins });
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -375,7 +412,7 @@ app.get('/health', asyncHandler(async (req, res) => {
     // Database check with timeout
     const dbCheck = prisma.$queryRaw`SELECT 1`;
     const timeout = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Timeout')), 3000)
+      setTimeout(() => reject(new Error('Timeout')), 8000)
     );
     await Promise.race([dbCheck, timeout]);
     healthCheck.checks.database = { status: 'healthy', responseTime: 'ok' };

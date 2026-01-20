@@ -214,6 +214,24 @@ const validateIdParam = [
   handleValidationErrors,
 ];
 
+/**
+ * Validate payment confirmation (admin action)
+ */
+const validatePaymentConfirmation = [
+  body('paymentReference')
+    .optional()
+    .trim()
+    .isLength({ min: 3, max: 100 })
+    .withMessage('Invalid payment reference'),
+
+  body('amountPaid')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage('Invalid payment amount'),
+
+  handleValidationErrors,
+];
+
 module.exports = {
   validateCheckout,
   validateOrder,
@@ -224,4 +242,5 @@ module.exports = {
   validatePasswordChange,
   validatePasswordRecovery,
   validateIdParam,
+  validatePaymentConfirmation,
 };

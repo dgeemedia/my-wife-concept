@@ -9,17 +9,25 @@ export default function Footer() {
     fetchSettings();
   }, []);
 
-  const fetchSettings = async () => {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings`);
-      const data = await response.json();
-      setSettings(data);
-    } catch (error) {
-      console.error('Failed to fetch settings:', error);
-    } finally {
-      setLoading(false);
+const fetchSettings = async () => {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+    const response = await fetch(`${baseUrl}/api/settings`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  };
+
+    const data = await response.json();
+    setSettings(data);
+  } catch (error) {
+    console.error('Failed to fetch settings:', error);
+    setSettings({}); // fallback to empty object to prevent crash
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   if (loading) {
     return <footer className="footer">Loading...</footer>;

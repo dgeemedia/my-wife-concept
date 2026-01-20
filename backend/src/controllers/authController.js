@@ -1,4 +1,5 @@
 // backend/src/controllers/authController.js
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
@@ -8,9 +9,9 @@ const { AppError } = require('../middleware/errorHandler');
 const prisma = new PrismaClient();
 
 /**
- * Register new super-admin
+ * Register (bootstrap super-admin)
  */
-async function register(req, res) {
+async function register(req) {
   const { email, password, role } = req.body;
 
   const existing = await prisma.user.findUnique({ where: { email } });
@@ -41,61 +42,51 @@ async function register(req, res) {
 }
 
 /**
- * Login user
+ * Login
  */
-async function login(req, res) {
+async function login(req) {
   const { email, password } = req.body;
 
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) {
+  if (!user || !user.active) {
     throw new AppError('Invalid credentials', 401);
   }
 
-  if (!user.active) {
-    throw new AppError('Account suspended. Contact administrator.', 403);
-  }
-
-  const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-  if (!isValidPassword) {
+  const isValid = await bcrypt.compare(password, user.passwordHash);
+  if (!isValid) {
     throw new AppError('Invalid credentials', 401);
   }
 
   const token = jwt.sign(
-    {
-      id: user.id,
-      email: user.email,
-      role: user.role,
-    },
+    { id: user.id, email: user.email, role: user.role },
     JWT.SECRET,
     { expiresIn: JWT.EXPIRES_IN }
   );
 
-    // Check if user needs to set security question
-  const needsSecuritySetup = !user.hasSecurityQuestion;
-
   return {
     ok: true,
+    token,
     user: {
       id: user.id,
       email: user.email,
       role: user.role,
       forcePasswordChange: user.forcePasswordChange,
       hasSecurityQuestion: user.hasSecurityQuestion,
-      needsSecuritySetup: needsSecuritySetup,
     },
-    token,
   };
 }
 
 /**
- * Change password
+ * Change password (admin or self)
  */
-async function changePassword(req, res, userId, targetUserId) {
-  const { newPassword } = req.body;
-
-  // Users can only change their own password unless they're super-admin
-  if (targetUserId !== userId && req.user.role !== ROLES.SUPER_ADMIN) {
+async function changePassword(req, requestUserId, targetUserId) {
+  if (requestUserId !== targetUserId && req.user.role !== ROLES.SUPER_ADMIN) {
     throw new AppError('Forbidden', 403);
+  }
+
+  const { newPassword } = req.body;
+  if (newPassword.length < 8) {
+    throw new AppError('Password must be at least 8 characters', 400);
   }
 
   const passwordHash = await bcrypt.hash(newPassword, BCRYPT.SALT_ROUNDS);
@@ -105,6 +96,7 @@ async function changePassword(req, res, userId, targetUserId) {
     data: {
       passwordHash,
       forcePasswordChange: false,
+      lastPasswordChange: new Date(),
     },
   });
 
@@ -112,18 +104,55 @@ async function changePassword(req, res, userId, targetUserId) {
 }
 
 /**
- * Recover password using security question
+ * Change password with current password
  */
-async function recoverPassword(req, res) {
+async function changePasswordWithCurrent(req, requestUserId, targetUserId) {
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    throw new AppError('All fields are required', 400);
+  }
+
+  if (requestUserId !== targetUserId && req.user.role !== ROLES.SUPER_ADMIN) {
+    throw new AppError('Forbidden', 403);
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: Number(targetUserId) },
+  });
+
+  const valid = await bcrypt.compare(currentPassword, user.passwordHash);
+  if (!valid) {
+    throw new AppError('Current password is incorrect', 400);
+  }
+
+  const passwordHash = await bcrypt.hash(newPassword, BCRYPT.SALT_ROUNDS);
+
+  await prisma.user.update({
+    where: { id: Number(targetUserId) },
+    data: {
+      passwordHash,
+      forcePasswordChange: false,
+      lastPasswordChange: new Date(),
+    },
+  });
+
+  return { ok: true, message: 'Password updated successfully' };
+}
+
+/**
+ * Recover password via security question
+ */
+async function recoverPassword(req) {
   const { email, answer, newPassword } = req.body;
 
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user || !user.securityAnswerHash) {
-    throw new AppError('Invalid request', 400);
+    throw new AppError('Invalid recovery request', 400);
   }
 
-  const isValidAnswer = await bcrypt.compare(answer, user.securityAnswerHash);
-  if (!isValidAnswer) {
+  const valid = await bcrypt.compare(answer, user.securityAnswerHash);
+  if (!valid) {
     throw new AppError('Incorrect answer', 401);
   }
 
@@ -134,6 +163,7 @@ async function recoverPassword(req, res) {
     data: {
       passwordHash,
       forcePasswordChange: false,
+      lastPasswordChange: new Date(),
     },
   });
 
@@ -141,7 +171,7 @@ async function recoverPassword(req, res) {
 }
 
 /**
- * Get security question
+ * Security question
  */
 async function getSecurityQuestion(email) {
   const user = await prisma.user.findUnique({
@@ -149,109 +179,20 @@ async function getSecurityQuestion(email) {
     select: { securityQuestion: true },
   });
 
-  if (!user || !user.securityQuestion) {
-    throw new AppError('No security question set for this account', 404);
+  if (!user?.securityQuestion) {
+    throw new AppError('No security question set', 404);
   }
 
   return { question: user.securityQuestion };
 }
 
-/**
- * Get current user
- */
-async function getCurrentUser(userId) {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: {
-      id: true,
-      email: true,
-      role: true,
-      active: true,
-      forcePasswordChange: true,
-      createdAt: true,
-    },
-  });
-
-  if (!user) {
-    throw new AppError('User not found', 404);
-  }
-
-  return { user };
-}
-
-/**
- * Change password with current password verification (for own account)
- */
-async function changePasswordWithCurrent(req, res, userId, targetUserId) {
-  const { currentPassword, newPassword } = req.body;
-
-  if (!currentPassword || !newPassword) {
-    throw new AppError('Current password and new password are required', 400);
-  }
-
-  // Users can only change their own password unless they're super-admin
-  if (targetUserId !== userId && req.user.role !== ROLES.SUPER_ADMIN) {
-    throw new AppError('Forbidden', 403);
-  }
-
-  // Get user's current password
-  const user = await prisma.user.findUnique({
-    where: { id: Number(targetUserId) },
-    select: { passwordHash: true, forcePasswordChange: true },
-  });
-
-  if (!user) {
-    throw new AppError('User not found', 404);
-  }
-
-  // If changing own password, verify current password
-  if (targetUserId === userId) {
-    const isValidCurrent = await bcrypt.compare(currentPassword, user.passwordHash);
-    if (!isValidCurrent) {
-      throw new AppError('Current password is incorrect', 400);
-    }
-  }
-
-  // Validate new password strength
-  if (newPassword.length < 8) {
-    throw new AppError('New password must be at least 8 characters', 400);
-  }
-
-  // Hash new password
-  const passwordHash = await bcrypt.hash(newPassword, BCRYPT.SALT_ROUNDS);
-
-  // Update password
-  await prisma.user.update({
-    where: { id: Number(targetUserId) },
-    data: {
-      passwordHash,
-      forcePasswordChange: false, // User has changed password
-      lastPasswordChange: new Date(),
-    },
-  });
-
-  return { ok: true, message: 'Password changed successfully' };
-}
-
-/**
- * Set security question and answer
- */
-async function setSecurityQuestion(req, res, userId) {
+async function setSecurityQuestion(req, userId) {
   const { securityQuestion, securityAnswer } = req.body;
 
-  if (!securityQuestion || !securityAnswer) {
-    throw new AppError('Security question and answer are required', 400);
-  }
-
-  if (securityQuestion.length > 200) {
-    throw new AppError('Security question too long (max 200 characters)', 400);
-  }
-
-  if (securityAnswer.length < 2) {
-    throw new AppError('Security answer must be at least 2 characters', 400);
-  }
-
-  const securityAnswerHash = await bcrypt.hash(securityAnswer, BCRYPT.SALT_ROUNDS);
+  const securityAnswerHash = await bcrypt.hash(
+    securityAnswer,
+    BCRYPT.SALT_ROUNDS
+  );
 
   await prisma.user.update({
     where: { id: Number(userId) },
@@ -262,49 +203,33 @@ async function setSecurityQuestion(req, res, userId) {
     },
   });
 
-  return { ok: true, message: 'Security question set successfully' };
+  return { ok: true, message: 'Security question set' };
 }
 
 /**
- * First login - change password and set security question
+ * First login
  */
-async function firstLogin(req, res) {
-  const userId = req.user.id;
-  const { currentPassword, newPassword, securityQuestion, securityAnswer } = req.body;
+async function firstLogin(req) {
+  const { currentPassword, newPassword, securityQuestion, securityAnswer } =
+    req.body;
 
-  // Validate all fields
-  if (!currentPassword || !newPassword || !securityQuestion || !securityAnswer) {
-    throw new AppError('All fields are required', 400);
-  }
-
-  // Get user
   const user = await prisma.user.findUnique({
-    where: { id: Number(userId) },
-    select: { passwordHash: true, forcePasswordChange: true },
+    where: { id: req.user.id },
   });
 
-  if (!user) {
-    throw new AppError('User not found', 404);
+  const valid = await bcrypt.compare(currentPassword, user.passwordHash);
+  if (!valid) {
+    throw new AppError('Current password incorrect', 400);
   }
 
-  // Verify current password
-  const isValidCurrent = await bcrypt.compare(currentPassword, user.passwordHash);
-  if (!isValidCurrent) {
-    throw new AppError('Current password is incorrect', 400);
-  }
-
-  // Validate new password
-  if (newPassword.length < 8) {
-    throw new AppError('New password must be at least 8 characters', 400);
-  }
-
-  // Hash new password and security answer
   const passwordHash = await bcrypt.hash(newPassword, BCRYPT.SALT_ROUNDS);
-  const securityAnswerHash = await bcrypt.hash(securityAnswer, BCRYPT.SALT_ROUNDS);
+  const securityAnswerHash = await bcrypt.hash(
+    securityAnswer,
+    BCRYPT.SALT_ROUNDS
+  );
 
-  // Update user
   await prisma.user.update({
-    where: { id: Number(userId) },
+    where: { id: user.id },
     data: {
       passwordHash,
       securityQuestion,
@@ -315,20 +240,34 @@ async function firstLogin(req, res) {
     },
   });
 
-  return { 
-    ok: true, 
-    message: 'Password changed and security question set successfully' 
-  };
+  return { ok: true, message: 'First login setup completed' };
 }
-/** * Logout user
+
+/**
+ * Current user
  */
-async function logout(req, res) {
-  const userId = req.user.id;
-  
-  // Optional: Track logout in activity log
+async function getCurrentUser(userId) {
+  const user = await prisma.user.findUnique({
+    where: { id: Number(userId) },
+    select: {
+      id: true,
+      email: true,
+      role: true,
+      active: true,
+      createdAt: true,
+    },
+  });
+
+  return { user };
+}
+
+/**
+ * Logout
+ */
+async function logout(req) {
   await prisma.activityLog.create({
     data: {
-      userId,
+      userId: req.user.id,
       action: 'LOGOUT',
       ipAddress: req.ip,
       userAgent: req.get('user-agent'),
@@ -342,11 +281,11 @@ module.exports = {
   register,
   login,
   changePassword,
+  changePasswordWithCurrent,
   recoverPassword,
   getSecurityQuestion,
-  getCurrentUser,
-  changePasswordWithCurrent,
   setSecurityQuestion,
   firstLogin,
+  getCurrentUser,
   logout,
 };

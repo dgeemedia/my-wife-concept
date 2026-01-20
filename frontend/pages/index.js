@@ -1,4 +1,4 @@
-// frontend/pages/index.js
+// frontend/pages/index.js - WITH PLACEHOLDER
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
@@ -23,15 +23,36 @@ export default function Home() {
   async function fetchData() {
     try {
       setLoading(true);
-      const [productsData, testimonialsData, settingsData] = await Promise.all([
-        productsApi.getAll({ inStock: 'true' }),
-        testimonialsApi.getAll(),
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings`).then(r => r.json()),
+      
+      // Fetch settings with error handling
+      let settingsData = null;
+      try {
+        const settingsRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings`);
+        if (settingsRes.ok) {
+          settingsData = await settingsRes.json();
+        }
+      } catch (err) {
+        console.error('Failed to fetch settings:', err);
+        // Use default settings if fetch fails
+        settingsData = {
+          businessName: process.env.NEXT_PUBLIC_BUSINESS_NAME || 'MyPadiFood',
+          currency: process.env.NEXT_PUBLIC_CURRENCY || 'NGN',
+          whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '',
+        };
+      }
+      
+      setSettings(settingsData);
+
+      // Fetch products and testimonials
+      const [productsData, testimonialsData] = await Promise.all([
+        productsApi.getAll({ inStock: 'true' }).catch(() => []),
+        testimonialsApi.getAll().catch(() => []),
       ]);
+      
       setProducts(productsData);
       setTestimonials(testimonialsData);
-      setSettings(settingsData);
     } catch (err) {
+      console.error('Error fetching data:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -42,7 +63,6 @@ export default function Home() {
     addItem(product);
     window.dispatchEvent(new Event('cartUpdated'));
     
-    // Show success notification
     setNotification(`✓ ${product.name} added to cart!`);
     setTimeout(() => setNotification(''), 3000);
   };
@@ -64,8 +84,230 @@ Please confirm my order.
     window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
-  if (loading) return <Layout><Loading fullScreen message="Loading delicious menu..." /></Layout>;
-  if (error) return <Layout><div className="error-container">Error: {error}</div></Layout>;
+  if (loading) {
+    return (
+      <Layout>
+        <Loading fullScreen message="Loading delicious menu..." />
+      </Layout>
+    );
+  }
+
+  // Show placeholder if no products AND no settings configured
+  const showPlaceholder = products.length === 0 && (!settings?.businessName || settings?.businessName === 'My Business');
+
+  if (showPlaceholder) {
+    return (
+      <Layout>
+        <div className="placeholder-container">
+          <div className="placeholder-card">
+            <div className="placeholder-icon">🏪</div>
+            <h1 className="placeholder-title">Welcome to Your Food Business</h1>
+            <p className="placeholder-subtitle">
+              Your online store is ready, but it needs some setup to get started!
+            </p>
+            
+            <div className="placeholder-steps">
+              <div className="step-item">
+                <div className="step-number">1</div>
+                <div className="step-content">
+                  <h3>Configure Business Settings</h3>
+                  <p>Set your business name, contact information, and branding</p>
+                </div>
+              </div>
+              
+              <div className="step-item">
+                <div className="step-number">2</div>
+                <div className="step-content">
+                  <h3>Add Your Products</h3>
+                  <p>Upload your menu items with prices and descriptions</p>
+                </div>
+              </div>
+              
+              <div className="step-item">
+                <div className="step-number">3</div>
+                <div className="step-content">
+                  <h3>Start Receiving Orders</h3>
+                  <p>Customers can browse and order via WhatsApp</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="placeholder-actions">
+              <a href="/admin/login" className="btn-primary-large">
+                🔐 Go to Admin Dashboard
+              </a>
+              <a href="/admin/settings" className="btn-secondary-large">
+                ⚙️ Configure Settings
+              </a>
+            </div>
+
+            <div className="placeholder-help">
+              <p>
+                Need help? Check out our <a href="/docs" className="help-link">setup guide</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <style jsx>{`
+          .placeholder-container {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          }
+
+          .placeholder-card {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            text-align: center;
+          }
+
+          .placeholder-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+          }
+
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+
+          .placeholder-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 16px;
+          }
+
+          .placeholder-subtitle {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 40px;
+          }
+
+          .placeholder-steps {
+            text-align: left;
+            margin-bottom: 40px;
+          }
+
+          .step-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            align-items: flex-start;
+          }
+
+          .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+          }
+
+          .step-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+          }
+
+          .step-content p {
+            color: #6c757d;
+            font-size: 14px;
+          }
+
+          .placeholder-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+          }
+
+          .btn-primary-large,
+          .btn-secondary-large {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+          }
+
+          .btn-primary-large {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+          }
+
+          .btn-primary-large:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+          }
+
+          .btn-secondary-large {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+          }
+
+          .btn-secondary-large:hover {
+            background: #667eea;
+            color: white;
+          }
+
+          .placeholder-help {
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+          }
+
+          .help-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+          }
+
+          .help-link:hover {
+            text-decoration: underline;
+          }
+
+          @media (max-width: 768px) {
+            .placeholder-card {
+              padding: 40px 20px;
+            }
+
+            .placeholder-title {
+              font-size: 24px;
+            }
+
+            .placeholder-actions {
+              flex-direction: column;
+            }
+
+            .btn-primary-large,
+            .btn-secondary-large {
+              width: 100%;
+            }
+          }
+        `}</style>
+      </Layout>
+    );
+  }
 
   const currency = settings?.currency || 'NGN';
 
@@ -78,7 +320,7 @@ Please confirm my order.
         </div>
       )}
 
-      {/* Hero Section - Enhanced */}
+      {/* Hero Section */}
       <section className="hero-modern">
         <div className="hero-content">
           <div className="hero-badge">
@@ -91,8 +333,7 @@ Please confirm my order.
           </h1>
           
           <p className="hero-subtitle-modern">
-            Order authentic local dishes made with love and delivered to your doorstep. 
-            Fast, fresh, and always delicious! 🍛
+            {settings?.description || 'Order authentic local dishes made with love and delivered to your doorstep. Fast, fresh, and always delicious! 🍛'}
           </p>
           
           <div className="hero-cta-group">
@@ -137,7 +378,7 @@ Please confirm my order.
         </div>
       </section>
 
-      {/* Menu Section - Card Grid */}
+      {/* Menu Section */}
       <section id="menu" className="menu-section-modern">
         <div className="container-modern">
           <div className="section-header-modern">
@@ -155,6 +396,9 @@ Please confirm my order.
               <div className="empty-icon">🍽️</div>
               <p className="empty-text">No products available at the moment.</p>
               <p className="empty-subtext">Check back soon for delicious updates!</p>
+              <a href="/admin/login" className="empty-action">
+                Add Products (Admin)
+              </a>
             </div>
           ) : (
             <div className="product-grid-modern">
