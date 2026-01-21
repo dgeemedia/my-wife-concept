@@ -1,115 +1,70 @@
-// frontend/pages/admin/login.js
+// frontend/pages/admin/login.js - USING NEW AUTH HELPER
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { auth } from '../../lib/auth';
 
 export default function AdminLogin() {
   const router = useRouter();
-
   const [formData, setFormData] = useState({
-    email: 'SuperAdmin@mypadifood.com',
-    password: 'Emergency123',
+    email: '',
+    password: '',
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [backendStatus, setBackendStatus] = useState('');
 
-  // Test backend connection on component mount
+  // ✅ ONLY check auth on mount - NO redirects here
   useEffect(() => {
-    checkBackend();
+    // Just clear any stale data
+    if (!auth.isAuthenticated()) {
+      auth.clear();
+    }
   }, []);
 
-  const checkBackend = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/health');
-      const data = await response.json();
-      setBackendStatus(`✅ Backend running: ${data.status}`);
-    } catch (err) {
-      setBackendStatus('❌ Backend not running on http://localhost:5000');
-    }
-  };
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+  e.preventDefault();
+  setError('');
+  setLoading(true);
 
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+  try {
+    console.log('🔵 Logging in...');
 
-      const text = await response.text();
-      console.log('Raw response:', text);
+    const response = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
 
-      let data;
-      try {
-        data = text ? JSON.parse(text) : {};
-      } catch {
-        data = { error: 'Invalid server response' };
-      }
+    const data = await response.json();
+    console.log('🔵 Response:', data);
 
-      if (response.ok && data.ok) {
-        // Store token and user
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-
-        // Route based on user state
-        if (data.user.forcePasswordChange) {
-          router.push('/admin/first-login');
-        } else if (!data.user.hasSecurityQuestion) {
-          router.push('/admin/set-security');
-        } else {
-          router.push('/admin');
-        }
-      } else {
-        setError(data.error || `Login failed (Status: ${response.status})`);
-      }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError(`Connection error: ${err.message}. Make sure backend is running.`);
-    } finally {
-      setLoading(false);
+    if (!response.ok || !data.ok) {
+      throw new Error(data.error || 'Login failed');
     }
-  };
 
-  const testLoginDirectly = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: 'SuperAdmin@mypadifood.com',
-          password: 'Emergency123',
-        }),
-      });
+    // Store data
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
 
-      const text = await response.text();
-      console.log('Direct test response:', text);
+    console.log('✅ Stored auth data');
+    console.log('Token:', localStorage.getItem('token')?.substring(0, 20) + '...');
+    console.log('User:', JSON.parse(localStorage.getItem('user')));
 
-      let data;
-      try {
-        data = text ? JSON.parse(text) : {};
-      } catch {
-        data = { error: 'Invalid JSON' };
-      }
+    // Wait a bit
+    await new Promise(resolve => setTimeout(resolve, 200));
 
-      alert(
-        `Direct test:\nStatus: ${response.status}\nOK: ${response.ok}\nData:\n${JSON.stringify(
-          data,
-          null,
-          2
-        )}`
-      );
-    } catch (err) {
-      alert(`Direct test failed: ${err.message}`);
-    }
-  };
+    console.log('🚀 Redirecting to dashboard...');
+
+    // FORCE full page load
+    window.location.href = '/admin/dashboard';
+
+  } catch (err) {
+    console.error('❌ Login error:', err);
+    setError(err.message || 'Login failed');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="admin-container">
@@ -117,95 +72,40 @@ export default function AdminLogin() {
         <div className="admin-header">
           <h1 className="admin-title">Admin Login</h1>
           <p className="admin-subtitle">MyPadiFood Dashboard</p>
-
-          {backendStatus && (
-            <p
-              className="admin-subtitle"
-              style={{
-                color: backendStatus.includes('✅') ? 'green' : 'red',
-              }}
-            >
-              {backendStatus}
-            </p>
-          )}
         </div>
 
         {error && (
-          <div className="admin-error">
-            {error}
-            <div style={{ marginTop: '10px', fontSize: '12px' }}>
-              <strong>Debug Info:</strong>
-              <br />
-              Email: {formData.email}
-              <br />
-              Backend: http://localhost:5000
-            </div>
-          </div>
+          <div className="admin-error">{error}</div>
         )}
 
         <form onSubmit={handleSubmit} className="admin-form">
-          <div className="admin-form-group">
-            <label className="admin-label">Email Address</label>
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              required
-              className="admin-input"
-              disabled={loading}
-            />
-          </div>
-
-          <div className="admin-form-group">
-            <label className="admin-label">Password</label>
-            <input
-              type="password"
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
-              required
-              className="admin-input"
-              disabled={loading}
-            />
-          </div>
-
-          <button
-            type="submit"
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            required
             disabled={loading}
-            className={`admin-button ${loading ? 'home-button-disabled' : ''}`}
-          >
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            required
+            disabled={loading}
+          />
+
+          <button type="submit" disabled={loading}>
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
-        <div style={{ marginTop: '20px', textAlign: 'center' }}>
-          <button
-            type="button"
-            onClick={testLoginDirectly}
-            style={{
-              background: 'none',
-              border: '1px solid #ccc',
-              padding: '8px 16px',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontSize: '14px',
-            }}
-          >
-            Test Direct Login
-          </button>
-        </div>
-
         <div className="admin-links">
-          <Link href="/admin/forgot-password" className="admin-link">
-            Forgot Password?
-          </Link>
-          <span className="admin-separator">•</span>
-          <Link href="/" className="admin-link">
-            Back to Home
-          </Link>
+          <Link href="/admin/forgot-password">Forgot Password?</Link>
+          <span> • </span>
+          <Link href="/">Back to Home</Link>
         </div>
       </div>
     </div>

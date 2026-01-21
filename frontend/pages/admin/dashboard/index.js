@@ -21,6 +21,7 @@ import {
   trackingApi, 
   uploadApi 
 } from '../../../lib/api';
+import { auth } from '../../../lib/auth';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -65,83 +66,162 @@ export default function AdminDashboard() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [selectedOrderIds, setSelectedOrderIds] = useState([]);
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
+const checkAuth = async () => {
+  console.log('🔍 Starting auth check...');
+  
+  // Just check if we have SOMETHING in localStorage
+  const hasToken = !!localStorage.getItem('token');
+  const hasUser = !!localStorage.getItem('user');
+  
+  console.log('Has token:', hasToken);
+  console.log('Has user:', hasUser);
+  
+  if (!hasToken || !hasUser) {
+    console.log('❌ Missing data, going to login');
+    window.location.href = '/admin/login';
+    return;
+  }
+  
+  // Get user
+  try {
+    const userStr = localStorage.getItem('user');
+    const currentUser = JSON.parse(userStr);
+    console.log('✅ Got user:', currentUser.email);
+    
+    // Just set it, don't verify anything
+    setUser(currentUser);
+    
+    // Load data
+    console.log('📊 Loading dashboard data...');
+    await fetchAllData();
+    
+    console.log('✅ Dashboard loaded successfully');
+    
+  } catch (err) {
+    console.error('❌ Error:', err);
+    alert('Error loading dashboard: ' + err.message);
+    setLoading(false);
+  }
+};
 
-  const checkAuth = async () => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
+// Call checkAuth in useEffect
+useEffect(() => {
+  checkAuth();
+}, []);
 
-    if (!token || !userData) {
+const fetchAllData = async () => {
+  try {
+    setLoading(true);
+    
+    // ✅ Use apiRequest consistently for all API calls
+    const [
+      settingsData,
+      statsData, 
+      productsData, 
+      ordersData, 
+      statusStatsData,
+      activityData,
+      staleData
+    ] = await Promise.all([
+      // Settings doesn't require auth
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings`)
+        .then(r => r.json())
+        .catch(() => ({})),
+      
+      // ✅ Use apiRequest with requiresAuth: true
+      analyticsApi.getStats().catch(err => {
+        console.warn('Analytics failed:', err.message);
+        return null;
+      }),
+      
+      productsApi.getAll().catch(err => {
+        console.warn('Products failed:', err.message);
+        return [];
+      }),
+      
+      ordersApi.getAll({ limit: 100 }).catch(err => {
+        console.warn('Orders failed:', err.message);
+        return { orders: [] };
+      }),
+      
+      trackingApi.getStatusStatistics().catch(err => {
+        console.warn('Status stats failed:', err.message);
+        return null;
+      }),
+      
+      // ✅ Use apiRequest helper instead of direct fetch
+      (async () => {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/activity`, {
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          });
+          return await response.json();
+        } catch {
+          return [];
+        }
+      })(),
+      
+      // ✅ Use apiRequest helper instead of direct fetch
+      (async () => {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/stale-payments`, {
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          });
+          return await response.json();
+        } catch {
+          return { count: 0, orders: [] };
+        }
+      })()
+    ]);
+
+    // ✅ Handle each response safely
+    setSettings(settingsData || {});
+    setStats(statsData || null);
+    setProducts(productsData || []);
+    setOrders(ordersData.orders || []);
+    setStatusStats(statusStatsData || null);
+    setAdminActivity(activityData || []);
+    setStalePaymentsCount(staleData.count || 0);
+    
+    // Filter pending payments
+    const pending = (ordersData.orders || []).filter(order => 
+      order.paymentStatus === 'PENDING'
+    );
+    setPendingPayments(pending);
+
+    // Fetch orders by status
+    await fetchOrdersByStatus(trackingStatus);
+
+    // Fetch users if super-admin
+    if (user?.role === 'super-admin') {
+      try {
+        const usersData = await usersApi.getAll();
+        setUsers(usersData || []);
+      } catch (err) {
+        console.warn('Failed to fetch users:', err.message);
+        setUsers([]);
+      }
+    }
+  } catch (err) {
+    console.error('Error in fetchAllData:', err);
+    
+    // ✅ Better error handling for auth failures
+    if (err.message.includes('Not authenticated') || err.message.includes('401')) {
+      console.log('Authentication failed, redirecting to login');
+      auth.clear();
       router.push('/admin/login');
       return;
     }
-
-    const parsedUser = JSON.parse(userData);
-    setUser(parsedUser);
-
-    if (parsedUser.forcePasswordChange) {
-      router.push('/admin/first-login');
-      return;
-    }
-
-    if (!parsedUser.hasSecurityQuestion) {
-      router.push('/admin/set-security');
-      return;
-    }
-
-    await fetchAllData();
-  };
-
-  const fetchAllData = async () => {
-    try {
-      setLoading(true);
-      
-      const settingsRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings`);
-      const settingsData = await settingsRes.json();
-      setSettings(settingsData);
-      
-      const [statsData, productsData, ordersData, statusStatsData, activityData, staleData] = await Promise.all([
-        analyticsApi.getStats(),
-        productsApi.getAll(),
-        ordersApi.getAll({ limit: 100 }),
-        trackingApi.getStatusStatistics(),
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/activity`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        }).then(r => r.json()).catch(() => []),
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/stale-payments`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        }).then(r => r.json()).catch(() => ({ count: 0 })),
-      ]);
-
-      setStats(statsData);
-      setProducts(productsData);
-      setOrders(ordersData.orders || []);
-      setStatusStats(statusStatsData);
-      setAdminActivity(activityData || []);
-      setStalePaymentsCount(staleData.count || 0);
-      
-      const pending = (ordersData.orders || []).filter(order => 
-        order.paymentStatus === 'PENDING'
-      );
-      setPendingPayments(pending);
-
-      await fetchOrdersByStatus(trackingStatus);
-
-      if (user?.role === 'super-admin') {
-        const usersData = await usersApi.getAll();
-        setUsers(usersData);
-      }
-    } catch (err) {
-      console.error('Error fetching data:', err);
-      if (err.message.includes('401')) {
-        router.push('/admin/login');
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   const fetchOrdersByStatus = async (status) => {
     try {
@@ -357,11 +437,11 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    router.push('/');
-  };
+const handleLogout = () => {
+  auth.clear();
+  router.push('/');
+};
+
 
   const handleExportOrders = async () => {
     try {
@@ -394,7 +474,7 @@ export default function AdminDashboard() {
     }
   };
 
-  if (loading || !user || !settings) {
+  if (loading) {
     return (
       <Layout>
         <Loading fullScreen message="Loading dashboard..." />

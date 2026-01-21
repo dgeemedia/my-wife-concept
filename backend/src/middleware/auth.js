@@ -50,14 +50,12 @@ async function authMiddleware(req, res, next) {
  * Admin auth middleware
  */
 function adminAuth(req, res, next) {
-  if (!req.user) {
-    return res.status(401).json({ error: 'Not authenticated' });
-  }
-  
+  if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
+
   if (req.user.role !== 'admin' && req.user.role !== 'super-admin') {
     return res.status(403).json({ error: 'Admin access required' });
   }
-  
+
   next();
 }
 
@@ -65,16 +63,15 @@ function adminAuth(req, res, next) {
  * Super admin auth middleware
  */
 function superAdminAuth(req, res, next) {
-  if (!req.user) {
-    return res.status(401).json({ error: 'Not authenticated' });
-  }
-  
+  if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
+
   if (req.user.role !== 'super-admin') {
     return res.status(403).json({ error: 'Super admin access required' });
   }
-  
+
   next();
 }
+
 
 module.exports = {
   authMiddleware,

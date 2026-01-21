@@ -1,3 +1,4 @@
+// backend/prisma/schema.prisma
 // SINGLE-TENANT VERSION - For your first business
 
 generator client {

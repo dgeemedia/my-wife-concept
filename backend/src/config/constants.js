@@ -66,7 +66,7 @@ module.exports = {
   // JWT Configuration
   JWT: {
     SECRET: process.env.JWT_SECRET, // NO FALLBACK - must be set
-    EXPIRES_IN: process.env.JWT_EXPIRES_IN || '4h',
+    EXPIRES_IN: process.env.JWT_EXPIRES_IN || '24h',
     REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
     ALGORITHM: 'HS256',
   },
