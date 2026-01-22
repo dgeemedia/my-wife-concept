@@ -3,11 +3,15 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { LogIn, Mail, Lock } from 'lucide-react'
+import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react'
+import api from '@/lib/api'
+import { setToken } from '@/lib/auth'
+import toast from 'react-hot-toast'
 
 export default function LoginPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -16,18 +20,33 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setError('')
 
     try {
-      // Mock login for now
-      console.log('Login attempt:', formData)
-      localStorage.setItem('token', 'mock-token-123')
-      
-      // Redirect to dashboard
-      setTimeout(() => {
+      // Call the actual backend login endpoint
+      const response = await api.post('/auth/login', {
+        email: formData.email,
+        password: formData.password
+      })
+
+      // Check if login was successful
+      if (response.ok && response.token) {
+        // Store the token
+        setToken(response.token)
+        
+        // Show success message
+        toast.success('Login successful!')
+        
+        // Redirect to dashboard
         router.push('/dashboard')
-      }, 1000)
-    } catch (error) {
-      console.error('Login error:', error)
+      } else {
+        throw new Error(response.error || 'Login failed')
+      }
+    } catch (err: any) {
+      console.error('Login error:', err)
+      const errorMessage = err.response?.data?.error || err.message || 'Login failed'
+      setError(errorMessage)
+      toast.error(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -39,6 +58,8 @@ export default function LoginPage() {
       ...prev,
       [name]: value
     }))
+    // Clear error when user starts typing
+    if (error) setError('')
   }
 
   return (
@@ -53,6 +74,13 @@ export default function LoginPage() {
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-6">
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-red-800">{error}</p>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -66,7 +94,8 @@ export default function LoginPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  disabled={loading}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="admin@mypadifood.com"
                 />
               </div>
@@ -84,7 +113,8 @@ export default function LoginPage() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  disabled={loading}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Enter your password"
                 />
               </div>
@@ -95,7 +125,14 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  Signing in...
+                </span>
+              ) : (
+                'Sign In'
+              )}
             </button>
 
             <div className="text-center">
