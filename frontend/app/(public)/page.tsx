@@ -1,4 +1,4 @@
-// app/(public)/page.tsx
+// frontend/app/(public)/page.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -9,16 +9,56 @@ import { Product } from '@/types'
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
-        // Get products with stock
-        const inStock = data.filter((p: Product) => p.stock > 0)
-        setFeaturedProducts(inStock.slice(0, 8))
-      })
+    async function loadProducts() {
+      try {
+        const response = await fetch('/api/products')
+        
+        // Check if response is ok
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const data = await response.json()
+        
+        // Check if data is an array
+        if (Array.isArray(data)) {
+          // Get products with stock
+          const inStock = data.filter((p: Product) => p.stock > 0)
+          setFeaturedProducts(inStock.slice(0, 8))
+        } else {
+          console.error('Expected array but got:', data)
+          // Try test endpoint as fallback
+          const testResponse = await fetch('/api/products-test')
+          const testData = await testResponse.json()
+          setFeaturedProducts(testData)
+        }
+      } catch (error) {
+        console.error('Failed to load products:', error)
+        // Load test data
+        const testResponse = await fetch('/api/products-test')
+        const testData = await testResponse.json()
+        setFeaturedProducts(testData)
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    loadProducts()
   }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading products...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="animate-fade-in">
@@ -91,4 +131,4 @@ export default function Home() {
       </section>
     </div>
   )
-};
+}

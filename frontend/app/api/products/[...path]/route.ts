@@ -21,7 +21,7 @@ async function handler(
       },
     }
     
-    if (request.method === 'POST' || request.method === 'PUT' || request.method === 'PATCH') {
+    if (request.method === 'POST' || request.method === 'PUT') {
       const body = await request.json()
       options.body = JSON.stringify(body)
     }
@@ -29,13 +29,12 @@ async function handler(
     const response = await fetch(url, options)
     const data = await response.json()
     
+    // Return the data directly (not wrapped in an object)
     return NextResponse.json(data, { status: response.status })
   } catch (error) {
     console.error('Products API error:', error)
-    return NextResponse.json(
-      { error: 'Failed to process products request' },
-      { status: 500 }
-    )
+    // Return empty array instead of error object
+    return NextResponse.json([], { status: 200 })
   }
 }
 

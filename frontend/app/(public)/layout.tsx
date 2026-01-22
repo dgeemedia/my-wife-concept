@@ -1,4 +1,4 @@
-// app/(public)/layout.tsx
+// frontend/app/(public)/layout.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
