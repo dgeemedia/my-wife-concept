@@ -1,4 +1,4 @@
-// frontend/app/dashboard/orders/[id]/[id]/route.ts
+// frontend/app/dashboard/orders/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'

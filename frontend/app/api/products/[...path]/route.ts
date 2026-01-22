@@ -21,7 +21,7 @@ async function handler(
       },
     }
     
-    if (request.method === 'POST' || request.method === 'PUT') {
+    if (request.method === 'POST' || request.method === 'PUT' || request.method === 'PATCH') {
       const body = await request.json()
       options.body = JSON.stringify(body)
     }
@@ -29,11 +29,9 @@ async function handler(
     const response = await fetch(url, options)
     const data = await response.json()
     
-    // Return the data directly (not wrapped in an object)
     return NextResponse.json(data, { status: response.status })
   } catch (error) {
     console.error('Products API error:', error)
-    // Return empty array instead of error object
     return NextResponse.json([], { status: 200 })
   }
 }
@@ -41,4 +39,5 @@ async function handler(
 export const GET = handler
 export const POST = handler
 export const PUT = handler
+export const PATCH = handler
 export const DELETE = handler

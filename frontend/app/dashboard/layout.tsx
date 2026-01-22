@@ -1,8 +1,8 @@
-// app/dashboard/layout.tsx
+// frontend/app/dashboard/layout.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Sidebar from '@/components/dashboard/Sidebar'
 import DashboardHeader from '@/components/dashboard/DashboardHeader'
 import { getToken, removeToken } from '@/lib/auth'
@@ -15,22 +15,38 @@ export default function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
+  const pathname = usePathname()
+
+  // Check if we're on the login page
+  const isLoginPage = pathname === '/dashboard/login'
 
   useEffect(() => {
+    // If on login page, skip auth check
+    if (isLoginPage) {
+      setLoading(false)
+      return
+    }
+
+    // For other dashboard pages, check authentication
     const token = getToken()
     if (!token) {
       router.push('/dashboard/login')
     } else {
       setLoading(false)
     }
-  }, [router])
+  }, [router, isLoginPage])
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
       </div>
     )
+  }
+
+  // If on login page, don't use the dashboard layout
+  if (isLoginPage) {
+    return <>{children}</>
   }
 
   const handleLogout = () => {

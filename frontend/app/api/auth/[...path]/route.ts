@@ -22,13 +22,12 @@ export async function POST(
     const data = await response.json()
     
     if (path === 'login' && data.ok) {
-      // Set the token as a cookie for client-side access
       const res = NextResponse.json(data)
       res.cookies.set('auth_token', data.token, {
         httpOnly: false,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 60 * 60 * 24, // 24 hours
+        maxAge: 60 * 60 * 24,
         path: '/',
       })
       return res

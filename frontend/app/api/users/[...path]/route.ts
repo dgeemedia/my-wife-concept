@@ -21,7 +21,7 @@ async function handler(
       },
     }
     
-    if (request.method === 'POST' || request.method === 'PUT') {
+    if (request.method === 'POST' || request.method === 'PUT' || request.method === 'PATCH') {
       const body = await request.json()
       options.body = JSON.stringify(body)
     }
@@ -42,4 +42,5 @@ async function handler(
 export const GET = handler
 export const POST = handler
 export const PUT = handler
+export const PATCH = handler
 export const DELETE = handler
