@@ -19,6 +19,8 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   const [success, setSuccess] = useState(false)
   const [orderId, setOrderId] = useState<number | null>(null)
   const [whatsappNumber, setWhatsappNumber] = useState('')
+  const [savedOrderItems, setSavedOrderItems] = useState<any[]>([])
+  const [savedTotal, setSavedTotal] = useState(0)
   const [formData, setFormData] = useState({
     customerName: '',
     phone: '',
@@ -71,6 +73,10 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
 
       const order = response.order
       setOrderId(order.id)
+      
+      // Save order items and total before clearing cart
+      setSavedOrderItems([...items])
+      setSavedTotal(total)
       
       // Format WhatsApp message
       const whatsappMessage = `🛒 *New Order #${order.id}*
@@ -125,7 +131,7 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
 
   const handleClose = () => {
     if (success) {
-      // Reset form
+      // Reset form and saved data
       setFormData({
         customerName: '',
         phone: '',
@@ -135,12 +141,30 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
       })
       setSuccess(false)
       setOrderId(null)
+      setSavedOrderItems([])
+      setSavedTotal(0)
     }
     onClose()
   }
 
   const reopenWhatsApp = () => {
-    const whatsappMessage = `Hi, I'm following up on Order #${orderId}. I'd like to proceed with payment.`
+    // Send the same complete order details using saved data
+    const whatsappMessage = `🛒 *New Order #${orderId}*
+
+👤 *Customer Details:*
+Name: ${formData.customerName}
+Phone: ${formData.phone}
+${formData.email ? `Email: ${formData.email}\n` : ''}${formData.address ? `📍 Address: ${formData.address}\n` : ''}${formData.message ? `💬 Message: ${formData.message}\n` : ''}
+🛍️ *Order Items:*
+${savedOrderItems.map(item => `• ${item.product.name} x${item.quantity} - ₦${(item.product.price * item.quantity).toLocaleString()}`).join('\n')}
+
+💰 *Total Amount: ₦${savedTotal.toLocaleString()}*
+
+📅 Order Date: ${new Date().toLocaleString()}
+
+---
+Please confirm this order and let me know the payment details. Thank you! 🙏`
+
     const encodedMessage = encodeURIComponent(whatsappMessage)
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank')
   }
