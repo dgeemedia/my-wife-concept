@@ -1,46 +1,21 @@
 {
-  "name": "single-tenant-backend",
+  "name": "mypadifood-backend",
   "version": "1.0.0",
-  "private": true,
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-
-    "build": "pnpm run prisma:generate",
-    "deploy": "pnpm run prisma:deploy && node src/server.js",
-
-    "prisma:generate": "prisma generate",
-    "prisma:push": "prisma db push",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:deploy": "prisma migrate deploy",
-    "prisma:studio": "prisma studio",
-
-    "seed": "node scripts/seed.js",
-    "reset-admin": "node scripts/reset-admin.js",
-    "emergency-reset": "node scripts/emergency-reset.js",
-
-    "db:setup": "pnpm run prisma:push && pnpm run prisma:generate && pnpm run seed",
-    "backup": "node scripts/backup.js"
+    "db:push": "prisma db push",
+    "db:generate": "prisma generate",
+    "db:seed": "node scripts/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^5.7.0",
     "bcrypt": "^6.0.0",
-    "body-parser": "^1.20.2",
-    "cloudinary": "^1.41.3",
-    "compression": "^1.7.4",
-    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "csurf": "^1.11.0",
     "dotenv": "^16.3.1",
     "express": "^5.2.1",
-    "express-rate-limit": "^7.1.5",
-    "express-validator": "^7.0.1",
-    "file-type": "^21.3.0",
-    "helmet": "^7.0.0",
-    "json2csv": "^6.0.0-alpha.2",
-    "jsonwebtoken": "^9.0.2",
-    "multer": "^2.0.2"
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",

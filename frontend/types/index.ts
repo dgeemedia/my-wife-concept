@@ -1,0 +1,92 @@
+// fronted/types/index.ts
+export interface Product {
+  id: number
+  name: string
+  price: number
+  stock: number
+  description?: string
+  imageUrl?: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface Order {
+  id: number
+  customerName: string
+  phone: string
+  email?: string
+  address?: string
+  message?: string
+  items: OrderItem[]
+  totalAmount: number
+  status: string
+  paymentStatus: string
+  paymentMethod?: string
+  currency: string
+  createdAt: string
+  updatedAt: string
+  statusHistory: OrderStatusHistory[]
+}
+
+export interface OrderItem {
+  id: number
+  productId: number
+  quantity: number
+  unitPrice: number
+  product?: Product
+}
+
+export interface OrderStatusHistory {
+  status: string
+  timestamp: string
+  notes?: string
+}
+
+export interface User {
+  id: number
+  email: string
+  role: 'super-admin' | 'staff'
+  firstName?: string
+  lastName?: string
+  phone?: string
+  active: boolean
+  createdAt: string
+}
+
+export interface BusinessSettings {
+  id: number
+  businessName: string
+  businessType: string
+  phone: string
+  email?: string
+  address?: string
+  description?: string
+  logo?: string
+  primaryColor: string
+  secondaryColor: string
+  currency: string
+  language: string
+  whatsappNumber: string
+  facebookUrl?: string
+  instagramUrl?: string
+  twitterUrl?: string
+  footerText?: string
+  footerCopyright?: string
+  footerAddress?: string
+  footerEmail?: string
+  footerPhone?: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CartItem {
+  product: Product
+  quantity: number
+}
+
+export interface ApiResponse<T = any> {
+  ok: boolean
+  data?: T
+  error?: string
+  message?: string
+}
