@@ -2,6 +2,8 @@
 import { formatCurrency } from '../../lib/currency';
 
 export default function StatsOverview({ stats, pendingPayments, settings }) {
+  const currency = settings?.currency || 'NGN';
+
   return (
     <div className="stats-grid">
       <div className="stat-card">
@@ -10,7 +12,7 @@ export default function StatsOverview({ stats, pendingPayments, settings }) {
       </div>
       <div className="stat-card">
         <h3>Today's Revenue</h3>
-        <p className="stat-value">{formatCurrency(stats?.revenueToday || 0, settings.currency)}</p>
+        <p className="stat-value">{formatCurrency(stats?.revenueToday || 0, currency)}</p>
       </div>
       <div className="stat-card">
         <h3>Total Orders</h3>
@@ -18,7 +20,7 @@ export default function StatsOverview({ stats, pendingPayments, settings }) {
       </div>
       <div className="stat-card">
         <h3>Pending Payments</h3>
-        <p className="stat-value warning">{pendingPayments.length}</p>
+        <p className="stat-value warning">{(pendingPayments || []).length}</p>
       </div>
     </div>
   );

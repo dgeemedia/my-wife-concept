@@ -9,51 +9,38 @@ export default function DashboardTabs({
   users,
   user
 }) {
+  const isSuperAdmin = user?.role === 'super-admin';
+
   return (
     <div className="dashboard-tabs">
-      <button 
-        className={activeTab === 'overview' ? 'active' : ''}
-        onClick={() => setActiveTab('overview')}
-      >
+      <button className={activeTab === 'overview' ? 'active' : ''} onClick={() => setActiveTab('overview')}>
         Overview
       </button>
-      <button 
-        className={activeTab === 'tracking' ? 'active' : ''}
-        onClick={() => setActiveTab('tracking')}
-      >
+
+      <button className={activeTab === 'tracking' ? 'active' : ''} onClick={() => setActiveTab('tracking')}>
         Order Tracking ({statusStats?.totalOrders || 0})
       </button>
-      <button 
-        className={activeTab === 'products' ? 'active' : ''}
-        onClick={() => setActiveTab('products')}
-      >
-        Products ({products.length})
+
+      <button className={activeTab === 'products' ? 'active' : ''} onClick={() => setActiveTab('products')}>
+        Products ({(products || []).length})
       </button>
-      <button 
-        className={activeTab === 'orders' ? 'active' : ''}
-        onClick={() => setActiveTab('orders')}
-      >
-        Orders ({orders.length})
+
+      <button className={activeTab === 'orders' ? 'active' : ''} onClick={() => setActiveTab('orders')}>
+        Orders ({(orders || []).length})
       </button>
-      {user.role === 'super-admin' && (
-        <button 
-          className={activeTab === 'users' ? 'active' : ''}
-          onClick={() => setActiveTab('users')}
-        >
-          Users ({users.length})
+
+      {isSuperAdmin && (
+        <button className={activeTab === 'users' ? 'active' : ''} onClick={() => setActiveTab('users')}>
+          Users ({(users || []).length})
         </button>
       )}
-      <button 
-        className={activeTab === 'payments' ? 'active' : ''}
-        onClick={() => setActiveTab('payments')}
-      >
-        Pending Payments ({pendingPayments.length})
+
+      <button className={activeTab === 'payments' ? 'active' : ''} onClick={() => setActiveTab('payments')}>
+        Pending Payments ({(pendingPayments || []).length})
       </button>
-      {user.role === 'super-admin' && (
-        <button 
-          className={activeTab === 'activity' ? 'active' : ''}
-          onClick={() => setActiveTab('activity')}
-        >
+
+      {isSuperAdmin && (
+        <button className={activeTab === 'activity' ? 'active' : ''} onClick={() => setActiveTab('activity')}>
           Activity Log
         </button>
       )}

@@ -66,69 +66,68 @@ export default function AdminDashboard() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [selectedOrderIds, setSelectedOrderIds] = useState([]);
 
-const checkAuth = async () => {
-  console.log('🔍 Starting auth check...');
-  
-  // Just check if we have SOMETHING in localStorage
-  const hasToken = !!localStorage.getItem('token');
-  const hasUser = !!localStorage.getItem('user');
-  
-  console.log('Has token:', hasToken);
-  console.log('Has user:', hasUser);
-  
-  if (!hasToken || !hasUser) {
-    console.log('❌ Missing data, going to login');
-    window.location.href = '/admin/login';
-    return;
-  }
-  
-  // Get user
-  try {
-    const userStr = localStorage.getItem('user');
-    const currentUser = JSON.parse(userStr);
-    console.log('✅ Got user:', currentUser.email);
-    
-    // Just set it, don't verify anything
-    setUser(currentUser);
-    
-    // Load data
-    console.log('📊 Loading dashboard data...');
-    await fetchAllData();
-    
-    console.log('✅ Dashboard loaded successfully');
-    
-  } catch (err) {
-    console.error('❌ Error:', err);
-    alert('Error loading dashboard: ' + err.message);
-    setLoading(false);
-  }
-};
-
-// Call checkAuth in useEffect
 useEffect(() => {
+  const checkAuth = async () => {
+    console.log('🔍 Starting auth check...');
+    const token = localStorage.getItem('token');
+    const userStr = localStorage.getItem('user');
+
+    if (!token || !userStr) {
+      console.log('❌ Missing auth data, redirecting to login');
+      auth.clear();
+      router.push('/admin/login');
+      return;
+    }
+
+    try {
+      const currentUser = JSON.parse(userStr);
+      console.log('✅ Got user:', currentUser.email);
+
+      console.log('🔐 Verifying token with server...');
+      const valid = await auth.verifyToken();
+
+      if (!valid) {
+        console.log('❌ Token invalid/expired, redirecting to login');
+        auth.clear();
+        router.push('/admin/login');
+        return;
+      }
+
+      console.log('✅ Token verified');
+      setUser(currentUser);
+
+      console.log('📊 Loading dashboard data...');
+      await auth.withValidSession(fetchAllData);
+      console.log('✅ Dashboard loaded successfully');
+    } catch (err) {
+      console.error('❌ Auth check failed:', err);
+      auth.clear();
+      alert('Session expired. Please login again.');
+      router.push('/admin/login');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   checkAuth();
 }, []);
+
 
 const fetchAllData = async () => {
   try {
     setLoading(true);
     
-    // ✅ Use apiRequest consistently for all API calls
-    const [
-      settingsData,
-      statsData, 
-      productsData, 
-      ordersData, 
-      statusStatsData,
-      activityData,
-      staleData
-    ] = await Promise.all([
-      // Settings doesn't require auth
+    // Use a timeout for better UX
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Request timeout')), 10000)
+    );
+
+    // Make parallel requests with timeout
+    const fetchPromises = [
       fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/settings`)
-        .then(r => r.json())
+        .then(r => r.ok ? r.json() : {})
         .catch(() => ({})),
       
-      // ✅ Use apiRequest with requiresAuth: true
       analyticsApi.getStats().catch(err => {
         console.warn('Analytics failed:', err.message);
         return null;
@@ -149,38 +148,42 @@ const fetchAllData = async () => {
         return null;
       }),
       
-      // ✅ Use apiRequest helper instead of direct fetch
-      (async () => {
-        try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/activity`, {
-            headers: { 
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          });
-          return await response.json();
-        } catch {
-          return [];
+      // Fetch activity
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/activity`, {
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
-      })(),
+      })
+      .then(r => r.ok ? r.json() : [])
+      .catch(() => []),
       
-      // ✅ Use apiRequest helper instead of direct fetch
-      (async () => {
-        try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/stale-payments`, {
-            headers: { 
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-          });
-          return await response.json();
-        } catch {
-          return { count: 0, orders: [] };
+      // Fetch stale payments
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/stale-payments`, {
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
-      })()
+      })
+      .then(r => r.ok ? r.json() : { count: 0, orders: [] })
+      .catch(() => ({ count: 0, orders: [] }))
+    ];
+
+    // Race against timeout
+    const [
+      settingsData,
+      statsData, 
+      productsData, 
+      ordersData, 
+      statusStatsData,
+      activityData,
+      staleData
+    ] = await Promise.race([
+      Promise.all(fetchPromises),
+      timeoutPromise
     ]);
 
-    // ✅ Handle each response safely
+    // Handle responses
     setSettings(settingsData || {});
     setStats(statsData || null);
     setProducts(productsData || []);
@@ -211,12 +214,21 @@ const fetchAllData = async () => {
   } catch (err) {
     console.error('Error in fetchAllData:', err);
     
-    // ✅ Better error handling for auth failures
-    if (err.message.includes('Not authenticated') || err.message.includes('401')) {
+    // Handle auth errors
+    if (err.message.includes('Session expired') || 
+        err.message.includes('Not authenticated') || 
+        err.message.includes('401')) {
+      
       console.log('Authentication failed, redirecting to login');
       auth.clear();
+      alert('Your session has expired. Please login again.');
       router.push('/admin/login');
       return;
+    }
+    
+    // Handle timeout
+    if (err.message.includes('timeout')) {
+      alert('Request timeout. Please check your connection.');
     }
   } finally {
     setLoading(false);
@@ -494,30 +506,31 @@ const handleLogout = () => {
 
   // Pass props to components
   const dashboardProps = {
-    user,
-    settings,
-    stats,
-    products,
-    orders,
-    users,
-    pendingPayments,
-    adminActivity,
-    stalePaymentsCount,
-    statusStats,
-    ordersByStatus,
-    trackingStatus,
-    selectedOrder,
-    statusUpdate,
-    newProduct,
-    editingProduct,
-    newUser,
-    paymentAction,
-    uploadingImage,
-    selectedOrderIds,
-    statusOptions,
-    activeTab,
-    router
-  };
+  user: user || {},
+  settings: settings || {},
+  stats: stats || {},
+  products: products || [],
+  orders: orders || [],
+  users: users || [],
+  pendingPayments: pendingPayments || [],
+  adminActivity: adminActivity || [],
+  stalePaymentsCount: stalePaymentsCount || 0,
+  statusStats: statusStats || {},
+  ordersByStatus: ordersByStatus || [],
+  trackingStatus,
+  selectedOrder,
+  statusUpdate,
+  newProduct,
+  editingProduct,
+  newUser,
+  paymentAction,
+  uploadingImage,
+  selectedOrderIds,
+  statusOptions,
+  activeTab,
+  router
+};
+
 
   const handlers = {
     setActiveTab,
@@ -584,11 +597,11 @@ const handleLogout = () => {
           {activeTab === 'tracking' && <TrackingTab {...dashboardProps} {...handlers} />}
           {activeTab === 'products' && <ProductsTab {...dashboardProps} {...handlers} />}
           {activeTab === 'orders' && <OrdersTab {...dashboardProps} {...handlers} />}
-          {activeTab === 'users' && user.role === 'super-admin' && (
+          {activeTab === 'users' && user?.role === 'super-admin' && (
             <UsersTab {...dashboardProps} {...handlers} />
           )}
           {activeTab === 'payments' && <PaymentsTab {...dashboardProps} {...handlers} />}
-          {activeTab === 'activity' && user.role === 'super-admin' && (
+          {activeTab === 'activity' && user?.role === 'super-admin' && (
             <ActivityTab {...dashboardProps} />
           )}
         </div>

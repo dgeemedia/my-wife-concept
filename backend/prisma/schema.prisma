@@ -121,6 +121,7 @@ model User {
   
   // 🔥 ACTIVITY LOG RELATION - MUST MATCH THE NAME BELOW
   activityLogs ActivityLog[] @relation("UserActivityLogs")
+  refreshTokens RefreshToken[]
 }
 
 model ActivityLog {
@@ -214,4 +215,17 @@ model AnalyticsSnapshot {
   
   @@index([date])
   @@index([metricType, date])
+}
+
+model RefreshToken {
+  id         Int      @id @default(autoincrement())
+  token      String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  expiresAt  DateTime
+  revoked    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  replacedBy String?  // optional
+  @@index([userId])
+  @@index([expiresAt])
 }

@@ -1,20 +1,8 @@
 // backend/src/routes/products.js
-/**
- * Product management routes
- * Location: backend/src/routes/products.js
- *
- * Routes:
- *  GET    /api/products
- *  GET    /api/products/:id
- *  POST   /api/products        (admin)
- *  PUT    /api/products/:id    (admin)
- *  PATCH  /api/products/:id/stock (admin)
- *  DELETE /api/products/:id    (admin)
- */
 
 const express = require('express');
 const { asyncHandler, AppError } = require('../middleware/errorHandler');
-const { adminAuth } = require('../middleware/auth');
+const { authMiddleware, requireRole } = require('../middleware/auth');
 const {
   validateProduct,
   validateIdParam,
@@ -28,14 +16,14 @@ const {
   updateProductStock,
   deleteProduct,
 } = require('../controllers/productController');
+
 const { logProductChange } = require('../utils/activityLogger');
 
 const router = express.Router();
 
 /**
  * GET /api/products
- * Public - Get all products with optional filters
- * Query params: search, inStock (true/false)
+ * Public
  */
 router.get(
   '/',
@@ -47,7 +35,7 @@ router.get(
 
 /**
  * GET /api/products/:id
- * Public - Get single product by ID
+ * Public
  */
 router.get(
   '/:id',
@@ -60,158 +48,124 @@ router.get(
 
 /**
  * POST /api/products
- * Admin only - Create new product
+ * Admin only
  */
 router.post(
   '/',
-  adminAuth,
+  authMiddleware,
+  requireRole('admin'),
   validateProduct,
   asyncHandler(async (req, res) => {
     const product = await createProduct(req.body);
-    
-    // Log the creation
-    await logProductChange(req.user.id, 'CREATE_PRODUCT', product.id, req.body, req.ip, req.get('user-agent'));
-    
+
+    await logProductChange(
+      req.user.id,
+      'CREATE_PRODUCT',
+      product.id,
+      req.body,
+      req.ip,
+      req.get('user-agent')
+    );
+
     res.status(201).json(product);
   })
 );
 
-
 /**
  * PUT /api/products/:id
- * Admin only - Update entire product
+ * Admin only
  */
 router.put(
   '/:id',
-  adminAuth,
+  authMiddleware,
+  requireRole('admin'),
   validateIdParam,
   validateProduct,
   asyncHandler(async (req, res) => {
     const oldProduct = await getProductById(req.params.id);
     const product = await updateProduct(req.params.id, req.body);
-    
-    // Log the update
+
     const changes = {};
-    Object.keys(req.body).forEach(key => {
+    Object.keys(req.body).forEach((key) => {
       if (oldProduct[key] !== req.body[key]) {
         changes[key] = { from: oldProduct[key], to: req.body[key] };
       }
     });
-    
-    await logProductChange(req.user.id, 'UPDATE_PRODUCT', product.id, changes, req.ip, req.get('user-agent'));
-    
+
+    await logProductChange(
+      req.user.id,
+      'UPDATE_PRODUCT',
+      product.id,
+      changes,
+      req.ip,
+      req.get('user-agent')
+    );
+
     res.json(product);
   })
 );
 
 /**
  * PATCH /api/products/:id
- * Admin only - Partially update product (any fields)
+ * Admin only
  */
 router.patch(
   '/:id',
-  adminAuth,
+  authMiddleware,
+  requireRole('admin'),
   validateIdParam,
   asyncHandler(async (req, res) => {
-    const { name, price, stock, description, imageUrl } = req.body;
-    
-    // Validate at least one field is provided
     if (Object.keys(req.body).length === 0) {
       throw new AppError('At least one field must be provided for update', 400);
     }
 
-    // Get existing product first
-    const existingProduct = await getProductById(req.params.id);
-    
-    // Update only provided fields
-    const updateData = {
-      name: name !== undefined ? name : existingProduct.name,
-      price: price !== undefined ? Number(price) : existingProduct.price,
-      stock: stock !== undefined ? Number(stock) : existingProduct.stock,
-      description: description !== undefined ? description : existingProduct.description,
-      imageUrl: imageUrl !== undefined ? imageUrl : existingProduct.imageUrl,
-    };
+    const existing = await getProductById(req.params.id);
 
-    const product = await updateProduct(req.params.id, updateData);
+    const product = await updateProduct(req.params.id, {
+      name: req.body.name ?? existing.name,
+      price: req.body.price ?? existing.price,
+      stock: req.body.stock ?? existing.stock,
+      description: req.body.description ?? existing.description,
+      imageUrl: req.body.imageUrl ?? existing.imageUrl,
+    });
+
     res.json(product);
   })
 );
 
 /**
  * PATCH /api/products/:id/stock
- * Admin only - update stock only
- * Body: { stock: <number> }
+ * Admin only
  */
 router.patch(
   '/:id/stock',
-  adminAuth,
+  authMiddleware,
+  requireRole('admin'),
   validateIdParam,
   asyncHandler(async (req, res) => {
     const { stock } = req.body;
-    
+
     if (stock === undefined || isNaN(Number(stock))) {
-      throw new AppError('stock is required and must be a valid number', 400);
-    }
-    
-    const numericStock = Number(stock);
-    if (numericStock < 0) {
-      throw new AppError('stock cannot be negative', 400);
+      throw new AppError('stock must be a valid number', 400);
     }
 
-    const product = await updateProductStock(req.params.id, numericStock);
+    const product = await updateProductStock(req.params.id, Number(stock));
     res.json(product);
   })
 );
 
 /**
  * DELETE /api/products/:id
- * Admin only - Delete product
+ * Admin only
  */
 router.delete(
   '/:id',
-  adminAuth,
+  authMiddleware,
+  requireRole('admin'),
   validateIdParam,
   asyncHandler(async (req, res) => {
     const result = await deleteProduct(req.params.id);
     res.json(result);
-  })
-);
-
-/**
- * GET /api/products/search/suggestions
- * Public - Get product search suggestions
- * Query params: q (search query), limit (default: 10)
- */
-router.get(
-  '/search/suggestions',
-  asyncHandler(async (req, res) => {
-    const { q: query, limit = 10 } = req.query;
-    
-    if (!query || query.trim().length < 2) {
-      return res.json([]);
-    }
-
-    const { PrismaClient } = require('@prisma/client');
-    const prisma = new PrismaClient();
-    
-    const suggestions = await prisma.product.findMany({
-      where: {
-        OR: [
-          { name: { contains: query, mode: 'insensitive' } },
-          { description: { contains: query, mode: 'insensitive' } },
-        ],
-      },
-      select: {
-        id: true,
-        name: true,
-        price: true,
-        stock: true,
-        imageUrl: true,
-      },
-      take: Math.min(Number(limit), 50), // Cap at 50 for safety
-    });
-
-    res.json(suggestions);
   })
 );
 
