@@ -1,99 +1,87 @@
-// ============================================================================
-// SIMPLIFIED SEED SCRIPT
-// backend/scripts/seed.js
-// ============================================================================
-
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-async function main() {
-  console.log('🌱 Seeding database...');
-
-  const adminEmail = process.env.SEED_ADMIN_EMAIL || 'admin@mypadifood.com';
-  const adminPassword = process.env.SEED_ADMIN_PASSWORD || 'Admin123456';
-
-  // Create super-admin
-  let user = await prisma.user.findUnique({ where: { email: adminEmail } });
-  
-  if (!user) {
-    const hash = await bcrypt.hash(adminPassword, 12);
+async function seed() {
+  try {
+    // Create admin user
+    const passwordHash = await bcrypt.hash('Admin123456', 12);
     
-    user = await prisma.user.create({
-      data: {
-        email: adminEmail.toLowerCase(),
-        passwordHash: hash,
+    const admin = await prisma.user.upsert({
+      where: { email: 'admin@mypadifood.com' },
+      update: {},
+      create: {
+        email: 'admin@mypadifood.com',
+        passwordHash,
         role: 'super-admin',
+        firstName: 'Admin',
+        lastName: 'User',
         active: true,
-        firstName: 'Business',
-        lastName: 'Owner',
-        phone: process.env.WHATSAPP_NUMBER || '+2348110252143',
       },
     });
-    
-    console.log('✅ Created super-admin:', adminEmail);
-    console.log('📋 Password:', adminPassword);
-  } else {
-    console.log('ℹ️ Super-admin already exists');
-  }
 
-  // Create default business settings
-  const settings = await prisma.businessSettings.findFirst();
-  if (!settings) {
-    await prisma.businessSettings.create({
-      data: {
-        businessName: process.env.BUSINESS_NAME || 'MyPadiFood',
+    console.log('✅ Admin user created:', admin.email);
+
+    // Create initial business settings
+    const settings = await prisma.businessSettings.upsert({
+      where: { id: 1 },
+      update: {},
+      create: {
+        businessName: 'MyPadiFood',
         businessType: 'food',
-        phone: process.env.WHATSAPP_NUMBER || '+2348110252143',
-        email: adminEmail,
-        description: 'Fresh, delicious meals delivered to your doorstep',
-        whatsappNumber: process.env.WHATSAPP_NUMBER || '+2348110252143',
+        phone: '+234 811 025 2143',
+        whatsappNumber: '2348110252143',
         currency: 'NGN',
         language: 'en',
         primaryColor: '#10B981',
         secondaryColor: '#F59E0B',
+        footerCopyright: `© ${new Date().getFullYear()} All rights reserved.`
       },
     });
-    console.log('✅ Created default business settings');
-  }
 
-  // Create sample products
-  const productCount = await prisma.product.count();
-  if (productCount === 0) {
-    await prisma.product.createMany({
+    console.log('✅ Business settings created');
+
+    // Create sample products
+    const products = await prisma.product.createMany({
       data: [
         {
-          name: 'Jollof Rice Special',
+          name: 'Jollof Rice',
           price: 2500,
           stock: 50,
-          description: 'Our signature jollof rice with chicken, plantain, and coleslaw',
+          description: 'Delicious Nigerian Jollof Rice with chicken',
+          imageUrl: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500'
         },
         {
-          name: 'Fried Rice Combo',
-          price: 2800,
+          name: 'Fried Rice',
+          price: 2000,
           stock: 30,
-          description: 'Delicious fried rice with mixed vegetables and choice of protein',
+          description: 'Tasty fried rice with vegetables',
+          imageUrl: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500'
         },
         {
-          name: 'Pounded Yam & Egusi',
-          price: 3500,
+          name: 'Chicken & Chips',
+          price: 3000,
           stock: 25,
-          description: 'Traditional pounded yam served with rich egusi soup',
-        },
+          description: 'Crispy fried chicken with chips',
+          imageUrl: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500'
+        }
       ],
+      skipDuplicates: true,
     });
-    console.log('✅ Created sample products');
-  }
 
-  console.log('✅ Seeding completed!');
+    console.log('✅ Sample products created');
+
+  } catch (error) {
+    console.error('❌ Seed error:', error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
-main()
+seed()
   .catch((e) => {
-    console.error('❌ Seeding failed:', e);
+    console.error(e);
     process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
   });

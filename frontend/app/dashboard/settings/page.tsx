@@ -6,6 +6,22 @@ import { Save, Palette, Globe, Phone, Building } from 'lucide-react'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 
+const COLOR_PRESETS = [
+  { name: 'Green', primary: '#10B981', secondary: '#F59E0B' },
+  { name: 'Blue', primary: '#3B82F6', secondary: '#8B5CF6' },
+  { name: 'Purple', primary: '#8B5CF6', secondary: '#EC4899' },
+  { name: 'Red', primary: '#EF4444', secondary: '#F59E0B' },
+  { name: 'Orange', primary: '#F97316', secondary: '#EAB308' },
+  { name: 'Teal', primary: '#14B8A6', secondary: '#06B6D4' },
+]
+
+const LANGUAGES = [
+  { code: 'en', name: 'English' },
+  { code: 'yo', name: 'Yoruba' },
+  { code: 'ig', name: 'Igbo' },
+  { code: 'ha', name: 'Hausa' },
+]
+
 export default function SettingsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -26,6 +42,9 @@ export default function SettingsPage() {
     facebookUrl: '',
     instagramUrl: '',
     twitterUrl: '',
+    linkedinUrl: '',
+    tiktokUrl: '',
+    youtubeUrl: '',
     footerText: '',
     footerCopyright: '',
     footerAddress: '',
@@ -47,14 +66,6 @@ export default function SettingsPage() {
     } catch (error) {
       console.error('Failed to load settings:', error)
       toast.error('Failed to load settings')
-      // Set default settings for testing
-      setSettings({
-        ...settings,
-        businessName: 'MyPadiFood',
-        phone: '+234 811 025 2143',
-        whatsappNumber: '2348110252143',
-        footerCopyright: `© ${new Date().getFullYear()} All rights reserved.`
-      })
     } finally {
       setLoading(false)
     }
@@ -81,6 +92,15 @@ export default function SettingsPage() {
       ...prev,
       [name]: value
     }))
+  }
+
+  const applyColorPreset = (preset: typeof COLOR_PRESETS[0]) => {
+    setSettings(prev => ({
+      ...prev,
+      primaryColor: preset.primary,
+      secondaryColor: preset.secondary
+    }))
+    toast.success(`${preset.name} theme applied`)
   }
 
   if (loading) {
@@ -195,6 +215,54 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* Language & Currency */}
+        <div className="bg-white rounded-xl shadow p-6">
+          <div className="flex items-center mb-6">
+            <Globe className="w-6 h-6 text-blue-600 mr-2" />
+            <h2 className="text-lg font-semibold">Language & Currency</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Language *
+              </label>
+              <select
+                name="language"
+                value={settings.language}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                {LANGUAGES.map(lang => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+              <p className="text-sm text-gray-500 mt-1">
+                This will affect all dashboard text
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Currency
+              </label>
+              <select
+                name="currency"
+                value={settings.currency}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="NGN">Nigerian Naira (₦)</option>
+                <option value="USD">US Dollar ($)</option>
+                <option value="GBP">British Pound (£)</option>
+                <option value="EUR">Euro (€)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         {/* WhatsApp Settings */}
         <div className="bg-white rounded-xl shadow p-6">
           <div className="flex items-center mb-6">
@@ -216,7 +284,7 @@ export default function SettingsPage() {
               placeholder="2348110252143"
             />
             <p className="text-sm text-gray-500 mt-1">
-              This is where customer orders will be sent
+              Customer orders will be sent to this WhatsApp number
             </p>
           </div>
         </div>
@@ -228,6 +296,35 @@ export default function SettingsPage() {
             <h2 className="text-lg font-semibold">Theme Settings</h2>
           </div>
           
+          {/* Color Presets */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              Quick Color Themes
+            </label>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+              {COLOR_PRESETS.map(preset => (
+                <button
+                  key={preset.name}
+                  type="button"
+                  onClick={() => applyColorPreset(preset)}
+                  className="flex flex-col items-center gap-2 p-3 border-2 border-gray-200 rounded-lg hover:border-blue-500 transition-colors"
+                >
+                  <div className="flex gap-1">
+                    <div
+                      className="w-6 h-6 rounded"
+                      style={{ backgroundColor: preset.primary }}
+                    />
+                    <div
+                      className="w-6 h-6 rounded"
+                      style={{ backgroundColor: preset.secondary }}
+                    />
+                  </div>
+                  <span className="text-xs font-medium">{preset.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -279,7 +376,7 @@ export default function SettingsPage() {
         <div className="bg-white rounded-xl shadow p-6">
           <div className="flex items-center mb-6">
             <Globe className="w-6 h-6 text-blue-600 mr-2" />
-            <h2 className="text-lg font-semibold">Social Media</h2>
+            <h2 className="text-lg font-semibold">Social Media Links</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -313,7 +410,7 @@ export default function SettingsPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Twitter URL
+                X (Twitter) URL
               </label>
               <input
                 type="url"
@@ -321,7 +418,49 @@ export default function SettingsPage() {
                 value={settings.twitterUrl}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="https://twitter.com/yourpage"
+                placeholder="https://x.com/yourpage"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                LinkedIn URL
+              </label>
+              <input
+                type="url"
+                name="linkedinUrl"
+                value={settings.linkedinUrl}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="https://linkedin.com/company/yourpage"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                TikTok URL
+              </label>
+              <input
+                type="url"
+                name="tiktokUrl"
+                value={settings.tiktokUrl}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="https://tiktok.com/@yourpage"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                YouTube URL
+              </label>
+              <input
+                type="url"
+                name="youtubeUrl"
+                value={settings.youtubeUrl}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="https://youtube.com/@yourpage"
               />
             </div>
           </div>
@@ -356,7 +495,7 @@ export default function SettingsPage() {
                 value={settings.footerCopyright}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="© {year} All rights reserved."
+                placeholder={`© ${new Date().getFullYear()} All rights reserved.`}
               />
             </div>
 

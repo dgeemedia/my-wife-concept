@@ -1,9 +1,9 @@
 // app/dashboard/products/[id]/page.tsx
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { ArrowLeft, Save, Upload } from 'lucide-react'
+import { ArrowLeft, Save, Upload, X, Image as ImageIcon } from 'lucide-react'
 import { Product } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
@@ -13,9 +13,11 @@ export default function EditProductPage() {
   const router = useRouter()
   const params = useParams()
   const productId = params.id
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [product, setProduct] = useState<Product>({
     id: 0,
     name: '',
@@ -43,6 +45,62 @@ export default function EditProductPage() {
       router.push('/dashboard/products')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file')
+      return
+    }
+
+    // Validate file size (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image size must be less than 5MB')
+      return
+    }
+
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('image', file)
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+      })
+
+      if (!response.ok) {
+        throw new Error('Upload failed')
+      }
+
+      const data = await response.json()
+      
+      if (data.ok && data.imageUrl) {
+        setProduct(prev => ({ ...prev, imageUrl: data.imageUrl }))
+        toast.success('Image uploaded successfully')
+      } else {
+        throw new Error('Invalid response')
+      }
+    } catch (error) {
+      console.error('Upload error:', error)
+      toast.error('Failed to upload image')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const handleRemoveImage = () => {
+    setProduct(prev => ({ ...prev, imageUrl: '' }))
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
     }
   }
 
@@ -105,37 +163,78 @@ export default function EditProductPage() {
 
       <div className="bg-white rounded-xl shadow">
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Product Image */}
+          {/* Product Image Upload */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Product Image URL
+              Product Image
             </label>
-            <div className="flex space-x-4">
-              <div className="flex-1">
-                <input
-                  type="url"
-                  name="imageUrl"
-                  value={product.imageUrl}
-                  onChange={handleChange}
-                  placeholder="https://example.com/image.jpg"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            
+            {product.imageUrl ? (
+              <div className="relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden group">
+                <img
+                  src={product.imageUrl}
+                  alt="Product"
+                  className="w-full h-full object-cover"
                 />
-                <p className="text-sm text-gray-500 mt-1">
-                  Enter a direct image URL or leave empty for no image
-                </p>
-              </div>
-              {product.imageUrl && (
-                <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden">
-                  <img
-                    src={product.imageUrl}
-                    alt="Preview"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = '/placeholder-image.jpg'
-                    }}
-                  />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
+                  >
+                    <X className="w-5 h-5" />
+                    Remove Image
+                  </button>
                 </div>
-              )}
+              </div>
+            ) : (
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-12">
+                <div className="text-center">
+                  <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600 mb-2">Upload product image</p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    PNG, JPG, GIF or WEBP (Max 5MB)
+                  </p>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                    disabled={uploading}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
+                  >
+                    {uploading ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Uploading...
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-4 h-4" />
+                        Choose Image
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            <div className="mt-3">
+              <p className="text-sm text-gray-500">Or enter image URL:</p>
+              <input
+                type="url"
+                name="imageUrl"
+                value={product.imageUrl}
+                onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              />
             </div>
           </div>
 
@@ -216,7 +315,7 @@ export default function EditProductPage() {
             </Link>
             <button
               type="submit"
-              disabled={saving}
+              disabled={saving || uploading}
               className="flex items-center space-x-2 px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {saving ? (
