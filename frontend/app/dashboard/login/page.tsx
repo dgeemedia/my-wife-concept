@@ -134,12 +134,6 @@ export default function LoginPage() {
                 'Sign In'
               )}
             </button>
-
-            <div className="text-center">
-              <p className="text-sm text-gray-600">
-                Default: admin@mypadifood.com / Admin123456
-              </p>
-            </div>
           </form>
         </div>
 
