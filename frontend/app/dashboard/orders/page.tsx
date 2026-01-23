@@ -2,10 +2,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Truck, Package, X } from 'lucide-react'
+import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Truck, Package, X, Download } from 'lucide-react'
 import { Order } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
+import { exportOrdersToExcel, exportCustomersToExcel } from '@/lib/exportToExcel'
+
 
 type OrderStatus = 'PENDING' | 'CONFIRMED' | 'PREPARING' | 'OUT_FOR_DELIVERY' | 'DELIVERED' | 'CANCELLED'
 type PaymentStatus = 'PENDING' | 'CONFIRMED'
@@ -144,6 +146,26 @@ export default function OrdersPage() {
               <option value="CANCELLED">Cancelled</option>
             </select>
           </div>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl shadow p-4 mb-6">
+        <div className="flex flex-wrap gap-3">
+          <button
+            onClick={() => exportOrdersToExcel(filteredOrders, 'orders')}
+            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            <Download className="w-4 h-4" />
+            Export Orders to Excel
+          </button>
+          
+          <button
+            onClick={() => exportCustomersToExcel(orders, 'customers')}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <Download className="w-4 h-4" />
+            Export Customer Data
+          </button>
         </div>
       </div>
 

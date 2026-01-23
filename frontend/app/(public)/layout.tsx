@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import Header from '@/components/public/Header'
 import Footer from '@/components/public/Footer'
 import CartDrawer from '@/components/cart/CartDrawer'
-import { BusinessSettings } from '@/types'
+import { SettingsProvider } from '@/contexts/SettingsContext'
 
 export default function PublicLayout({
   children,
@@ -31,11 +31,13 @@ export default function PublicLayout({
   }, [settings])
 
   return (
+    <SettingsProvider>
     <div className="min-h-screen flex flex-col">
       <Header businessName={settings?.businessName} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} />
       <CartDrawer />
     </div>
+    </SettingsProvider>
   )
 }

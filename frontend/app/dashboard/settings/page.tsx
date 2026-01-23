@@ -2,9 +2,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Save, Palette, Globe, Phone, Building } from 'lucide-react'
+import { Save, Palette, Globe, Phone, Building, Upload, X } from 'lucide-react'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
+import Image from 'next/image'
 
 const COLOR_PRESETS = [
   { name: 'Green', primary: '#10B981', secondary: '#F59E0B' },
@@ -25,6 +26,7 @@ const LANGUAGES = [
 export default function SettingsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [settings, setSettings] = useState({
     id: 0,
     businessName: '',
@@ -71,13 +73,67 @@ export default function SettingsPage() {
     }
   }
 
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please upload an image file')
+      return
+    }
+
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image must be less than 2MB')
+      return
+    }
+
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('image', file)
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: formData,
+      })
+
+      const data = await response.json()
+      
+      if (data.ok) {
+        setSettings(prev => ({ ...prev, logo: data.imageUrl }))
+        toast.success('Logo uploaded successfully')
+      } else {
+        throw new Error(data.error || 'Upload failed')
+      }
+    } catch (error) {
+      console.error('Logo upload failed:', error)
+      toast.error('Failed to upload logo')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const removeLogo = () => {
+    setSettings(prev => ({ ...prev, logo: '' }))
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
 
     try {
       await api.patch('/settings', settings)
-      toast.success('Settings saved successfully')
+      toast.success('Settings saved successfully! Refresh the page to see changes.')
+      
+      // Optionally reload the page to apply changes immediately
+      setTimeout(() => {
+        window.location.reload()
+      }, 1500)
     } catch (error) {
       console.error('Failed to save settings:', error)
       toast.error('Failed to save settings')
@@ -115,7 +171,7 @@ export default function SettingsPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Business Settings</h1>
-        <p className="text-gray-600">Configure your business information</p>
+        <p className="text-gray-600">Configure your business information and appearance</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -124,6 +180,54 @@ export default function SettingsPage() {
           <div className="flex items-center mb-6">
             <Building className="w-6 h-6 text-blue-600 mr-2" />
             <h2 className="text-lg font-semibold">Business Information</h2>
+          </div>
+          
+          {/* Logo Upload */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Business Logo
+            </label>
+            <div className="flex items-center gap-4">
+              {settings.logo ? (
+                <div className="relative">
+                  <Image
+                    src={settings.logo}
+                    alt="Business Logo"
+                    width={120}
+                    height={120}
+                    className="rounded-lg object-contain border-2 border-gray-200"
+                  />
+                  <button
+                    type="button"
+                    onClick={removeLogo}
+                    className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center">
+                  <Upload className="w-8 h-8 text-gray-400" />
+                </div>
+              )}
+              
+              <div>
+                <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  <Upload className="w-4 h-4" />
+                  {uploading ? 'Uploading...' : settings.logo ? 'Change Logo' : 'Upload Logo'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleLogoUpload}
+                    disabled={uploading}
+                    className="hidden"
+                  />
+                </label>
+                <p className="text-sm text-gray-500 mt-2">
+                  Recommended: 200x200px, max 2MB
+                </p>
+              </div>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -240,13 +344,13 @@ export default function SettingsPage() {
                 ))}
               </select>
               <p className="text-sm text-gray-500 mt-1">
-                This will affect all dashboard text
+                This will affect text on your landing page
               </p>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Currency
+                Currency *
               </label>
               <select
                 name="currency"
@@ -259,6 +363,9 @@ export default function SettingsPage() {
                 <option value="GBP">British Pound (£)</option>
                 <option value="EUR">Euro (€)</option>
               </select>
+              <p className="text-sm text-gray-500 mt-1">
+                This will affect all product prices
+              </p>
             </div>
           </div>
         </div>
@@ -346,6 +453,9 @@ export default function SettingsPage() {
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
+              <p className="text-sm text-gray-500 mt-1">
+                Used for buttons, links, and highlights
+              </p>
             </div>
 
             <div>
@@ -368,11 +478,14 @@ export default function SettingsPage() {
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
+              <p className="text-sm text-gray-500 mt-1">
+                Used for accents and secondary elements
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Social Media */}
+        {/* Social Media - keeping your existing code */}
         <div className="bg-white rounded-xl shadow p-6">
           <div className="flex items-center mb-6">
             <Globe className="w-6 h-6 text-blue-600 mr-2" />
@@ -466,7 +579,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Footer Settings */}
+        {/* Footer Settings - keeping your existing code */}
         <div className="bg-white rounded-xl shadow p-6">
           <h2 className="text-lg font-semibold mb-6">Footer Settings</h2>
           
@@ -541,7 +654,14 @@ export default function SettingsPage() {
         </div>
 
         {/* Save Button */}
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-4">
+          <button
+            type="button"
+            onClick={fetchSettings}
+            className="px-6 py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+          >
+            Reset Changes
+          </button>
           <button
             type="submit"
             disabled={saving}
