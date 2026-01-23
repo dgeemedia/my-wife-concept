@@ -1,4 +1,3 @@
-// backend/src/controllers/orderController.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -9,7 +8,6 @@ async function checkout(req, res) {
     throw new Error('Missing required fields');
   }
 
-  // Calculate total
   let totalAmount = 0;
   const orderItems = [];
   const productUpdates = [];
@@ -36,7 +34,6 @@ async function checkout(req, res) {
     productUpdates.push({ id: product.id, quantity: item.quantity });
   }
 
-  // Create order
   const order = await prisma.$transaction(async (tx) => {
     const newOrder = await tx.order.create({
       data: {
@@ -58,7 +55,6 @@ async function checkout(req, res) {
       },
     });
 
-    // Update stock
     for (const { id, quantity } of productUpdates) {
       await tx.product.update({
         where: { id },
@@ -76,9 +72,15 @@ async function checkout(req, res) {
     },
   });
 
+  // Parse statusHistory before sending
+  const orderWithParsedHistory = {
+    ...completeOrder,
+    statusHistory: completeOrder.statusHistory ? JSON.parse(completeOrder.statusHistory) : []
+  };
+
   res.status(201).json({
     success: true,
-    order: completeOrder,
+    order: orderWithParsedHistory,
   });
 }
 
@@ -90,7 +92,7 @@ async function getAllOrders(req, res) {
   if (paymentStatus) where.paymentStatus = paymentStatus;
   if (search) {
     where.OR = [
-      { customerName: { contains: search } },
+      { customerName: { contains: search, mode: 'insensitive' } },
       { phone: { contains: search } },
     ];
   }
@@ -108,9 +110,15 @@ async function getAllOrders(req, res) {
     prisma.order.count({ where }),
   ]);
 
+  // Parse statusHistory for each order
+  const ordersWithParsedHistory = orders.map(order => ({
+    ...order,
+    statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : []
+  }));
+
   res.json({
     success: true,
-    orders,
+    orders: ordersWithParsedHistory,
     pagination: {
       total,
       page: Number(page),
@@ -132,7 +140,13 @@ async function getOrderById(req, res) {
     throw new Error('Order not found');
   }
 
-  res.json({ success: true, order });
+  // Parse statusHistory
+  const orderWithParsedHistory = {
+    ...order,
+    statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : []
+  };
+
+  res.json({ success: true, order: orderWithParsedHistory });
 }
 
 async function confirmPayment(req, res) {
@@ -146,7 +160,7 @@ async function confirmPayment(req, res) {
     throw new Error('Order not found');
   }
 
-  const history = JSON.parse(order.statusHistory || '[]');
+  const history = order.statusHistory ? JSON.parse(order.statusHistory) : [];
   history.push({
     status: 'CONFIRMED',
     timestamp: new Date().toISOString(),
@@ -168,7 +182,13 @@ async function confirmPayment(req, res) {
     },
   });
 
-  res.json({ success: true, order: updatedOrder });
+  // Parse statusHistory before sending
+  const orderWithParsedHistory = {
+    ...updatedOrder,
+    statusHistory: JSON.parse(updatedOrder.statusHistory)
+  };
+
+  res.json({ success: true, order: orderWithParsedHistory });
 }
 
 async function updateOrderStatus(req, res) {
@@ -187,7 +207,7 @@ async function updateOrderStatus(req, res) {
     throw new Error('Order not found');
   }
 
-  const history = JSON.parse(order.statusHistory || '[]');
+  const history = order.statusHistory ? JSON.parse(order.statusHistory) : [];
   history.push({
     status,
     timestamp: new Date().toISOString(),
@@ -205,7 +225,13 @@ async function updateOrderStatus(req, res) {
     },
   });
 
-  res.json({ success: true, order: updatedOrder });
+  // Parse statusHistory before sending
+  const orderWithParsedHistory = {
+    ...updatedOrder,
+    statusHistory: JSON.parse(updatedOrder.statusHistory)
+  };
+
+  res.json({ success: true, order: orderWithParsedHistory });
 }
 
 async function trackOrder(req, res) {
@@ -234,7 +260,7 @@ async function trackOrder(req, res) {
     success: true,
     order: {
       ...order,
-      statusHistory: JSON.parse(order.statusHistory || '[]'),
+      statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : [],
     },
   });
 }
@@ -249,7 +275,6 @@ async function deleteOrder(req, res) {
     throw new Error('Order not found');
   }
 
-  // Restore stock if payment pending
   if (order.paymentStatus === 'PENDING') {
     for (const item of order.items) {
       await prisma.product.update({

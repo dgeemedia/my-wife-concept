@@ -473,7 +473,7 @@ function OrderDetailsModal({
           </div>
 
           {/* Status History */}
-          {order.statusHistory && order.statusHistory.length > 0 && (
+          {order.statusHistory && Array.isArray(order.statusHistory) && order.statusHistory.length > 0 && (
             <div>
               <h3 className="font-semibold mb-3">Status History</h3>
               <div className="space-y-2">
