@@ -10,6 +10,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Dynamic colors from settings (using CSS variables)
+        'primary-dynamic': 'var(--color-primary, #10B981)',
+        'secondary-dynamic': 'var(--color-secondary, #F59E0B)',
+        
+        // Keep existing static color scales
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',
@@ -21,6 +26,8 @@ const config: Config = {
           700: '#0369a1',
           800: '#075985',
           900: '#0c4a6e',
+          // Add DEFAULT that uses CSS variable
+          DEFAULT: 'var(--color-primary, #0284c7)',
         },
         secondary: {
           50: '#fefce8',
@@ -33,6 +40,8 @@ const config: Config = {
           700: '#a16207',
           800: '#854d0e',
           900: '#713f12',
+          // Add DEFAULT that uses CSS variable
+          DEFAULT: 'var(--color-secondary, #eab308)',
         },
         green: {
           50: '#f0fdf4',

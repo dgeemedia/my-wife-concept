@@ -63,7 +63,14 @@ export default function SettingsPage() {
   const fetchSettings = async () => {
     setLoading(true)
     try {
-      const data = await api.get('/settings')
+      // Use the API route to ensure fresh data
+      const response = await fetch('/api/settings', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        }
+      })
+      const data = await response.json()
       setSettings(data)
     } catch (error) {
       console.error('Failed to load settings:', error)
@@ -83,36 +90,49 @@ export default function SettingsPage() {
       return
     }
 
-    // Validate file size (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      toast.error('Image must be less than 2MB')
+    // Validate file size (max 5MB to match backend)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image must be less than 5MB')
       return
     }
 
     setUploading(true)
+    const loadingToast = toast.loading('Uploading logo...')
+    
     try {
       const formData = new FormData()
       formData.append('image', file)
 
+      // Make request - cookie will be sent automatically
       const response = await fetch('/api/upload', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
+        credentials: 'include', // Important: Include cookies in request
         body: formData,
       })
 
-      const data = await response.json()
-      
-      if (data.ok) {
-        setSettings(prev => ({ ...prev, logo: data.imageUrl }))
-        toast.success('Logo uploaded successfully')
-      } else {
-        throw new Error(data.error || 'Upload failed')
+      // Check content type before parsing
+      const contentType = response.headers.get('content-type')
+      if (!contentType?.includes('application/json')) {
+        const text = await response.text()
+        console.error('Non-JSON response:', text)
+        throw new Error('Server returned invalid response. Please check backend logs.')
       }
-    } catch (error) {
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || `Upload failed: ${response.status}`)
+      }
+      
+      if (data.ok && data.imageUrl) {
+        setSettings(prev => ({ ...prev, logo: data.imageUrl }))
+        toast.success('Logo uploaded successfully', { id: loadingToast })
+      } else {
+        throw new Error(data.error || 'Upload failed - no image URL returned')
+      }
+    } catch (error: any) {
       console.error('Logo upload failed:', error)
-      toast.error('Failed to upload logo')
+      toast.error(error.message || 'Failed to upload logo', { id: loadingToast })
     } finally {
       setUploading(false)
     }
@@ -120,23 +140,60 @@ export default function SettingsPage() {
 
   const removeLogo = () => {
     setSettings(prev => ({ ...prev, logo: '' }))
+    toast.success('Logo removed. Click Save to apply changes.')
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
+    const loadingToast = toast.loading('Saving settings...')
 
     try {
-      await api.patch('/settings', settings)
-      toast.success('Settings saved successfully! Refresh the page to see changes.')
+      // Validate required fields
+      if (!settings.businessName.trim()) {
+        throw new Error('Business name is required')
+      }
+      if (!settings.phone.trim()) {
+        throw new Error('Phone number is required')
+      }
+      if (!settings.whatsappNumber.trim()) {
+        throw new Error('WhatsApp number is required')
+      }
+
+      const response = await fetch('/api/settings', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(settings),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to save settings')
+      }
+
+      const data = await response.json()
       
-      // Optionally reload the page to apply changes immediately
-      setTimeout(() => {
-        window.location.reload()
-      }, 1500)
-    } catch (error) {
+      if (data.ok || data.settings) {
+        toast.success('Settings saved successfully!', { id: loadingToast })
+        
+        // Broadcast settings change to other tabs/windows
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('settings-updated', { detail: data.settings || settings }))
+        }
+        
+        // Reload after a short delay to allow toast to show
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      } else {
+        throw new Error('Save operation returned unexpected response')
+      }
+    } catch (error: any) {
       console.error('Failed to save settings:', error)
-      toast.error('Failed to save settings')
+      toast.error(error.message || 'Failed to save settings', { id: loadingToast })
     } finally {
       setSaving(false)
     }
@@ -156,7 +213,7 @@ export default function SettingsPage() {
       primaryColor: preset.primary,
       secondaryColor: preset.secondary
     }))
-    toast.success(`${preset.name} theme applied`)
+    toast.success(`${preset.name} theme applied. Click Save to persist changes.`)
   }
 
   if (loading) {
@@ -212,7 +269,7 @@ export default function SettingsPage() {
               )}
               
               <div>
-                <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                   <Upload className="w-4 h-4" />
                   {uploading ? 'Uploading...' : settings.logo ? 'Change Logo' : 'Upload Logo'}
                   <input
@@ -485,7 +542,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Social Media - keeping your existing code */}
+        {/* Social Media */}
         <div className="bg-white rounded-xl shadow p-6">
           <div className="flex items-center mb-6">
             <Globe className="w-6 h-6 text-blue-600 mr-2" />
@@ -579,7 +636,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Footer Settings - keeping your existing code */}
+        {/* Footer Settings */}
         <div className="bg-white rounded-xl shadow p-6">
           <h2 className="text-lg font-semibold mb-6">Footer Settings</h2>
           

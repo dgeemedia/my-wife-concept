@@ -4,7 +4,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react'
-import api from '@/lib/api'
 import { setToken } from '@/lib/auth'
 import toast from 'react-hot-toast'
 
@@ -23,28 +22,40 @@ export default function LoginPage() {
     setError('')
 
     try {
-      // Call the actual backend login endpoint
-      const response = await api.post('/auth/login', {
-        email: formData.email,
-        password: formData.password
+      // Call the Next.js API route (which sets the cookie)
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Important: Allow cookies to be set
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        })
       })
 
+      const data = await response.json()
+
       // Check if login was successful
-      if (response.ok && response.token) {
-        // Store the token
-        setToken(response.token)
+      if (response.ok && data.ok && data.token) {
+        // Store the token in localStorage as backup
+        setToken(data.token)
         
         // Show success message
         toast.success('Login successful!')
         
+        // Small delay to ensure cookie is set
+        await new Promise(resolve => setTimeout(resolve, 100))
+        
         // Redirect to dashboard
         router.push('/dashboard')
       } else {
-        throw new Error(response.error || 'Login failed')
+        throw new Error(data.error || 'Login failed')
       }
     } catch (err: any) {
       console.error('Login error:', err)
-      const errorMessage = err.response?.data?.error || err.message || 'Login failed'
+      const errorMessage = err.message || 'Login failed. Please check your credentials.'
       setError(errorMessage)
       toast.error(errorMessage)
     } finally {

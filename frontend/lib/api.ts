@@ -1,47 +1,74 @@
 // frontend/lib/api.ts
-import axios from 'axios'
-import toast from 'react-hot-toast'
+// API client that uses your Next.js API routes (which handle cookies automatically)
 
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
-  timeout: 10000,
-})
+class ApiClient {
+  private baseUrl = '/api' // Use Next.js API routes, not backend directly
 
-// Request interceptor
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+  private async request(endpoint: string, options: RequestInit = {}) {
+    const url = `${this.baseUrl}${endpoint}`
+    
+    const config: RequestInit = {
+      ...options,
+      credentials: 'include', // Important: Include cookies in all requests
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
     }
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
+
+    const response = await fetch(url, config)
+    
+    // Parse response
+    const contentType = response.headers.get('content-type')
+    let data
+    
+    if (contentType?.includes('application/json')) {
+      data = await response.json()
+    } else {
+      const text = await response.text()
+      throw new Error(`Invalid response: ${text.substring(0, 100)}`)
+    }
+
+    // Handle errors
+    if (!response.ok) {
+      throw new Error(data.error || `Request failed: ${response.status}`)
+    }
+
+    return data
   }
-)
 
-// Response interceptor
-api.interceptors.response.use(
-  (response) => response.data,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Clear token and redirect to login
-      localStorage.removeItem('token')
-      if (window.location.pathname.startsWith('/dashboard')) {
-        window.location.href = '/dashboard/login'
-      }
-    }
-    
-    const message = error.response?.data?.error || error.message || 'Something went wrong'
-    
-    // Don't show toast for 401 (handled above)
-    if (error.response?.status !== 401) {
-      toast.error(message)
-    }
-    
-    return Promise.reject(error)
+  async get(endpoint: string) {
+    return this.request(endpoint, {
+      method: 'GET',
+    })
   }
-)
 
-export default api
+  async post(endpoint: string, data?: any) {
+    return this.request(endpoint, {
+      method: 'POST',
+      body: data ? JSON.stringify(data) : undefined,
+    })
+  }
+
+  async patch(endpoint: string, data?: any) {
+    return this.request(endpoint, {
+      method: 'PATCH',
+      body: data ? JSON.stringify(data) : undefined,
+    })
+  }
+
+  async put(endpoint: string, data?: any) {
+    return this.request(endpoint, {
+      method: 'PUT',
+      body: data ? JSON.stringify(data) : undefined,
+    })
+  }
+
+  async delete(endpoint: string) {
+    return this.request(endpoint, {
+      method: 'DELETE',
+    })
+  }
+}
+
+export default new ApiClient()

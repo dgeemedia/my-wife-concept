@@ -7,6 +7,14 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
+  
+  /* Dynamic theme colors - will be updated from settings */
+  --color-primary: #10B981;
+  --color-secondary: #F59E0B;
+  
+  /* RGB values for opacity support */
+  --color-primary-rgb: 16, 185, 129;
+  --color-secondary-rgb: 245, 158, 11;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -80,4 +88,109 @@ body {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+/* Dynamic color utilities */
+@layer utilities {
+  /* Background colors */
+  .bg-primary-dynamic {
+    background-color: var(--color-primary);
+  }
+  
+  .bg-secondary-dynamic {
+    background-color: var(--color-secondary);
+  }
+  
+  /* Text colors */
+  .text-primary-dynamic {
+    color: var(--color-primary);
+  }
+  
+  .text-secondary-dynamic {
+    color: var(--color-secondary);
+  }
+  
+  /* Border colors */
+  .border-primary-dynamic {
+    border-color: var(--color-primary);
+  }
+  
+  .border-secondary-dynamic {
+    border-color: var(--color-secondary);
+  }
+  
+  /* Hover states */
+  .hover\:bg-primary-dynamic:hover {
+    background-color: var(--color-primary);
+  }
+  
+  .hover\:bg-secondary-dynamic:hover {
+    background-color: var(--color-secondary);
+  }
+  
+  .hover\:text-primary-dynamic:hover {
+    color: var(--color-primary);
+  }
+  
+  .hover\:text-secondary-dynamic:hover {
+    color: var(--color-secondary);
+  }
+  
+  .hover\:border-primary-dynamic:hover {
+    border-color: var(--color-primary);
+  }
+  
+  .hover\:border-secondary-dynamic:hover {
+    border-color: var(--color-secondary);
+  }
+  
+  /* Focus states */
+  .focus\:border-primary-dynamic:focus {
+    border-color: var(--color-primary);
+  }
+  
+  .focus\:ring-primary-dynamic:focus {
+    --tw-ring-color: var(--color-primary);
+  }
+  
+  /* Opacity variants */
+  .bg-primary-dynamic\/10 {
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+  }
+  
+  .bg-primary-dynamic\/20 {
+    background-color: rgba(var(--color-primary-rgb), 0.2);
+  }
+  
+  .bg-primary-dynamic\/50 {
+    background-color: rgba(var(--color-primary-rgb), 0.5);
+  }
+  
+  .bg-primary-dynamic\/90 {
+    background-color: rgba(var(--color-primary-rgb), 0.9);
+  }
+  
+  .bg-secondary-dynamic\/10 {
+    background-color: rgba(var(--color-secondary-rgb), 0.1);
+  }
+  
+  .bg-secondary-dynamic\/20 {
+    background-color: rgba(var(--color-secondary-rgb), 0.2);
+  }
+  
+  .bg-secondary-dynamic\/50 {
+    background-color: rgba(var(--color-secondary-rgb), 0.5);
+  }
+  
+  .bg-secondary-dynamic\/90 {
+    background-color: rgba(var(--color-secondary-rgb), 0.9);
+  }
+  
+  .text-primary-dynamic\/70 {
+    color: rgba(var(--color-primary-rgb), 0.7);
+  }
+  
+  .text-secondary-dynamic\/70 {
+    color: rgba(var(--color-secondary-rgb), 0.7);
+  }
 }

@@ -1,15 +1,25 @@
 // backend/src/middleware/upload.js
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, '../../uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('✅ Created uploads directory');
+}
 
 // Configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, 'product-' + uniqueSuffix + path.extname(file.originalname));
+    // Use different prefixes for different upload types
+    const prefix = file.fieldname === 'image' ? 'logo' : 'product';
+    cb(null, `${prefix}-${uniqueSuffix}${path.extname(file.originalname)}`);
   }
 });
 
@@ -22,7 +32,7 @@ const fileFilter = (req, file, cb) => {
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb(new Error('Only image files are allowed'));
+    cb(new Error('Only image files are allowed (jpeg, jpg, png, gif, webp)'));
   }
 };
 

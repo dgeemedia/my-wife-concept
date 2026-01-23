@@ -3,18 +3,18 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { BusinessSettings } from '@/types'
+import { applyThemeColors } from '@/lib/colorUtils'
 
 interface SettingsContextType {
   settings: BusinessSettings | null
   loading: boolean
   refreshSettings: () => Promise<void>
   formatCurrency: (amount: number) => string
-  t: (key: string) => string // Translation function
+  t: (key: string) => string
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined)
 
-// Translation dictionaries
 const translations: Record<string, Record<string, string>> = {
   en: {
     'cart.title': 'Shopping Cart',
@@ -62,7 +62,6 @@ const translations: Record<string, Record<string, string>> = {
   },
 }
 
-// Currency symbols
 const currencySymbols: Record<string, string> = {
   NGN: '₦',
   USD: '$',
@@ -76,19 +75,42 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const fetchSettings = async () => {
     try {
-      const response = await fetch('/api/settings')
+      // Force fresh data by adding cache-busting parameter
+      const timestamp = Date.now()
+      const response = await fetch(`/api/settings?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        }
+      })
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch settings: ${response.status}`)
+      }
+      
       const data = await response.json()
       setSettings(data)
       
-      // Apply theme colors to CSS variables
-      if (data.primaryColor) {
-        document.documentElement.style.setProperty('--color-primary', data.primaryColor)
-      }
-      if (data.secondaryColor) {
-        document.documentElement.style.setProperty('--color-secondary', data.secondaryColor)
+      // Apply theme colors to CSS variables with RGB support
+      if (data.primaryColor && data.secondaryColor) {
+        applyThemeColors(data.primaryColor, data.secondaryColor)
       }
     } catch (error) {
       console.error('Failed to load settings:', error)
+      // Set default settings on error
+      setSettings({
+        id: 1,
+        businessName: 'My Business',
+        businessType: 'food',
+        phone: '',
+        whatsappNumber: '',
+        currency: 'NGN',
+        language: 'en',
+        primaryColor: '#10B981',
+        secondaryColor: '#F59E0B',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      } as BusinessSettings)
     } finally {
       setLoading(false)
     }
@@ -96,12 +118,38 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     fetchSettings()
+    
+    // Listen for settings updates from other parts of the app
+    const handleSettingsUpdate = (event: any) => {
+      if (event.detail) {
+        setSettings(event.detail)
+        // Apply theme colors immediately with RGB support
+        if (event.detail.primaryColor && event.detail.secondaryColor) {
+          applyThemeColors(event.detail.primaryColor, event.detail.secondaryColor)
+        }
+      } else {
+        fetchSettings()
+      }
+    }
+    
+    window.addEventListener('settings-updated', handleSettingsUpdate)
+    
+    return () => {
+      window.removeEventListener('settings-updated', handleSettingsUpdate)
+    }
   }, [])
 
   const formatCurrency = (amount: number): string => {
     const currency = settings?.currency || 'NGN'
     const symbol = currencySymbols[currency] || currency
-    return `${symbol}${amount.toLocaleString()}`
+    
+    // Format the number with proper localization
+    const formattedAmount = amount.toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    })
+    
+    return `${symbol}${formattedAmount}`
   }
 
   const t = (key: string): string => {
