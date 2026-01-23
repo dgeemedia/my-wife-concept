@@ -3,6 +3,7 @@
 
 import { Bell, Menu, Search, User, LogOut, ChevronDown } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface DashboardHeaderProps {
   onMenuClick: () => void
@@ -14,6 +15,7 @@ export default function DashboardHeader({ onMenuClick, user, onLogout }: Dashboa
   const [search, setSearch] = useState('')
   const [showUserMenu, setShowUserMenu] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -92,7 +94,7 @@ export default function DashboardHeader({ onMenuClick, user, onLogout }: Dashboa
                   className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
                   onClick={() => {
                     setShowUserMenu(false)
-                    // Navigate to profile/settings if you have that page
+                    router.push('/dashboard/profile')
                   }}
                 >
                   <User className="w-4 h-4" />

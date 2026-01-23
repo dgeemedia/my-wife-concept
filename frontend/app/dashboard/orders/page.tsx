@@ -2,7 +2,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Truck, Package } from 'lucide-react'
+import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Truck, Package, X } from 'lucide-react'
 import { Order } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'

@@ -60,7 +60,7 @@ export default function DashboardLayout({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Verifying authentication...</p>
@@ -80,22 +80,29 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="flex h-screen overflow-hidden bg-gray-50">
+      {/* Sidebar */}
       <Sidebar 
         isOpen={sidebarOpen} 
         onClose={() => setSidebarOpen(false)}
         onLogout={handleLogout}
       />
       
-      <div className="lg:pl-64 flex flex-col flex-1">
+      {/* Main Content Area */}
+      <div className="flex flex-col flex-1 overflow-hidden lg:ml-64">
+        {/* Header */}
         <DashboardHeader 
           onMenuClick={() => setSidebarOpen(true)}
           user={user}
+          onLogout={handleLogout}
         />
         
-        <main className="flex-1 p-4 md:p-6">
-          <div className="max-w-7xl mx-auto">
-            {children}
+        {/* Main Content */}
+        <main className="flex-1 overflow-y-auto bg-gray-50">
+          <div className="container mx-auto px-4 py-6 md:px-6 md:py-8">
+            <div className="max-w-7xl mx-auto">
+              {children}
+            </div>
           </div>
         </main>
       </div>
