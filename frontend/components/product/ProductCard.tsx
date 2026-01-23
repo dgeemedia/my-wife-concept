@@ -3,6 +3,7 @@
 
 import { Product } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
+import { useCurrency } from '@/app/(public)/layout'
 import { ShoppingCart, Star } from 'lucide-react'
 import Image from 'next/image'
 
@@ -12,6 +13,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart()
+  const { symbol } = useCurrency()
 
   const isOutOfStock = product.stock === 0
   const isLowStock = product.stock > 0 && product.stock <= 5
@@ -68,8 +70,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-semibold text-lg text-gray-900 line-clamp-1">
             {product.name}
           </h3>
-          <span className="font-bold text-xl text-primary-600">
-            ₦{product.price.toLocaleString()}
+          <span 
+            className="font-bold text-xl"
+            style={{ color: 'var(--color-primary, #10B981)' }}
+          >
+            {symbol}{product.price.toLocaleString()}
           </span>
         </div>
 

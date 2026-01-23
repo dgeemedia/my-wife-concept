@@ -1,9 +1,10 @@
 // frontend/components/dashboard/DashboardHeader.tsx
 'use client'
 
-import { Bell, Menu, Search, User, LogOut, ChevronDown } from 'lucide-react'
+import { Menu, Search, User, LogOut, ChevronDown } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import NotificationPanel from './NotificationPanel'
 
 interface DashboardHeaderProps {
   onMenuClick: () => void
@@ -52,10 +53,8 @@ export default function DashboardHeader({ onMenuClick, user, onLogout }: Dashboa
       </div>
 
       <div className="flex items-center gap-4">
-        <button className="relative p-2 hover:bg-gray-100 rounded-lg">
-          <Bell className="w-5 h-5" />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
+        {/* NOTIFICATION PANEL - REPLACED BELL BUTTON */}
+        <NotificationPanel />
 
         {/* User Menu */}
         <div className="relative" ref={menuRef}>
