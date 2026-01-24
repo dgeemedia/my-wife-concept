@@ -1,4 +1,5 @@
 // frontend/app/dashboard/settings/constants/settingsConstants.ts
+
 export const COLOR_PRESETS = [
   { name: 'Green', primary: '#10B981', secondary: '#F59E0B' },
   { name: 'Blue', primary: '#3B82F6', secondary: '#8B5CF6' },
@@ -8,11 +9,70 @@ export const COLOR_PRESETS = [
   { name: 'Teal', primary: '#14B8A6', secondary: '#06B6D4' },
 ]
 
-export const LANGUAGES = [
-  { code: 'en', name: 'English' },
-  { code: 'yo', name: 'Yoruba' },
-  { code: 'ig', name: 'Igbo' },
-  { code: 'ha', name: 'Hausa' },
+export const AFRICAN_LANGUAGES = [
+  // North Africa
+  { code: 'ar', name: 'Arabic', nativeName: 'العربية', country: 'Algeria, Egypt, Libya, Morocco, Tunisia', region: 'North Africa' },
+  { code: 'ber', name: 'Berber (Tamazight)', nativeName: 'ⵜⴰⵎⴰⵣⵉⵖⵜ', country: 'Morocco, Algeria', region: 'North Africa' },
+  { code: 'fr', name: 'French', nativeName: 'Français', country: 'Algeria, Morocco, Tunisia', region: 'North Africa' },
+  
+  // West Africa - Nigeria
+  { code: 'en', name: 'English', nativeName: 'English', country: 'Nigeria, Ghana, Liberia, Sierra Leone, Gambia', region: 'West Africa' },
+  { code: 'ha', name: 'Hausa', nativeName: 'Hausa', country: 'Nigeria, Niger', region: 'West Africa' },
+  { code: 'yo', name: 'Yoruba', nativeName: 'Yorùbá', country: 'Nigeria, Benin', region: 'West Africa' },
+  { code: 'ig', name: 'Igbo', nativeName: 'Igbo', country: 'Nigeria', region: 'West Africa' },
+  { code: 'ff', name: 'Fulfulde (Fula)', nativeName: 'Fulfulde', country: 'Nigeria, Senegal, Guinea, Mali', region: 'West Africa' },
+  
+  // West Africa - Other
+  { code: 'tw', name: 'Twi (Akan)', nativeName: 'Twi', country: 'Ghana', region: 'West Africa' },
+  { code: 'ee', name: 'Ewe', nativeName: 'Eʋegbe', country: 'Ghana, Togo', region: 'West Africa' },
+  { code: 'dag', name: 'Dagbani', nativeName: 'Dagbanli', country: 'Ghana', region: 'West Africa' },
+  { code: 'wo', name: 'Wolof', nativeName: 'Wolof', country: 'Senegal, Gambia', region: 'West Africa' },
+  { code: 'mnk', name: 'Mandinka', nativeName: 'Mandinka', country: 'Gambia, Senegal, Guinea', region: 'West Africa' },
+  { code: 'bm', name: 'Bambara', nativeName: 'Bamanankan', country: 'Mali', region: 'West Africa' },
+  { code: 'mos', name: 'Mossi', nativeName: 'Mooré', country: 'Burkina Faso', region: 'West Africa' },
+  { code: 'sus', name: 'Susu', nativeName: 'Susu', country: 'Guinea', region: 'West Africa' },
+  { code: 'pt', name: 'Portuguese', nativeName: 'Português', country: 'Guinea-Bissau, Cape Verde', region: 'West Africa' },
+  
+  // Central Africa
+  { code: 'ln', name: 'Lingala', nativeName: 'Lingála', country: 'DR Congo, Congo', region: 'Central Africa' },
+  { code: 'sw', name: 'Swahili (Kiswahili)', nativeName: 'Kiswahili', country: 'DR Congo, Kenya, Tanzania, Uganda', region: 'Central Africa' },
+  { code: 'kg', name: 'Kongo', nativeName: 'Kikongo', country: 'DR Congo, Angola', region: 'Central Africa' },
+  { code: 'lua', name: 'Luba-Kasai', nativeName: 'Tshiluba', country: 'DR Congo', region: 'Central Africa' },
+  { code: 'rw', name: 'Kinyarwanda', nativeName: 'Ikinyarwanda', country: 'Rwanda', region: 'Central Africa' },
+  { code: 'rn', name: 'Kirundi', nativeName: 'Ikirundi', country: 'Burundi', region: 'Central Africa' },
+  { code: 'sg', name: 'Sango', nativeName: 'Sängö', country: 'Central African Republic', region: 'Central Africa' },
+  { code: 'es', name: 'Spanish', nativeName: 'Español', country: 'Equatorial Guinea', region: 'Central Africa' },
+  
+  // East Africa
+  { code: 'am', name: 'Amharic', nativeName: 'አማርኛ', country: 'Ethiopia', region: 'East Africa' },
+  { code: 'om', name: 'Oromo', nativeName: 'Afaan Oromoo', country: 'Ethiopia, Kenya', region: 'East Africa' },
+  { code: 'ti', name: 'Tigrinya', nativeName: 'ትግርኛ', country: 'Ethiopia, Eritrea', region: 'East Africa' },
+  { code: 'so', name: 'Somali', nativeName: 'Soomaali', country: 'Somalia, Djibouti', region: 'East Africa' },
+  { code: 'aa', name: 'Afar', nativeName: 'Qafar', country: 'Djibouti, Eritrea', region: 'East Africa' },
+  { code: 'mg', name: 'Malagasy', nativeName: 'Malagasy', country: 'Madagascar', region: 'East Africa' },
+  { code: 'ny', name: 'Chichewa (Nyanja)', nativeName: 'Chicheŵa', country: 'Malawi, Zambia', region: 'East Africa' },
+  { code: 'sn', name: 'Shona', nativeName: 'chiShona', country: 'Zimbabwe', region: 'East Africa' },
+  { code: 'nd', name: 'Ndebele', nativeName: 'isiNdebele', country: 'Zimbabwe, South Africa', region: 'East Africa' },
+  
+  // Southern Africa
+  { code: 'zu', name: 'Zulu', nativeName: 'isiZulu', country: 'South Africa', region: 'Southern Africa' },
+  { code: 'xh', name: 'Xhosa', nativeName: 'isiXhosa', country: 'South Africa', region: 'Southern Africa' },
+  { code: 'af', name: 'Afrikaans', nativeName: 'Afrikaans', country: 'South Africa, Namibia', region: 'Southern Africa' },
+  { code: 'st', name: 'Sesotho', nativeName: 'Sesotho', country: 'South Africa, Lesotho', region: 'Southern Africa' },
+  { code: 'tn', name: 'Setswana', nativeName: 'Setswana', country: 'South Africa, Botswana', region: 'Southern Africa' },
+  { code: 've', name: 'Tshivenda', nativeName: 'Tshivenḓa', country: 'South Africa', region: 'Southern Africa' },
+  { code: 'ts', name: 'Tsonga', nativeName: 'Xitsonga', country: 'South Africa, Mozambique', region: 'Southern Africa' },
+  { code: 'ss', name: 'Siswati', nativeName: 'siSwati', country: 'Eswatini, South Africa', region: 'Southern Africa' },
+  { code: 'nso', name: 'Northern Sotho', nativeName: 'Sesotho sa Leboa', country: 'South Africa', region: 'Southern Africa' },
+  { code: 'hz', name: 'Herero', nativeName: 'Otjiherero', country: 'Namibia', region: 'Southern Africa' },
+  { code: 'kj', name: 'Kwanyama', nativeName: 'Oshikwanyama', country: 'Namibia, Angola', region: 'Southern Africa' },
+  { code: 'ng', name: 'Ndonga', nativeName: 'Oshindonga', country: 'Namibia', region: 'Southern Africa' },
+  
+  // Common International Languages
+  { code: 'en-int', name: 'English (International)', nativeName: 'English', country: 'International', region: 'International' },
+  { code: 'fr-int', name: 'French (International)', nativeName: 'Français', country: 'International', region: 'International' },
+  { code: 'pt-int', name: 'Portuguese (International)', nativeName: 'Português', country: 'International', region: 'International' },
+  { code: 'ar-int', name: 'Arabic (International)', nativeName: 'العربية', country: 'International', region: 'International' },
 ]
 
 export const AFRICAN_CURRENCIES = [
@@ -68,7 +128,7 @@ export const AFRICAN_CURRENCIES = [
   { code: 'NAD', name: 'Namibian Dollar', symbol: '$', country: 'Namibia', region: 'Southern Africa' },
   { code: 'SZL', name: 'Eswatini Lilangeni', symbol: 'L', country: 'Eswatini', region: 'Southern Africa' },
   
-  // Common international currencies
+  // International
   { code: 'USD', name: 'US Dollar', symbol: '$', country: 'United States', region: 'International' },
   { code: 'EUR', name: 'Euro', symbol: '€', country: 'European Union', region: 'International' },
   { code: 'GBP', name: 'British Pound', symbol: '£', country: 'United Kingdom', region: 'International' },

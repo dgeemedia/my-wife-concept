@@ -2,9 +2,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Save, Palette, Globe, Phone, Building, Upload, X } from 'lucide-react'
+import { Save } from 'lucide-react'
 import toast from 'react-hot-toast'
-import Image from 'next/image'
 import { SettingsPageSkeleton } from '@/components/ui/LoadingSkeleton'
 import BusinessInfoSection from './components/BusinessInfoSection'
 import LanguageCurrencySection from './components/LanguageCurrencySection'
@@ -12,7 +11,7 @@ import WhatsAppSettingsSection from './components/WhatsAppSettingsSection'
 import ThemeSettingsSection from './components/ThemeSettingsSection'
 import SocialMediaSection from './components/SocialMediaSection'
 import FooterSettingsSection from './components/FooterSettingsSection'
-import { COLOR_PRESETS, LANGUAGES, AFRICAN_CURRENCIES } from './constants/settingsConstants'
+import { COLOR_PRESETS, AFRICAN_LANGUAGES, AFRICAN_CURRENCIES } from './constants/settingsConstants'
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(true)
@@ -102,7 +101,7 @@ export default function SettingsPage() {
       if (!contentType?.includes('application/json')) {
         const text = await response.text()
         console.error('Non-JSON response:', text)
-        throw new Error('Server returned invalid response. Please check backend logs.')
+        throw new Error('Server returned invalid response')
       }
 
       const data = await response.json()
@@ -115,7 +114,7 @@ export default function SettingsPage() {
         setSettings(prev => ({ ...prev, logo: data.imageUrl }))
         toast.success('Logo uploaded successfully', { id: loadingToast })
       } else {
-        throw new Error(data.error || 'Upload failed - no image URL returned')
+        throw new Error(data.error || 'Upload failed')
       }
     } catch (error: any) {
       console.error('Logo upload failed:', error)
@@ -225,7 +224,7 @@ export default function SettingsPage() {
         <LanguageCurrencySection
           settings={settings}
           handleChange={handleChange}
-          languages={LANGUAGES}
+          languages={AFRICAN_LANGUAGES}
           currencies={AFRICAN_CURRENCIES}
         />
 
