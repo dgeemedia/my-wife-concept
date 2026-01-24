@@ -6,8 +6,20 @@ export interface Product {
   stock: number
   description?: string
   imageUrl?: string
+  featured?: boolean
+  averageRating?: number
+  totalRatings?: number
   createdAt: string
   updatedAt: string
+}
+
+export interface ProductRating {
+  id: number
+  productId: number
+  phone: string
+  rating: number
+  comment?: string
+  createdAt: string
 }
 
 export interface Order {
@@ -57,6 +69,7 @@ export interface BusinessSettings {
   id: number
   businessName: string
   businessType: string
+  businessMotto?: string  
   phone: string
   email?: string
   address?: string

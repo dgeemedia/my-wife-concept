@@ -6,6 +6,7 @@ import ProductGrid from '@/components/product/ProductGrid'
 import Hero from '@/components/public/Hero'
 import { ShoppingBag, Truck, Shield, Star } from 'lucide-react'
 import { Product } from '@/types'
+import { ProductGridSkeleton } from '@/components/ui/LoadingSkeleton'
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
@@ -133,10 +134,7 @@ export default function Home() {
           </div>
           
           {loading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading products...</p>
-            </div>
+            <ProductGridSkeleton count={8} />
           ) : (
             <ProductGrid products={featuredProducts} />
           )}

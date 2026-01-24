@@ -17,13 +17,16 @@ export default function PublicLayout({
   children: React.ReactNode
 }) {
   const [settings, setSettings] = useState<any>(null)
+  const [loading, setLoading] = useState(true) 
 
-  useEffect(() => {
-    // Load business settings with cache busting
+    useEffect(() => {
     fetch('/api/settings?' + new Date().getTime())
       .then(res => res.json())
-      .then(data => setSettings(data))
-      .catch(() => {})
+      .then(data => {
+        setSettings(data)
+        setLoading(false) // Add this
+      })
+      .catch(() => setLoading(false)) // Add this
   }, [])
 
   // Apply theme colors from settings

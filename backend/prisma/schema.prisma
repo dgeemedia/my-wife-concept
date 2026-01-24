@@ -21,13 +21,31 @@ model Product {
   stock       Int
   description String?
   imageUrl    String?
+  featured    Boolean     @default(false)
   items       OrderItem[]
+  ratings     ProductRating[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
   @@index([createdAt])
   @@index([stock])
+  @@index([featured])
 }
+
+model ProductRating {
+  id        Int      @id @default(autoincrement())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  phone     String   // Unique identifier for customer
+  rating    Int      // 1-5 stars
+  comment   String?  @db.Text
+  createdAt DateTime @default(now())
+  
+  @@unique([productId, phone])  // One rating per product per phone
+  @@index([productId])
+  @@index([phone])
+}
+
 
 // ORDERS
 model Order {
@@ -98,6 +116,7 @@ model BusinessSettings {
   id              Int      @id @default(autoincrement())
   businessName    String
   businessType    String   @default("food")
+  businessMotto   String?  @db.Text
   phone           String
   email           String?
   address         String?

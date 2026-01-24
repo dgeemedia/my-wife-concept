@@ -6,6 +6,7 @@ import { Save, Palette, Globe, Phone, Building, Upload, X } from 'lucide-react'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 import Image from 'next/image'
+import { SettingsPageSkeleton } from '@/components/ui/LoadingSkeleton'
 
 const COLOR_PRESETS = [
   { name: 'Green', primary: '#10B981', secondary: '#F59E0B' },
@@ -31,6 +32,7 @@ export default function SettingsPage() {
     id: 0,
     businessName: '',
     businessType: 'food',
+    businessMotto: '',
     phone: '',
     email: '',
     address: '',
@@ -216,13 +218,9 @@ export default function SettingsPage() {
     toast.success(`${preset.name} theme applied. Click Save to persist changes.`)
   }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    )
-  }
+      if (loading) {
+        return <SettingsPageSkeleton />
+      }
 
   return (
     <div>
@@ -300,6 +298,23 @@ export default function SettingsPage() {
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Business Motto
+              </label>
+              <input
+                type="text"
+                name="businessMotto"
+                value={settings.businessMotto || ''}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Your business tagline or motto"
+              />
+              <p className="text-sm text-gray-500 mt-1">
+                This will appear under your business name in the footer
+              </p>
             </div>
 
             <div>

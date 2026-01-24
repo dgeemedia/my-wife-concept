@@ -1,6 +1,7 @@
 // components/public/Footer.tsx
 'use client'
 
+import Image from 'next/image'
 import { Facebook, Instagram, Mail, Phone, MapPin, MessageCircle, Linkedin, Youtube } from 'lucide-react'
 import { BusinessSettings } from '@/types'
 
@@ -63,28 +64,45 @@ export default function Footer({ settings }: FooterProps) {
       label: 'YouTube',
       hoverColor: 'hover:bg-red-600'
     },
-  ].filter(link => link.url) // Only show links that exist
+  ].filter(link => link.url)
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 dark:bg-black text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Business Info */}
           <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg"></div>
-              </div>
+            <div className="flex items-center space-x-3 mb-4">
+              {settings?.logo ? (
+                <Image
+                  src={settings.logo}
+                  alt={settings.businessName || 'Business Logo'}
+                  width={40}
+                  height={40}
+                  className="rounded-lg object-contain"
+                />
+              ) : (
+                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg"></div>
+                </div>
+              )}
               <div>
                 <h3 className="font-bold text-xl">{settings?.businessName || 'MyPadiFood'}</h3>
-                <p className="text-gray-400 text-sm">Fresh meals delivered</p>
               </div>
             </div>
+            
+            {/* Business Motto */}
+            {settings?.businessMotto && (
+              <p className="text-primary-400 text-sm italic mb-4">
+                "{settings.businessMotto}"
+              </p>
+            )}
+            
             <p className="text-gray-400 mb-6">
               {settings?.footerText || settings?.description || 'Order delicious meals and get them delivered to your doorstep'}
             </p>
             
-            {/* Social Media Links - Only show if there are any */}
+            {/* Social Media Links */}
             {socialLinks.length > 0 && (
               <div className="flex flex-wrap gap-3">
                 {socialLinks.map((link, index) => {
@@ -116,7 +134,7 @@ export default function Footer({ settings }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href="#products" className="text-gray-400 hover:text-white transition-colors">
+                <a href="/#products" className="text-gray-400 hover:text-white transition-colors">
                   Menu
                 </a>
               </li>
@@ -126,7 +144,7 @@ export default function Footer({ settings }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-400 hover:text-white transition-colors">
+                <a href="/#contact" className="text-gray-400 hover:text-white transition-colors">
                   Contact Us
                 </a>
               </li>
@@ -186,7 +204,7 @@ export default function Footer({ settings }: FooterProps) {
               <input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:outline-none"
+                className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:outline-none text-white"
               />
               <button className="px-4 py-2 bg-primary-600 hover:bg-primary-700 rounded-r-lg font-medium transition-colors">
                 Subscribe

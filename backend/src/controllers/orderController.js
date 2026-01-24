@@ -1,3 +1,4 @@
+// backend/src/controllers/orderController.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -8,23 +9,32 @@ async function checkout(req, res) {
     throw new Error('Missing required fields');
   }
 
+  // Validate and prepare order data BEFORE starting transaction
   let totalAmount = 0;
   const orderItems = [];
   const productUpdates = [];
-
+  
+  // Fetch all products first
+  const productIds = items.map(item => item.productId);
+  const products = await prisma.product.findMany({
+    where: { id: { in: productIds } }
+  });
+  
+  // Create a map for quick lookup
+  const productMap = new Map(products.map(p => [p.id, p]));
+  
+  // Validate all items BEFORE transaction
   for (const item of items) {
-    const product = await prisma.product.findUnique({
-      where: { id: item.productId },
-    });
-
+    const product = productMap.get(item.productId);
+    
     if (!product) {
       throw new Error(`Product ${item.productId} not found`);
     }
-
+    
     if (product.stock < item.quantity) {
       throw new Error(`Insufficient stock for ${product.name}`);
     }
-
+    
     totalAmount += product.price * item.quantity;
     orderItems.push({
       productId: product.id,
@@ -33,8 +43,17 @@ async function checkout(req, res) {
     });
     productUpdates.push({ id: product.id, quantity: item.quantity });
   }
-
+  
+  // Prepare status history
+  const statusHistory = JSON.stringify([{
+    status: 'PENDING',
+    timestamp: new Date().toISOString(),
+    notes: 'Order created',
+  }]);
+  
+  // Now run a FAST transaction with increased timeout
   const order = await prisma.$transaction(async (tx) => {
+    // Create order with items in one operation
     const newOrder = await tx.order.create({
       data: {
         customerName,
@@ -46,25 +65,28 @@ async function checkout(req, res) {
         currency: 'NGN',
         paymentStatus: 'PENDING',
         status: 'PENDING',
-        statusHistory: JSON.stringify([{
-          status: 'PENDING',
-          timestamp: new Date().toISOString(),
-          notes: 'Order created',
-        }]),
+        statusHistory,
         items: { create: orderItems },
       },
     });
-
-    for (const { id, quantity } of productUpdates) {
-      await tx.product.update({
-        where: { id },
-        data: { stock: { decrement: quantity } },
-      });
-    }
-
+    
+    // Update stock in batch
+    await Promise.all(
+      productUpdates.map(({ id, quantity }) =>
+        tx.product.update({
+          where: { id },
+          data: { stock: { decrement: quantity } },
+        })
+      )
+    );
+    
     return newOrder;
+  }, {
+    maxWait: 10000, // Increased max wait time
+    timeout: 15000, // Increased timeout to 15 seconds
   });
 
+  // Fetch complete order with items AFTER transaction
   const completeOrder = await prisma.order.findUnique({
     where: { id: order.id },
     include: {
@@ -72,15 +94,12 @@ async function checkout(req, res) {
     },
   });
 
-  // Parse statusHistory before sending
-  const orderWithParsedHistory = {
-    ...completeOrder,
-    statusHistory: completeOrder.statusHistory ? JSON.parse(completeOrder.statusHistory) : []
-  };
-
   res.status(201).json({
     success: true,
-    order: orderWithParsedHistory,
+    order: {
+      ...completeOrder,
+      statusHistory: JSON.parse(completeOrder.statusHistory || '[]')
+    },
   });
 }
 
@@ -110,7 +129,6 @@ async function getAllOrders(req, res) {
     prisma.order.count({ where }),
   ]);
 
-  // Parse statusHistory for each order
   const ordersWithParsedHistory = orders.map(order => ({
     ...order,
     statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : []
@@ -140,13 +158,13 @@ async function getOrderById(req, res) {
     throw new Error('Order not found');
   }
 
-  // Parse statusHistory
-  const orderWithParsedHistory = {
-    ...order,
-    statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : []
-  };
-
-  res.json({ success: true, order: orderWithParsedHistory });
+  res.json({ 
+    success: true, 
+    order: {
+      ...order,
+      statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : []
+    }
+  });
 }
 
 async function confirmPayment(req, res) {
@@ -182,13 +200,13 @@ async function confirmPayment(req, res) {
     },
   });
 
-  // Parse statusHistory before sending
-  const orderWithParsedHistory = {
-    ...updatedOrder,
-    statusHistory: JSON.parse(updatedOrder.statusHistory)
-  };
-
-  res.json({ success: true, order: orderWithParsedHistory });
+  res.json({ 
+    success: true, 
+    order: {
+      ...updatedOrder,
+      statusHistory: JSON.parse(updatedOrder.statusHistory)
+    }
+  });
 }
 
 async function updateOrderStatus(req, res) {
@@ -225,13 +243,13 @@ async function updateOrderStatus(req, res) {
     },
   });
 
-  // Parse statusHistory before sending
-  const orderWithParsedHistory = {
-    ...updatedOrder,
-    statusHistory: JSON.parse(updatedOrder.statusHistory)
-  };
-
-  res.json({ success: true, order: orderWithParsedHistory });
+  res.json({ 
+    success: true, 
+    order: {
+      ...updatedOrder,
+      statusHistory: JSON.parse(updatedOrder.statusHistory)
+    }
+  });
 }
 
 async function trackOrder(req, res) {

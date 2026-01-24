@@ -7,6 +7,7 @@ import { Product } from '@/types'
 import api from '@/lib/api'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
+import { ProductGridSkeleton } from '@/components/ui/LoadingSkeleton'
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
@@ -45,13 +46,19 @@ export default function ProductsPage() {
     product.description?.toLowerCase().includes(search.toLowerCase())
   )
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+if (loading) {
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Products</h1>
+          <p className="text-gray-600">Loading products...</p>
+        </div>
       </div>
-    )
-  }
+      <ProductGridSkeleton count={6} />
+    </div>
+  )
+}
 
   return (
     <div>
