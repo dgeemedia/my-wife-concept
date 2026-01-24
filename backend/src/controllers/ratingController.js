@@ -1,10 +1,16 @@
 // ============================================================================
-// RATING CONTROLLER
+// UPDATED RATING CONTROLLER WITH BETTER VALIDATION AND DEBUGGING
 // backend/src/controllers/ratingController.js
 // ============================================================================
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+
+// Helper function to normalize phone numbers
+function normalizePhone(phone) {
+  if (!phone) return '';
+  return phone.replace(/\D/g, ''); // Remove all non-digit characters
+}
 
 // Submit or update rating
 async function submitRating(req, res) {
@@ -21,7 +27,13 @@ async function submitRating(req, res) {
   }
   
   // Normalize phone number
-  const normalizedPhone = phone.replace(/\D/g, '');
+  const normalizedPhone = normalizePhone(phone);
+  
+  console.log('⭐ Rating submission:');
+  console.log('   Product ID:', productId);
+  console.log('   Original phone:', phone);
+  console.log('   Normalized phone:', normalizedPhone);
+  console.log('   Rating:', rating);
   
   // Check if product exists
   const product = await prisma.product.findUnique({
@@ -29,28 +41,116 @@ async function submitRating(req, res) {
   });
   
   if (!product) {
+    console.log('❌ Product not found');
     throw new Error('Product not found');
   }
   
-  // Check if customer has ordered this product
+  console.log('✅ Product found:', product.name);
+  
+  // Debug: Check all orders for this phone
+  const allOrders = await prisma.order.findMany({
+    where: { phone: normalizedPhone },
+    select: {
+      id: true,
+      phone: true,
+      status: true,
+      paymentStatus: true,
+      createdAt: true,
+      items: {
+        select: {
+          productId: true,
+          product: {
+            select: { id: true, name: true }
+          }
+        }
+      }
+    }
+  });
+  
+  console.log(`📦 Found ${allOrders.length} order(s) for this phone number`);
+  
+  if (allOrders.length > 0) {
+    allOrders.forEach((order, index) => {
+      console.log(`   Order ${index + 1}:`);
+      console.log(`     - ID: ${order.id}`);
+      console.log(`     - Status: ${order.status}`);
+      console.log(`     - Payment: ${order.paymentStatus}`);
+      console.log(`     - Products: ${order.items.map(i => i.product.name).join(', ')}`);
+      console.log(`     - Has this product: ${order.items.some(i => i.productId === Number(productId))}`);
+    });
+  }
+  
+  // ⭐ KEY CHECK: Customer must have ordered this product with CONFIRMED payment AND DELIVERED status
   const hasOrdered = await prisma.orderItem.findFirst({
     where: {
       productId: Number(productId),
       order: {
         phone: normalizedPhone,
-        status: 'DELIVERED'
+        paymentStatus: 'CONFIRMED',  // ⭐ Must be paid
+        status: 'DELIVERED'           // ⭐ Must be delivered
+      }
+    },
+    include: {
+      order: {
+        select: {
+          id: true,
+          phone: true,
+          status: true,
+          paymentStatus: true,
+          createdAt: true
+        }
       }
     }
   });
   
+  if (hasOrdered) {
+    console.log('✅ Eligible order found:');
+    console.log('   Order ID:', hasOrdered.order.id);
+    console.log('   Status:', hasOrdered.order.status);
+    console.log('   Payment:', hasOrdered.order.paymentStatus);
+  } else {
+    console.log('❌ No eligible order found (must be DELIVERED with CONFIRMED payment)');
+  }
+  
   if (!hasOrdered) {
+    // Provide detailed error message
+    const hasAnyOrder = allOrders.some(o => 
+      o.items.some(i => i.productId === Number(productId))
+    );
+    
+    let errorMessage = 'You can only rate products you have purchased and received';
+    let debugInfo = {
+      normalizedPhone,
+      productId: Number(productId),
+      totalOrders: allOrders.length,
+      hasOrderedProduct: hasAnyOrder,
+    };
+    
+    if (hasAnyOrder) {
+      const orderWithProduct = allOrders.find(o => 
+        o.items.some(i => i.productId === Number(productId))
+      );
+      
+      if (orderWithProduct) {
+        debugInfo.orderStatus = orderWithProduct.status;
+        debugInfo.paymentStatus = orderWithProduct.paymentStatus;
+        
+        if (orderWithProduct.paymentStatus !== 'CONFIRMED') {
+          errorMessage = 'Your order payment must be confirmed before you can rate';
+        } else if (orderWithProduct.status !== 'DELIVERED') {
+          errorMessage = `Your order must be delivered before you can rate (Current status: ${orderWithProduct.status})`;
+        }
+      }
+    }
+    
     return res.status(403).json({
       success: false,
-      error: 'You can only rate products you have purchased and received'
+      error: errorMessage,
+      debug: debugInfo
     });
   }
   
-  // Upsert rating
+  // Upsert rating (create or update)
   const productRating = await prisma.productRating.upsert({
     where: {
       productId_phone: {
@@ -77,6 +177,10 @@ async function submitRating(req, res) {
     _count: true
   });
   
+  console.log('✅ Rating submitted successfully!');
+  console.log('   Average rating:', ratings._avg.rating);
+  console.log('   Total ratings:', ratings._count);
+  
   res.json({
     success: true,
     rating: productRating,
@@ -90,6 +194,8 @@ async function getProductRatings(req, res) {
   const { productId } = req.params;
   const { page = 1, limit = 10 } = req.query;
   
+  console.log(`📊 Fetching ratings for product ${productId}`);
+  
   const [ratings, total, stats] = await Promise.all([
     prisma.productRating.findMany({
       where: { productId: Number(productId) },
@@ -100,7 +206,7 @@ async function getProductRatings(req, res) {
         rating: true,
         comment: true,
         createdAt: true,
-        phone: true // Masked in response
+        phone: true
       }
     }),
     prisma.productRating.count({
@@ -113,11 +219,13 @@ async function getProductRatings(req, res) {
     })
   ]);
   
-  // Mask phone numbers
+  // Mask phone numbers for privacy
   const maskedRatings = ratings.map(r => ({
     ...r,
     phone: r.phone.slice(-4).padStart(r.phone.length, '*')
   }));
+  
+  console.log(`✅ Retrieved ${ratings.length} ratings (Total: ${total})`);
   
   res.json({
     success: true,
@@ -142,15 +250,29 @@ async function canRate(req, res) {
     throw new Error('Phone number required');
   }
   
-  const normalizedPhone = phone.replace(/\D/g, '');
+  const normalizedPhone = normalizePhone(phone);
   
-  // Check if has ordered and delivered
+  console.log('🔍 Checking if can rate:');
+  console.log('   Product ID:', productId);
+  console.log('   Normalized phone:', normalizedPhone);
+  
+  // Check if has ordered and delivered with confirmed payment
   const hasOrdered = await prisma.orderItem.findFirst({
     where: {
       productId: Number(productId),
       order: {
         phone: normalizedPhone,
+        paymentStatus: 'CONFIRMED',
         status: 'DELIVERED'
+      }
+    },
+    include: {
+      order: {
+        select: {
+          id: true,
+          status: true,
+          paymentStatus: true
+        }
       }
     }
   });
@@ -164,6 +286,15 @@ async function canRate(req, res) {
       }
     }
   });
+  
+  console.log('   Can rate:', !!hasOrdered);
+  console.log('   Has rated:', !!existingRating);
+  
+  if (hasOrdered) {
+    console.log('   Order ID:', hasOrdered.order.id);
+    console.log('   Order status:', hasOrdered.order.status);
+    console.log('   Payment status:', hasOrdered.order.paymentStatus);
+  }
   
   res.json({
     success: true,

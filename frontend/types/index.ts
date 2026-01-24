@@ -1,4 +1,8 @@
-// fronted/types/index.ts
+// ============================================================================
+// UPDATED TYPES - WITH RATINGS
+// frontend/types/index.ts
+// ============================================================================
+
 export interface Product {
   id: number
   name: string
@@ -7,8 +11,9 @@ export interface Product {
   description?: string
   imageUrl?: string
   featured?: boolean
-  averageRating?: number
-  totalRatings?: number
+  averageRating?: number        // ⭐ Added
+  totalRatings?: number         // ⭐ Added
+  recentRatings?: ProductRating[] // ⭐ Added (for product detail page)
   createdAt: string
   updatedAt: string
 }

@@ -1,6 +1,16 @@
+// ============================================================================
+// UPDATED ORDER CONTROLLER WITH PHONE NORMALIZATION
 // backend/src/controllers/orderController.js
+// ============================================================================
+
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+
+// Helper function to normalize phone numbers
+function normalizePhone(phone) {
+  if (!phone) return '';
+  return phone.replace(/\D/g, ''); // Remove all non-digit characters
+}
 
 async function checkout(req, res) {
   const { customerName, phone, address, email, message, items } = req.body;
@@ -8,6 +18,11 @@ async function checkout(req, res) {
   if (!customerName || !phone || !items || items.length === 0) {
     throw new Error('Missing required fields');
   }
+
+  // ⭐ FIX: Normalize phone number before saving
+  const normalizedPhone = normalizePhone(phone);
+  
+  console.log('📝 Creating order for phone:', normalizedPhone);
 
   // Validate and prepare order data BEFORE starting transaction
   let totalAmount = 0;
@@ -57,7 +72,7 @@ async function checkout(req, res) {
     const newOrder = await tx.order.create({
       data: {
         customerName,
-        phone,
+        phone: normalizedPhone,  // ⭐ CHANGED: Use normalized phone
         address: address || '',
         email: email || '',
         message: message || '',
@@ -82,8 +97,8 @@ async function checkout(req, res) {
     
     return newOrder;
   }, {
-    maxWait: 10000, // Increased max wait time
-    timeout: 15000, // Increased timeout to 15 seconds
+    maxWait: 10000,
+    timeout: 15000,
   });
 
   // Fetch complete order with items AFTER transaction
@@ -93,6 +108,8 @@ async function checkout(req, res) {
       items: { include: { product: true } },
     },
   });
+
+  console.log('✅ Order created successfully:', completeOrder.id);
 
   res.status(201).json({
     success: true,
@@ -110,9 +127,11 @@ async function getAllOrders(req, res) {
   if (status) where.status = status;
   if (paymentStatus) where.paymentStatus = paymentStatus;
   if (search) {
+    // ⭐ IMPROVED: Normalize phone search
+    const normalizedSearch = normalizePhone(search);
     where.OR = [
       { customerName: { contains: search, mode: 'insensitive' } },
-      { phone: { contains: search } },
+      { phone: { contains: normalizedSearch } },
     ];
   }
 
@@ -200,6 +219,8 @@ async function confirmPayment(req, res) {
     },
   });
 
+  console.log('💰 Payment confirmed for order:', updatedOrder.id);
+
   res.json({ 
     success: true, 
     order: {
@@ -243,6 +264,8 @@ async function updateOrderStatus(req, res) {
     },
   });
 
+  console.log(`📦 Order ${updatedOrder.id} status updated to:`, status);
+
   res.json({ 
     success: true, 
     order: {
@@ -260,10 +283,15 @@ async function trackOrder(req, res) {
     throw new Error('Phone number required');
   }
 
+  // ⭐ FIX: Normalize phone for comparison
+  const normalizedPhone = normalizePhone(phone);
+  
+  console.log('🔍 Tracking order:', orderId, 'for phone:', normalizedPhone);
+
   const order = await prisma.order.findFirst({
     where: {
       id: Number(orderId),
-      phone: phone.replace(/\D/g, ''),
+      phone: normalizedPhone,  // ⭐ CHANGED: Use normalized phone
     },
     include: {
       items: { include: { product: { select: { name: true, imageUrl: true } } } },
@@ -305,6 +333,8 @@ async function deleteOrder(req, res) {
   await prisma.order.delete({
     where: { id: Number(req.params.id) },
   });
+
+  console.log('🗑️ Order deleted:', req.params.id);
 
   res.json({ success: true, message: 'Order deleted' });
 }

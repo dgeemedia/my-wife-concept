@@ -1,4 +1,8 @@
+// ============================================================================
+// VERIFIED PRODUCT CARD - WITH RATINGS DISPLAY
 // frontend/components/product/ProductCard.tsx
+// ============================================================================
+
 'use client'
 
 import { useState } from 'react'
@@ -20,6 +24,13 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const isOutOfStock = product.stock === 0
   const isLowStock = product.stock > 0 && product.stock <= 5
+
+  // Log for debugging
+  console.log('ProductCard render:', {
+    name: product.name,
+    averageRating: product.averageRating,
+    totalRatings: product.totalRatings
+  });
 
   return (
     <>
@@ -86,38 +97,28 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.description || 'No description available'}
           </p>
 
-          {/* Rating Display */}
-          {product.averageRating && product.totalRatings > 0 ? (
-            <div className="flex items-center gap-2 mb-3">
-              <div className="flex">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    className={`w-4 h-4 ${
-                      star <= Math.round(product.averageRating || 0)
-                        ? 'fill-yellow-400 text-yellow-400'
-                        : 'fill-gray-200 text-gray-200 dark:fill-gray-600 dark:text-gray-600'
-                    }`}
-                  />
-                ))}
-              </div>
+          {/* ⭐ RATING DISPLAY - Updated logic */}
+          <div className="flex items-center gap-2 mb-3">
+            <div className="flex">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                  key={star}
+                  className={`w-4 h-4 ${
+                    product.averageRating && star <= Math.round(product.averageRating)
+                      ? 'fill-yellow-400 text-yellow-400'
+                      : 'fill-gray-200 text-gray-200 dark:fill-gray-600 dark:text-gray-600'
+                  }`}
+                />
+              ))}
+            </div>
+            {product.totalRatings && product.totalRatings > 0 ? (
               <span className="text-sm text-gray-600 dark:text-gray-400">
-                {(product.averageRating || 0).toFixed(1)} ({product.totalRatings || 0} reviews)
+                {product.averageRating?.toFixed(1)} ({product.totalRatings} {product.totalRatings === 1 ? 'review' : 'reviews'})
               </span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2 mb-3">
-              <div className="flex">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    className="w-4 h-4 fill-gray-200 text-gray-200 dark:fill-gray-600 dark:text-gray-600"
-                  />
-                ))}
-              </div>
+            ) : (
               <span className="text-sm text-gray-500 dark:text-gray-400">No ratings yet</span>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Actions */}
           <div className="flex items-center gap-2">

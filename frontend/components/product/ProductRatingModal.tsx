@@ -1,4 +1,8 @@
+// ============================================================================
+// UPDATED RATING MODAL - WITH PAGE REFRESH
 // frontend/components/product/ProductRatingModal.tsx
+// ============================================================================
+
 'use client'
 
 import { useState } from 'react'
@@ -31,6 +35,8 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
       )
       const data = await response.json()
       
+      console.log('Eligibility check:', data);
+      
       if (data.success) {
         setCanRate(data.canRate)
         setHasRated(data.hasRated)
@@ -51,6 +57,8 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
     
     setLoading(true)
     try {
+      console.log('Submitting rating:', { productId, phone, rating, comment });
+      
       const response = await fetch('/api/ratings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,10 +67,14 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
       
       const data = await response.json()
       
+      console.log('Rating response:', data);
+      
       if (data.success) {
         setSubmitted(true)
+        
+        // ⭐ Refresh the page after 2 seconds to show updated ratings
         setTimeout(() => {
-          onClose()
+          window.location.reload()
         }, 2000)
       } else {
         alert(data.error || 'Failed to submit rating')
@@ -127,7 +139,7 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
                 Thank you for your rating!
               </h3>
               <p className="text-green-700 dark:text-green-300">
-                Your feedback helps us improve.
+                Refreshing page to show your rating...
               </p>
             </div>
           ) : (
