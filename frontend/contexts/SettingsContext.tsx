@@ -63,7 +63,59 @@ const translations: Record<string, Record<string, string>> = {
 }
 
 const currencySymbols: Record<string, string> = {
+  // West Africa
   NGN: '₦',
+  GHS: '₵',
+  XOF: 'CFA',
+  GMD: 'D',
+  GNF: 'Fr',
+  LRD: '$',
+  MRU: 'UM',
+  SLE: 'Le',
+  CVE: '$',
+  
+  // Central Africa
+  XAF: 'FCFA',
+  CDF: 'Fr',
+  BIF: 'Fr',
+  RWF: 'Fr',
+  STN: 'Db',
+  AOA: 'Kz',
+  
+  // East Africa
+  ETB: 'Br',
+  KES: 'KSh',
+  MGA: 'Ar',
+  MWK: 'MK',
+  MUR: '₨',
+  MZN: 'MT',
+  SCR: '₨',
+  SOS: 'Sh',
+  SSP: '£',
+  SDG: '£',
+  TZS: 'TSh',
+  UGX: 'USh',
+  ZMW: 'ZK',
+  ZWL: '$',
+  ERN: 'Nfk',
+  DJF: 'Fr',
+  KMF: 'Fr',
+  
+  // North Africa
+  DZD: 'د.ج',
+  EGP: 'E£',
+  LYD: 'ل.د',
+  MAD: 'د.م.',
+  TND: 'د.ت',
+  
+  // Southern Africa
+  ZAR: 'R',
+  BWP: 'P',
+  LSL: 'L',
+  NAD: '$',
+  SZL: 'L',
+  
+  // International
   USD: '$',
   GBP: '£',
   EUR: '€',
