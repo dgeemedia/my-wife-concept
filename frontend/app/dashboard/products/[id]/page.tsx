@@ -8,6 +8,7 @@ import { Product } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
+import { useCurrency } from '@/components/dashboard/CurrencyProvider'
 
 export default function EditProductPage() {
   const router = useRouter()
@@ -28,6 +29,8 @@ export default function EditProductPage() {
     createdAt: '',
     updatedAt: ''
   })
+
+  const { symbol } = useCurrency()
 
   useEffect(() => {
     if (productId && productId !== 'new') {
@@ -258,7 +261,7 @@ export default function EditProductPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price (₦) *
+                Price ({symbol}) *
               </label>
               <input
                 type="number"

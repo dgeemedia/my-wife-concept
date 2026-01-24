@@ -7,6 +7,7 @@ import Sidebar from '@/components/dashboard/Sidebar'
 import DashboardHeader from '@/components/dashboard/DashboardHeader'
 import { getToken, removeToken } from '@/lib/auth'
 import api from '@/lib/api'
+import { CurrencyProvider } from '@/components/dashboard/CurrencyProvider'
 
 export default function DashboardLayout({
   children,
@@ -80,32 +81,34 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
-      {/* Sidebar */}
-      <Sidebar 
-        isOpen={sidebarOpen} 
-        onClose={() => setSidebarOpen(false)}
-        onLogout={handleLogout}
-      />
-      
-      {/* Main Content Area */}
-      <div className="flex flex-col flex-1 overflow-hidden lg:ml-64">
-        {/* Header */}
-        <DashboardHeader 
-          onMenuClick={() => setSidebarOpen(true)}
-          user={user}
+    <CurrencyProvider>
+      <div className="flex h-screen overflow-hidden bg-gray-50">
+        {/* Sidebar */}
+        <Sidebar 
+          isOpen={sidebarOpen} 
+          onClose={() => setSidebarOpen(false)}
           onLogout={handleLogout}
         />
         
-        {/* Main Content */}
-        <main className="flex-1 overflow-y-auto bg-gray-50">
-          <div className="container mx-auto px-4 py-6 md:px-6 md:py-8">
-            <div className="max-w-7xl mx-auto">
-              {children}
+        {/* Main Content Area */}
+        <div className="flex flex-col flex-1 overflow-hidden lg:ml-64">
+          {/* Header */}
+          <DashboardHeader 
+            onMenuClick={() => setSidebarOpen(true)}
+            user={user}
+            onLogout={handleLogout}
+          />
+          
+          {/* Main Content */}
+          <main className="flex-1 overflow-y-auto bg-gray-50">
+            <div className="container mx-auto px-4 py-6 md:px-6 md:py-8">
+              <div className="max-w-7xl mx-auto">
+                {children}
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+    </CurrencyProvider>
   )
 }

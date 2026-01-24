@@ -1,83 +1,138 @@
-// frontend/app/dashboard/orders/[id]/page.tsx
+// app/dashboard/products/[id]/page.tsx
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { ArrowLeft, Package, Phone, Mail, MapPin, MessageSquare, DollarSign, Clock, CheckCircle, Truck, XCircle } from 'lucide-react'
-import { Order } from '@/types'
+import { ArrowLeft, Save, Upload, X, Image as ImageIcon } from 'lucide-react'
+import { Product } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
+import { useCurrency } from '@/components/dashboard/CurrencyProvider'
 
-export default function OrderDetailPage() {
+export default function EditProductPage() {
   const router = useRouter()
   const params = useParams()
-  const orderId = params.id
+  const productId = params.id
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const [loading, setLoading] = useState(true)
-  const [updating, setUpdating] = useState(false)
-  const [order, setOrder] = useState<Order | null>(null)
-  const [status, setStatus] = useState('')
-  const [paymentMethod, setPaymentMethod] = useState('CASH')
+  const [loading, setLoading] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [product, setProduct] = useState<Product>({
+    id: 0,
+    name: '',
+    price: 0,
+    stock: 0,
+    description: '',
+    imageUrl: '',
+    createdAt: '',
+    updatedAt: ''
+  })
+
+  const { symbol } = useCurrency()
 
   useEffect(() => {
-    if (orderId) {
-      fetchOrder()
+    if (productId && productId !== 'new') {
+      fetchProduct()
     }
-  }, [orderId])
+  }, [productId])
 
-  const fetchOrder = async () => {
+  const fetchProduct = async () => {
     setLoading(true)
     try {
-      const data = await api.get(`/orders/${orderId}`)
-      setOrder(data.order)
-      setStatus(data.order.status)
+      const data = await api.get(`/products/${productId}`)
+      setProduct(data)
     } catch (error) {
-      toast.error('Failed to load order')
-      router.push('/dashboard/orders')
+      toast.error('Failed to load product')
+      router.push('/dashboard/products')
     } finally {
       setLoading(false)
     }
   }
 
-  const updateStatus = async () => {
-    if (!status) return
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
 
-    setUpdating(true)
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file')
+      return
+    }
+
+    // Validate file size (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image size must be less than 5MB')
+      return
+    }
+
+    setUploading(true)
     try {
-      await api.patch(`/orders/${orderId}/status`, { status })
-      toast.success('Order status updated')
-      fetchOrder()
+      const formData = new FormData()
+      formData.append('image', file)
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+      })
+
+      if (!response.ok) {
+        throw new Error('Upload failed')
+      }
+
+      const data = await response.json()
+      
+      if (data.ok && data.imageUrl) {
+        setProduct(prev => ({ ...prev, imageUrl: data.imageUrl }))
+        toast.success('Image uploaded successfully')
+      } else {
+        throw new Error('Invalid response')
+      }
     } catch (error) {
-      toast.error('Failed to update status')
+      console.error('Upload error:', error)
+      toast.error('Failed to upload image')
     } finally {
-      setUpdating(false)
+      setUploading(false)
     }
   }
 
-  const confirmPayment = async () => {
-    setUpdating(true)
-    try {
-      await api.post(`/orders/${orderId}/confirm-payment`, { paymentMethod })
-      toast.success('Payment confirmed')
-      fetchOrder()
-    } catch (error) {
-      toast.error('Failed to confirm payment')
-    } finally {
-      setUpdating(false)
+  const handleRemoveImage = () => {
+    setProduct(prev => ({ ...prev, imageUrl: '' }))
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
     }
   }
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'PENDING': return <Clock className="w-5 h-5 text-yellow-500" />
-      case 'CONFIRMED': return <CheckCircle className="w-5 h-5 text-blue-500" />
-      case 'PREPARING': return <Package className="w-5 h-5 text-orange-500" />
-      case 'OUT_FOR_DELIVERY': return <Truck className="w-5 h-5 text-purple-500" />
-      case 'DELIVERED': return <CheckCircle className="w-5 h-5 text-green-500" />
-      case 'CANCELLED': return <XCircle className="w-5 h-5 text-red-500" />
-      default: return <Package className="w-5 h-5 text-gray-500" />
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSaving(true)
+
+    try {
+      if (productId === 'new') {
+        await api.post('/products', product)
+        toast.success('Product created successfully')
+      } else {
+        await api.put(`/products/${productId}`, product)
+        toast.success('Product updated successfully')
+      }
+      router.push('/dashboard/products')
+    } catch (error) {
+      toast.error('Failed to save product')
+    } finally {
+      setSaving(false)
     }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setProduct(prev => ({
+      ...prev,
+      [name]: name === 'price' || name === 'stock' ? Number(value) : value
+    }))
   }
 
   if (loading) {
@@ -88,268 +143,198 @@ export default function OrderDetailPage() {
     )
   }
 
-  if (!order) return null
-
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-4">
           <Link
-            href="/dashboard/orders"
+            href="/dashboard/products"
             className="p-2 hover:bg-gray-100 rounded-lg"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              Order #{order.id}
+              {productId === 'new' ? 'Add New Product' : 'Edit Product'}
             </h1>
             <p className="text-gray-600">
-              {new Date(order.createdAt).toLocaleDateString()}
+              {productId === 'new' ? 'Create a new product' : 'Update product details'}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - Order Details */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Customer Info Card */}
-          <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="text-lg font-semibold mb-4 flex items-center">
-              <Package className="w-5 h-5 mr-2" />
-              Customer Information
-            </h2>
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-3">
-                  <Package className="w-5 h-5 text-primary-600" />
-                </div>
-                <div>
-                  <p className="font-medium">{order.customerName}</p>
-                  <p className="text-sm text-gray-500">Customer</p>
-                </div>
-              </div>
-
-              <div className="flex items-center">
-                <Phone className="w-5 h-5 text-gray-400 mr-3" />
-                <div>
-                  <p className="font-medium">{order.phone}</p>
-                  <p className="text-sm text-gray-500">Phone</p>
-                </div>
-              </div>
-
-              {order.email && (
-                <div className="flex items-center">
-                  <Mail className="w-5 h-5 text-gray-400 mr-3" />
-                  <div>
-                    <p className="font-medium">{order.email}</p>
-                    <p className="text-sm text-gray-500">Email</p>
-                  </div>
-                </div>
-              )}
-
-              {order.address && (
-                <div className="flex items-center">
-                  <MapPin className="w-5 h-5 text-gray-400 mr-3" />
-                  <div>
-                    <p className="font-medium">{order.address}</p>
-                    <p className="text-sm text-gray-500">Delivery Address</p>
-                  </div>
-                </div>
-              )}
-
-              {order.message && (
-                <div className="flex items-center">
-                  <MessageSquare className="w-5 h-5 text-gray-400 mr-3" />
-                  <div>
-                    <p className="font-medium">{order.message}</p>
-                    <p className="text-sm text-gray-500">Message</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Order Items Card */}
-          <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Order Items</h2>
-            <div className="space-y-4">
-              {order.items.map((item) => (
-                <div key={item.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div className="flex items-center">
-                    {item.product?.imageUrl && (
-                      <img
-                        src={item.product.imageUrl}
-                        alt={item.product.name}
-                        className="w-16 h-16 rounded-lg object-cover mr-4"
-                      />
-                    )}
-                    <div>
-                      <h4 className="font-medium">{item.product?.name}</h4>
-                      <p className="text-sm text-gray-500">
-                        ₦{item.unitPrice.toLocaleString()} × {item.quantity}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="font-semibold">
-                    ₦{(item.unitPrice * item.quantity).toLocaleString()}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="border-t mt-6 pt-6">
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span>₦{order.totalAmount.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Delivery</span>
-                  <span>₦0</span>
-                </div>
-                <div className="flex justify-between text-lg font-bold pt-2 border-t">
-                  <span>Total</span>
-                  <span className="text-primary-600">
-                    ₦{order.totalAmount.toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column - Actions */}
-        <div className="space-y-6">
-          {/* Status Card */}
-          <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Order Status</h2>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  {getStatusIcon(order.status)}
-                  <span className="ml-2 font-medium">{order.status}</span>
-                </div>
-                <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  order.status === 'DELIVERED' ? 'bg-green-100 text-green-800' :
-                  order.status === 'CANCELLED' ? 'bg-red-100 text-red-800' :
-                  order.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-blue-100 text-blue-800'
-                }`}>
-                  {order.status}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Update Status
-                </label>
-                <select
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  <option value="PENDING">PENDING</option>
-                  <option value="CONFIRMED">CONFIRMED</option>
-                  <option value="PREPARING">PREPARING</option>
-                  <option value="OUT_FOR_DELIVERY">OUT FOR DELIVERY</option>
-                  <option value="DELIVERED">DELIVERED</option>
-                  <option value="CANCELLED">CANCELLED</option>
-                </select>
-                <button
-                  onClick={updateStatus}
-                  disabled={updating || status === order.status}
-                  className="w-full mt-3 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {updating ? 'Updating...' : 'Update Status'}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Payment Card */}
-          <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Payment</h2>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <DollarSign className="w-5 h-5 text-gray-400 mr-2" />
-                  <span className="font-medium">Status</span>
-                </div>
-                <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  order.paymentStatus === 'CONFIRMED' ? 'bg-green-100 text-green-800' :
-                  order.paymentStatus === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-red-100 text-red-800'
-                }`}>
-                  {order.paymentStatus}
-                </div>
-              </div>
-
-              {order.paymentStatus === 'PENDING' && (
-                <>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Payment Method
-                    </label>
-                    <select
-                      value={paymentMethod}
-                      onChange={(e) => setPaymentMethod(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    >
-                      <option value="CASH">Cash</option>
-                      <option value="TRANSFER">Transfer</option>
-                      <option value="CARD">Card</option>
-                    </select>
-                  </div>
+      <div className="bg-white rounded-xl shadow">
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* Product Image Upload */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Product Image
+            </label>
+            
+            {product.imageUrl ? (
+              <div className="relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden group">
+                <img
+                  src={product.imageUrl}
+                  alt="Product"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <button
-                    onClick={confirmPayment}
-                    disabled={updating}
-                    className="w-full py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
                   >
-                    {updating ? 'Confirming...' : 'Confirm Payment'}
+                    <X className="w-5 h-5" />
+                    Remove Image
                   </button>
+                </div>
+              </div>
+            ) : (
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-12">
+                <div className="text-center">
+                  <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600 mb-2">Upload product image</p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    PNG, JPG, GIF or WEBP (Max 5MB)
+                  </p>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                    disabled={uploading}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
+                  >
+                    {uploading ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Uploading...
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-4 h-4" />
+                        Choose Image
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            <div className="mt-3">
+              <p className="text-sm text-gray-500">Or enter image URL:</p>
+              <input
+                type="url"
+                name="imageUrl"
+                value={product.imageUrl}
+                onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          {/* Product Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Product Name *
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={product.name}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="Enter product name"
+            />
+          </div>
+
+          {/* Price and Stock */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Price ({symbol}) *
+              </label>
+              <input
+                type="number"
+                name="price"
+                value={product.price}
+                onChange={handleChange}
+                required
+                min="0"
+                step="0.01"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                placeholder="0.00"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Stock Quantity *
+              </label>
+              <input
+                type="number"
+                name="stock"
+                value={product.stock}
+                onChange={handleChange}
+                required
+                min="0"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                placeholder="0"
+              />
+            </div>
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Description
+            </label>
+            <textarea
+              name="description"
+              value={product.description}
+              onChange={handleChange}
+              rows={4}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="Describe your product..."
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-end space-x-3 pt-6 border-t">
+            <Link
+              href="/dashboard/products"
+              className="px-6 py-2 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </Link>
+            <button
+              type="submit"
+              disabled={saving || uploading}
+              className="flex items-center space-x-2 px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {saving ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <span>Saving...</span>
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4" />
+                  <span>Save Product</span>
                 </>
               )}
-
-              {order.paymentMethod && (
-                <div>
-                  <p className="text-sm text-gray-600">Method: {order.paymentMethod}</p>
-                  {order.paymentConfirmedAt && (
-                    <p className="text-sm text-gray-600">
-                      Confirmed: {new Date(order.paymentConfirmedAt).toLocaleDateString()}
-                    </p>
-                  )}
-                </div>
-              )}
-            </div>
+            </button>
           </div>
-
-          {/* Timeline Card */}
-          <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Order Timeline</h2>
-            <div className="space-y-4">
-              {order.statusHistory?.map((history, index) => (
-                <div key={index} className="flex items-start">
-                  <div className="flex-shrink-0 mr-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                      {getStatusIcon(history.status)}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-medium">{history.status}</p>
-                    <p className="text-sm text-gray-500">
-                      {new Date(history.timestamp).toLocaleString()}
-                    </p>
-                    {history.notes && (
-                      <p className="text-sm text-gray-600 mt-1">{history.notes}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   )

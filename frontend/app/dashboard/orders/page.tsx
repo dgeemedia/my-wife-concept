@@ -2,12 +2,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Truck, Package, X, Download } from 'lucide-react'
+import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Truck, Package, X, Download, AlertTriangle } from 'lucide-react'
 import { Order } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 import { exportOrdersToExcel, exportCustomersToExcel } from '@/lib/exportToExcel'
-
+import { useCurrency } from '@/components/dashboard/CurrencyProvider'
 
 type OrderStatus = 'PENDING' | 'CONFIRMED' | 'PREPARING' | 'OUT_FOR_DELIVERY' | 'DELIVERED' | 'CANCELLED'
 type PaymentStatus = 'PENDING' | 'CONFIRMED'
@@ -19,6 +19,7 @@ export default function OrdersPage() {
   const [statusFilter, setStatusFilter] = useState<string>('ALL')
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
   const [showModal, setShowModal] = useState(false)
+  const { format, businessCurrency } = useCurrency()
 
   useEffect(() => {
     fetchOrders()
@@ -43,7 +44,6 @@ export default function OrdersPage() {
         paymentMethod: 'BANK_TRANSFER'
       })
       
-      // Update order in list
       setOrders(orders.map(o => o.id === orderId ? response.order : o))
       toast.success('Payment confirmed successfully')
     } catch (error) {
@@ -58,7 +58,6 @@ export default function OrdersPage() {
         notes: `Status updated to ${newStatus} by staff`
       })
       
-      // Update order in list
       setOrders(orders.map(o => o.id === orderId ? response.order : o))
       toast.success(`Order status updated to ${newStatus}`)
       
@@ -242,6 +241,9 @@ export default function OrdersPage() {
                     Amount
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Currency
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                     Payment
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
@@ -268,7 +270,15 @@ export default function OrdersPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="font-semibold">₦{order.totalAmount.toLocaleString()}</span>
+                      <span className="font-semibold">{format(order.totalAmount, order.currency)}</span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="text-sm text-gray-500">
+                        {order.currency}
+                        {order.currency !== businessCurrency && (
+                          <span className="ml-1 text-yellow-600" title="Different from current currency">⚠️</span>
+                        )}
+                      </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPaymentStatusColor(order.paymentStatus)}`}>
@@ -344,6 +354,7 @@ function OrderDetailsModal({
   onConfirmPayment: (orderId: number) => void
 }) {
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus>(order.status as OrderStatus)
+  const { format, businessCurrency } = useCurrency()
 
   const statusOptions: OrderStatus[] = ['PENDING', 'CONFIRMED', 'PREPARING', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED']
 
@@ -377,6 +388,12 @@ function OrderDetailsModal({
               <p className="text-sm text-gray-600">
                 Placed on {new Date(order.createdAt).toLocaleString()}
               </p>
+              {order.currency !== businessCurrency && (
+                <div className="mt-2 flex items-center gap-2 text-sm text-yellow-600">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span>This order was made in {order.currency} (Current: {businessCurrency})</span>
+                </div>
+              )}
             </div>
             <button
               onClick={onClose}
@@ -433,8 +450,8 @@ function OrderDetailsModal({
                     <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">₦{(item.unitPrice * item.quantity).toLocaleString()}</p>
-                    <p className="text-sm text-gray-600">₦{item.unitPrice.toLocaleString()} each</p>
+                    <p className="font-medium">{format(item.unitPrice * item.quantity, order.currency)}</p>
+                    <p className="text-sm text-gray-600">{format(item.unitPrice, order.currency)} each</p>
                   </div>
                 </div>
               ))}
@@ -442,7 +459,7 @@ function OrderDetailsModal({
             <div className="mt-4 pt-4 border-t flex justify-between items-center">
               <span className="font-semibold text-lg">Total Amount:</span>
               <span className="font-bold text-2xl text-primary-600">
-                ₦{order.totalAmount.toLocaleString()}
+                {format(order.totalAmount, order.currency)}
               </span>
             </div>
           </div>

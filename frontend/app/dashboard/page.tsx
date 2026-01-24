@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react'
 import { Package, ShoppingCart, DollarSign, Users } from 'lucide-react'
 import api from '@/lib/api'
+import { useCurrency } from '@/components/dashboard/CurrencyProvider'
 
 export default function DashboardHome() {
   const [stats, setStats] = useState({
@@ -15,6 +16,7 @@ export default function DashboardHome() {
   const [recentOrders, setRecentOrders] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const { format } = useCurrency()
 
   useEffect(() => {
     fetchDashboardData()
@@ -115,7 +117,7 @@ export default function DashboardHome() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 mb-1">Total Revenue</p>
-              <h3 className="text-2xl font-bold text-gray-900">₦{stats.totalRevenue.toLocaleString()}</h3>
+              <h3 className="text-2xl font-bold text-gray-900">{format(stats.totalRevenue)}</h3>
               <p className="text-sm font-medium text-green-600 mt-2">+18% from last month</p>
             </div>
             <div className="p-3 rounded-lg bg-purple-100 text-purple-600">
@@ -183,7 +185,7 @@ export default function DashboardHome() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ₦{(order.totalAmount || 0).toLocaleString()}
+                      {format(order.totalAmount || 0)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
