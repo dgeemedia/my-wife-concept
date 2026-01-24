@@ -5,10 +5,12 @@ import { useCart } from './CartProvider'
 import { X, ShoppingCart, Trash2, Plus, Minus } from 'lucide-react'
 import { useState } from 'react'
 import CheckoutModal from '../checkout/CheckoutModal'
+import { useCurrency } from '@/app/(public)/layout'
 
 export default function CartDrawer() {
   const { items, total, itemCount, isOpen, closeCart, updateQuantity, removeFromCart, clearCart } = useCart()
   const [showCheckout, setShowCheckout] = useState(false)
+  const { symbol, format } = useCurrency()
 
   const handleCheckout = () => {
     if (items.length === 0) return
@@ -68,7 +70,7 @@ export default function CartDrawer() {
                     <div className="flex-1">
                       <h3 className="font-medium">{item.product.name}</h3>
                       <p className="text-sm text-gray-500">
-                        ₦{item.product.price.toLocaleString()} each
+                        {format(item.product.price)} each
                       </p>
                     </div>
                     
@@ -107,7 +109,7 @@ export default function CartDrawer() {
             <div className="border-t p-6 space-y-4">
               <div className="flex justify-between text-lg font-semibold">
                 <span>Total:</span>
-                <span className="text-primary-600">₦{total.toLocaleString()}</span>
+                <span className="text-primary-600">{format(total)}</span>
               </div>
               
               <div className="flex space-x-3">

@@ -4,6 +4,7 @@
 import { Product } from '@/types'
 import { Trash2, Plus, Minus } from 'lucide-react'
 import Image from 'next/image'
+import { useCurrency } from '@/app/(public)/layout'
 
 interface CartItemProps {
   item: {
@@ -17,6 +18,7 @@ interface CartItemProps {
 export default function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
   const { product, quantity } = item
   const total = product.price * quantity
+  const { format } = useCurrency()
 
   return (
     <div className="flex items-center space-x-4 p-4 bg-white rounded-lg border">
@@ -43,7 +45,7 @@ export default function CartItem({ item, onUpdateQuantity, onRemove }: CartItemP
       {/* Product Info */}
       <div className="flex-1">
         <h4 className="font-medium text-gray-900 mb-1">{product.name}</h4>
-        <p className="text-sm text-gray-500 mb-2">₦{product.price.toLocaleString()} each</p>
+        <p className="text-sm text-gray-500 mb-2">{format(product.price)} each</p>
         
         {/* Stock Status */}
         {product.stock < quantity && (
@@ -75,7 +77,7 @@ export default function CartItem({ item, onUpdateQuantity, onRemove }: CartItemP
 
         {/* Price */}
         <div className="w-24 text-right">
-          <p className="font-semibold">₦{total.toLocaleString()}</p>
+          <p className="font-semibold">{format(total)}</p>
         </div>
 
         {/* Remove Button */}

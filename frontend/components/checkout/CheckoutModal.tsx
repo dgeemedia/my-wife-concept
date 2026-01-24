@@ -6,6 +6,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { X, MessageCircle, AlertCircle, CheckCircle, ExternalLink } from 'lucide-react'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
+import { useCurrency } from '@/app/(public)/layout'
 
 interface CheckoutModalProps {
   isOpen: boolean
@@ -28,6 +29,8 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
     address: '',
     message: '',
   })
+
+  const { symbol, format } = useCurrency()
 
   // Fetch WhatsApp number from settings
   useEffect(() => {
@@ -86,9 +89,9 @@ Name: ${formData.customerName}
 Phone: ${formData.phone}
 ${formData.email ? `Email: ${formData.email}\n` : ''}${formData.address ? `📍 Address: ${formData.address}\n` : ''}${formData.message ? `💬 Message: ${formData.message}\n` : ''}
 🛍️ *Order Items:*
-${items.map(item => `• ${item.product.name} x${item.quantity} - ₦${(item.product.price * item.quantity).toLocaleString()}`).join('\n')}
+${items.map(item => `• ${item.product.name} x${item.quantity} - ${format(item.product.price * item.quantity)}`).join('\n')}
 
-💰 *Total Amount: ₦${total.toLocaleString()}*
+💰 *Total Amount: ${format(total)}*
 
 📅 Order Date: ${new Date().toLocaleString()}
 
@@ -156,9 +159,9 @@ Name: ${formData.customerName}
 Phone: ${formData.phone}
 ${formData.email ? `Email: ${formData.email}\n` : ''}${formData.address ? `📍 Address: ${formData.address}\n` : ''}${formData.message ? `💬 Message: ${formData.message}\n` : ''}
 🛍️ *Order Items:*
-${savedOrderItems.map(item => `• ${item.product.name} x${item.quantity} - ₦${(item.product.price * item.quantity).toLocaleString()}`).join('\n')}
+${savedOrderItems.map(item => `• ${item.product.name} x${item.quantity} - ${format(item.product.price * item.quantity)}`).join('\n')}
 
-💰 *Total Amount: ₦${savedTotal.toLocaleString()}*
+💰 *Total Amount: ${format(savedTotal)}*
 
 📅 Order Date: ${new Date().toLocaleString()}
 
@@ -259,13 +262,13 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                     <span>
                       {item.product.name} x{item.quantity}
                     </span>
-                    <span>₦{(item.product.price * item.quantity).toLocaleString()}</span>
+                    <span>{format(item.product.price * item.quantity)}</span>
                   </div>
                 ))}
               </div>
               <div className="flex justify-between font-bold text-lg mt-4 pt-4 border-t">
                 <span>Total</span>
-                <span className="text-primary-600">₦{total.toLocaleString()}</span>
+                <span className="text-primary-600">{format(total)}</span>
               </div>
             </div>
 
