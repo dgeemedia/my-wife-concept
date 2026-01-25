@@ -1,138 +1,94 @@
-// app/dashboard/products/[id]/page.tsx
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { ArrowLeft, Save, Upload, X, Image as ImageIcon } from 'lucide-react'
-import { Product } from '@/types'
+import { ArrowLeft, CheckCircle, XCircle, Clock, Truck, Package, AlertTriangle, Printer } from 'lucide-react'
+import { Order } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
 import { useCurrency } from '@/components/dashboard/CurrencyProvider'
 
-export default function EditProductPage() {
+type OrderStatus = 'PENDING' | 'CONFIRMED' | 'PREPARING' | 'OUT_FOR_DELIVERY' | 'DELIVERED' | 'CANCELLED'
+
+export default function OrderDetailsPage() {
   const router = useRouter()
   const params = useParams()
-  const productId = params.id
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const orderId = params.id
 
-  const [loading, setLoading] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const [uploading, setUploading] = useState(false)
-  const [product, setProduct] = useState<Product>({
-    id: 0,
-    name: '',
-    price: 0,
-    stock: 0,
-    description: '',
-    imageUrl: '',
-    createdAt: '',
-    updatedAt: ''
-  })
-
-  const { symbol } = useCurrency()
+  const [order, setOrder] = useState<Order | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [selectedStatus, setSelectedStatus] = useState<OrderStatus>('PENDING')
+  const { format, businessCurrency } = useCurrency()
 
   useEffect(() => {
-    if (productId && productId !== 'new') {
-      fetchProduct()
+    if (orderId) {
+      fetchOrder()
     }
-  }, [productId])
+  }, [orderId])
 
-  const fetchProduct = async () => {
+  const fetchOrder = async () => {
     setLoading(true)
     try {
-      const data = await api.get(`/products/${productId}`)
-      setProduct(data)
+      const response = await api.get(`/orders/${orderId}`)
+      setOrder(response.order || response)
+      if (response.order || response) {
+        setSelectedStatus((response.order?.status || response.status) as OrderStatus)
+      }
     } catch (error) {
-      toast.error('Failed to load product')
-      router.push('/dashboard/products')
+      toast.error('Failed to fetch order details')
+      router.push('/dashboard/orders')
     } finally {
       setLoading(false)
     }
   }
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+  const handleConfirmPayment = async () => {
+    if (!order || !confirm('Confirm that payment has been received for this order?')) return
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      toast.error('Please select an image file')
-      return
-    }
-
-    // Validate file size (5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error('Image size must be less than 5MB')
-      return
-    }
-
-    setUploading(true)
     try {
-      const formData = new FormData()
-      formData.append('image', file)
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: formData
+      const response = await api.post(`/orders/${order.id}/confirm-payment`, {
+        paymentMethod: 'BANK_TRANSFER'
       })
-
-      if (!response.ok) {
-        throw new Error('Upload failed')
-      }
-
-      const data = await response.json()
       
-      if (data.ok && data.imageUrl) {
-        setProduct(prev => ({ ...prev, imageUrl: data.imageUrl }))
-        toast.success('Image uploaded successfully')
-      } else {
-        throw new Error('Invalid response')
-      }
+      setOrder(response.order)
+      toast.success('Payment confirmed successfully')
     } catch (error) {
-      console.error('Upload error:', error)
-      toast.error('Failed to upload image')
-    } finally {
-      setUploading(false)
+      toast.error('Failed to confirm payment')
     }
   }
 
-  const handleRemoveImage = () => {
-    setProduct(prev => ({ ...prev, imageUrl: '' }))
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSaving(true)
+  const handleUpdateStatus = async () => {
+    if (!order || selectedStatus === order.status) return
 
     try {
-      if (productId === 'new') {
-        await api.post('/products', product)
-        toast.success('Product created successfully')
-      } else {
-        await api.put(`/products/${productId}`, product)
-        toast.success('Product updated successfully')
-      }
-      router.push('/dashboard/products')
+      const response = await api.patch(`/orders/${order.id}/status`, {
+        status: selectedStatus,
+        notes: `Status updated to ${selectedStatus} by staff`
+      })
+      
+      setOrder(response.order)
+      toast.success(`Order status updated to ${selectedStatus}`)
     } catch (error) {
-      toast.error('Failed to save product')
-    } finally {
-      setSaving(false)
+      toast.error('Failed to update status')
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setProduct(prev => ({
-      ...prev,
-      [name]: name === 'price' || name === 'stock' ? Number(value) : value
-    }))
+  const handlePrintReceipt = () => {
+    window.print()
+  }
+
+  const getStatusIcon = (status: string) => {
+    const icons: Record<string, any> = {
+      PENDING: Clock,
+      CONFIRMED: CheckCircle,
+      PREPARING: Package,
+      OUT_FOR_DELIVERY: Truck,
+      DELIVERED: CheckCircle,
+      CANCELLED: XCircle,
+    }
+    const Icon = icons[status] || Clock
+    return <Icon className="w-5 h-5" />
   }
 
   if (loading) {
@@ -143,198 +99,242 @@ export default function EditProductPage() {
     )
   }
 
+  if (!order) {
+    return (
+      <div className="text-center py-12">
+        <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+        <p className="text-gray-500">Order not found</p>
+        <Link
+          href="/dashboard/orders"
+          className="mt-4 inline-flex items-center text-primary-600 hover:text-primary-700"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Orders
+        </Link>
+      </div>
+    )
+  }
+
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
+    <div className="print:p-0">
+      <div className="flex items-center justify-between mb-6 print:hidden">
         <div className="flex items-center space-x-4">
           <Link
-            href="/dashboard/products"
+            href="/dashboard/orders"
             className="p-2 hover:bg-gray-100 rounded-lg"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              {productId === 'new' ? 'Add New Product' : 'Edit Product'}
-            </h1>
+            <h1 className="text-2xl font-bold text-gray-900">Order #{order.id}</h1>
             <p className="text-gray-600">
-              {productId === 'new' ? 'Create a new product' : 'Update product details'}
+              Placed on {new Date(order.createdAt).toLocaleString()}
             </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-xl shadow">
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Product Image Upload */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Product Image
-            </label>
-            
-            {product.imageUrl ? (
-              <div className="relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden group">
-                <img
-                  src={product.imageUrl}
-                  alt="Product"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <button
-                    type="button"
-                    onClick={handleRemoveImage}
-                    className="p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
-                  >
-                    <X className="w-5 h-5" />
-                    Remove Image
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-12">
-                <div className="text-center">
-                  <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600 mb-2">Upload product image</p>
-                  <p className="text-sm text-gray-500 mb-4">
-                    PNG, JPG, GIF or WEBP (Max 5MB)
-                  </p>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                    disabled={uploading}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploading}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
-                  >
-                    {uploading ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                        Uploading...
-                      </>
-                    ) : (
-                      <>
-                        <Upload className="w-4 h-4" />
-                        Choose Image
-                      </>
-                    )}
-                  </button>
-                </div>
+            {order.currency !== businessCurrency && (
+              <div className="mt-2 flex items-center gap-2 text-sm text-yellow-600">
+                <AlertTriangle className="w-4 h-4" />
+                <span>This order was made in {order.currency} (Current: {businessCurrency})</span>
               </div>
             )}
-            
-            <div className="mt-3">
-              <p className="text-sm text-gray-500">Or enter image URL:</p>
-              <input
-                type="url"
-                name="imageUrl"
-                value={product.imageUrl}
-                onChange={handleChange}
-                placeholder="https://example.com/image.jpg"
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
-            </div>
           </div>
+        </div>
+        
+        <button
+          onClick={handlePrintReceipt}
+          className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+        >
+          <Printer className="w-4 h-4" />
+          Print Receipt
+        </button>
+      </div>
 
-          {/* Product Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Product Name *
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={product.name}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="Enter product name"
-            />
-          </div>
-
-          {/* Price and Stock */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price ({symbol}) *
-              </label>
-              <input
-                type="number"
-                name="price"
-                value={product.price}
-                onChange={handleChange}
-                required
-                min="0"
-                step="0.01"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="0.00"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Stock Quantity *
-              </label>
-              <input
-                type="number"
-                name="stock"
-                value={product.stock}
-                onChange={handleChange}
-                required
-                min="0"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="0"
-              />
-            </div>
-          </div>
-
-          {/* Description */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description
-            </label>
-            <textarea
-              name="description"
-              value={product.description}
-              onChange={handleChange}
-              rows={4}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="Describe your product..."
-            />
-          </div>
-
-          {/* Submit Button */}
-          <div className="flex justify-end space-x-3 pt-6 border-t">
-            <Link
-              href="/dashboard/products"
-              className="px-6 py-2 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-            >
-              Cancel
-            </Link>
-            <button
-              type="submit"
-              disabled={saving || uploading}
-              className="flex items-center space-x-2 px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {saving ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>Saving...</span>
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4" />
-                  <span>Save Product</span>
-                </>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column - Order Details */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Customer Info */}
+          <div className="bg-white rounded-xl shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Customer Information</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Name:</span>
+                <span className="font-medium">{order.customerName}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Phone:</span>
+                <span className="font-medium">{order.phone}</span>
+              </div>
+              {order.email && (
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Email:</span>
+                  <span className="font-medium">{order.email}</span>
+                </div>
               )}
-            </button>
+              {order.address && (
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Address:</span>
+                  <span className="font-medium">{order.address}</span>
+                </div>
+              )}
+              {order.message && (
+                <div>
+                  <span className="text-gray-600">Message:</span>
+                  <p className="mt-1 text-sm text-gray-700">{order.message}</p>
+                </div>
+              )}
+            </div>
           </div>
-        </form>
+
+          {/* Order Items */}
+          <div className="bg-white rounded-xl shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Order Items</h2>
+            <div className="space-y-3">
+              {order.items?.map((item, index) => (
+                <div key={index} className="flex justify-between items-center border-b pb-3 last:border-0">
+                  <div>
+                    <p className="font-medium">{item.product?.name || 'Product'}</p>
+                    <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium">{format(item.unitPrice * item.quantity, order.currency)}</p>
+                    <p className="text-sm text-gray-600">{format(item.unitPrice, order.currency)} each</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 pt-6 border-t flex justify-between items-center">
+              <span className="font-semibold text-lg">Total Amount:</span>
+              <span className="font-bold text-2xl text-primary-600">
+                {format(order.totalAmount, order.currency)}
+              </span>
+            </div>
+          </div>
+
+          {/* Status History */}
+          {order.statusHistory && Array.isArray(order.statusHistory) && order.statusHistory.length > 0 && (
+            <div className="bg-white rounded-xl shadow p-6">
+              <h2 className="text-lg font-semibold mb-4">Status History</h2>
+              <div className="space-y-3">
+                {order.statusHistory.map((history, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    {getStatusIcon(history.status)}
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium">{history.status}</span>
+                        <span className="text-sm text-gray-500">
+                          {new Date(history.timestamp).toLocaleString()}
+                        </span>
+                      </div>
+                      {history.notes && (
+                        <p className="text-sm text-gray-600 mt-1">{history.notes}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Column - Actions */}
+        <div className="space-y-6">
+          {/* Payment Status */}
+          <div className="bg-white rounded-xl shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Payment Status</h2>
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-gray-600">Status:</span>
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                order.paymentStatus === 'CONFIRMED' 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-yellow-100 text-yellow-800'
+              }`}>
+                {order.paymentStatus}
+              </span>
+            </div>
+            {order.paymentStatus === 'PENDING' && (
+              <button
+                onClick={handleConfirmPayment}
+                className="w-full py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <CheckCircle className="w-4 h-4" />
+                Confirm Payment Received
+              </button>
+            )}
+          </div>
+
+          {/* Order Status */}
+          <div className="bg-white rounded-xl shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Order Status</h2>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">Current Status:</span>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  order.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :
+                  order.status === 'CONFIRMED' ? 'bg-blue-100 text-blue-800' :
+                  order.status === 'PREPARING' ? 'bg-purple-100 text-purple-800' :
+                  order.status === 'OUT_FOR_DELIVERY' ? 'bg-orange-100 text-orange-800' :
+                  order.status === 'DELIVERED' ? 'bg-green-100 text-green-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {order.status}
+                </span>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Update Status
+                </label>
+                <select
+                  value={selectedStatus}
+                  onChange={(e) => setSelectedStatus(e.target.value as OrderStatus)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="PENDING">Pending</option>
+                  <option value="CONFIRMED">Confirmed</option>
+                  <option value="PREPARING">Preparing</option>
+                  <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
+                  <option value="DELIVERED">Delivered</option>
+                  <option value="CANCELLED">Cancelled</option>
+                </select>
+              </div>
+              
+              {selectedStatus !== order.status && (
+                <button
+                  onClick={handleUpdateStatus}
+                  className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Update Status to {selectedStatus}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Order Info */}
+          <div className="bg-white rounded-xl shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Order Information</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Order ID:</span>
+                <span className="font-medium">#{order.id}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Currency:</span>
+                <span className="font-medium">{order.currency}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Created:</span>
+                <span className="font-medium">
+                  {new Date(order.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Last Updated:</span>
+                <span className="font-medium">
+                  {new Date(order.updatedAt || order.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
