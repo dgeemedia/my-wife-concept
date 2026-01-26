@@ -6,19 +6,22 @@ import { Bell, X, Package, DollarSign, AlertCircle, CheckCircle } from 'lucide-r
 import api from '@/lib/api'
 
 interface Notification {
-  id: string
+  id: number
   type: 'order' | 'payment' | 'stock' | 'system'
   title: string
   message: string
   timestamp: Date
   read: boolean
   link?: string
+  orderId?: number
+  productId?: number
 }
 
 export default function NotificationPanel() {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [unreadCount, setUnreadCount] = useState(0)
 
   useEffect(() => {
     fetchNotifications()
@@ -29,81 +32,46 @@ export default function NotificationPanel() {
   }, [])
 
   const fetchNotifications = async () => {
-    setLoading(true)
     try {
-      // Fetch recent orders for notifications
-      const ordersResponse = await api.get('/orders?limit=10')
-      const orders = ordersResponse.orders || []
+      const response = await api.get('/notifications')
       
-      // Fetch products for stock notifications
-      const products = await api.get('/products')
-      
-      const newNotifications: Notification[] = []
-      
-      // Check for new pending orders
-      const pendingOrders = orders.filter((o: any) => o.status === 'PENDING')
-      pendingOrders.forEach((order: any) => {
-        newNotifications.push({
-          id: `order-${order.id}`,
-          type: 'order',
-          title: 'New Order',
-          message: `Order #${order.id} from ${order.customerName}`,
-          timestamp: new Date(order.createdAt),
-          read: false,
-          link: `/dashboard/orders/${order.id}`
-        })
-      })
-      
-      // Check for pending payments
-      const pendingPayments = orders.filter((o: any) => o.paymentStatus === 'PENDING')
-      pendingPayments.slice(0, 3).forEach((order: any) => {
-        newNotifications.push({
-          id: `payment-${order.id}`,
-          type: 'payment',
-          title: 'Payment Pending',
-          message: `Order #${order.id} awaiting payment confirmation`,
-          timestamp: new Date(order.createdAt),
-          read: false,
-          link: `/dashboard/orders/${order.id}`
-        })
-      })
-      
-      // Check for low stock
-      const lowStock = products.filter((p: any) => p.stock > 0 && p.stock < 5)
-      lowStock.forEach((product: any) => {
-        newNotifications.push({
-          id: `stock-${product.id}`,
-          type: 'stock',
-          title: 'Low Stock Alert',
-          message: `${product.name} has only ${product.stock} items left`,
-          timestamp: new Date(),
-          read: false,
-          link: `/dashboard/products`
-        })
-      })
-      
-      // Sort by timestamp
-      newNotifications.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
-      
-      setNotifications(newNotifications.slice(0, 10))
+      if (response.notifications) {
+        const formattedNotifications = response.notifications.map((n: any) => ({
+          ...n,
+          timestamp: new Date(n.createdAt)
+        }))
+        
+        setNotifications(formattedNotifications)
+        setUnreadCount(response.unreadCount || 0)
+      }
     } catch (error) {
       console.error('Failed to fetch notifications:', error)
-    } finally {
-      setLoading(false)
     }
   }
 
-  const markAsRead = (id: string) => {
-    setNotifications(prev =>
-      prev.map(n => n.id === id ? { ...n, read: true } : n)
-    )
+  const markAsRead = async (id: number) => {
+    try {
+      await api.patch(`/notifications/${id}/read`)
+      
+      setNotifications(prev =>
+        prev.map(n => n.id === id ? { ...n, read: true } : n)
+      )
+      setUnreadCount(prev => Math.max(0, prev - 1))
+    } catch (error) {
+      console.error('Failed to mark notification as read:', error)
+    }
   }
 
-  const markAllAsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })))
+  const markAllAsRead = async () => {
+    try {
+      await api.post('/notifications/read-all')
+      
+      setNotifications(prev => prev.map(n => ({ ...n, read: true })))
+      setUnreadCount(0)
+    } catch (error) {
+      console.error('Failed to mark all as read:', error)
+    }
   }
-
-  const unreadCount = notifications.filter(n => !n.read).length
 
   const getIcon = (type: string) => {
     switch (type) {
@@ -116,6 +84,13 @@ export default function NotificationPanel() {
       default:
         return <Bell className="w-5 h-5 text-gray-600" />
     }
+  }
+
+  const handleNotificationClick = (notification: Notification) => {
+    if (!notification.read) {
+      markAsRead(notification.id)
+    }
+    setShow(false)
   }
 
   return (
@@ -180,10 +155,7 @@ export default function NotificationPanel() {
                     <a
                       key={notification.id}
                       href={notification.link || '#'}
-                      onClick={() => {
-                        markAsRead(notification.id)
-                        setShow(false)
-                      }}
+                      onClick={() => handleNotificationClick(notification)}
                       className={`block p-4 hover:bg-gray-50 transition-colors ${
                         !notification.read ? 'bg-blue-50' : ''
                       }`}
@@ -216,7 +188,7 @@ export default function NotificationPanel() {
             </div>
 
             {/* Footer */}
-            {notifications.length > 0 && (
+            {notifications.length > 0 && unreadCount > 0 && (
               <div className="p-3 border-t">
                 <button
                   onClick={markAllAsRead}
