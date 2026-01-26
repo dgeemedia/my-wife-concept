@@ -20,6 +20,7 @@ app.use('/api/orders', require('./routes/orders'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/upload', require('./routes/upload'));
+app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api', require('./routes/ratings'));
 
 // Health check

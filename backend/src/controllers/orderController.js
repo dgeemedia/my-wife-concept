@@ -1,15 +1,12 @@
-// ============================================================================
-// UPDATED ORDER CONTROLLER WITH PHONE NORMALIZATION
 // backend/src/controllers/orderController.js
-// ============================================================================
-
 const { PrismaClient } = require('@prisma/client');
+const { createNotification } = require('./notificationController');
 const prisma = new PrismaClient();
 
 // Helper function to normalize phone numbers
 function normalizePhone(phone) {
   if (!phone) return '';
-  return phone.replace(/\D/g, ''); // Remove all non-digit characters
+  return phone.replace(/\D/g, '');
 }
 
 async function checkout(req, res) {
@@ -19,26 +16,21 @@ async function checkout(req, res) {
     throw new Error('Missing required fields');
   }
 
-  // ⭐ FIX: Normalize phone number before saving
   const normalizedPhone = normalizePhone(phone);
   
   console.log('📝 Creating order for phone:', normalizedPhone);
 
-  // Validate and prepare order data BEFORE starting transaction
   let totalAmount = 0;
   const orderItems = [];
   const productUpdates = [];
   
-  // Fetch all products first
   const productIds = items.map(item => item.productId);
   const products = await prisma.product.findMany({
     where: { id: { in: productIds } }
   });
   
-  // Create a map for quick lookup
   const productMap = new Map(products.map(p => [p.id, p]));
   
-  // Validate all items BEFORE transaction
   for (const item of items) {
     const product = productMap.get(item.productId);
     
@@ -59,20 +51,17 @@ async function checkout(req, res) {
     productUpdates.push({ id: product.id, quantity: item.quantity });
   }
   
-  // Prepare status history
   const statusHistory = JSON.stringify([{
     status: 'PENDING',
     timestamp: new Date().toISOString(),
     notes: 'Order created',
   }]);
   
-  // Now run a FAST transaction with increased timeout
   const order = await prisma.$transaction(async (tx) => {
-    // Create order with items in one operation
     const newOrder = await tx.order.create({
       data: {
         customerName,
-        phone: normalizedPhone,  // ⭐ CHANGED: Use normalized phone
+        phone: normalizedPhone,
         address: address || '',
         email: email || '',
         message: message || '',
@@ -85,7 +74,6 @@ async function checkout(req, res) {
       },
     });
     
-    // Update stock in batch
     await Promise.all(
       productUpdates.map(({ id, quantity }) =>
         tx.product.update({
@@ -101,12 +89,20 @@ async function checkout(req, res) {
     timeout: 15000,
   });
 
-  // Fetch complete order with items AFTER transaction
   const completeOrder = await prisma.order.findUnique({
     where: { id: order.id },
     include: {
       items: { include: { product: true } },
     },
+  });
+
+  // Create notification for new order
+  await createNotification({
+    type: 'order',
+    title: 'New Order',
+    message: `Order #${order.id} from ${customerName}`,
+    link: `/dashboard/orders/${order.id}`,
+    orderId: order.id
   });
 
   console.log('✅ Order created successfully:', completeOrder.id);
@@ -120,6 +116,115 @@ async function checkout(req, res) {
   });
 }
 
+async function confirmPayment(req, res) {
+  const { paymentMethod } = req.body;
+
+  const order = await prisma.order.findUnique({
+    where: { id: Number(req.params.id) },
+  });
+
+  if (!order) {
+    throw new Error('Order not found');
+  }
+
+  const history = order.statusHistory ? JSON.parse(order.statusHistory) : [];
+  history.push({
+    status: 'CONFIRMED',
+    timestamp: new Date().toISOString(),
+    notes: `Payment confirmed via ${paymentMethod || 'CASH'}`,
+  });
+
+  const updatedOrder = await prisma.order.update({
+    where: { id: Number(req.params.id) },
+    data: {
+      paymentStatus: 'CONFIRMED',
+      paymentMethod: paymentMethod || 'CASH',
+      paymentConfirmedAt: new Date(),
+      paymentConfirmedBy: req.user.id,
+      status: 'CONFIRMED',
+      statusHistory: JSON.stringify(history),
+    },
+    include: {
+      items: { include: { product: true } },
+    },
+  });
+
+  // Create notification for payment confirmation
+  await createNotification({
+    type: 'payment',
+    title: 'Payment Confirmed',
+    message: `Payment for Order #${order.id} has been confirmed`,
+    link: `/dashboard/orders/${order.id}`,
+    orderId: order.id
+  });
+
+  console.log('💰 Payment confirmed for order:', updatedOrder.id);
+
+  res.json({ 
+    success: true, 
+    order: {
+      ...updatedOrder,
+      statusHistory: JSON.parse(updatedOrder.statusHistory)
+    }
+  });
+}
+
+async function updateOrderStatus(req, res) {
+  const { status, notes } = req.body;
+
+  const validStatuses = ['PENDING', 'CONFIRMED', 'PREPARING', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED'];
+  if (!validStatuses.includes(status)) {
+    throw new Error('Invalid status');
+  }
+
+  const order = await prisma.order.findUnique({
+    where: { id: Number(req.params.id) },
+  });
+
+  if (!order) {
+    throw new Error('Order not found');
+  }
+
+  const history = order.statusHistory ? JSON.parse(order.statusHistory) : [];
+  history.push({
+    status,
+    timestamp: new Date().toISOString(),
+    notes: notes || `Status updated to ${status}`,
+  });
+
+  const updatedOrder = await prisma.order.update({
+    where: { id: Number(req.params.id) },
+    data: {
+      status,
+      statusHistory: JSON.stringify(history),
+    },
+    include: {
+      items: { include: { product: true } },
+    },
+  });
+
+  // Create notification for important status changes
+  if (['DELIVERED', 'CANCELLED'].includes(status)) {
+    await createNotification({
+      type: 'order',
+      title: `Order ${status}`,
+      message: `Order #${order.id} has been ${status.toLowerCase()}`,
+      link: `/dashboard/orders/${order.id}`,
+      orderId: order.id
+    });
+  }
+
+  console.log(`📦 Order ${updatedOrder.id} status updated to:`, status);
+
+  res.json({ 
+    success: true, 
+    order: {
+      ...updatedOrder,
+      statusHistory: JSON.parse(updatedOrder.statusHistory)
+    }
+  });
+}
+
 async function getAllOrders(req, res) {
   const { page = 1, limit = 50, status, paymentStatus, search } = req.query;
 
@@ -127,7 +232,6 @@ async function getAllOrders(req, res) {
   if (status) where.status = status;
   if (paymentStatus) where.paymentStatus = paymentStatus;
   if (search) {
-    // ⭐ IMPROVED: Normalize phone search
     const normalizedSearch = normalizePhone(search);
     where.OR = [
       { customerName: { contains: search, mode: 'insensitive' } },
@@ -186,95 +290,6 @@ async function getOrderById(req, res) {
   });
 }
 
-async function confirmPayment(req, res) {
-  const { paymentMethod } = req.body;
-
-  const order = await prisma.order.findUnique({
-    where: { id: Number(req.params.id) },
-  });
-
-  if (!order) {
-    throw new Error('Order not found');
-  }
-
-  const history = order.statusHistory ? JSON.parse(order.statusHistory) : [];
-  history.push({
-    status: 'CONFIRMED',
-    timestamp: new Date().toISOString(),
-    notes: `Payment confirmed via ${paymentMethod || 'CASH'}`,
-  });
-
-  const updatedOrder = await prisma.order.update({
-    where: { id: Number(req.params.id) },
-    data: {
-      paymentStatus: 'CONFIRMED',
-      paymentMethod: paymentMethod || 'CASH',
-      paymentConfirmedAt: new Date(),
-      paymentConfirmedBy: req.user.id,
-      status: 'CONFIRMED',
-      statusHistory: JSON.stringify(history),
-    },
-    include: {
-      items: { include: { product: true } },
-    },
-  });
-
-  console.log('💰 Payment confirmed for order:', updatedOrder.id);
-
-  res.json({ 
-    success: true, 
-    order: {
-      ...updatedOrder,
-      statusHistory: JSON.parse(updatedOrder.statusHistory)
-    }
-  });
-}
-
-async function updateOrderStatus(req, res) {
-  const { status, notes } = req.body;
-
-  const validStatuses = ['PENDING', 'CONFIRMED', 'PREPARING', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED'];
-  if (!validStatuses.includes(status)) {
-    throw new Error('Invalid status');
-  }
-
-  const order = await prisma.order.findUnique({
-    where: { id: Number(req.params.id) },
-  });
-
-  if (!order) {
-    throw new Error('Order not found');
-  }
-
-  const history = order.statusHistory ? JSON.parse(order.statusHistory) : [];
-  history.push({
-    status,
-    timestamp: new Date().toISOString(),
-    notes: notes || `Status updated to ${status}`,
-  });
-
-  const updatedOrder = await prisma.order.update({
-    where: { id: Number(req.params.id) },
-    data: {
-      status,
-      statusHistory: JSON.stringify(history),
-    },
-    include: {
-      items: { include: { product: true } },
-    },
-  });
-
-  console.log(`📦 Order ${updatedOrder.id} status updated to:`, status);
-
-  res.json({ 
-    success: true, 
-    order: {
-      ...updatedOrder,
-      statusHistory: JSON.parse(updatedOrder.statusHistory)
-    }
-  });
-}
-
 async function trackOrder(req, res) {
   const { orderId } = req.params;
   const { phone } = req.query;
@@ -283,7 +298,6 @@ async function trackOrder(req, res) {
     throw new Error('Phone number required');
   }
 
-  // ⭐ FIX: Normalize phone for comparison
   const normalizedPhone = normalizePhone(phone);
   
   console.log('🔍 Tracking order:', orderId, 'for phone:', normalizedPhone);
@@ -291,7 +305,7 @@ async function trackOrder(req, res) {
   const order = await prisma.order.findFirst({
     where: {
       id: Number(orderId),
-      phone: normalizedPhone,  // ⭐ CHANGED: Use normalized phone
+      phone: normalizedPhone,
     },
     include: {
       items: { include: { product: { select: { name: true, imageUrl: true } } } },

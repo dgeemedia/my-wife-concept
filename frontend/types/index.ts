@@ -1,5 +1,5 @@
 // ============================================================================
-// UPDATED TYPES - WITH RATINGS
+// UPDATED TYPES - WITH RATINGS AND NOTIFICATIONS
 // frontend/types/index.ts
 // ============================================================================
 
@@ -11,9 +11,9 @@ export interface Product {
   description?: string
   imageUrl?: string
   featured?: boolean
-  averageRating?: number        // ⭐ Added
-  totalRatings?: number         // ⭐ Added
-  recentRatings?: ProductRating[] // ⭐ Added (for product detail page)
+  averageRating?: number
+  totalRatings?: number
+  recentRatings?: ProductRating[]
   createdAt: string
   updatedAt: string
 }
@@ -102,9 +102,31 @@ export interface CartItem {
   quantity: number
 }
 
+// ⭐ NEW: Notification interface
+export interface Notification {
+  id: number
+  type: 'order' | 'payment' | 'stock' | 'system'
+  title: string
+  message: string
+  link?: string
+  orderId?: number
+  productId?: number
+  read: boolean
+  readAt?: string
+  createdAt: string
+}
+
+// ⭐ NEW: Notification API response
+export interface NotificationResponse {
+  success: boolean
+  notifications: Notification[]
+  unreadCount: number
+}
+
 export interface ApiResponse<T = any> {
   ok: boolean
   data?: T
   error?: string
   message?: string
+  success?: boolean
 }
