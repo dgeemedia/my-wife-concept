@@ -1,5 +1,5 @@
 // ============================================================================
-// UPDATED PRODUCT CARD - WITH COMMENTS DISPLAY
+// COMBINED BEST VERSION - Multi-Image Gallery + View All Reviews Button
 // frontend/components/product/ProductCard.tsx
 // ============================================================================
 
@@ -9,10 +9,10 @@ import { useState } from 'react'
 import { Product } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
 import { useCurrency } from '@/app/(public)/layout'
-import { ShoppingCart, Star, MessageSquare, Eye } from 'lucide-react'
-import Image from 'next/image'
+import { ShoppingCart, Star, Eye } from 'lucide-react'
 import ProductRatingModal from './ProductRatingModal'
 import ProductReviewsModal from './ProductReviewsModal'
+import ImageGallery from './ImageGallery'
 
 interface ProductCardProps {
   product: Product
@@ -27,35 +27,33 @@ export default function ProductCard({ product }: ProductCardProps) {
   const isOutOfStock = product.stock === 0
   const isLowStock = product.stock > 0 && product.stock <= 5
 
+  // Prepare images array for multi-image gallery
+  const productImages = product.images && product.images.length > 0
+    ? product.images.sort((a, b) => a.order - b.order)
+    : product.imageUrl 
+      ? [{ id: 0, imageUrl: product.imageUrl, order: 0 }]
+      : []
+
   return (
     <>
       <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        {/* Product Image */}
-        <div className="relative h-48 bg-gray-100 dark:bg-gray-700 overflow-hidden">
-          {product.imageUrl ? (
-            <Image
-              src={product.imageUrl}
-              alt={product.name}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400">
-              <div className="text-center">
-                <ShoppingCart className="w-12 h-12 mx-auto mb-2" />
-                <p className="text-sm">No image</p>
-              </div>
-            </div>
-          )}
+        {/* Product Image Gallery - Multi-image support with auto-rotation */}
+        <div className="relative">
+          <ImageGallery 
+            images={productImages}
+            productName={product.name}
+            autoRotate={true}
+            rotateInterval={3000}
+          />
           
           {/* Stock Badge */}
           {isOutOfStock && (
-            <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+            <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium z-10">
               Out of Stock
             </div>
           )}
           {isLowStock && !isOutOfStock && (
-            <div className="absolute top-3 right-3 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+            <div className="absolute top-3 right-3 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium z-10">
               Low Stock: {product.stock}
             </div>
           )}
@@ -64,7 +62,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <button
             onClick={() => addToCart(product)}
             disabled={isOutOfStock}
-            className={`absolute bottom-3 right-3 p-3 rounded-full shadow-lg transition-all ${
+            className={`absolute bottom-3 right-3 p-3 rounded-full shadow-lg transition-all z-10 ${
               isOutOfStock
                 ? 'bg-gray-400 cursor-not-allowed'
                 : 'bg-primary-600 hover:bg-primary-700 transform hover:scale-110'
@@ -92,7 +90,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.description || 'No description available'}
           </p>
 
-          {/* ⭐ RATING DISPLAY - Now Clickable */}
+          {/* Rating Display with View All Reviews Button */}
           <div className="mb-3">
             <div className="flex items-center gap-2">
               <div className="flex">
@@ -116,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               )}
             </div>
             
-            {/* View Reviews Button - Shows if there are ratings with comments */}
+            {/* View All Reviews Button - Shows if there are ratings */}
             {product.totalRatings && product.totalRatings > 0 && (
               <button
                 onClick={() => setShowReviewsModal(true)}
@@ -162,7 +160,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         />
       )}
 
-      {/* Reviews Modal - NEW */}
+      {/* Reviews Modal */}
       {showReviewsModal && (
         <ProductReviewsModal
           productId={product.id}

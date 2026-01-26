@@ -14,9 +14,20 @@ export interface Product {
   averageRating?: number
   totalRatings?: number
   recentRatings?: ProductRating[]
+  images?: ProductImage[]  
   createdAt: string
   updatedAt: string
 }
+
+export interface ProductImage {
+  id: number
+  productId: number
+  imageUrl: string
+  order: number
+  isPrimary: boolean
+  createdAt: string
+}
+
 
 export interface ProductRating {
   id: number
