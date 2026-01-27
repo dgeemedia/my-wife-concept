@@ -1,5 +1,5 @@
 // ============================================================================
-// STEP 5: AUTO-ROTATING IMAGE GALLERY COMPONENT
+// OPTIMIZED IMAGE GALLERY COMPONENT
 // frontend/components/product/ImageGallery.tsx
 // ============================================================================
 
@@ -24,6 +24,14 @@ export default function ImageGallery({
 }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState<boolean[]>([])
+  const [imageError, setImageError] = useState<boolean[]>([])
+
+  // Initialize loading states
+  useEffect(() => {
+    setImageLoaded(new Array(images.length).fill(false))
+    setImageError(new Array(images.length).fill(false))
+  }, [images])
 
   // Auto-rotation effect
   useEffect(() => {
@@ -42,6 +50,22 @@ export default function ImageGallery({
 
   const goToNext = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const handleImageLoad = (index: number) => {
+    setImageLoaded(prev => {
+      const newState = [...prev]
+      newState[index] = true
+      return newState
+    })
+  }
+
+  const handleImageError = (index: number) => {
+    setImageError(prev => {
+      const newState = [...prev]
+      newState[index] = true
+      return newState
+    })
   }
 
   if (!images || images.length === 0) {
@@ -63,13 +87,37 @@ export default function ImageGallery({
     >
       {/* Main Image */}
       <div className="relative w-full h-full">
-        <Image
-          src={images[currentIndex].imageUrl}
-          alt={`${productName} - Image ${currentIndex + 1}`}
-          fill
-          className="object-cover transition-opacity duration-500"
-          priority={currentIndex === 0}
-        />
+        {imageError[currentIndex] ? (
+          // Error state - show fallback
+          <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-600">
+            <div className="text-center text-gray-500">
+              <div className="w-12 h-12 mx-auto mb-2">📦</div>
+              <p className="text-xs">Image unavailable</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Loading skeleton */}
+            {!imageLoaded[currentIndex] && (
+              <div className="absolute inset-0 bg-gray-200 dark:bg-gray-600 animate-pulse" />
+            )}
+            
+            {/* Actual image */}
+            <Image
+              src={images[currentIndex].imageUrl}
+              alt={`${productName} - Image ${currentIndex + 1}`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className={`object-cover transition-opacity duration-500 ${
+                imageLoaded[currentIndex] ? 'opacity-100' : 'opacity-0'
+              }`}
+              priority={currentIndex === 0}
+              quality={85}
+              onLoad={() => handleImageLoad(currentIndex)}
+              onError={() => handleImageError(currentIndex)}
+            />
+          </>
+        )}
       </div>
 
       {/* Navigation Arrows - Show on hover if multiple images */}

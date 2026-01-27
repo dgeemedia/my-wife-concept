@@ -1,18 +1,27 @@
 // ============================================================================
-// ADMIN MULTI-IMAGE MANAGER
-// frontend/app/dashboard/products/[id]/page.tsx (UPDATED VERSION)
+// ADMIN MULTI-IMAGE MANAGER WITH OPTIMIZATION & GUIDANCE
+// frontend/app/dashboard/products/[id]/page.tsx
 // ============================================================================
 
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { ArrowLeft, Save, Upload, X, Image as ImageIcon, Trash2, GripVertical } from 'lucide-react'
+import { ArrowLeft, Save, Upload, X, Image as ImageIcon, Trash2, Info, AlertCircle, CheckCircle2 } from 'lucide-react'
 import { Product, ProductImage } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
 import { useCurrency } from '@/components/dashboard/CurrencyProvider'
+
+// Recommended image specifications
+const IMAGE_RECOMMENDATIONS = {
+  width: 800,
+  height: 800,
+  maxSize: 2 * 1024 * 1024, // 2MB
+  format: ['image/jpeg', 'image/png', 'image/webp'],
+  aspectRatio: '1:1'
+}
 
 export default function EditProductPage() {
   const router = useRouter()
@@ -23,6 +32,7 @@ export default function EditProductPage() {
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [showGuidance, setShowGuidance] = useState(true)
   const [product, setProduct] = useState<Product>({
     id: 0,
     name: '',
@@ -56,64 +66,167 @@ export default function EditProductPage() {
     }
   }
 
+  // Image optimization function
+  const optimizeImage = async (file: File): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      
+      reader.onload = (e) => {
+        const img = document.createElement('img')
+        img.src = e.target?.result as string
+        
+        img.onload = () => {
+          const canvas = document.createElement('canvas')
+          let width = img.width
+          let height = img.height
+          
+          // Calculate new dimensions maintaining aspect ratio
+          const maxDimension = IMAGE_RECOMMENDATIONS.width
+          if (width > maxDimension || height > maxDimension) {
+            if (width > height) {
+              height = (height / width) * maxDimension
+              width = maxDimension
+            } else {
+              width = (width / height) * maxDimension
+              height = maxDimension
+            }
+          }
+          
+          canvas.width = width
+          canvas.height = height
+          
+          const ctx = canvas.getContext('2d')
+          if (!ctx) {
+            reject(new Error('Could not get canvas context'))
+            return
+          }
+          
+          // Draw and compress
+          ctx.drawImage(img, 0, 0, width, height)
+          
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                reject(new Error('Could not create blob'))
+                return
+              }
+              
+              const optimizedFile = new File([blob], file.name, {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              })
+              
+              resolve(optimizedFile)
+            },
+            'image/jpeg',
+            0.85 // Quality 85%
+          )
+        }
+        
+        img.onerror = () => reject(new Error('Failed to load image'))
+      }
+      
+      reader.onerror = () => reject(new Error('Failed to read file'))
+    })
+  }
+
+  const validateImage = (file: File): { valid: boolean; message?: string } => {
+    // Check file type
+    if (!IMAGE_RECOMMENDATIONS.format.includes(file.type)) {
+      return {
+        valid: false,
+        message: `Invalid format. Please use JPG, PNG, or WebP`
+      }
+    }
+    
+    // Check file size (before optimization)
+    if (file.size > 5 * 1024 * 1024) {
+      return {
+        valid: false,
+        message: `File too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Maximum 5MB`
+      }
+    }
+    
+    return { valid: true }
+  }
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files || files.length === 0) return
 
-    // Validate file types and sizes
-    const validFiles = Array.from(files).filter(file => {
-      if (!file.type.startsWith('image/')) {
-        toast.error(`${file.name} is not an image file`)
-        return false
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error(`${file.name} is too large (max 5MB)`)
-        return false
-      }
-      return true
-    })
-
-    if (validFiles.length === 0) return
-
     setUploading(true)
+    const successfulUploads: string[] = []
+    const failedUploads: string[] = []
+
     try {
-      // Upload all files
-      const uploadPromises = validFiles.map(async (file) => {
-        const formData = new FormData()
-        formData.append('image', file)
+      for (const file of Array.from(files)) {
+        try {
+          // Validate image
+          const validation = validateImage(file)
+          if (!validation.valid) {
+            toast.error(`${file.name}: ${validation.message}`)
+            failedUploads.push(file.name)
+            continue
+          }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          body: formData
-        })
+          // Optimize image
+          const optimizedFile = await optimizeImage(file)
+          
+          // Show optimization info
+          const originalSize = (file.size / 1024).toFixed(0)
+          const optimizedSize = (optimizedFile.size / 1024).toFixed(0)
+          const savings = ((1 - optimizedFile.size / file.size) * 100).toFixed(0)
+          
+          console.log(`Optimized ${file.name}: ${originalSize}KB → ${optimizedSize}KB (${savings}% smaller)`)
 
-        if (!response.ok) throw new Error('Upload failed')
-        const data = await response.json()
-        return data.imageUrl
-      })
+          // Upload optimized image
+          const formData = new FormData()
+          formData.append('image', optimizedFile)
 
-      const uploadedUrls = await Promise.all(uploadPromises)
-      
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: formData
+          })
+
+          if (!response.ok) throw new Error('Upload failed')
+          const data = await response.json()
+          
+          successfulUploads.push(data.imageUrl)
+        } catch (error) {
+          console.error(`Failed to process ${file.name}:`, error)
+          failedUploads.push(file.name)
+        }
+      }
+
       // Add uploaded images to product
-      const currentImages = product.images || []
-      const newImages = uploadedUrls.map((url, index) => ({
-        id: Date.now() + index, // Temporary ID
-        productId: product.id,
-        imageUrl: url,
-        order: currentImages.length + index,
-        isPrimary: currentImages.length === 0 && index === 0,
-        createdAt: new Date().toISOString()
-      }))
+      if (successfulUploads.length > 0) {
+        const currentImages = product.images || []
+        const newImages = successfulUploads.map((url, index) => ({
+          id: Date.now() + index,
+          productId: product.id,
+          imageUrl: url,
+          order: currentImages.length + index,
+          isPrimary: currentImages.length === 0 && index === 0,
+          createdAt: new Date().toISOString()
+        }))
 
-      setProduct(prev => ({
-        ...prev,
-        images: [...currentImages, ...newImages]
-      }))
+        setProduct(prev => ({
+          ...prev,
+          images: [...currentImages, ...newImages]
+        }))
 
-      toast.success(`${uploadedUrls.length} image(s) uploaded successfully`)
+        toast.success(
+          `${successfulUploads.length} image(s) uploaded successfully${
+            failedUploads.length > 0 ? `, ${failedUploads.length} failed` : ''
+          }`
+        )
+      } else if (failedUploads.length > 0) {
+        toast.error(`Failed to upload ${failedUploads.length} image(s)`)
+      }
     } catch (error) {
       console.error('Upload error:', error)
       toast.error('Failed to upload images')
@@ -136,7 +249,6 @@ export default function EditProductPage() {
     const [movedImage] = images.splice(fromIndex, 1)
     images.splice(toIndex, 0, movedImage)
     
-    // Update order values
     const reorderedImages = images.map((img, index) => ({
       ...img,
       order: index
@@ -223,6 +335,61 @@ export default function EditProductPage() {
       <div className="bg-white rounded-xl shadow">
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           
+          {/* IMAGE OPTIMIZATION GUIDANCE */}
+          {showGuidance && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-blue-900 mb-2">
+                    📸 Image Upload Guidelines for Best Results
+                  </h3>
+                  <div className="text-sm text-blue-800 space-y-2">
+                    <div className="grid md:grid-cols-2 gap-3">
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <strong>Recommended Size:</strong> 800x800 pixels (square format)
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <strong>Max File Size:</strong> 2MB (auto-optimized if larger)
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <strong>Formats:</strong> JPG, PNG, or WebP
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <strong>Aspect Ratio:</strong> 1:1 (square) works best
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t border-blue-200">
+                      <p className="flex items-center gap-2">
+                        <AlertCircle className="w-4 h-4" />
+                        <span>Images will be automatically optimized and compressed for faster loading!</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowGuidance(false)}
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* MULTI-IMAGE GALLERY MANAGER */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -234,7 +401,7 @@ export default function EditProductPage() {
               <input
                 ref={fileInputRef}
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/png,image/webp"
                 multiple
                 onChange={handleImageUpload}
                 className="hidden"
@@ -249,7 +416,7 @@ export default function EditProductPage() {
                 {uploading ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    Uploading...
+                    Optimizing & Uploading...
                   </>
                 ) : (
                   <>
@@ -258,9 +425,19 @@ export default function EditProductPage() {
                   </>
                 )}
               </button>
-              <p className="text-sm text-gray-500 mt-2">
-                Click to upload multiple images. First image will be the primary display.
-              </p>
+              <div className="flex items-start gap-2 mt-2">
+                <Info className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-gray-500">
+                  Upload multiple images. First image will be the primary display. 
+                  <button 
+                    type="button"
+                    onClick={() => setShowGuidance(true)}
+                    className="text-blue-600 hover:underline ml-1"
+                  >
+                    View image guidelines
+                  </button>
+                </p>
+              </div>
             </div>
 
             {/* Image Gallery Grid */}
@@ -279,12 +456,12 @@ export default function EditProductPage() {
                           src={image.imageUrl}
                           alt={`Product image ${index + 1}`}
                           className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       </div>
 
                       {/* Overlay Controls */}
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                        {/* Delete Button */}
                         <button
                           type="button"
                           onClick={() => handleRemoveImage(index)}
@@ -294,7 +471,6 @@ export default function EditProductPage() {
                           <Trash2 className="w-4 h-4" />
                         </button>
 
-                        {/* Reorder Buttons */}
                         {index > 0 && (
                           <button
                             type="button"
