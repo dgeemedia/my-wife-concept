@@ -95,15 +95,15 @@ export default function NotificationPanel() {
 
   return (
     <div className="relative">
-      {/* Bell Icon */}
+      {/* Bell Icon with Numeric Badge */}
       <button
         onClick={() => setShow(!show)}
         className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors"
       >
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full">
-            <span className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-75"></span>
+          <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-semibold px-1">
+            {unreadCount > 99 ? '99+' : unreadCount}
           </span>
         )}
       </button>
