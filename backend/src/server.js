@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const cron = require('node-cron');
+const { cleanupOldNotifications } = require('./jobs/cleanupNotifications');
 
 const app = express();
 
@@ -35,6 +37,27 @@ app.use((err, req, res, next) => {
     error: err.message || 'Something went wrong',
   });
 });
+
+// ========================================
+// CRON JOBS
+// ========================================
+
+// Schedule notification cleanup to run every day at 2 AM
+cron.schedule('0 2 * * *', async () => {
+  console.log('⏰ Running scheduled notification cleanup...');
+  try {
+    const deletedCount = await cleanupOldNotifications(90);
+    console.log(`✅ Scheduled cleanup completed. Deleted ${deletedCount} notifications.`);
+  } catch (error) {
+    console.error('❌ Scheduled cleanup failed:', error);
+  }
+});
+
+console.log('✅ Cron jobs scheduled');
+
+// ========================================
+// START SERVER
+// ========================================
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

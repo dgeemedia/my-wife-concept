@@ -2,7 +2,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Bell, X, Package, DollarSign, AlertCircle, CheckCircle } from 'lucide-react'
+import { Bell, X, Package, DollarSign, AlertCircle, CheckCircle, Archive, ChevronLeft } from 'lucide-react'
 import api from '@/lib/api'
 
 interface Notification {
@@ -17,35 +17,64 @@ interface Notification {
   productId?: number
 }
 
+type ViewMode = 'active' | 'archived'
+
 export default function NotificationPanel() {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(false)
   const [unreadCount, setUnreadCount] = useState(0)
+  const [archivedCount, setArchivedCount] = useState(0)
+  const [viewMode, setViewMode] = useState<ViewMode>('active')
 
   useEffect(() => {
-    fetchNotifications()
-    
-    // Poll for new notifications every 30 seconds
-    const interval = setInterval(fetchNotifications, 30000)
-    return () => clearInterval(interval)
-  }, [])
+    if (show) {
+      fetchNotifications()
+    }
+  }, [show, viewMode])
+
+  useEffect(() => {
+    // Initial fetch and polling for active notifications only
+    if (viewMode === 'active') {
+      fetchNotifications()
+      const interval = setInterval(fetchNotifications, 30000)
+      return () => clearInterval(interval)
+    }
+  }, [viewMode])
 
   const fetchNotifications = async () => {
     try {
-      const response = await api.get('/notifications')
+      setLoading(true)
       
-      if (response.notifications) {
-        const formattedNotifications = response.notifications.map((n: any) => ({
-          ...n,
-          timestamp: new Date(n.createdAt)
-        }))
+      if (viewMode === 'archived') {
+        const response = await api.get('/notifications/archived')
         
-        setNotifications(formattedNotifications)
-        setUnreadCount(response.unreadCount || 0)
+        if (response.notifications) {
+          const formattedNotifications = response.notifications.map((n: any) => ({
+            ...n,
+            timestamp: new Date(n.createdAt)
+          }))
+          
+          setNotifications(formattedNotifications)
+        }
+      } else {
+        const response = await api.get('/notifications')
+        
+        if (response.notifications) {
+          const formattedNotifications = response.notifications.map((n: any) => ({
+            ...n,
+            timestamp: new Date(n.createdAt)
+          }))
+          
+          setNotifications(formattedNotifications)
+          setUnreadCount(response.unreadCount || 0)
+          setArchivedCount(response.archivedCount || 0)
+        }
       }
     } catch (error) {
       console.error('Failed to fetch notifications:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -87,10 +116,18 @@ export default function NotificationPanel() {
   }
 
   const handleNotificationClick = (notification: Notification) => {
-    if (!notification.read) {
+    if (!notification.read && viewMode === 'active') {
       markAsRead(notification.id)
     }
     setShow(false)
+  }
+
+  const switchToArchived = () => {
+    setViewMode('archived')
+  }
+
+  const switchToActive = () => {
+    setViewMode('active')
   }
 
   return (
@@ -120,22 +157,50 @@ export default function NotificationPanel() {
           {/* Panel */}
           <div className="absolute right-0 mt-2 w-80 md:w-96 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-[500px] overflow-hidden flex flex-col">
             {/* Header */}
-            <div className="p-4 border-b flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Bell className="w-5 h-5" />
-                <h3 className="font-semibold">Notifications</h3>
-                {unreadCount > 0 && (
-                  <span className="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">
-                    {unreadCount}
-                  </span>
-                )}
+            <div className="p-4 border-b">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  {viewMode === 'archived' && (
+                    <button
+                      onClick={switchToActive}
+                      className="p-1 hover:bg-gray-100 rounded"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                  )}
+                  <Bell className="w-5 h-5" />
+                  <h3 className="font-semibold">
+                    {viewMode === 'archived' ? 'Archived' : 'Notifications'}
+                  </h3>
+                  {viewMode === 'active' && unreadCount > 0 && (
+                    <span className="px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </div>
+                <button
+                  onClick={() => setShow(false)}
+                  className="p-1 hover:bg-gray-100 rounded"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
-              <button
-                onClick={() => setShow(false)}
-                className="p-1 hover:bg-gray-100 rounded"
-              >
-                <X className="w-4 h-4" />
-              </button>
+
+              {/* View Mode Toggle */}
+              {viewMode === 'active' && archivedCount > 0 && (
+                <button
+                  onClick={switchToArchived}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <Archive className="w-4 h-4" />
+                    <span>View Archived</span>
+                  </div>
+                  <span className="text-xs text-gray-500">
+                    {archivedCount} archived
+                  </span>
+                </button>
+              )}
             </div>
 
             {/* Notifications List */}
@@ -146,8 +211,20 @@ export default function NotificationPanel() {
                 </div>
               ) : notifications.length === 0 ? (
                 <div className="p-8 text-center">
-                  <CheckCircle className="w-12 h-12 text-gray-300 mx-auto mb-2" />
-                  <p className="text-gray-500">No new notifications</p>
+                  {viewMode === 'archived' ? (
+                    <>
+                      <Archive className="w-12 h-12 text-gray-300 mx-auto mb-2" />
+                      <p className="text-gray-500">No archived notifications</p>
+                      <p className="text-xs text-gray-400 mt-1">
+                        Notifications older than 30 days appear here
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle className="w-12 h-12 text-gray-300 mx-auto mb-2" />
+                      <p className="text-gray-500">No new notifications</p>
+                    </>
+                  )}
                 </div>
               ) : (
                 <div className="divide-y">
@@ -157,8 +234,8 @@ export default function NotificationPanel() {
                       href={notification.link || '#'}
                       onClick={() => handleNotificationClick(notification)}
                       className={`block p-4 hover:bg-gray-50 transition-colors ${
-                        !notification.read ? 'bg-blue-50' : ''
-                      }`}
+                        !notification.read && viewMode === 'active' ? 'bg-blue-50' : ''
+                      } ${viewMode === 'archived' ? 'opacity-75' : ''}`}
                     >
                       <div className="flex items-start gap-3">
                         <div className="flex-shrink-0 mt-1">
@@ -169,7 +246,7 @@ export default function NotificationPanel() {
                             <p className="font-medium text-sm text-gray-900">
                               {notification.title}
                             </p>
-                            {!notification.read && (
+                            {!notification.read && viewMode === 'active' && (
                               <div className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 mt-1"></div>
                             )}
                           </div>
@@ -188,7 +265,7 @@ export default function NotificationPanel() {
             </div>
 
             {/* Footer */}
-            {notifications.length > 0 && unreadCount > 0 && (
+            {notifications.length > 0 && viewMode === 'active' && unreadCount > 0 && (
               <div className="p-3 border-t">
                 <button
                   onClick={markAllAsRead}
