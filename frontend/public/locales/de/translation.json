@@ -1,0 +1,23 @@
+{
+  "common": {
+    "welcome": "Willkommen bei {{businessName}}",
+    "loading": "Lädt...",
+    "error": "Ein Fehler ist aufgetreten",
+    "success": "Erfolg!",
+    "addToCart": "In den Warenkorb",
+    "outOfStock": "Nicht vorrätig",
+    "checkout": "Zur Kasse"
+  },
+  "header": {
+    "home": "Startseite",
+    "menu": "Speisekarte",
+    "products": "Produkte",
+    "trackOrder": "Bestellung verfolgen",
+    "cart": "Warenkorb"
+  },
+  "hero": {
+    "title": "Bestellen Sie köstliche Mahlzeiten",
+    "subtitle": "Geliefert an Ihre Haustür",
+    "description": "Durchsuchen Sie unsere Speisekarte, legen Sie Artikel in den Warenkorb und bezahlen Sie über WhatsApp"
+  }
+}

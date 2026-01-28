@@ -1,0 +1,23 @@
+{
+  "common": {
+    "welcome": "Karibu {{businessName}}",
+    "loading": "Inapakia...",
+    "error": "Hitilafu imetokea",
+    "success": "Umefaulu!",
+    "addToCart": "Ongeza kwenye kikapu",
+    "outOfStock": "Hazipatikani",
+    "checkout": "Lipia"
+  },
+  "header": {
+    "home": "Nyumbani",
+    "menu": "Menyu",
+    "products": "Bidhaa",
+    "trackOrder": "Fuatilia agizo",
+    "cart": "Kikapu"
+  },
+  "hero": {
+    "title": "Agiza Vyakula Vitamu",
+    "subtitle": "Kuletwa Mlangoni Kwako",
+    "description": "Angalia menyu yetu, ongeza vitu kwenye kikapu na ulipe kupitia WhatsApp"
+  }
+}

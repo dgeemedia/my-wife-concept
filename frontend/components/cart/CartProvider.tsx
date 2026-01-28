@@ -4,6 +4,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { Product, CartItem } from '@/types'
 import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
 interface CartContextType {
   items: CartItem[]
@@ -21,6 +22,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { t } = useTranslation()
   const [items, setItems] = useState<CartItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
 

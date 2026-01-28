@@ -99,6 +99,9 @@ model BusinessSettings {
   secondaryColor    String   @default("#F59E0B")
   currency          String   @default("NGN")
   language          String   @default("en")
+  supportedLanguages Json?   // Array of supported language codes
+  autoDetectLanguage Boolean @default(true)
+  defaultLanguage   String   @default("en")
   whatsappNumber    String
   facebookUrl       String?
   twitterUrl        String?

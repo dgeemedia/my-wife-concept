@@ -1,0 +1,23 @@
+{
+  "common": {
+    "welcome": "Nnọọ na {{businessName}}",
+    "loading": "Na-ebu...",
+    "error": "Njehie mere",
+    "success": "Ọ gara nke ọma!",
+    "addToCart": "Tinye na akpa",
+    "outOfStock": "Ọ nweghị",
+    "checkout": "Kwụọ ụgwọ"
+  },
+  "header": {
+    "home": "Ụlọ",
+    "menu": "Menu",
+    "products": "Ngwaahịa",
+    "trackOrder": "Chọta iwu gị",
+    "cart": "Akpa ịzụta"
+  },
+  "hero": {
+    "title": "Tụọ Nri Dị Ụtọ",
+    "subtitle": "E nyefee n'ọnụ ụzọ gị",
+    "description": "Lelee menu anyị, tinye ihe n'akpa ma kwụọ ụgwọ site na WhatsApp"
+  }
+}

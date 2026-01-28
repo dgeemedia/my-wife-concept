@@ -1,55 +1,45 @@
-// frontend/lib/colorUtils.ts
-
-/**
- * Convert hex color to RGB string
- * @param hex - Hex color string (e.g., "#10B981" or "10B981")
- * @returns RGB string (e.g., "16, 185, 129")
- */
-export function hexToRgb(hex: string): string {
-  // Remove # if present
-  hex = hex.replace('#', '');
-  
-  // Parse hex values
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-  
-  return `${r}, ${g}, ${b}`;
+export function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : { r: 16, g: 185, b: 129 }
 }
 
-/**
- * Apply theme colors to CSS variables
- * @param primaryColor - Primary color hex
- * @param secondaryColor - Secondary color hex
- */
-export function applyThemeColors(primaryColor: string, secondaryColor: string): void {
-  if (typeof document === 'undefined') return;
-  
-  const root = document.documentElement;
-  
-  // Set color variables
-  root.style.setProperty('--color-primary', primaryColor);
-  root.style.setProperty('--color-secondary', secondaryColor);
-  
-  // Set RGB variables for opacity support
-  root.style.setProperty('--color-primary-rgb', hexToRgb(primaryColor));
-  root.style.setProperty('--color-secondary-rgb', hexToRgb(secondaryColor));
+export function darkenColor(r: number, g: number, b: number, amount: number): string {
+  return `rgb(${Math.max(0, r - amount)}, ${Math.max(0, g - amount)}, ${Math.max(0, b - amount)})`
 }
 
-/**
- * Get current theme colors from CSS variables
- * @returns Object with primary and secondary colors
- */
-export function getCurrentThemeColors(): { primary: string; secondary: string } {
-  if (typeof document === 'undefined') {
-    return { primary: '#10B981', secondary: '#F59E0B' };
+export function lightenColor(r: number, g: number, b: number, amount: number): string {
+  return `rgb(${Math.min(255, r + amount)}, ${Math.min(255, g + amount)}, ${Math.min(255, b + amount)})`
+}
+
+export function applyThemeColors(primaryColor: string, secondaryColor: string) {
+  if (typeof document === 'undefined') return
+
+  try {
+    document.documentElement.style.setProperty('--color-primary', primaryColor)
+    document.documentElement.style.setProperty('--color-secondary', secondaryColor)
+    
+    const primaryRgb = hexToRgb(primaryColor)
+    const secondaryRgb = hexToRgb(secondaryColor)
+    
+    document.documentElement.style.setProperty('--color-primary-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`)
+    document.documentElement.style.setProperty('--color-secondary-rgb', `${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}`)
+    
+    // Set opacity variants (50 to 900)
+    for (let i = 1; i <= 9; i++) {
+      const opacity = i * 0.1
+      document.documentElement.style.setProperty(
+        `--color-primary-${i}00`, 
+        `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, ${opacity.toFixed(2)})`
+      )
+    }
+    
+    document.documentElement.style.setProperty('--color-primary-hover', darkenColor(primaryRgb.r, primaryRgb.g, primaryRgb.b, 20))
+    document.documentElement.style.setProperty('--color-primary-light', lightenColor(primaryRgb.r, primaryRgb.g, primaryRgb.b, 40))
+  } catch (error) {
+    console.warn('Could not apply theme colors:', error)
   }
-  
-  const root = document.documentElement;
-  const computedStyle = getComputedStyle(root);
-  
-  return {
-    primary: computedStyle.getPropertyValue('--color-primary').trim() || '#10B981',
-    secondary: computedStyle.getPropertyValue('--color-secondary').trim() || '#F59E0B',
-  };
 }

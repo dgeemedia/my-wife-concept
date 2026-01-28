@@ -3,6 +3,7 @@
 
 import { Product } from '@/types'
 import ProductCard from './ProductCard'
+import { useTranslation } from 'react-i18next'
 
 interface ProductGridProps {
   products: Product[]
@@ -10,6 +11,7 @@ interface ProductGridProps {
 }
 
 export default function ProductGrid({ products, columns = 4 }: ProductGridProps) {
+  const { t } = useTranslation()
   const gridCols = {
     1: 'grid-cols-1',
     2: 'grid-cols-1 md:grid-cols-2',

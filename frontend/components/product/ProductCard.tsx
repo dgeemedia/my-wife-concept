@@ -8,7 +8,8 @@
 import { useState } from 'react'
 import { Product } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
-import { useCurrency } from '@/app/(public)/layout'
+import { useCurrency } from '@/contexts/CurrencyContext'
+import { useTranslation } from 'react-i18next'
 import { ShoppingCart, Star, Eye } from 'lucide-react'
 import ProductRatingModal from './ProductRatingModal'
 import ProductReviewsModal from './ProductReviewsModal'
@@ -19,6 +20,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { t } = useTranslation()
   const { addToCart } = useCart()
   const { symbol } = useCurrency()
   const [showRatingModal, setShowRatingModal] = useState(false)

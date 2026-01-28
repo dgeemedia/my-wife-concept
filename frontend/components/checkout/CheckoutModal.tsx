@@ -6,7 +6,8 @@ import { useCart } from '@/components/cart/CartProvider'
 import { X, MessageCircle, AlertCircle, CheckCircle, ExternalLink } from 'lucide-react'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
-import { useCurrency } from '@/app/(public)/layout'
+import { useCurrency } from '@/contexts/CurrencyContext'
+import { useTranslation } from 'react-i18next'
 
 interface CheckoutModalProps {
   isOpen: boolean
@@ -14,6 +15,7 @@ interface CheckoutModalProps {
 }
 
 export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
+  const { t } = useTranslation()
   const { items, total, clearCart } = useCart()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

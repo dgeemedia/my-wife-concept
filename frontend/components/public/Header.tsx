@@ -1,4 +1,3 @@
-// frontend/components/public/Header.tsx
 'use client'
 
 import { useState } from 'react'
@@ -6,16 +5,20 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ShoppingCart, Menu, X } from 'lucide-react'
 import { useCart } from '@/components/cart/CartProvider'
+import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from '@/components/public/LanguageSwitcher'
 import ThemeToggle from './ThemeToggle'
 
 interface HeaderProps {
   businessName?: string
   logo?: string
+  primaryColor?: string
 }
 
-export default function Header({ businessName = 'MyPadiFood', logo }: HeaderProps) {
+export default function Header({ businessName = 'MyPadiFood', logo, primaryColor }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const { itemCount, openCart } = useCart()
+  const { t } = useTranslation()
 
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-gray-900 shadow-md">
@@ -34,7 +37,7 @@ export default function Header({ businessName = 'MyPadiFood', logo }: HeaderProp
                 />
               ) : (
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center"
-                     style={{ backgroundColor: 'var(--color-primary, #10B981)' }}>
+                     style={{ backgroundColor: primaryColor || 'var(--color-primary, #10B981)' }}>
                   <div className="w-8 h-8 bg-white rounded-md"></div>
                 </div>
               )}
@@ -46,44 +49,46 @@ export default function Header({ businessName = 'MyPadiFood', logo }: HeaderProp
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium">
-              Home
+            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
+              {t('header.home')}
             </Link>
-            <Link href="#products" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium">
-              Products
+            <Link href="#products" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
+              {t('header.products')}
             </Link>
-            <Link href="/track" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium">
-              Track Order
+            <Link href="/track" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
+              {t('header.trackOrder')}
             </Link>
-            <Link href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium">
-              Contact
+            <Link href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
+              {t('header.contact')}
             </Link>
             <Link 
               href="/dashboard/login" 
               className="px-4 py-1 rounded-lg font-medium border transition-colors"
               style={{
-                color: 'var(--color-primary, #10B981)',
-                borderColor: 'var(--color-primary, #10B981)'
+                color: primaryColor || 'var(--color-primary, #10B981)',
+                borderColor: primaryColor || 'var(--color-primary, #10B981)'
               }}
             >
-              Admin Login
+              {t('header.login')}
             </Link>
           </nav>
 
           {/* Right side buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
+            <LanguageSwitcher />
             <ThemeToggle />
             
             {/* Cart Button */}
             <button
               onClick={openCart}
-              className="relative p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+              className="relative p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              aria-label={t('header.cart')}
             >
               <ShoppingCart className="w-6 h-6 dark:text-white" />
               {itemCount > 0 && (
                 <span 
-                  className="absolute -top-1 -right-1 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
-                  style={{ backgroundColor: 'var(--color-primary, #10B981)' }}
+                  className="absolute -top-1 -right-1 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"
+                  style={{ backgroundColor: primaryColor || 'var(--color-primary, #10B981)' }}
                 >
                   {itemCount}
                 </span>
@@ -93,7 +98,8 @@ export default function Header({ businessName = 'MyPadiFood', logo }: HeaderProp
             {/* Mobile menu button */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+              className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              aria-label="Toggle menu"
             >
               {menuOpen ? <X className="w-6 h-6 dark:text-white" /> : <Menu className="w-6 h-6 dark:text-white" />}
             </button>
@@ -109,39 +115,39 @@ export default function Header({ businessName = 'MyPadiFood', logo }: HeaderProp
                 className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
-                Home
+                {t('header.home')}
               </Link>
               <Link 
                 href="#products" 
                 className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
-                Products
+                {t('header.products')}
               </Link>
               <Link 
                 href="/track" 
                 className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
-                Track Order
+                {t('header.trackOrder')}
               </Link>
               <Link 
                 href="#contact" 
                 className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
-                Contact
+                {t('header.contact')}
               </Link>
               <Link 
                 href="/dashboard/login" 
                 className="px-4 py-2 rounded-lg font-medium border text-center"
                 onClick={() => setMenuOpen(false)}
                 style={{
-                  color: 'var(--color-primary, #10B981)',
-                  borderColor: 'var(--color-primary, #10B981)'
+                  color: primaryColor || 'var(--color-primary, #10B981)',
+                  borderColor: primaryColor || 'var(--color-primary, #10B981)'
                 }}
               >
-                Admin Login
+                {t('header.login')}
               </Link>
             </nav>
           </div>

@@ -1,0 +1,110 @@
+{
+  "common": {
+    "welcome": "Bienvenue à {{businessName}}",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "success": "Succès!",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "add": "Ajouter",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "price": "Prix",
+    "quantity": "Quantité",
+    "total": "Total",
+    "subtotal": "Sous-total",
+    "tax": "Taxe",
+    "shipping": "Livraison",
+    "discount": "Réduction",
+    "checkout": "Commander",
+    "continueShopping": "Continuer les achats",
+    "emptyCart": "Votre panier est vide",
+    "addToCart": "Ajouter au panier",
+    "outOfStock": "Rupture de stock",
+    "inStock": "En stock",
+    "description": "Description",
+    "reviews": "Avis",
+    "rating": "Note",
+    "share": "Partager",
+    "language": "Langue",
+    "currency": "Devise"
+  },
+  
+  "header": {
+    "home": "Accueil",
+    "menu": "Menu",
+    "about": "À propos",
+    "contact": "Contact",
+    "trackOrder": "Suivre la commande",
+    "cart": "Panier",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "profile": "Profil",
+    "dashboard": "Tableau de bord"
+  },
+  
+  "hero": {
+    "title": "Nourriture délicieuse livrée à votre porte",
+    "subtitle": "Commandez parmi notre large sélection de plats et recevez-les chauds et frais",
+    "orderNow": "Commandez maintenant",
+    "viewMenu": "Voir le menu"
+  },
+  
+  "product": {
+    "featured": "Produits en vedette",
+    "categories": "Catégories",
+    "allProducts": "Tous les produits",
+    "newArrivals": "Nouveautés",
+    "bestSellers": "Meilleures ventes",
+    "onSale": "En promotion",
+    "relatedProducts": "Vous aimerez peut-être aussi"
+  },
+  
+  "cart": {
+    "title": "Panier d'achat",
+    "items": "{{count}} article",
+    "items_plural": "{{count}} articles",
+    "remove": "Supprimer",
+    "clearCart": "Vider le panier",
+    "proceedToCheckout": "Passer à la caisse",
+    "estimatedTotal": "Total estimé",
+    "deliveryInfo": "Informations de livraison",
+    "paymentInfo": "Informations de paiement"
+  },
+  
+  "order": {
+    "track": "Suivre votre commande",
+    "orderId": "Numéro de commande",
+    "orderDate": "Date de commande",
+    "status": "Statut",
+    "pending": "En attente",
+    "confirmed": "Confirmée",
+    "preparing": "En préparation",
+    "onTheWay": "En chemin",
+    "delivered": "Livrée",
+    "cancelled": "Annulée",
+    "customerInfo": "Informations client",
+    "deliveryAddress": "Adresse de livraison",
+    "paymentMethod": "Moyen de paiement",
+    "orderSummary": "Récapitulatif de la commande"
+  },
+  
+  "footer": {
+    "aboutUs": "À propos de nous",
+    "contactUs": "Contactez-nous",
+    "faq": "FAQ",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions d'utilisation",
+    "refundPolicy": "Politique de remboursement",
+    "deliveryAreas": "Zones de livraison",
+    "businessHours": "Heures d'ouverture",
+    "newsletter": "Abonnez-vous à notre newsletter",
+    "newsletterPlaceholder": "Entrez votre email",
+    "subscribe": "S'abonner",
+    "copyright": "© {{year}} {{businessName}}. Tous droits réservés."
+  }
+}

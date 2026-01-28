@@ -4,7 +4,8 @@
 import { Product } from '@/types'
 import { Trash2, Plus, Minus } from 'lucide-react'
 import Image from 'next/image'
-import { useCurrency } from '@/app/(public)/layout'
+import { useCurrency } from '@/contexts/CurrencyContext'
+import { useTranslation } from 'react-i18next'
 
 interface CartItemProps {
   item: {
@@ -16,6 +17,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
+  const { t } = useTranslation()
   const { product, quantity } = item
   const total = product.price * quantity
   const { format } = useCurrency()

@@ -3,6 +3,7 @@
 
 import { useState } from 'react'
 import { User, Phone, Mail, MapPin, MessageSquare } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface OrderFormProps {
   initialData?: {
@@ -17,6 +18,7 @@ interface OrderFormProps {
 }
 
 export default function OrderForm({ initialData, onSubmit, loading = false }: OrderFormProps) {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     customerName: initialData?.customerName || '',
     phone: initialData?.phone || '',

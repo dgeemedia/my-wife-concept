@@ -1,0 +1,23 @@
+{
+  "common": {
+    "welcome": "Barka da zuwa {{businessName}}",
+    "loading": "Ana ɗaukar hoto...",
+    "error": "An sami kuskure",
+    "success": "Nasara!",
+    "addToCart": "Saka a jaka",
+    "outOfStock": "Babu",
+    "checkout": "Biya"
+  },
+  "header": {
+    "home": "Gida",
+    "menu": "Jerin Abinci",
+    "products": "Kayayyaki",
+    "trackOrder": "Bincika odar",
+    "cart": "Jaka"
+  },
+  "hero": {
+    "title": "Oda Abinci Mai Daɗi",
+    "subtitle": "A Kai Muku Gida",
+    "description": "Duba menu ɗinmu, saka kaya a jaka kuma biya ta WhatsApp"
+  }
+}

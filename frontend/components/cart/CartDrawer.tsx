@@ -5,9 +5,11 @@ import { useCart } from './CartProvider'
 import { X, ShoppingCart, Trash2, Plus, Minus } from 'lucide-react'
 import { useState } from 'react'
 import CheckoutModal from '../checkout/CheckoutModal'
-import { useCurrency } from '@/app/(public)/layout'
+import { useCurrency } from '@/contexts/CurrencyContext'
+import { useTranslation } from 'react-i18next'
 
 export default function CartDrawer() {
+  const { t } = useTranslation()
   const { items, total, itemCount, isOpen, closeCart, updateQuantity, removeFromCart, clearCart } = useCart()
   const [showCheckout, setShowCheckout] = useState(false)
   const { symbol, format } = useCurrency()
