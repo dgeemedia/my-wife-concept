@@ -1,10 +1,14 @@
 // ============================================================================
-// UPDATED PRODUCT CONTROLLER - WITH RATINGS + MULTI-IMAGE SUPPORT
+// FIXED PRODUCT CONTROLLER - Proper Prisma Transaction Handling
 // backend/src/controllers/productController.js
 // ============================================================================
 
 const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+
+// Create a singleton Prisma client instance
+const prisma = new PrismaClient({
+  log: ['error', 'warn'],
+});
 
 async function getAllProducts(req, res) {
   // Fetch products with rating stats AND images
@@ -132,32 +136,89 @@ async function createProduct(req, res) {
 
 async function updateProduct(req, res) {
   const { images, ...updateData } = req.body;
+  const productId = Number(req.params.id);
   
-  const product = await prisma.product.update({
-    where: { id: Number(req.params.id) },
-    data: updateData,
-    include: {
-      images: true
+  console.log(`🔄 Updating product ${productId}`);
+  console.log('Update data:', updateData);
+  console.log('Images count:', images?.length || 0);
+  
+  try {
+    // Simplified approach: Update product and images separately (no transaction needed)
+    
+    // Step 1: Update the product basic data
+    await prisma.product.update({
+      where: { id: productId },
+      data: {
+        name: updateData.name,
+        price: Number(updateData.price),
+        stock: Number(updateData.stock),
+        description: updateData.description || '',
+        imageUrl: updateData.imageUrl || ''
+      }
+    });
+    
+    console.log(`✅ Updated product basic data for ${productId}`);
+    
+    // Step 2: Handle images if provided
+    if (images !== undefined && Array.isArray(images)) {
+      // Delete all existing images for this product
+      const deletedCount = await prisma.productImage.deleteMany({
+        where: { productId }
+      });
+      
+      console.log(`🗑️ Deleted ${deletedCount.count} old images for product ${productId}`);
+      
+      // Create new images if any
+      if (images.length > 0) {
+        const imagesToCreate = images.map((img, index) => ({
+          productId,
+          imageUrl: img.imageUrl,
+          order: img.order !== undefined ? img.order : index,
+          isPrimary: img.isPrimary !== undefined ? img.isPrimary : (index === 0)
+        }));
+        
+        await prisma.productImage.createMany({
+          data: imagesToCreate
+        });
+        
+        console.log(`✅ Created ${imagesToCreate.length} new images for product ${productId}`);
+      }
     }
-  });
-  
-  console.log(`✅ Updated product: ${product.id}`);
-  
-  res.json(product);
+    
+    // Step 3: Fetch and return the complete updated product
+    const updatedProduct = await prisma.product.findUnique({
+      where: { id: productId },
+      include: {
+        images: {
+          orderBy: { order: 'asc' }
+        }
+      }
+    });
+    
+    console.log(`✅ Successfully updated product ${productId} with ${updatedProduct.images?.length || 0} images`);
+    
+    res.json(updatedProduct);
+  } catch (error) {
+    console.error(`❌ Failed to update product ${productId}:`, error);
+    throw error;
+  }
 }
 
 async function deleteProduct(req, res) {
+  const productId = Number(req.params.id);
+  
+  // Delete product (images will be deleted automatically via cascade)
   await prisma.product.delete({
-    where: { id: Number(req.params.id) },
+    where: { id: productId },
   });
   
-  console.log(`🗑️ Deleted product: ${req.params.id}`);
+  console.log(`🗑️ Deleted product: ${productId}`);
   
   res.json({ ok: true, message: 'Product deleted' });
 }
 
 // ============================================================================
-// NEW: IMAGE MANAGEMENT FUNCTIONS
+// IMAGE MANAGEMENT FUNCTIONS
 // ============================================================================
 
 async function addProductImage(req, res) {
@@ -201,14 +262,13 @@ async function reorderProductImages(req, res) {
   const { productId } = req.params;
   const { imageOrders } = req.body; // Array of { id, order }
   
-  await Promise.all(
-    imageOrders.map(({ id, order }) =>
-      prisma.productImage.update({
-        where: { id },
-        data: { order }
-      })
-    )
-  );
+  // Update images one by one (more reliable than transaction for this case)
+  for (const { id, order } of imageOrders) {
+    await prisma.productImage.update({
+      where: { id },
+      data: { order }
+    });
+  }
   
   const images = await prisma.productImage.findMany({
     where: { productId: Number(productId) },

@@ -10,14 +10,17 @@ interface RouteParams {
 // Get single product
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
+    const token = request.cookies.get('auth_token')?.value || 
+                  request.headers.get('authorization')?.replace('Bearer ', '')
+    
     const response = await fetch(`${BACKEND_URL}/api/products/${params.id}`, {
       headers: {
-        'Authorization': request.headers.get('Authorization') || '',
+        ...(token && { 'Authorization': `Bearer ${token}` }),
       },
     })
     
     const data = await response.json()
-    return NextResponse.json(data)
+    return NextResponse.json(data, { status: response.status })
   } catch (error) {
     console.error('Get product error:', error)
     return NextResponse.json(
@@ -30,19 +33,38 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 // Update product
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
+    const token = request.cookies.get('auth_token')?.value || 
+                  request.headers.get('authorization')?.replace('Bearer ', '')
+    
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+    
     const body = await request.json()
+    
+    console.log(`Updating product ${params.id} with data:`, body)
     
     const response = await fetch(`${BACKEND_URL}/api/products/${params.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': request.headers.get('Authorization') || '',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     })
     
     const data = await response.json()
-    return NextResponse.json(data, { status: response.status })
+    
+    if (!response.ok) {
+      console.error('Backend error:', data)
+      return NextResponse.json(data, { status: response.status })
+    }
+    
+    console.log('Product updated successfully:', data)
+    return NextResponse.json(data, { status: 200 })
   } catch (error) {
     console.error('Update product error:', error)
     return NextResponse.json(
@@ -55,10 +77,20 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 // Delete product
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
+    const token = request.cookies.get('auth_token')?.value || 
+                  request.headers.get('authorization')?.replace('Bearer ', '')
+    
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+    
     const response = await fetch(`${BACKEND_URL}/api/products/${params.id}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': request.headers.get('Authorization') || '',
+        'Authorization': `Bearer ${token}`,
       },
     })
     
