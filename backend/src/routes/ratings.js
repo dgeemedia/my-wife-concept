@@ -1,8 +1,4 @@
-// ============================================================================
-// RATING ROUTES
 // backend/src/routes/ratings.js
-// ============================================================================
-
 const express = require('express');
 const { submitRating, getProductRatings, canRate } = require('../controllers/ratingController');
 const { asyncHandler } = require('../middleware/errorHandler');

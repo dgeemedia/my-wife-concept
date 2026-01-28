@@ -1,8 +1,4 @@
-// ============================================================================
-// UPDATED TYPES - WITH RATINGS AND NOTIFICATIONS
 // frontend/types/index.ts
-// ============================================================================
-
 export interface Product {
   id: number
   name: string

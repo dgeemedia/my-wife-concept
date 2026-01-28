@@ -1,22 +1,4 @@
 // backend/src/jobs/cleanupNotifications.js
-/**
- * Optional Cron Job: Clean up notifications older than 90 days
- * 
- * This script can be run as a scheduled task (e.g., daily) to permanently delete
- * notifications that are older than 90 days to keep the database clean.
- * 
- * Setup with node-cron:
- * 1. Install: npm install node-cron
- * 2. Add to your server.js or create a separate jobs/scheduler file
- * 
- * Example usage:
- * const cron = require('node-cron');
- * const { cleanupOldNotifications } = require('./jobs/cleanupNotifications');
- * 
- * // Run every day at 2 AM
- * cron.schedule('0 2 * * *', cleanupOldNotifications);
- */
-
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 

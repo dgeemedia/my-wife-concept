@@ -1,5 +1,4 @@
 // backend/src/controllers/uploadController.js
-
 async function uploadImage(req, res) {
   if (!req.file) {
     throw new Error('No file uploaded');

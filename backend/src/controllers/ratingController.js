@@ -1,8 +1,4 @@
-// ============================================================================
-// UPDATED RATING CONTROLLER WITH BETTER VALIDATION AND DEBUGGING
 // backend/src/controllers/ratingController.js
-// ============================================================================
-
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 

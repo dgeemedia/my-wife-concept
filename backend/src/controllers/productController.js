@@ -1,8 +1,4 @@
-// ============================================================================
-// FIXED PRODUCT CONTROLLER - Proper Prisma Transaction Handling
 // backend/src/controllers/productController.js
-// ============================================================================
-
 const { PrismaClient } = require('@prisma/client');
 
 // Create a singleton Prisma client instance

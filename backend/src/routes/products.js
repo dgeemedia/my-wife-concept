@@ -1,8 +1,4 @@
-// ============================================================================
-// UPDATED PRODUCT ROUTES - WITH IMAGE MANAGEMENT
 // backend/src/routes/products.js
-// ============================================================================
-
 const express = require('express');
 const { 
   getAllProducts, 
