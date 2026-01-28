@@ -221,3 +221,197 @@ body {
   margin-right: 0;
   margin-left: auto;
 }
+
+/* Add these animations to your existing globals.css file */
+
+/* ============================================
+   VEHICLE ANIMATIONS
+   ============================================ */
+
+/* Bicycle - Left to Right (Faster) */
+@keyframes slide-right {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(100vw + 100px));
+    opacity: 0;
+  }
+}
+
+.animate-slide-right {
+  animation: slide-right 12s linear infinite;
+}
+
+/* Van - Left to Right (Slower) */
+@keyframes slide-right-slow {
+  0% {
+    transform: translateX(-150px);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(100vw + 150px));
+    opacity: 0;
+  }
+}
+
+.animate-slide-right-slow {
+  animation: slide-right-slow 18s linear infinite;
+  animation-delay: 3s;
+}
+
+/* Bicycle 2 - Right to Left */
+@keyframes slide-left {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(-100vw - 100px));
+    opacity: 0;
+  }
+}
+
+.animate-slide-left {
+  animation: slide-left 15s linear infinite;
+  animation-delay: 6s;
+}
+
+/* Pedal Spin Animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 1s linear infinite;
+}
+
+/* ============================================
+   EXISTING ANIMATIONS
+   ============================================ */
+
+/* Blob Animation */
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Float Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Bounce Slow Animation */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+/* Grid Pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.dark .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* Fade In Animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Faster animations on mobile for better performance */
+  .animate-slide-right {
+    animation-duration: 10s;
+  }
+  
+  .animate-slide-right-slow {
+    animation-duration: 14s;
+  }
+  
+  .animate-slide-left {
+    animation-duration: 12s;
+  }
+}
