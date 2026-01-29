@@ -14,10 +14,15 @@ export default function CartDrawer() {
   const [showCheckout, setShowCheckout] = useState(false)
   const { symbol, format } = useCurrency()
 
+  // Direct route to checkout form when checkout button is clicked
   const handleCheckout = () => {
     if (items.length === 0) return
-    setShowCheckout(true)
+    
+    // Close cart drawer
     closeCart()
+    
+    // Immediately open checkout modal with form
+    setShowCheckout(true)
   }
 
   if (!isOpen) return null
@@ -50,6 +55,15 @@ export default function CartDrawer() {
                 <X className="w-5 h-5" />
               </button>
             </div>
+            {/* Continue Shopping Link */}
+            {items.length > 0 && (
+              <button
+                onClick={closeCart}
+                className="mt-3 text-sm text-primary-600 hover:text-primary-700 font-medium hover:underline"
+              >
+                ← Continue Shopping
+              </button>
+            )}
           </div>
 
           {/* Cart Items */}
@@ -106,7 +120,7 @@ export default function CartDrawer() {
             )}
           </div>
 
-          {/* Footer */}
+          {/* Footer with Checkout Button - Routes directly to form */}
           {items.length > 0 && (
             <div className="border-t p-6 space-y-4">
               <div className="flex justify-between text-lg font-semibold">
@@ -119,7 +133,7 @@ export default function CartDrawer() {
                   onClick={clearCart}
                   className="flex-1 py-3 border border-red-500 text-red-500 rounded-lg font-medium hover:bg-red-50 transition-colors"
                 >
-                  Clear Cart
+                  Clear
                 </button>
                 <button
                   onClick={handleCheckout}
@@ -130,14 +144,14 @@ export default function CartDrawer() {
               </div>
               
               <p className="text-sm text-center text-gray-500">
-                You'll complete your order via WhatsApp
+                Click Checkout to fill your details and complete order
               </p>
             </div>
           )}
         </div>
       </div>
 
-      {/* Checkout Modal */}
+      {/* Checkout Modal - Opens immediately when showCheckout is true */}
       {showCheckout && (
         <CheckoutModal
           isOpen={showCheckout}

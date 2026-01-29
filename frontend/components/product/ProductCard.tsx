@@ -1,8 +1,4 @@
-// ============================================================================
-// COMBINED BEST VERSION - Multi-Image Gallery + View All Reviews Button
 // frontend/components/product/ProductCard.tsx
-// ============================================================================
-
 'use client'
 
 import { useState } from 'react'
@@ -36,6 +32,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       ? [{ id: 0, imageUrl: product.imageUrl, order: 0 }]
       : []
 
+  const handleAddToCart = () => {
+    addToCart(product)
+    // Cart drawer will automatically open via CartProvider
+    // User can then choose to continue shopping or checkout
+  }
+
   return (
     <>
       <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -62,7 +64,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           {/* Quick Add Button */}
           <button
-            onClick={() => addToCart(product)}
+            onClick={handleAddToCart}
             disabled={isOutOfStock}
             className={`absolute bottom-3 right-3 p-3 rounded-full shadow-lg transition-all z-10 ${
               isOutOfStock
@@ -131,7 +133,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Actions */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => addToCart(product)}
+              onClick={handleAddToCart}
               disabled={isOutOfStock}
               className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
                 isOutOfStock
