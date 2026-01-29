@@ -6,6 +6,7 @@ import { I18nextProvider } from 'react-i18next'
 import Header from '@/components/public/Header'
 import Footer from '@/components/public/Footer'
 import CartDrawer from '@/components/cart/CartDrawer'
+import WhatsAppWidget from '@/components/public/WhatsAppWidget'
 import { SettingsProvider } from '@/contexts/SettingsContext'
 import { CurrencyProvider } from '@/contexts/CurrencyContext'
 import i18n, { detectAndSetLanguage } from '@/lib/i18n'
@@ -108,6 +109,7 @@ export default function PublicLayout({
             <main className="flex-1">{children}</main>
             <Footer settings={settings} />
             <CartDrawer />
+            <WhatsAppWidget />
           </div>
         </CurrencyProvider>
       </SettingsProvider>
