@@ -21,6 +21,15 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
   const { itemCount, openCart } = useCart()
   const { t } = useTranslation()
 
+  // Function to open WhatsApp widget
+  const openWhatsAppWidget = (e: React.MouseEvent) => {
+    e.preventDefault()
+    // Dispatch custom event to open WhatsApp widget
+    window.dispatchEvent(new CustomEvent('open-whatsapp-widget'))
+    // Close mobile menu if open
+    setMenuOpen(false)
+  }
+
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-gray-900 shadow-md">
       <div className="container mx-auto px-4">
@@ -59,9 +68,12 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
             <Link href="/track" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
               {t('header.trackOrder')}
             </Link>
-            <Link href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
-              {t('header.contact')}
-            </Link>
+            <button 
+              onClick={openWhatsAppWidget}
+              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors"
+            >
+              Support
+            </button>
             <Link 
               href="/dashboard/login" 
               className="px-4 py-1 rounded-lg font-medium border transition-colors"
@@ -132,13 +144,12 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
               >
                 {t('header.trackOrder')}
               </Link>
-              <Link 
-                href="#contact" 
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2"
-                onClick={() => setMenuOpen(false)}
+              <button 
+                onClick={openWhatsAppWidget}
+                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2 text-left"
               >
-                {t('header.contact')}
-              </Link>
+                Support
+              </button>
               <Link 
                 href="/dashboard/login" 
                 className="px-4 py-2 rounded-lg font-medium border text-center"

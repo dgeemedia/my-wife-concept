@@ -69,6 +69,12 @@ export default function Footer({ settings }: FooterProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  // Function to open WhatsApp widget
+  const openWhatsAppWidget = () => {
+    // Dispatch custom event to open WhatsApp widget
+    window.dispatchEvent(new CustomEvent('open-whatsapp-widget'))
+  }
+
   // Collect social media links dynamically
   const socialLinks = [
     {
@@ -266,8 +272,8 @@ Please add me to your newsletter mailing list for updates on new products and sp
                   </a>
                 </li>
                 <li>
-                  <button onClick={() => scrollToSection('contact')} className="text-gray-400 hover:text-white hover:translate-x-2 inline-block transition-all">
-                    Contact Us
+                  <button onClick={openWhatsAppWidget} className="text-gray-400 hover:text-white hover:translate-x-2 inline-block transition-all">
+                    Support
                   </button>
                 </li>
               </ul>

@@ -27,6 +27,19 @@ export default function WhatsAppWidget() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Listen for custom event to open widget from Header/Footer
+  useEffect(() => {
+    const handleOpenWidget = () => {
+      setIsOpen(true)
+    }
+
+    window.addEventListener('open-whatsapp-widget', handleOpenWidget)
+    
+    return () => {
+      window.removeEventListener('open-whatsapp-widget', handleOpenWidget)
+    }
+  }, [])
+
   const quickMessages: QuickMessage[] = [
     {
       id: 'booking',
