@@ -93,6 +93,20 @@
     "productsDataFormatIncorrect": "Ụdị data ngwaahịa ezighi ezi",
     "failedToLoadProducts": "Enweghị ike ibu ngwaahịa. Biko nwaa ọzọ."
   },
+
+  "imageGallery": {
+  "imageUnavailable": "Onyonyo adịghị",
+  "imageAlt": "Onyonyo {{index}}",
+  "previousImage": "Onyonyo gara aga",
+  "nextImage": "Onyonyo na-esote",
+  "goToImage": "Gaa na onyonyo {{index}}",
+  "paused": "Akwụsịla"
+},
+
+"productCard": {
+  "lowStockBadge": "Ngwaahịa dị ntakịrị: {{stock}}",
+  "noDescription": "Enweghị nkọwa dị"
+},
   
   "cart": {
     "title": "Nkata ịzụ ahịa",

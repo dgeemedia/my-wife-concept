@@ -93,6 +93,20 @@
     "productsDataFormatIncorrect": "Produktdataformat er forkert",
     "failedToLoadProducts": "Kunne ikke indlæse produkter. Prøv venligst igen."
   },
+
+  "imageGallery": {
+  "imageUnavailable": "Billedet er ikke tilgængeligt",
+  "imageAlt": "Billede {{index}}",
+  "previousImage": "Forrige billede",
+  "nextImage": "Næste billede",
+  "goToImage": "Gå til billede {{index}}",
+  "paused": "Sat på pause"
+},
+
+"productCard": {
+  "lowStockBadge": "Lavt lager: {{stock}}",
+  "noDescription": "Ingen beskrivelse tilgængelig"
+},
   
   "cart": {
     "title": "Indkøbskurv",

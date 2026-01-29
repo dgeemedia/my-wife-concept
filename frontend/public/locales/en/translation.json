@@ -94,6 +94,20 @@
     "failedToLoadProducts": "Failed to load products. Please try again."
   },
   
+  "imageGallery": {
+    "imageUnavailable": "Image unavailable",
+    "imageAlt": "Image {{index}}",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "goToImage": "Go to image {{index}}",
+    "paused": "Paused"
+  },
+  
+  "productCard": {
+    "lowStockBadge": "Low Stock: {{stock}}",
+    "noDescription": "No description available"
+  },
+  
   "cart": {
     "title": "Shopping Cart",
     "yourCart": "Your Cart",

@@ -94,6 +94,20 @@
     "failedToLoadProducts": "उत्पाद लोड करने में विफल। कृपया पुनः प्रयास करें।"
   },
   
+  "imageGallery": {
+  "imageUnavailable": "छवि उपलब्ध नहीं है",
+  "imageAlt": "छवि {{index}}",
+  "previousImage": "पिछली छवि",
+  "nextImage": "अगली छवि",
+  "goToImage": "छवि {{index}} पर जाएं",
+  "paused": "रोका गया"
+},
+
+"productCard": {
+  "lowStockBadge": "कम स्टॉक: {{stock}}",
+  "noDescription": "कोई विवरण उपलब्ध नहीं है"
+},
+
   "cart": {
     "title": "शॉपिंग कार्ट",
     "yourCart": "आपकी कार्ट",

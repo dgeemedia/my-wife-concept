@@ -93,6 +93,20 @@
     "productsDataFormatIncorrect": "El formato de datos de productos es incorrecto",
     "failedToLoadProducts": "Error al cargar productos. Por favor, inténtalo de nuevo."
   },
+
+  "imageGallery": {
+  "imageUnavailable": "Imagen no disponible",
+  "imageAlt": "Imagen {{index}}",
+  "previousImage": "Imagen anterior",
+  "nextImage": "Imagen siguiente",
+  "goToImage": "Ir a la imagen {{index}}",
+  "paused": "Pausado"
+},
+
+"productCard": {
+  "lowStockBadge": "Stock bajo: {{stock}}",
+  "noDescription": "No hay descripción disponible"
+},
   
   "cart": {
     "title": "Carrito de compras",

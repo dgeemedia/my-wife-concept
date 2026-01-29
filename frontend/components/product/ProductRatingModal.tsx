@@ -3,6 +3,7 @@
 
 import { useState } from 'react'
 import { Star, Send, CheckCircle, X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface ProductRatingModalProps {
   productId: number
@@ -11,6 +12,7 @@ interface ProductRatingModalProps {
 }
 
 export default function ProductRatingModal({ productId, productName, onClose }: ProductRatingModalProps) {
+  const { t } = useTranslation()
   const [phone, setPhone] = useState('')
   const [rating, setRating] = useState(0)
   const [hoverRating, setHoverRating] = useState(0)
@@ -73,11 +75,11 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
           window.location.reload()
         }, 2000)
       } else {
-        alert(data.error || 'Failed to submit rating')
+        alert(data.error || t('errors.failedToSubmit'))
       }
     } catch (error) {
       console.error('Failed to submit rating:', error)
-      alert('Failed to submit rating')
+      alert(t('errors.failedToSubmit'))
     } finally {
       setLoading(false)
     }
@@ -112,7 +114,7 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between rounded-t-2xl">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Rate Product</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('rating.rateProduct')}</h2>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
@@ -125,17 +127,17 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
         <div className="p-6 space-y-6">
           <div>
             <h3 className="font-semibold text-lg mb-1 dark:text-white">{productName}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Share your experience with this product</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('rating.shareExperience')}</p>
           </div>
 
           {submitted ? (
             <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 text-center">
               <CheckCircle className="w-16 h-16 text-green-600 dark:text-green-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-green-800 dark:text-green-200 mb-2">
-                Thank you for your rating!
+                {t('rating.thankYou')}
               </h3>
               <p className="text-green-700 dark:text-green-300">
-                Refreshing page to show your rating...
+                {t('rating.refreshingPage')}
               </p>
             </div>
           ) : (
@@ -143,27 +145,27 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
               {/* Phone Input */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Phone Number
+                  {t('rating.phoneNumber')}
                 </label>
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   onBlur={checkEligibility}
-                  placeholder="08012345678"
+                  placeholder={t('checkout.enterPhoneNumber')}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 />
                 {checking && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Checking eligibility...</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t('rating.checkingEligibility')}</p>
                 )}
                 {!canRate && phone.length >= 10 && !checking && (
                   <p className="text-sm text-red-600 dark:text-red-400 mt-2">
-                    ⚠️ You can only rate products you've purchased and received
+                    {t('rating.canOnlyRate')}
                   </p>
                 )}
                 {hasRated && (
                   <p className="text-sm text-blue-600 dark:text-blue-400 mt-2">
-                    ℹ️ You're updating your previous rating
+                    {t('rating.updatingPrevious')}
                   </p>
                 )}
               </div>
@@ -173,14 +175,14 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
                   {/* Star Rating */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                      Your Rating
+                      {t('rating.yourRating')}
                     </label>
                     <div className="flex justify-center">
                       <StarRating interactive={true} />
                     </div>
                     {rating > 0 && (
                       <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-2">
-                        {rating} star{rating !== 1 ? 's' : ''}
+                        {rating} {rating !== 1 ? t('rating.stars_plural') : t('rating.stars')}
                       </p>
                     )}
                   </div>
@@ -188,14 +190,14 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
                   {/* Comment */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Comment (optional)
+                      {t('rating.commentOptional')}
                     </label>
                     <textarea
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                       rows={4}
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                      placeholder="Tell us about your experience with this product..."
+                      placeholder={t('rating.tellUsExperience')}
                     />
                   </div>
 
@@ -208,12 +210,12 @@ export default function ProductRatingModal({ productId, productName, onClose }: 
                     {loading ? (
                       <>
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                        Submitting...
+                        {t('rating.submitting')}
                       </>
                     ) : (
                       <>
                         <Send className="w-5 h-5" />
-                        {hasRated ? 'Update Rating' : 'Submit Rating'}
+                        {hasRated ? t('rating.updateRating') : t('rating.submitRating')}
                       </>
                     )}
                   </button>

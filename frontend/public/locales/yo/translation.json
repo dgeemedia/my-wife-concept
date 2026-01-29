@@ -94,6 +94,20 @@
     "failedToLoadProducts": "Kò lè gbé àwọn ọjà wọlé. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan síi."
   },
   
+  "imageGallery": {
+  "imageUnavailable": "Aworan ko si",
+  "imageAlt": "Aworan {{index}}",
+  "previousImage": "Aworan tẹlẹ",
+  "nextImage": "Aworan tókàn",
+  "goToImage": "Lọ si aworan {{index}}",
+  "paused": "Ti duro"
+},
+
+"productCard": {
+  "lowStockBadge": "Ọja kere: {{stock}}",
+  "noDescription": "Ko si alaye ti o wa"
+},
+
   "cart": {
     "title": "Apẹ̀rẹ̀ rírà",
     "yourCart": "Apẹ̀rẹ̀ rẹ",

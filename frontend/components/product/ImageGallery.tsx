@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface ImageGalleryProps {
   images: Array<{ id: number; imageUrl: string; order: number }>
@@ -17,6 +18,7 @@ export default function ImageGallery({
   autoRotate = true,
   rotateInterval = 3000 
 }: ImageGalleryProps) {
+  const { t } = useTranslation()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({})
@@ -63,7 +65,7 @@ export default function ImageGallery({
       <div className="relative h-48 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
         <div className="text-center text-gray-400">
           <div className="w-16 h-16 mx-auto mb-2">📦</div>
-          <p className="text-sm">No image</p>
+          <p className="text-sm">{t('common.noImage')}</p>
         </div>
       </div>
     )
@@ -85,7 +87,7 @@ export default function ImageGallery({
           <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-600">
             <div className="text-center text-gray-500">
               <div className="w-12 h-12 mx-auto mb-2">📦</div>
-              <p className="text-xs">Image unavailable</p>
+              <p className="text-xs">{t('imageGallery.imageUnavailable')}</p>
             </div>
           </div>
         ) : (
@@ -99,7 +101,7 @@ export default function ImageGallery({
             <img
               key={currentImageUrl} // Force re-render when image changes
               src={currentImageUrl}
-              alt={`${productName} - Image ${currentIndex + 1}`}
+              alt={`${productName} - ${t('imageGallery.imageAlt', { index: currentIndex + 1 })}`}
               className={`w-full h-full object-cover transition-opacity duration-300 ${
                 imageLoaded[currentImageUrl] || imageRefs.current[currentImageUrl] 
                   ? 'opacity-100' 
@@ -119,7 +121,7 @@ export default function ImageGallery({
           <button
             onClick={goToPrevious}
             className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
-            aria-label="Previous image"
+            aria-label={t('imageGallery.previousImage')}
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -127,7 +129,7 @@ export default function ImageGallery({
           <button
             onClick={goToNext}
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
-            aria-label="Next image"
+            aria-label={t('imageGallery.nextImage')}
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -143,7 +145,7 @@ export default function ImageGallery({
                     ? 'bg-white w-6' 
                     : 'bg-white/50 hover:bg-white/75'
                 }`}
-                aria-label={`Go to image ${index + 1}`}
+                aria-label={t('imageGallery.goToImage', { index: index + 1 })}
               />
             ))}
           </div>
@@ -151,7 +153,7 @@ export default function ImageGallery({
           {/* Pause Indicator */}
           {isPaused && autoRotate && (
             <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded text-xs z-10">
-              Paused
+              {t('imageGallery.paused')}
             </div>
           )}
         </>

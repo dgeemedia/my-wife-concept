@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { Star, X, MessageSquare } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface ProductReviewsModalProps {
   productId: number
@@ -18,6 +19,7 @@ interface Rating {
 }
 
 export default function ProductReviewsModal({ productId, productName, onClose }: ProductReviewsModalProps) {
+  const { t } = useTranslation()
   const [ratings, setRatings] = useState<Rating[]>([])
   const [loading, setLoading] = useState(true)
   const [averageRating, setAverageRating] = useState(0)
@@ -65,11 +67,11 @@ export default function ProductReviewsModal({ productId, productName, onClose }:
     const diffTime = Math.abs(now.getTime() - date.getTime())
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
     
-    if (diffDays === 0) return 'Today'
-    if (diffDays === 1) return 'Yesterday'
-    if (diffDays < 7) return `${diffDays} days ago`
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`
-    if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`
+    if (diffDays === 0) return t('rating.today')
+    if (diffDays === 1) return t('rating.yesterday')
+    if (diffDays < 7) return t('rating.daysAgo', { days: diffDays })
+    if (diffDays < 30) return t('rating.weeksAgo', { weeks: Math.floor(diffDays / 7) })
+    if (diffDays < 365) return t('rating.monthsAgo', { months: Math.floor(diffDays / 30) })
     return date.toLocaleDateString()
   }
 
@@ -79,7 +81,7 @@ export default function ProductReviewsModal({ productId, productName, onClose }:
         {/* Header */}
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Customer Reviews</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('rating.customerReviews')}</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">{productName}</p>
           </div>
           <button
@@ -99,7 +101,7 @@ export default function ProductReviewsModal({ productId, productName, onClose }:
               </div>
               <StarDisplay rating={Math.round(averageRating)} />
               <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                {totalRatings} {totalRatings === 1 ? 'review' : 'reviews'}
+                {totalRatings} {totalRatings === 1 ? t('rating.review') : t('rating.reviews')}
               </div>
             </div>
             
@@ -139,8 +141,8 @@ export default function ProductReviewsModal({ productId, productName, onClose }:
           ) : ratings.length === 0 ? (
             <div className="text-center py-12">
               <MessageSquare className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-              <p className="text-gray-500 dark:text-gray-400">No reviews yet</p>
-              <p className="text-sm text-gray-400 dark:text-gray-500">Be the first to review this product!</p>
+              <p className="text-gray-500 dark:text-gray-400">{t('rating.noReviewsYet')}</p>
+              <p className="text-sm text-gray-400 dark:text-gray-500">{t('rating.beFirstToReview')}</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -156,7 +158,7 @@ export default function ProductReviewsModal({ productId, productName, onClose }:
                       </div>
                       <div>
                         <div className="font-medium text-gray-900 dark:text-white">
-                          Customer {review.phone}
+                          {t('rating.customer')} {review.phone}
                         </div>
                         <div className="text-xs text-gray-500 dark:text-gray-400">
                           {formatDate(review.createdAt)}
@@ -183,7 +185,7 @@ export default function ProductReviewsModal({ productId, productName, onClose }:
             onClick={onClose}
             className="w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
           >
-            Close
+            {t('checkout.close')}
           </button>
         </div>
       </div>

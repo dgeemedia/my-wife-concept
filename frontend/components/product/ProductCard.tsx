@@ -53,12 +53,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Stock Badge */}
           {isOutOfStock && (
             <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium z-10">
-              Out of Stock
+              {t('product.outOfStock')}
             </div>
           )}
           {isLowStock && !isOutOfStock && (
             <div className="absolute top-3 right-3 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium z-10">
-              Low Stock: {product.stock}
+              {t('productCard.lowStockBadge', { stock: product.stock })}
             </div>
           )}
           
@@ -91,7 +91,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
-            {product.description || 'No description available'}
+            {product.description || t('productCard.noDescription')}
           </p>
 
           {/* Rating Display with View All Reviews Button */}
@@ -114,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   {product.averageRating?.toFixed(1)} ({product.totalRatings})
                 </span>
               ) : (
-                <span className="text-sm text-gray-500 dark:text-gray-400">No ratings yet</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{t('product.noRatingsYet')}</span>
               )}
             </div>
             
@@ -125,7 +125,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
               >
                 <Eye className="w-4 h-4" />
-                View all reviews
+                {t('product.viewAllReviews')}
               </button>
             )}
           </div>
@@ -141,13 +141,13 @@ export default function ProductCard({ product }: ProductCardProps) {
                   : 'bg-primary-600 text-white hover:bg-primary-700'
               }`}
             >
-              {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+              {isOutOfStock ? t('product.outOfStock') : t('product.addToCart')}
             </button>
             
             <button
               onClick={() => setShowRatingModal(true)}
               className="px-4 py-2 border-2 border-primary-600 text-primary-600 rounded-lg font-medium hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
-              title="Rate this product"
+              title={t('product.rateThisProduct')}
             >
               <Star className="w-5 h-5" />
             </button>

@@ -94,6 +94,20 @@
     "failedToLoadProducts": "Impossibile caricare i prodotti. Riprova."
   },
   
+  "imageGallery": {
+  "imageUnavailable": "Immagine non disponibile",
+  "imageAlt": "Immagine {{index}}",
+  "previousImage": "Immagine precedente",
+  "nextImage": "Immagine successiva",
+  "goToImage": "Vai all'immagine {{index}}",
+  "paused": "In pausa"
+},
+
+"productCard": {
+  "lowStockBadge": "Scorte limitate: {{stock}}",
+  "noDescription": "Nessuna descrizione disponibile"
+},
+
   "cart": {
     "title": "Carrello",
     "yourCart": "Il tuo carrello",

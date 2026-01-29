@@ -93,6 +93,20 @@
     "productsDataFormatIncorrect": "تنسيق بيانات المنتجات غير صحيح",
     "failedToLoadProducts": "فشل تحميل المنتجات. يرجى المحاولة مرة أخرى."
   },
+
+  "imageGallery": {
+  "imageUnavailable": "الصورة غير متاحة",
+  "imageAlt": "الصورة {{index}}",
+  "previousImage": "الصورة السابقة",
+  "nextImage": "الصورة التالية",
+  "goToImage": "الانتقال إلى الصورة {{index}}",
+  "paused": "متوقف مؤقتاً"
+},
+
+"productCard": {
+  "lowStockBadge": "مخزون منخفض: {{stock}}",
+  "noDescription": "لا يوجد وصف متاح"
+},
   
   "cart": {
     "title": "سلة التسوق",

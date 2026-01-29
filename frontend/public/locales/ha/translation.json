@@ -94,6 +94,20 @@
     "failedToLoadProducts": "An kasa loda kayayyaki. Don Allah sake gwadawa."
   },
   
+  "imageGallery": {
+  "imageUnavailable": "Hoton ba ya samuwa",
+  "imageAlt": "Hoto {{index}}",
+  "previousImage": "Hoton da ya gabata",
+  "nextImage": "Hoto na gaba",
+  "goToImage": "Je zuwa hoto {{index}}",
+  "paused": "An dakatar"
+},
+
+"productCard": {
+  "lowStockBadge": "Kayayyaki sun kusa ƙarewa: {{stock}}",
+  "noDescription": "Babu bayanin da ake samu"
+},
+
   "cart": {
     "title": "Kwandon siyayya",
     "yourCart": "Kwandonku",

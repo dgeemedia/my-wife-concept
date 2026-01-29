@@ -94,6 +94,20 @@
     "failedToLoadProducts": "Falha ao carregar produtos. Por favor, tente novamente."
   },
   
+  "imageGallery": {
+  "imageUnavailable": "Imagem indisponível",
+  "imageAlt": "Imagem {{index}}",
+  "previousImage": "Imagem anterior",
+  "nextImage": "Próxima imagem",
+  "goToImage": "Ir para a imagem {{index}}",
+  "paused": "Pausado"
+},
+
+"productCard": {
+  "lowStockBadge": "Estoque baixo: {{stock}}",
+  "noDescription": "Nenhuma descrição disponível"
+}, 
+
   "cart": {
     "title": "Carrinho de compras",
     "yourCart": "Seu carrinho",
