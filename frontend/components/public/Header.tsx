@@ -1,3 +1,4 @@
+// frontend/components/public/Header.tsx
 'use client'
 
 import { useState } from 'react'
@@ -53,7 +54,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
               {t('header.home')}
             </Link>
             <Link href="#products" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
-              {t('header.products')}
+              View Store
             </Link>
             <Link href="/track" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
               {t('header.trackOrder')}
@@ -122,7 +123,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
                 className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
-                {t('header.products')}
+                View Store
               </Link>
               <Link 
                 href="/track" 

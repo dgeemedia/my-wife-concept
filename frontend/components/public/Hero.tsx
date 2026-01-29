@@ -1,7 +1,7 @@
 // components/public/Hero.tsx
 'use client'
 
-import { ArrowRight, ShoppingBag, Star, Sparkles } from 'lucide-react'
+import { ArrowRight, ShoppingBag, Sparkles } from 'lucide-react'
 import { useCart } from '../cart/CartProvider'
 import { useSettings } from '@/contexts/SettingsContext'
 
@@ -41,30 +41,20 @@ export default function Hero() {
         {/* Bicycle - Top Lane */}
         <div className="absolute top-[20%] left-0 w-full h-16 animate-slide-right">
           <div className="absolute left-0 w-16 h-16">
-            {/* Bicycle SVG */}
             <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-lg">
-              {/* Cyclist Body */}
               <circle cx="28" cy="18" r="4" fill="#6366f1" />
               <path d="M28 22 L28 32 L24 38" stroke="#6366f1" strokeWidth="2" fill="none" strokeLinecap="round" />
               <path d="M28 26 L34 24" stroke="#6366f1" strokeWidth="2" fill="none" strokeLinecap="round" />
               <path d="M28 32 L32 38" stroke="#6366f1" strokeWidth="2" fill="none" strokeLinecap="round" />
-              
-              {/* Bicycle Frame */}
               <path d="M34 24 L42 36" stroke="#4f46e5" strokeWidth="2.5" fill="none" />
               <path d="M34 24 L20 36" stroke="#4f46e5" strokeWidth="2.5" fill="none" />
               <path d="M20 36 L42 36" stroke="#4f46e5" strokeWidth="2.5" fill="none" />
-              
-              {/* Front Wheel */}
               <circle cx="42" cy="44" r="8" fill="none" stroke="#1f2937" strokeWidth="2" />
               <circle cx="42" cy="44" r="1.5" fill="#1f2937" />
               <line x1="42" y1="36" x2="42" y2="44" stroke="#1f2937" strokeWidth="1" />
-              
-              {/* Back Wheel */}
               <circle cx="20" cy="44" r="8" fill="none" stroke="#1f2937" strokeWidth="2" />
               <circle cx="20" cy="44" r="1.5" fill="#1f2937" />
               <line x1="20" y1="36" x2="20" y2="44" stroke="#1f2937" strokeWidth="1" />
-              
-              {/* Pedal Animation */}
               <circle cx="31" cy="36" r="3" fill="#a855f7" className="animate-spin-slow" style={{ transformOrigin: '31px 36px' }} />
             </svg>
           </div>
@@ -73,35 +63,21 @@ export default function Hero() {
         {/* Delivery Van - Bottom Lane */}
         <div className="absolute bottom-[25%] left-0 w-full h-20 animate-slide-right-slow">
           <div className="absolute left-0 w-24 h-20">
-            {/* Van SVG */}
             <svg viewBox="0 0 96 64" className="w-full h-full drop-shadow-lg">
-              {/* Van Body */}
               <rect x="10" y="20" width="70" height="28" rx="4" fill="#8b5cf6" />
               <rect x="50" y="12" width="30" height="36" rx="4" fill="#7c3aed" />
-              
-              {/* Windows */}
               <rect x="54" y="16" width="10" height="10" rx="2" fill="#e0e7ff" opacity="0.8" />
               <rect x="68" y="16" width="8" height="10" rx="2" fill="#e0e7ff" opacity="0.8" />
-              
-              {/* Cargo Area Details */}
               <rect x="15" y="24" width="30" height="20" rx="2" fill="#6d28d9" />
               <line x1="30" y1="24" x2="30" y2="44" stroke="#5b21b6" strokeWidth="1.5" />
-              
-              {/* Delivery Icon on Side */}
               <circle cx="30" cy="34" r="6" fill="#fff" opacity="0.9" />
               <path d="M28 34 L30 36 L34 32" stroke="#7c3aed" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-              
-              {/* Wheels */}
               <circle cx="25" cy="48" r="7" fill="#1f2937" />
               <circle cx="25" cy="48" r="4" fill="#4b5563" />
               <circle cx="65" cy="48" r="7" fill="#1f2937" />
               <circle cx="65" cy="48" r="4" fill="#4b5563" />
-              
-              {/* Headlights */}
               <circle cx="82" cy="28" r="2" fill="#fbbf24" />
               <circle cx="82" cy="36" r="2" fill="#fbbf24" />
-              
-              {/* Motion Lines */}
               <line x1="5" y1="25" x2="8" y2="25" stroke="#9333ea" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
               <line x1="3" y1="32" x2="7" y2="32" stroke="#9333ea" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
               <line x1="5" y1="39" x2="8" y2="39" stroke="#9333ea" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
@@ -109,10 +85,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Second Bicycle - Middle Lane (Opposite Direction) */}
+        {/* Second Bicycle - Middle Lane */}
         <div className="absolute top-[50%] right-0 w-full h-16 animate-slide-left hidden md:block">
           <div className="absolute right-0 w-16 h-16 transform scale-x-[-1]">
-            {/* Bicycle SVG (Flipped) */}
             <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-lg">
               <circle cx="28" cy="18" r="4" fill="#ec4899" />
               <path d="M28 22 L28 32 L24 38" stroke="#ec4899" strokeWidth="2" fill="none" strokeLinecap="round" />
@@ -133,11 +108,11 @@ export default function Hero() {
       
       <div className="container mx-auto px-4 py-20 md:py-28 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
+          {/* Badge with Updated Text */}
           <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-purple-200 dark:border-purple-800 mb-8 shadow-lg">
-            <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400 animate-pulse" />
             <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">
-              Shopping Made Easy
+              Welcome! Browse What You Need
             </span>
           </div>
 

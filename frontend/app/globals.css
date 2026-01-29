@@ -222,13 +222,52 @@ body {
   margin-left: auto;
 }
 
-/* Add these animations to your existing globals.css file */
+/* Add these to your globals.css file - FOOTER ANIMATIONS */
 
 /* ============================================
-   VEHICLE ANIMATIONS
+   FOOTER ANIMATIONS
    ============================================ */
 
-/* Bicycle - Left to Right (Faster) */
+/* Gradient Shift Animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateX(0) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(10px) scale(1.05);
+  }
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 10s ease-in-out infinite;
+}
+
+/* Bounce In Animation for Scroll to Top Button */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(20px);
+  }
+  50% {
+    transform: scale(1.1) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.5s ease-out;
+}
+
+/* ============================================
+   EXISTING ANIMATIONS (Keep these if not already present)
+   ============================================ */
+
+/* Vehicle Animations */
 @keyframes slide-right {
   0% {
     transform: translateX(-100px);
@@ -250,7 +289,6 @@ body {
   animation: slide-right 12s linear infinite;
 }
 
-/* Van - Left to Right (Slower) */
 @keyframes slide-right-slow {
   0% {
     transform: translateX(-150px);
@@ -273,7 +311,6 @@ body {
   animation-delay: 3s;
 }
 
-/* Bicycle 2 - Right to Left */
 @keyframes slide-left {
   0% {
     transform: translateX(100px);
@@ -296,7 +333,6 @@ body {
   animation-delay: 6s;
 }
 
-/* Pedal Spin Animation */
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
@@ -309,10 +345,6 @@ body {
 .animate-spin-slow {
   animation: spin-slow 1s linear infinite;
 }
-
-/* ============================================
-   EXISTING ANIMATIONS
-   ============================================ */
 
 /* Blob Animation */
 @keyframes blob {
@@ -337,34 +369,6 @@ body {
 
 .animation-delay-4000 {
   animation-delay: 4s;
-}
-
-/* Float Animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(10deg);
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Bounce Slow Animation */
-@keyframes bounce-slow {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-bounce-slow {
-  animation: bounce-slow 3s ease-in-out infinite;
 }
 
 /* Grid Pattern */
@@ -402,7 +406,6 @@ body {
    ============================================ */
 
 @media (max-width: 768px) {
-  /* Faster animations on mobile for better performance */
   .animate-slide-right {
     animation-duration: 10s;
   }
@@ -413,5 +416,21 @@ body {
   
   .animate-slide-left {
     animation-duration: 12s;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-right,
+  .animate-slide-right-slow,
+  .animate-slide-left,
+  .animate-spin-slow,
+  .animate-blob,
+  .animate-gradient-shift,
+  .animate-bounce-in {
+    animation: none;
   }
 }
