@@ -36,11 +36,11 @@ export default function Home() {
         setFeaturedProducts(inStock.slice(0, 8))
       } else {
         console.warn('API returned non-array data:', data)
-        setError('Products data format is incorrect')
+        setError(t('product.productsDataFormatIncorrect'))
       }
     } catch (error) {
       console.error('Failed to load products:', error)
-      setError('Failed to load products. Please try again.')
+      setError(t('product.failedToLoadProducts'))
     } finally {
       setLoading(false)
     }
@@ -48,13 +48,14 @@ export default function Home() {
 
   // Determine if it's a booking/reservation type business
   const isBookingBusiness = settings?.businessType === 'hotel' || settings?.businessType === 'shortlet'
-  const productLabel = isBookingBusiness ? 'Available Listings' : 'Browse What We Have'
+  const productLabel = isBookingBusiness 
+    ? t('product.availableListings') 
+    : t('product.browseWhatWeHave')
 
   return (
     <div className="animate-fade-in">
       <Hero />
 
-      {/* Products Section - Direct focus on what we sell */}
       <section className="py-16" id="products">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -62,7 +63,7 @@ export default function Home() {
               {productLabel}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400">
-              Find what you need and order instantly
+              {t('product.findWhatYouNeed')}
             </p>
             {error && (
               <div className="bg-red-50 text-red-700 p-4 rounded-lg mt-4">
@@ -82,15 +83,15 @@ export default function Home() {
       {/* Simple CTA Section */}
       <section className="py-16 bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Get Started?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('cta.readyToStart')}</h2>
           <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            Browse our collection and place your order today!
+            {t('cta.browseCollection')}
           </p>
           <a
             href="#products"
             className="inline-block bg-white text-purple-600 px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
           >
-            Start Shopping
+            {t('cta.startShopping')}
           </a>
         </div>
       </section>

@@ -3,8 +3,10 @@
 
 import { useState } from 'react'
 import { Search, Package, Clock, CheckCircle, Truck } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export default function TrackOrderPage() {
+  const { t } = useTranslation()
   const [orderId, setOrderId] = useState('')
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
@@ -78,10 +80,10 @@ export default function TrackOrderPage() {
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Track Your Order
+            {t('order.trackYourOrder')}
           </h1>
           <p className="text-gray-600 text-lg">
-            Enter your order ID and phone number to check the status
+            {t('order.enterOrderId')}
           </p>
         </div>
 
@@ -91,7 +93,7 @@ export default function TrackOrderPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Order ID
+                  {t('order.orderId')}
                 </label>
                 <input
                   type="text"
@@ -105,7 +107,7 @@ export default function TrackOrderPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
+                  {t('order.phoneNumber')}
                 </label>
                 <input
                   type="tel"
@@ -137,7 +139,7 @@ export default function TrackOrderPage() {
               ) : (
                 <>
                   <Search className="w-5 h-5 mr-2" />
-                  Track Order
+                  {t('order.trackOrder')}
                 </>
               )}
             </button>

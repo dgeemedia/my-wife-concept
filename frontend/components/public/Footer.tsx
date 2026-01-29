@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Facebook, Instagram, Mail, Phone, MapPin, MessageCircle, Linkedin, Youtube, Send, ArrowUp } from 'lucide-react'
 import { BusinessSettings } from '@/types'
+import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 
 interface FooterProps {
@@ -26,6 +27,7 @@ const TikTokIcon = () => (
 )
 
 export default function Footer({ settings }: FooterProps) {
+  const { t } = useTranslation()
   const currentYear = new Date().getFullYear()
   const [email, setEmail] = useState('')
   const [subscribing, setSubscribing] = useState(false)
@@ -119,54 +121,43 @@ export default function Footer({ settings }: FooterProps) {
     e.preventDefault()
     
     if (!email) {
-      toast.error('Please enter your email address')
+      toast.error(t('errors.pleaseEnterEmail'))
       return
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
-      toast.error('Please enter a valid email address')
+      toast.error(t('errors.invalidEmail'))
       return
     }
 
     setSubscribing(true)
 
     try {
-      const message = `Newsletter Subscription Request
-
-Email: ${email}
-Business: ${settings?.businessName || 'MyBusiness'}
-Date: ${new Date().toLocaleString()}
-
-Please add me to your newsletter mailing list for updates on new products and special offers.`
+      const message = t('footer.newsletterSubmissionMessage', {
+        email,
+        businessName: settings?.businessName || 'MyBusiness',
+        date: new Date().toLocaleString()
+      })
 
       const whatsappNumber = settings?.whatsappNumber?.replace(/[^\d]/g, '') || ''
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
 
       window.open(whatsappUrl, '_blank')
-      toast.success('Opening WhatsApp to complete subscription!')
+      toast.success(t('footer.openingWhatsAppSubscription'))
       setEmail('')
     } catch (error) {
       console.error('Newsletter subscription error:', error)
-      toast.error('Failed to process subscription. Please try again.')
+      toast.error(t('footer.subscriptionFailed'))
     } finally {
       setSubscribing(false)
     }
   }
 
   const getNewsletterText = () => {
-    const businessType = settings?.businessType || 'food'
-    const texts = {
-      food: 'Subscribe to get updates on new menu items and special offers.',
-      fashion: 'Get notified about new arrivals, exclusive deals, and fashion trends.',
-      electronics: 'Stay updated with the latest gadgets, tech deals, and product launches.',
-      pharmacy: 'Receive health tips, product updates, and special wellness offers.',
-      hotel: 'Get exclusive booking deals, seasonal offers, and travel tips.',
-      farm: 'Fresh harvest alerts, seasonal produce updates, and farm news.',
-      shortlet: 'New property listings, special rates, and booking deals.',
-      default: 'Subscribe for updates on new products and exclusive offers.'
-    }
-    return texts[businessType as keyof typeof texts] || texts.default
+    const businessType = settings?.businessType || 'default'
+    const key = `footer.newsletter${businessType.charAt(0).toUpperCase() + businessType.slice(1)}`
+    return t(key)
   }
 
   const scrollToSection = (sectionId: string) => {
@@ -183,7 +174,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
         <button
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-50 p-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full shadow-2xl hover:scale-110 transition-transform animate-bounce-in"
-          aria-label="Scroll to top"
+          aria-label={t('footer.scrollToTop')}
         >
           <ArrowUp className="w-6 h-6" />
         </button>
@@ -205,7 +196,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
                 {settings?.logo ? (
                   <Image
                     src={settings.logo}
-                    alt={settings.businessName || 'Business Logo'}
+                    alt={settings.businessName || t('footer.businessLogo')}
                     width={40}
                     height={40}
                     className="rounded-lg object-contain"
@@ -227,7 +218,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
               )}
               
               <p className="text-gray-400 mb-6">
-                {settings?.footerText || settings?.description || 'Quality products and excellent service delivered to your doorstep.'}
+                {settings?.footerText || settings?.description || t('footer.qualityProducts')}
               </p>
               
               {socialLinks.length > 0 && (
@@ -254,26 +245,26 @@ Please add me to your newsletter mailing list for updates on new products and sp
             {/* Quick Links - Animated */}
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                  style={{ transitionDelay: '150ms' }}>
-              <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
+              <h3 className="text-lg font-semibold mb-6">{t('footer.quickLinks')}</h3>
               <ul className="space-y-3">
                 <li>
                   <a href="/" className="text-gray-400 hover:text-white hover:translate-x-2 inline-block transition-all">
-                    Home
+                    {t('header.home')}
                   </a>
                 </li>
                 <li>
                   <button onClick={() => scrollToSection('products')} className="text-gray-400 hover:text-white hover:translate-x-2 inline-block transition-all">
-                    {settings?.businessType === 'hotel' || settings?.businessType === 'shortlet' ? 'Listings' : 'View Store'}
+                    {settings?.businessType === 'hotel' || settings?.businessType === 'shortlet' ? t('footer.listings') : t('header.viewStore')}
                   </button>
                 </li>
                 <li>
                   <a href="/track" className="text-gray-400 hover:text-white hover:translate-x-2 inline-block transition-all">
-                    Track Order
+                    {t('header.trackOrder')}
                   </a>
                 </li>
                 <li>
                   <button onClick={openWhatsAppWidget} className="text-gray-400 hover:text-white hover:translate-x-2 inline-block transition-all">
-                    Support
+                    {t('header.support')}
                   </button>
                 </li>
               </ul>
@@ -282,7 +273,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
             {/* Contact Info - Animated */}
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                  style={{ transitionDelay: '300ms' }}>
-              <h3 className="text-lg font-semibold mb-6">Contact Us</h3>
+              <h3 className="text-lg font-semibold mb-6">{t('footer.contactUs')}</h3>
               <ul className="space-y-4">
                 {(settings?.footerPhone || settings?.phone) && (
                   <li className="flex items-start group">
@@ -294,7 +285,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
                       >
                         {settings.footerPhone || settings.phone}
                       </a>
-                      <p className="text-sm text-gray-400">Phone</p>
+                      <p className="text-sm text-gray-400">{t('footer.phone')}</p>
                     </div>
                   </li>
                 )}
@@ -308,7 +299,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
                       >
                         {settings.footerEmail || settings.email}
                       </a>
-                      <p className="text-sm text-gray-400">Email</p>
+                      <p className="text-sm text-gray-400">{t('footer.email')}</p>
                     </div>
                   </li>
                 )}
@@ -317,7 +308,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
                     <MapPin className="w-5 h-5 text-primary-400 mr-3 mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" />
                     <div>
                       <p className="font-medium">{settings.footerAddress || settings.address}</p>
-                      <p className="text-sm text-gray-400">Address</p>
+                      <p className="text-sm text-gray-400">{t('footer.address')}</p>
                     </div>
                   </li>
                 )}
@@ -333,7 +324,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
                       >
                         {settings.whatsappNumber}
                       </a>
-                      <p className="text-sm text-gray-400">WhatsApp</p>
+                      <p className="text-sm text-gray-400">{t('footer.whatsapp')}</p>
                     </div>
                   </li>
                 )}
@@ -343,7 +334,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
             {/* Newsletter - Animated */}
             <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                  style={{ transitionDelay: '450ms' }}>
-              <h3 className="text-lg font-semibold mb-6">Stay Updated</h3>
+              <h3 className="text-lg font-semibold mb-6">{t('footer.stayUpdated')}</h3>
               <p className="text-gray-400 mb-4 text-sm">
                 {getNewsletterText()}
               </p>
@@ -353,7 +344,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email"
+                    placeholder={t('footer.yourEmail')}
                     disabled={subscribing}
                     className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:outline-none text-white placeholder-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     required
@@ -371,7 +362,7 @@ Please add me to your newsletter mailing list for updates on new products and sp
                   </button>
                 </div>
                 <p className="text-xs text-gray-500">
-                  We'll contact you via WhatsApp to confirm your subscription
+                  {t('footer.subscribeNote')}
                 </p>
               </form>
             </div>
@@ -392,17 +383,17 @@ Please add me to your newsletter mailing list for updates on new products and sp
                style={{ transitionDelay: '600ms' }}>
             <p className="text-gray-400 text-sm mb-4 md:mb-0">
               {settings?.footerCopyright?.replace('{year}', currentYear.toString()) ||
-                `© ${currentYear} ${settings?.businessName || 'MyBusiness'}. All rights reserved.`}
+                t('footer.copyright', { year: currentYear, businessName: settings?.businessName || 'MyBusiness' })}
             </p>
             <div className="flex space-x-6 text-sm text-gray-400">
               <button onClick={() => scrollToSection('privacy')} className="hover:text-white transition-colors">
-                Privacy Policy
+                {t('footer.privacyPolicy')}
               </button>
               <button onClick={() => scrollToSection('terms')} className="hover:text-white transition-colors">
-                Terms of Service
+                {t('footer.termsOfService')}
               </button>
               <button onClick={() => scrollToSection('refund')} className="hover:text-white transition-colors">
-                Refund Policy
+                {t('footer.refundPolicy')}
               </button>
             </div>
           </div>

@@ -43,9 +43,9 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <ShoppingCart className="w-6 h-6 text-primary-600" />
-                <h2 className="text-xl font-bold">Your Cart</h2>
+                <h2 className="text-xl font-bold">{t('cart.yourCart')}</h2>
                 <span className="bg-primary-100 text-primary-600 px-2 py-1 rounded-full text-sm">
-                  {itemCount} items
+                  {t('cart.items', { count: itemCount })}
                 </span>
               </div>
               <button
@@ -61,7 +61,7 @@ export default function CartDrawer() {
                 onClick={closeCart}
                 className="mt-3 text-sm text-primary-600 hover:text-primary-700 font-medium hover:underline"
               >
-                ← Continue Shopping
+                ← {t('cart.continueShopping')}
               </button>
             )}
           </div>
@@ -71,12 +71,12 @@ export default function CartDrawer() {
             {items.length === 0 ? (
               <div className="text-center py-12">
                 <ShoppingCart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500">Your cart is empty</p>
+                <p className="text-gray-500">{t('cart.emptyCartMessage')}</p>
                 <button
                   onClick={closeCart}
                   className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
                 >
-                  Continue Shopping
+                  {t('cart.continueShopping')}
                 </button>
               </div>
             ) : (
@@ -86,7 +86,7 @@ export default function CartDrawer() {
                     <div className="flex-1">
                       <h3 className="font-medium">{item.product.name}</h3>
                       <p className="text-sm text-gray-500">
-                        {format(item.product.price)} each
+                        {format(item.product.price)} {t('common.each')}
                       </p>
                     </div>
                     
@@ -124,7 +124,7 @@ export default function CartDrawer() {
           {items.length > 0 && (
             <div className="border-t p-6 space-y-4">
               <div className="flex justify-between text-lg font-semibold">
-                <span>Total:</span>
+                <span>{t('common.total')}:</span>
                 <span className="text-primary-600">{format(total)}</span>
               </div>
               
@@ -133,18 +133,18 @@ export default function CartDrawer() {
                   onClick={clearCart}
                   className="flex-1 py-3 border border-red-500 text-red-500 rounded-lg font-medium hover:bg-red-50 transition-colors"
                 >
-                  Clear
+                  {t('cart.clear')}
                 </button>
                 <button
                   onClick={handleCheckout}
                   className="flex-1 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                 >
-                  Checkout
+                  {t('cart.checkout')}
                 </button>
               </div>
               
               <p className="text-sm text-center text-gray-500">
-                Click Checkout to fill your details and complete order
+                {t('cart.clickCheckoutNote')}
               </p>
             </div>
           )}

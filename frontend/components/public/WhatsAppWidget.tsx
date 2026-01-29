@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'
 import { MessageCircle, X, Send, HelpCircle, Package, Phone } from 'lucide-react'
 import { useSettings } from '@/contexts/SettingsContext'
+import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 
 interface QuickMessage {
@@ -20,6 +21,7 @@ export default function WhatsAppWidget() {
   const [customMessage, setCustomMessage] = useState('')
   const [isVisible, setIsVisible] = useState(false)
   const { settings } = useSettings()
+  const { t } = useTranslation()
 
   // Show widget after a short delay for smooth entrance
   useEffect(() => {
@@ -44,32 +46,32 @@ export default function WhatsAppWidget() {
     {
       id: 'booking',
       icon: Package,
-      label: 'Need help with booking?',
-      message: `Hi! I need help with booking/ordering from ${settings?.businessName || 'your store'}. Can you assist me?`,
+      label: t('whatsapp.needHelpBooking'),
+      message: t('whatsapp.needHelpBookingMessage', { businessName: settings?.businessName || 'your store' }),
       color: 'from-blue-500 to-cyan-500',
       gradient: 'bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20'
     },
     {
       id: 'tracking',
       icon: Package,
-      label: 'How do I track my order?',
-      message: `Hello! I'd like to track my order. Can you help me with the tracking details?`,
+      label: t('whatsapp.trackMyOrder'),
+      message: t('whatsapp.trackOrderMessage'),
       color: 'from-purple-500 to-pink-500',
       gradient: 'bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20'
     },
     {
       id: 'general',
       icon: HelpCircle,
-      label: 'General Enquiry',
-      message: `Hi! I have a general question about ${settings?.businessName || 'your business'}. Can we chat?`,
+      label: t('whatsapp.generalEnquiry'),
+      message: t('whatsapp.generalEnquiryMessage', { businessName: settings?.businessName || 'your business' }),
       color: 'from-green-500 to-emerald-500',
       gradient: 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20'
     },
     {
       id: 'support',
       icon: Phone,
-      label: 'Customer Support',
-      message: `Hello! I need customer support. Is anyone available to help me?`,
+      label: t('whatsapp.customerSupport'),
+      message: t('whatsapp.customerSupportMessage'),
       color: 'from-orange-500 to-red-500',
       gradient: 'bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20'
     },
@@ -79,7 +81,7 @@ export default function WhatsAppWidget() {
     const whatsappNumber = settings?.whatsappNumber?.replace(/[^\d]/g, '') || ''
     
     if (!whatsappNumber) {
-      toast.error('WhatsApp number not configured')
+      toast.error(t('whatsapp.whatsappNotConfigured'))
       return
     }
 
@@ -89,12 +91,12 @@ export default function WhatsAppWidget() {
     window.open(whatsappUrl, '_blank')
     setIsOpen(false)
     setCustomMessage('')
-    toast.success('Opening WhatsApp...')
+    toast.success(t('whatsapp.openingWhatsApp'))
   }
 
   const handleCustomMessageSend = () => {
     if (!customMessage.trim()) {
-      toast.error('Please type a message')
+      toast.error(t('whatsapp.pleaseTypeMessage'))
       return
     }
     openWhatsApp(customMessage)
@@ -136,17 +138,17 @@ export default function WhatsAppWidget() {
                       <MessageCircle className="w-6 h-6 text-green-500" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg">Chat with Us</h3>
+                      <h3 className="font-bold text-lg">{t('whatsapp.chatWithUs')}</h3>
                       <div className="flex items-center space-x-1">
                         <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        <p className="text-sm text-white/90">Online now</p>
+                        <p className="text-sm text-white/90">{t('whatsapp.onlineNow')}</p>
                       </div>
                     </div>
                   </div>
                   <button
                     onClick={() => setIsOpen(false)}
                     className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                    aria-label="Close chat"
+                    aria-label={t('whatsapp.closeAriaLabel')}
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -158,14 +160,14 @@ export default function WhatsAppWidget() {
                 {/* Welcome Message */}
                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-xl border border-green-200 dark:border-green-800">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
-                    👋 Hi! How can we help you today? Choose a quick option below or type your message.
+                    {t('whatsapp.howCanWeHelp')}
                   </p>
                 </div>
 
                 {/* Quick Messages */}
                 <div className="space-y-2">
                   <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                    Quick Messages
+                    {t('whatsapp.quickMessages')}
                   </p>
                   {quickMessages.map((msg, index) => {
                     const Icon = msg.icon
@@ -193,7 +195,7 @@ export default function WhatsAppWidget() {
                 {/* Custom Message */}
                 <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                   <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
-                    Or Type Your Message
+                    {t('whatsapp.typeYourMessage')}
                   </p>
                   <div className="flex space-x-2">
                     <input
@@ -201,14 +203,14 @@ export default function WhatsAppWidget() {
                       value={customMessage}
                       onChange={(e) => setCustomMessage(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleCustomMessageSend()}
-                      placeholder="Type your message..."
+                      placeholder={t('whatsapp.typeMessage')}
                       className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
                     />
                     <button
                       onClick={handleCustomMessageSend}
                       disabled={!customMessage.trim()}
                       className="px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-medium hover:from-green-600 hover:to-emerald-700 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed transition-all hover:shadow-lg disabled:shadow-none flex items-center justify-center min-w-[50px]"
-                      aria-label="Send message"
+                      aria-label={t('whatsapp.sendAriaLabel')}
                     >
                       <Send className="w-5 h-5" />
                     </button>
@@ -217,7 +219,7 @@ export default function WhatsAppWidget() {
 
                 {/* Footer Note */}
                 <p className="text-xs text-center text-gray-500 dark:text-gray-400 pt-2">
-                  You'll be redirected to WhatsApp to continue the conversation
+                  {t('whatsapp.redirectNote')}
                 </p>
               </div>
             </div>
@@ -230,7 +232,7 @@ export default function WhatsAppWidget() {
           className={`w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 flex items-center justify-center group ${
             isOpen ? 'rotate-0' : 'animate-bounce-subtle'
           }`}
-          aria-label={isOpen ? 'Close chat' : 'Open chat'}
+          aria-label={isOpen ? t('whatsapp.closeAriaLabel') : t('whatsapp.openAriaLabel')}
         >
           {isOpen ? (
             <X className="w-7 h-7 group-hover:rotate-90 transition-transform duration-300" />

@@ -63,7 +63,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
               {t('header.home')}
             </Link>
             <Link href="#products" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
-              View Store
+              {t('header.viewStore')}
             </Link>
             <Link href="/track" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors">
               {t('header.trackOrder')}
@@ -72,7 +72,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
               onClick={openWhatsAppWidget}
               className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium transition-colors"
             >
-              Support
+              {t('header.support')}
             </button>
             <Link 
               href="/dashboard/login" 
@@ -112,7 +112,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-              aria-label="Toggle menu"
+              aria-label={t('header.toggleMenu')}
             >
               {menuOpen ? <X className="w-6 h-6 dark:text-white" /> : <Menu className="w-6 h-6 dark:text-white" />}
             </button>
@@ -135,7 +135,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
                 className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2"
                 onClick={() => setMenuOpen(false)}
               >
-                View Store
+                {t('header.viewStore')}
               </Link>
               <Link 
                 href="/track" 
@@ -148,7 +148,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
                 onClick={openWhatsAppWidget}
                 className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium py-2 text-left"
               >
-                Support
+                {t('header.support')}
               </button>
               <Link 
                 href="/dashboard/login" 

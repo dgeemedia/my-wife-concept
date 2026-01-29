@@ -1,8 +1,4 @@
-// ============================================================================
-// FIXED IMAGE GALLERY COMPONENT
 // frontend/components/product/ImageGallery.tsx
-// ============================================================================
-
 'use client'
 
 import { useState, useEffect, useRef } from 'react'

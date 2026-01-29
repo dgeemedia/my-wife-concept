@@ -45,7 +45,7 @@ export default function OrderForm({ initialData, onSubmit, loading = false }: Or
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             <User className="inline w-4 h-4 mr-1" />
-            Full Name *
+            {t('checkout.fullName')} {t('checkout.required')}
           </label>
           <input
             type="text"
@@ -54,14 +54,14 @@ export default function OrderForm({ initialData, onSubmit, loading = false }: Or
             onChange={handleChange}
             required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="Enter your full name"
+            placeholder={t('checkout.enterFullName')}
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             <Phone className="inline w-4 h-4 mr-1" />
-            Phone Number *
+            {t('checkout.phoneNumber')} {t('checkout.required')}
           </label>
           <input
             type="tel"
@@ -70,14 +70,14 @@ export default function OrderForm({ initialData, onSubmit, loading = false }: Or
             onChange={handleChange}
             required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="Enter your phone number"
+            placeholder={t('checkout.enterPhoneNumber')}
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             <Mail className="inline w-4 h-4 mr-1" />
-            Email (Optional)
+            {t('checkout.emailOptional')}
           </label>
           <input
             type="email"
@@ -85,14 +85,14 @@ export default function OrderForm({ initialData, onSubmit, loading = false }: Or
             value={formData.email}
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="Enter your email"
+            placeholder={t('checkout.enterYourEmail')}
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             <MapPin className="inline w-4 h-4 mr-1" />
-            Delivery Address (Optional)
+            {t('checkout.deliveryAddressOptional')}
           </label>
           <input
             type="text"
@@ -100,7 +100,7 @@ export default function OrderForm({ initialData, onSubmit, loading = false }: Or
             value={formData.address}
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="Enter delivery address"
+            placeholder={t('checkout.enterDeliveryAddress')}
           />
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function OrderForm({ initialData, onSubmit, loading = false }: Or
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           <MessageSquare className="inline w-4 h-4 mr-1" />
-          Additional Message (Optional)
+          {t('checkout.additionalMessageOptional')}
         </label>
         <textarea
           name="message"
@@ -116,7 +116,7 @@ export default function OrderForm({ initialData, onSubmit, loading = false }: Or
           onChange={handleChange}
           rows={3}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-          placeholder="Any special instructions or notes..."
+          placeholder={t('checkout.anySpecialRequests')}
         />
       </div>
 
@@ -125,7 +125,7 @@ export default function OrderForm({ initialData, onSubmit, loading = false }: Or
         disabled={loading}
         className="w-full py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? 'Processing...' : 'Place Order'}
+        {loading ? t('checkout.processing') : t('checkout.placeOrder')}
       </button>
     </form>
   )

@@ -1,8 +1,4 @@
-// ============================================================================
-// NEW COMPONENT - PRODUCT REVIEWS MODAL
 // frontend/components/product/ProductReviewsModal.tsx
-// ============================================================================
-
 'use client'
 
 import { useState, useEffect } from 'react'

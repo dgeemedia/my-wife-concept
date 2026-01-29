@@ -1,8 +1,4 @@
-// ============================================================================
-// UPDATED RATING MODAL - WITH PAGE REFRESH
 // frontend/components/product/ProductRatingModal.tsx
-// ============================================================================
-
 'use client'
 
 import { useState } from 'react'

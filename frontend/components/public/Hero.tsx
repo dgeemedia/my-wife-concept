@@ -4,8 +4,10 @@
 import { ArrowRight, ShoppingBag, Sparkles } from 'lucide-react'
 import { useCart } from '../cart/CartProvider'
 import { useSettings } from '@/contexts/SettingsContext'
+import { useTranslation } from 'react-i18next'
 
 export default function Hero() {
+  const { t } = useTranslation()
   const { openCart } = useCart()
   const { settings } = useSettings()
 
@@ -19,8 +21,8 @@ export default function Hero() {
 
   // Determine if it's a booking/reservation type business
   const isBookingBusiness = settings?.businessType === 'hotel' || settings?.businessType === 'shortlet'
-  const browseLabel = isBookingBusiness ? 'Browse Listings' : 'Browse Products'
-
+  const browseLabel = isBookingBusiness ? t('hero.browseListings') : t('hero.browseProducts')
+  
   return (
     <section className="relative overflow-hidden">
       {/* Dynamic Gradient Background */}
@@ -112,22 +114,22 @@ export default function Hero() {
           <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-purple-200 dark:border-purple-800 mb-8 shadow-lg">
             <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400 animate-pulse" />
             <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">
-              Welcome! Browse What You Need
+              {t('hero.welcome')}
             </span>
           </div>
 
           {/* Main Headline */}
           <div className="space-y-6 mb-10">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white leading-tight">
-              Shopping Got{' '}
+              {t('hero.title')}{' '}
               <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
-                Easier
+                {t('hero.titleHighlight')}
               </span>
               <br />
-              With Us
+              {t('hero.titleContinued')}
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              No registration, just search what you want and get it done ASAP!
+              {t('hero.subtitle')}
             </p>
           </div>
 
@@ -147,23 +149,23 @@ export default function Hero() {
               onClick={openCart}
               className="inline-flex items-center justify-center px-8 py-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white rounded-xl font-semibold border-2 border-purple-200 dark:border-purple-800 hover:border-purple-400 dark:hover:border-purple-600 transition-all hover:shadow-lg"
             >
-              View Cart
+              {t('hero.viewCart')}
             </button>
           </div>
 
           {/* Feature Pills */}
           <div className="flex flex-wrap justify-center gap-3">
             <div className="px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-purple-200/50 dark:border-purple-800/50 shadow-sm">
-              <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">⚡ Fast Service</span>
+              <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">{t('hero.fastService')}</span>
             </div>
             <div className="px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-indigo-200/50 dark:border-indigo-800/50 shadow-sm">
-              <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">🛡️ Safe Checkout</span>
+              <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">{t('hero.safeCheckout')}</span>
             </div>
             <div className="px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-pink-200/50 dark:border-pink-800/50 shadow-sm">
-              <span className="text-sm font-semibold text-pink-600 dark:text-pink-400">⭐ Quality Guaranteed</span>
+              <span className="text-sm font-semibold text-pink-600 dark:text-pink-400">{t('hero.qualityGuaranteed')}</span>
             </div>
             <div className="px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-blue-200/50 dark:border-blue-800/50 shadow-sm">
-              <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">📦 Easy Ordering</span>
+              <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{t('hero.easyOrdering')}</span>
             </div>
           </div>
         </div>

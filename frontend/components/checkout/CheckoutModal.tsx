@@ -84,21 +84,20 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
       setSavedTotal(total)
       
       // Format WhatsApp message
-      const whatsappMessage = `🛒 *New Order #${order.id}*
+      const whatsappMessage = `${t('whatsapp.newOrder', { orderId: order.id })}
 
-👤 *Customer Details:*
-Name: ${formData.customerName}
-Phone: ${formData.phone}
-${formData.email ? `Email: ${formData.email}\n` : ''}${formData.address ? `📍 Address: ${formData.address}\n` : ''}${formData.message ? `💬 Message: ${formData.message}\n` : ''}
-🛍️ *Order Items:*
+${t('whatsapp.customerDetails')}
+${t('whatsapp.name', { name: formData.customerName })}
+${t('whatsapp.phone', { phone: formData.phone })}
+${formData.email ? `${t('whatsapp.emailLabel', { email: formData.email })}\n` : ''}${formData.address ? `${t('whatsapp.addressLabel', { address: formData.address })}\n` : ''}${formData.message ? `${t('whatsapp.messageLabel', { message: formData.message })}\n` : ''}
+${t('whatsapp.orderItems')}
 ${items.map(item => `• ${item.product.name} x${item.quantity} - ${format(item.product.price * item.quantity)}`).join('\n')}
 
-💰 *Total Amount: ${format(total)}*
+${t('whatsapp.totalAmount', { total: format(total) })}
 
-📅 Order Date: ${new Date().toLocaleString()}
+${t('whatsapp.orderDate', { date: new Date().toLocaleString() })}
 
----
-Please confirm this order and let me know the payment details. Thank you! 🙏`
+${t('whatsapp.orderConfirmation')}`
 
       // Auto-open WhatsApp
       const encodedMessage = encodeURIComponent(whatsappMessage)
@@ -113,12 +112,12 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
       // Clear cart after a delay to allow user to see success message
       setTimeout(() => {
         clearCart()
-        toast.success('Order created! WhatsApp chat opened.')
+        toast.success(t('checkout.orderCreatedWhatsAppOpened'))
       }, 1000)
 
     } catch (err: any) {
       console.error('Checkout error:', err)
-      const errorMessage = err.response?.data?.error || err.message || 'Failed to create order. Please try again.'
+      const errorMessage = err.response?.data?.error || err.message || t('checkout.failedToCreateOrder')
       setError(errorMessage)
       toast.error(errorMessage)
     } finally {
@@ -154,21 +153,20 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
 
   const reopenWhatsApp = () => {
     // Send the same complete order details using saved data
-    const whatsappMessage = `🛒 *New Order #${orderId}*
+    const whatsappMessage = `${t('whatsapp.newOrder', { orderId })}
 
-👤 *Customer Details:*
-Name: ${formData.customerName}
-Phone: ${formData.phone}
-${formData.email ? `Email: ${formData.email}\n` : ''}${formData.address ? `📍 Address: ${formData.address}\n` : ''}${formData.message ? `💬 Message: ${formData.message}\n` : ''}
-🛍️ *Order Items:*
+${t('whatsapp.customerDetails')}
+${t('whatsapp.name', { name: formData.customerName })}
+${t('whatsapp.phone', { phone: formData.phone })}
+${formData.email ? `${t('whatsapp.emailLabel', { email: formData.email })}\n` : ''}${formData.address ? `${t('whatsapp.addressLabel', { address: formData.address })}\n` : ''}${formData.message ? `${t('whatsapp.messageLabel', { message: formData.message })}\n` : ''}
+${t('whatsapp.orderItems')}
 ${savedOrderItems.map(item => `• ${item.product.name} x${item.quantity} - ${format(item.product.price * item.quantity)}`).join('\n')}
 
-💰 *Total Amount: ${format(savedTotal)}*
+${t('whatsapp.totalAmount', { total: format(savedTotal) })}
 
-📅 Order Date: ${new Date().toLocaleString()}
+${t('whatsapp.orderDate', { date: new Date().toLocaleString() })}
 
----
-Please confirm this order and let me know the payment details. Thank you! 🙏`
+${t('whatsapp.orderConfirmation')}`
 
     const encodedMessage = encodeURIComponent(whatsappMessage)
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank')
@@ -187,7 +185,7 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                 <MessageCircle className="w-6 h-6 text-green-600" />
               )}
               <h2 className="text-xl font-bold">
-                {success ? 'Order Created!' : 'Complete Your Order'}
+                {success ? t('checkout.orderCreated') : t('checkout.completeOrder')}
               </h2>
             </div>
             <button
@@ -199,8 +197,8 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
           </div>
           <p className="text-gray-600 text-sm mt-2">
             {success 
-              ? 'WhatsApp chat has been opened. Complete payment via WhatsApp.'
-              : 'Fill in your details and we\'ll open WhatsApp to finalize your order'}
+              ? t('checkout.whatsappOpened')
+              : t('checkout.fillDetails')}
           </p>
         </div>
 
@@ -212,22 +210,22 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                 <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <h3 className="font-semibold text-green-900 mb-1">
-                    Order #{orderId} Created Successfully
+                    {t('checkout.orderCreatedSuccess', { orderId })}
                   </h3>
                   <p className="text-sm text-green-800">
-                    A WhatsApp chat has been opened with the business. Please complete your payment and delivery arrangements via WhatsApp.
+                    {t('checkout.whatsappChatOpened')}
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h4 className="font-medium text-blue-900 mb-2">Next Steps:</h4>
+              <h4 className="font-medium text-blue-900 mb-2">{t('checkout.nextSteps')}</h4>
               <ol className="text-sm text-blue-800 space-y-2 list-decimal list-inside">
-                <li>Discuss payment method with the seller on WhatsApp</li>
-                <li>Complete payment as instructed</li>
-                <li>Provide delivery details if needed</li>
-                <li>Wait for order confirmation and delivery</li>
+                <li>{t('checkout.discussPayment')}</li>
+                <li>{t('checkout.completePayment')}</li>
+                <li>{t('checkout.provideDelivery')}</li>
+                <li>{t('checkout.waitConfirmation')}</li>
               </ol>
             </div>
 
@@ -237,7 +235,7 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                 className="w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-5 h-5" />
-                Open WhatsApp Chat Again
+                {t('checkout.openWhatsAppAgain')}
                 <ExternalLink className="w-4 h-4" />
               </button>
 
@@ -245,19 +243,19 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                 onClick={handleClose}
                 className="w-full py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
               >
-                Close
+                {t('checkout.close')}
               </button>
             </div>
 
             <p className="text-xs text-center text-gray-500">
-              Order ID: #{orderId} • You can track this order using your phone number
+              {t('checkout.orderIdNote', { orderId })}
             </p>
           </div>
         ) : (
           <>
             {/* Order Summary */}
             <div className="p-6 border-b bg-gray-50">
-              <h3 className="font-semibold mb-3">Order Summary ({items.length} items)</h3>
+              <h3 className="font-semibold mb-3">{t('checkout.orderSummary')} ({items.length} {t('common.items')})</h3>
               <div className="space-y-2">
                 {items.map((item) => (
                   <div key={item.product.id} className="flex justify-between text-sm">
@@ -269,7 +267,7 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                 ))}
               </div>
               <div className="flex justify-between font-bold text-lg mt-4 pt-4 border-t">
-                <span>Total</span>
+                <span>{t('common.total')}</span>
                 <span className="text-primary-600">{format(total)}</span>
               </div>
             </div>
@@ -285,7 +283,7 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name *
+                  {t('checkout.fullName')} {t('checkout.required')}
                 </label>
                 <input
                   type="text"
@@ -295,13 +293,13 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50"
                   value={formData.customerName}
                   onChange={handleChange}
-                  placeholder="John Doe"
+                  placeholder={t('checkout.enterFullName')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number *
+                  {t('checkout.phoneNumber')} {t('checkout.required')}
                 </label>
                 <input
                   type="tel"
@@ -311,13 +309,13 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="08012345678"
+                  placeholder={t('checkout.enterPhoneNumber')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email (Optional)
+                  {t('checkout.emailOptional')}
                 </label>
                 <input
                   type="email"
@@ -326,13 +324,13 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="john@example.com"
+                  placeholder={t('checkout.enterYourEmail')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Delivery Address (Optional)
+                  {t('checkout.deliveryAddressOptional')}
                 </label>
                 <textarea
                   name="address"
@@ -341,13 +339,13 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50"
                   value={formData.address}
                   onChange={handleChange}
-                  placeholder="123 Main Street, Lagos"
+                  placeholder={t('checkout.enterDeliveryAddress')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Additional Message (Optional)
+                  {t('checkout.additionalMessageOptional')}
                 </label>
                 <textarea
                   name="message"
@@ -356,13 +354,13 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Any special requests or notes..."
+                  placeholder={t('checkout.anySpecialRequests')}
                 />
               </div>
 
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
                 <p className="text-sm text-yellow-800">
-                  <strong>Note:</strong> After submitting, a WhatsApp chat will automatically open where you can discuss payment and delivery with the seller.
+                  <strong>{t('checkout.note')}</strong> {t('checkout.whatsappNote')}
                 </p>
               </div>
 
@@ -374,12 +372,12 @@ Please confirm this order and let me know the payment details. Thank you! 🙏`
                 {loading ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    Creating Order...
+                    {t('checkout.creatingOrder')}
                   </>
                 ) : (
                   <>
                     <MessageCircle className="w-5 h-5" />
-                    Create Order & Open WhatsApp
+                    {t('checkout.createOrderWhatsApp')}
                   </>
                 )}
               </button>

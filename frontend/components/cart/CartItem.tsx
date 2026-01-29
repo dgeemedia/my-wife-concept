@@ -38,7 +38,7 @@ export default function CartItem({ item, onUpdateQuantity, onRemove }: CartItemP
           <div className="w-full h-full flex items-center justify-center text-gray-400">
             <div className="text-center">
               <div className="w-6 h-6 mx-auto mb-1 bg-gray-200 rounded"></div>
-              <p className="text-xs">No image</p>
+              <p className="text-xs">{t('common.noImage')}</p>
             </div>
           </div>
         )}
@@ -47,12 +47,12 @@ export default function CartItem({ item, onUpdateQuantity, onRemove }: CartItemP
       {/* Product Info */}
       <div className="flex-1">
         <h4 className="font-medium text-gray-900 mb-1">{product.name}</h4>
-        <p className="text-sm text-gray-500 mb-2">{format(product.price)} each</p>
+        <p className="text-sm text-gray-500 mb-2">{format(product.price)} {t('common.each')}</p>
         
         {/* Stock Status */}
         {product.stock < quantity && (
           <p className="text-sm text-red-600 mb-2">
-            Only {product.stock} left in stock
+            {t('cart.onlyLeftInStock', { stock: product.stock })}
           </p>
         )}
       </div>

@@ -50,7 +50,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (existing) {
         // Check stock
         if (existing.quantity >= product.stock) {
-          toast.error(`Only ${product.stock} items in stock`)
+          toast.error(t('cart.onlyItemsInStock', { stock: product.stock }))
           return prev
         }
         
@@ -59,16 +59,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
-        toast.success(`${product.name} added to cart`)
+        toast.success(t('cart.addedToCart', { productName: product.name }))
         return updated
       }
       
       if (product.stock < 1) {
-        toast.error('Product out of stock')
+        toast.error(t('cart.productOutOfStock'))
         return prev
       }
       
-      toast.success(`${product.name} added to cart`)
+      toast.success(t('cart.addedToCart', { productName: product.name }))
       return [...prev, { product, quantity: 1 }]
     })
     
@@ -79,7 +79,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems(prev => {
       const item = prev.find(item => item.product.id === productId)
       if (item) {
-        toast.success(`${item.product.name} removed from cart`)
+        toast.success(t('cart.removedFromCart', { productName: item.product.name }))
       }
       return prev.filter(item => item.product.id !== productId)
     })
@@ -96,7 +96,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         if (item.product.id === productId) {
           // Check stock
           if (quantity > item.product.stock) {
-            toast.error(`Only ${item.product.stock} items in stock`)
+            toast.error(t('cart.onlyItemsInStock', { stock: item.product.stock }))
             return item
           }
           return { ...item, quantity }
@@ -108,7 +108,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => {
     setItems([])
-    toast.success('Cart cleared')
+    toast.success(t('cart.cartCleared'))
   }
 
   const total = items.reduce(
