@@ -25,9 +25,10 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
   { code: 'ha', name: 'Hausa', nativeName: 'Hausa', flag: '🇳🇬', region: 'Nigeria' },
   
   // East African Languages
-  { code: 'sw', name: 'Swahili', nativeName: 'Kiswahili', flag: '🇹🇿', region: 'East Africa' },
+  { code: 'tz', name: 'Swahili', nativeName: 'Kiswahili', flag: '🇹🇿', region: 'East Africa' },
   { code: 'am', name: 'Amharic', nativeName: 'አማርኛ', flag: '🇪🇹', region: 'Ethiopia' },
   { code: 'om', name: 'Oromo', nativeName: 'Afaan Oromoo', flag: '🇪🇹', region: 'Ethiopia' },
+
   
   // North African Languages
   { code: 'ar', name: 'Arabic', nativeName: 'العربية', flag: '🇸🇦', region: 'North Africa', rtl: true },
