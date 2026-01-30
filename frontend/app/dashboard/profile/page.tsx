@@ -31,6 +31,7 @@ export default function ProfilePage() {
   const fetchProfile = async () => {
     try {
       const response = await api.get('/auth/me')
+      console.log('Profile data:', response)
       setUser(response.user)
       setFormData({
         firstName: response.user.firstName || '',
@@ -39,6 +40,7 @@ export default function ProfilePage() {
         phone: response.user.phone || '',
       })
     } catch (error) {
+      console.error('Failed to load profile:', error)
       toast.error('Failed to load profile')
     } finally {
       setLoading(false)
@@ -68,8 +70,9 @@ export default function ProfilePage() {
       toast.success('Profile updated successfully')
       setEditing(false)
       fetchProfile()
-    } catch (error) {
-      toast.error('Failed to update profile')
+    } catch (error: any) {
+      console.error('Failed to update profile:', error)
+      toast.error(error.message || 'Failed to update profile')
     } finally {
       setSaving(false)
     }
@@ -78,6 +81,7 @@ export default function ProfilePage() {
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    // Validation
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       toast.error('Passwords do not match')
       return
@@ -90,19 +94,34 @@ export default function ProfilePage() {
 
     setSaving(true)
     try {
-      await api.post('/auth/change-password', {
+      console.log('🔄 Attempting to change password...')
+      
+      const response = await api.post('/auth/change-password', {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword
       })
-      toast.success('Password changed successfully')
-      setPasswordData({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-      })
-      setShowPasswordForm(false)
-    } catch (error) {
-      toast.error('Failed to change password')
+      
+      console.log('✅ Password change response:', response)
+      
+      // Check if response indicates success
+      if (response.ok) {
+        toast.success('Password changed successfully')
+        setPasswordData({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        })
+        setShowPasswordForm(false)
+      } else {
+        // Handle error response
+        toast.error(response.error || 'Failed to change password')
+      }
+    } catch (error: any) {
+      console.error('❌ Password change error:', error)
+      
+      // Show specific error message
+      const errorMessage = error.message || 'Failed to change password'
+      toast.error(errorMessage)
     } finally {
       setSaving(false)
     }

@@ -1,8 +1,8 @@
-// app/dashboard/staff/page.tsx
+// app/dashboard/staff/page.tsx (UPDATED)
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Plus, Mail, User, Phone, Shield, Trash2, Edit } from 'lucide-react'
+import { Plus, Mail, User, Phone, Shield, Trash2, Ban, CheckCircle } from 'lucide-react'
 import { User as UserType } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
@@ -11,6 +11,7 @@ export default function StaffPage() {
   const [users, setUsers] = useState<UserType[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  const [currentUser, setCurrentUser] = useState<UserType | null>(null)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -22,7 +23,17 @@ export default function StaffPage() {
 
   useEffect(() => {
     fetchUsers()
+    fetchCurrentUser()
   }, [])
+
+  const fetchCurrentUser = async () => {
+    try {
+      const data = await api.get('/auth/me')
+      setCurrentUser(data.user)
+    } catch (error) {
+      console.error('Failed to fetch current user:', error)
+    }
+  }
 
   const fetchUsers = async () => {
     setLoading(true)
@@ -52,20 +63,49 @@ export default function StaffPage() {
         role: 'staff'
       })
       fetchUsers()
-    } catch (error) {
-      toast.error('Failed to add staff member')
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to add staff member')
     }
   }
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('Are you sure you want to delete this staff member?')) return
+  const handleDelete = async (id: number, user: UserType) => {
+    // Check if trying to delete super-admin as admin
+    if (currentUser?.role === 'admin' && user.role === 'super-admin') {
+      toast.error('Admin cannot delete super-admin')
+      return
+    }
+
+    if (!confirm(`Are you sure you want to delete ${user.firstName} ${user.lastName}?`)) return
 
     try {
       await api.delete(`/users/${id}`)
       toast.success('Staff member deleted')
       fetchUsers()
-    } catch (error) {
-      toast.error('Failed to delete staff member')
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to delete staff member')
+    }
+  }
+
+  const handleSuspend = async (id: number, user: UserType) => {
+    // Check if trying to suspend super-admin as admin
+    if (currentUser?.role === 'admin' && user.role === 'super-admin') {
+      toast.error('Admin cannot suspend super-admin')
+      return
+    }
+
+    if (!confirm(`Are you sure you want to ${user.active ? 'suspend' : 'reactivate'} ${user.firstName} ${user.lastName}?`)) return
+
+    try {
+      if (user.active) {
+        await api.post(`/users/${id}/suspend`, {})
+        toast.success('Staff member suspended')
+      } else {
+        await api.post(`/users/${id}/reactivate`, {})
+        toast.success('Staff member reactivated')
+      }
+      fetchUsers()
+    } catch (error: any) {
+      toast.error(error.message || `Failed to ${user.active ? 'suspend' : 'reactivate'} staff member`)
     }
   }
 
@@ -75,6 +115,16 @@ export default function StaffPage() {
       ...prev,
       [name]: value
     }))
+  }
+
+  // Check if current user can create staff
+  const canCreateStaff = currentUser?.role === 'super-admin' || currentUser?.role === 'admin'
+
+  // Check if user can manage target user
+  const canManageUser = (targetUser: UserType) => {
+    if (currentUser?.role === 'super-admin') return true
+    if (currentUser?.role === 'admin' && targetUser.role !== 'super-admin') return true
+    return false
   }
 
   if (loading) {
@@ -92,13 +142,15 @@ export default function StaffPage() {
           <h1 className="text-2xl font-bold text-gray-900">Staff Management</h1>
           <p className="text-gray-600">Manage your staff members</p>
         </div>
-        <button
-          onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
-        >
-          <Plus size={20} />
-          Add Staff
-        </button>
+        {canCreateStaff && (
+          <button
+            onClick={() => setShowModal(true)}
+            className="flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+          >
+            <Plus size={20} />
+            Add Staff
+          </button>
+        )}
       </div>
 
       {/* Staff Grid */}
@@ -119,10 +171,13 @@ export default function StaffPage() {
               </div>
               <div className={`px-3 py-1 rounded-full text-xs font-medium ${
                 user.role === 'super-admin' ? 'bg-purple-100 text-purple-800' :
+                user.role === 'admin' ? 'bg-blue-100 text-blue-800' :
                 user.active ? 'bg-green-100 text-green-800' :
                 'bg-red-100 text-red-800'
               }`}>
-                {user.role === 'super-admin' ? 'Owner' : user.active ? 'Active' : 'Inactive'}
+                {user.role === 'super-admin' ? 'Super Admin' : 
+                 user.role === 'admin' ? 'Admin' :
+                 user.active ? 'Active' : 'Suspended'}
               </div>
             </div>
 
@@ -147,11 +202,26 @@ export default function StaffPage() {
               <div className="text-sm text-gray-500">
                 Joined {new Date(user.createdAt).toLocaleDateString()}
               </div>
-              {user.role !== 'super-admin' && (
+              {canManageUser(user) && (
                 <div className="flex gap-2">
+                  {/* Suspend/Reactivate Button */}
                   <button
-                    onClick={() => handleDelete(user.id)}
+                    onClick={() => handleSuspend(user.id, user)}
+                    className={`p-2 rounded-lg ${
+                      user.active 
+                        ? 'text-orange-600 hover:bg-orange-50' 
+                        : 'text-green-600 hover:bg-green-50'
+                    }`}
+                    title={user.active ? 'Suspend' : 'Reactivate'}
+                  >
+                    {user.active ? <Ban size={16} /> : <CheckCircle size={16} />}
+                  </button>
+                  
+                  {/* Delete Button */}
+                  <button
+                    onClick={() => handleDelete(user.id, user)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                    title="Delete"
                   >
                     <Trash2 size={16} />
                   </button>
@@ -166,12 +236,14 @@ export default function StaffPage() {
         <div className="text-center py-12">
           <User className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <p className="text-gray-500">No staff members yet</p>
-          <button
-            onClick={() => setShowModal(true)}
-            className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
-          >
-            Add your first staff member
-          </button>
+          {canCreateStaff && (
+            <button
+              onClick={() => setShowModal(true)}
+              className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
+            >
+              Add your first staff member
+            </button>
+          )}
         </div>
       )}
 
@@ -266,7 +338,14 @@ export default function StaffPage() {
                 >
                   <option value="staff">Staff</option>
                   <option value="admin">Admin</option>
+                  {/* Super-admin can only be created by super-admin */}
+                  {currentUser?.role === 'super-admin' && (
+                    <option value="super-admin">Super Admin</option>
+                  )}
                 </select>
+                <p className="text-sm text-gray-500 mt-1">
+                  {currentUser?.role === 'admin' && 'Note: You cannot create super-admin accounts'}
+                </p>
               </div>
 
               <div className="flex justify-end space-x-3 pt-4">

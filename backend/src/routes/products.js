@@ -1,4 +1,4 @@
-// backend/src/routes/products.js
+// backend/src/routes/products.js (UPDATED)
 const express = require('express');
 const { 
   getAllProducts, 
@@ -10,21 +10,24 @@ const {
   deleteProductImage,
   reorderProductImages
 } = require('../controllers/productController');
-const { authMiddleware, requireSuperAdmin } = require('../middleware/auth');
+const { authMiddleware, requireAdmin } = require('../middleware/auth');
 const { asyncHandler } = require('../middleware/errorHandler');
 
 const router = express.Router();
 
-// Existing product routes
+// Public routes (anyone can view products)
 router.get('/', asyncHandler(getAllProducts));
 router.get('/:id', asyncHandler(getProductById));
-router.post('/', authMiddleware, requireSuperAdmin, asyncHandler(createProduct));
-router.put('/:id', authMiddleware, requireSuperAdmin, asyncHandler(updateProduct));
-router.delete('/:id', authMiddleware, requireSuperAdmin, asyncHandler(deleteProduct));
 
-// NEW: Image management routes
-router.post('/:productId/images', authMiddleware, requireSuperAdmin, asyncHandler(addProductImage));
-router.delete('/images/:imageId', authMiddleware, requireSuperAdmin, asyncHandler(deleteProductImage));
-router.put('/:productId/images/reorder', authMiddleware, requireSuperAdmin, asyncHandler(reorderProductImages));
+// ✅ RESTRICTED: Only Super-admin and Admin can create/update/delete products
+// Staff CANNOT access these routes
+router.post('/', authMiddleware, requireAdmin, asyncHandler(createProduct));
+router.put('/:id', authMiddleware, requireAdmin, asyncHandler(updateProduct));
+router.delete('/:id', authMiddleware, requireAdmin, asyncHandler(deleteProduct));
+
+// ✅ RESTRICTED: Only Super-admin and Admin can manage product images
+router.post('/:productId/images', authMiddleware, requireAdmin, asyncHandler(addProductImage));
+router.delete('/images/:imageId', authMiddleware, requireAdmin, asyncHandler(deleteProductImage));
+router.put('/:productId/images/reorder', authMiddleware, requireAdmin, asyncHandler(reorderProductImages));
 
 module.exports = router;

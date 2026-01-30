@@ -1,4 +1,4 @@
-// backend/src/middleware/auth.js
+// backend/src/middleware/auth.js (UPDATED)
 const jwt = require('jsonwebtoken');
 
 function authMiddleware(req, res, next) {
@@ -20,9 +20,30 @@ function authMiddleware(req, res, next) {
 
 function requireSuperAdmin(req, res, next) {
   if (req.user.role !== 'super-admin') {
-    return res.status(403).json({ error: 'Forbidden' });
+    return res.status(403).json({ error: 'Forbidden: Super admin access required' });
   }
   next();
 }
 
-module.exports = { authMiddleware, requireSuperAdmin };
+// NEW: Middleware to allow both super-admin and admin
+function requireAdmin(req, res, next) {
+  if (req.user.role !== 'super-admin' && req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Forbidden: Admin access required' });
+  }
+  next();
+}
+
+// NEW: Middleware to prevent staff from accessing certain routes
+function preventStaff(req, res, next) {
+  if (req.user.role === 'staff') {
+    return res.status(403).json({ error: 'Forbidden: Staff cannot access this resource' });
+  }
+  next();
+}
+
+module.exports = { 
+  authMiddleware, 
+  requireSuperAdmin, 
+  requireAdmin,
+  preventStaff
+};

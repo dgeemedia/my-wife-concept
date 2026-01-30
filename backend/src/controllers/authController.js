@@ -53,6 +53,8 @@ async function getCurrentUser(req, res) {
       firstName: true,
       lastName: true,
       phone: true,
+      active: true,        // ✅ FIXED: Added active field
+      lastLogin: true,     // ✅ FIXED: Added lastLogin field
       createdAt: true,
     },
   });
@@ -61,33 +63,66 @@ async function getCurrentUser(req, res) {
 }
 
 async function changePassword(req, res) {
-  const { currentPassword, newPassword } = req.body;
+  try {
+    const { currentPassword, newPassword } = req.body;
 
-  if (!currentPassword || !newPassword) {
-    throw new Error('All fields required');
+    // Validate input
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ 
+        ok: false, 
+        error: 'Current password and new password are required' 
+      });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({ 
+        ok: false, 
+        error: 'Password must be at least 8 characters' 
+      });
+    }
+
+    // Get user
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+    });
+
+    if (!user) {
+      return res.status(404).json({ 
+        ok: false, 
+        error: 'User not found' 
+      });
+    }
+
+    // Verify current password
+    const valid = await bcrypt.compare(currentPassword, user.passwordHash);
+    if (!valid) {
+      return res.status(400).json({ 
+        ok: false, 
+        error: 'Current password is incorrect' 
+      });
+    }
+
+    // Hash and update new password
+    const passwordHash = await bcrypt.hash(newPassword, 12);
+
+    await prisma.user.update({
+      where: { id: req.user.id },
+      data: { passwordHash },
+    });
+
+    console.log(`✅ Password changed successfully for user: ${user.email}`);
+
+    res.json({ 
+      ok: true, 
+      message: 'Password updated successfully' 
+    });
+  } catch (error) {
+    console.error('❌ Password change error:', error);
+    res.status(500).json({ 
+      ok: false, 
+      error: 'Failed to change password' 
+    });
   }
-
-  if (newPassword.length < 8) {
-    throw new Error('Password must be at least 8 characters');
-  }
-
-  const user = await prisma.user.findUnique({
-    where: { id: req.user.id },
-  });
-
-  const valid = await bcrypt.compare(currentPassword, user.passwordHash);
-  if (!valid) {
-    throw new Error('Current password is incorrect');
-  }
-
-  const passwordHash = await bcrypt.hash(newPassword, 12);
-
-  await prisma.user.update({
-    where: { id: req.user.id },
-    data: { passwordHash },
-  });
-
-  res.json({ ok: true, message: 'Password updated successfully' });
 }
 
 module.exports = {

@@ -10,17 +10,22 @@ export async function POST(
   try {
     const path = params.path.join('/')
     const body = await request.json()
+    const token = request.cookies.get('auth_token')?.value  // ✅ FIX: Get token for all POST requests
+    
+    console.log(`[Auth API] POST /${path}`, token ? 'with token' : 'no token')
     
     const response = await fetch(`${BACKEND_URL}/api/auth/${path}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` }),  // ✅ FIX: Pass token for authenticated requests
       },
       body: JSON.stringify(body),
     })
     
     const data = await response.json()
     
+    // Special handling for login - set cookie
     if (path === 'login' && data.ok) {
       const res = NextResponse.json(data)
       res.cookies.set('auth_token', data.token, {

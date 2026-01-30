@@ -74,6 +74,7 @@ export interface User {
   lastName?: string
   phone?: string
   active: boolean
+  lastLogin?: string
   createdAt: string
 }
 
