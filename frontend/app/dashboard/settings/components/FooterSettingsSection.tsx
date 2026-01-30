@@ -1,4 +1,5 @@
-// frontend/app/dashboard/settings/components/FooterSettingsSection.tsx'
+// frontend/app/dashboard/settings/components/FooterSettingsSection.tsx
+import { useTranslation } from 'react-i18next'
 
 interface FooterSettingsSectionProps {
   settings: any
@@ -9,14 +10,16 @@ export default function FooterSettingsSection({
   settings,
   handleChange
 }: FooterSettingsSectionProps) {
+  const { t } = useTranslation('dashboard')
+  
   return (
     <div className="bg-white rounded-xl shadow p-6">
-      <h2 className="text-lg font-semibold mb-6">Footer Settings</h2>
+      <h2 className="text-lg font-semibold mb-6">{t('settings.footer')}</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Footer Text
+            {t('settings.footerText')}
           </label>
           <textarea
             name="footerText"
@@ -30,7 +33,7 @@ export default function FooterSettingsSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Copyright Text
+            {t('settings.footerCopyright')}
           </label>
           <input
             type="text"
@@ -44,7 +47,7 @@ export default function FooterSettingsSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Footer Phone
+            {t('settings.footerPhone')}
           </label>
           <input
             type="tel"
@@ -57,7 +60,7 @@ export default function FooterSettingsSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Footer Email
+            {t('settings.footerEmail')}
           </label>
           <input
             type="email"
@@ -70,7 +73,7 @@ export default function FooterSettingsSection({
 
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Footer Address
+            {t('settings.footerAddress')}
           </label>
           <textarea
             name="footerAddress"

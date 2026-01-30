@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react'
 import { Save } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 import { SettingsPageSkeleton } from '@/components/ui/LoadingSkeleton'
 import BusinessInfoSection from './components/BusinessInfoSection'
@@ -14,6 +15,7 @@ import FooterSettingsSection from './components/FooterSettingsSection'
 import { COLOR_PRESETS, AFRICAN_LANGUAGES, AFRICAN_CURRENCIES } from './constants/settingsConstants'
 
 export default function SettingsPage() {
+  const { t } = useTranslation('dashboard')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -64,7 +66,7 @@ export default function SettingsPage() {
       setSettings(data)
     } catch (error) {
       console.error('Failed to load settings:', error)
-      toast.error('Failed to load settings')
+      toast.error(t('messages.error.loadFailed'))
     } finally {
       setLoading(false)
     }
@@ -85,7 +87,7 @@ export default function SettingsPage() {
     }
 
     setUploading(true)
-    const loadingToast = toast.loading('Uploading logo...')
+    const loadingToast = toast.loading(t('settings.uploading'))
     
     try {
       const formData = new FormData()
@@ -112,13 +114,13 @@ export default function SettingsPage() {
       
       if (data.ok && data.imageUrl) {
         setSettings(prev => ({ ...prev, logo: data.imageUrl }))
-        toast.success('Logo uploaded successfully', { id: loadingToast })
+        toast.success(t('messages.success.uploaded'), { id: loadingToast })
       } else {
         throw new Error(data.error || 'Upload failed')
       }
     } catch (error: any) {
       console.error('Logo upload failed:', error)
-      toast.error(error.message || 'Failed to upload logo', { id: loadingToast })
+      toast.error(error.message || t('messages.error.uploadFailed'), { id: loadingToast })
     } finally {
       setUploading(false)
     }
@@ -132,17 +134,17 @@ export default function SettingsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
-    const loadingToast = toast.loading('Saving settings...')
+    const loadingToast = toast.loading(t('common.saving'))
 
     try {
       if (!settings.businessName.trim()) {
-        throw new Error('Business name is required')
+        throw new Error(t('messages.validation.required', { field: t('settings.businessName') }))
       }
       if (!settings.phone.trim()) {
-        throw new Error('Phone number is required')
+        throw new Error(t('messages.validation.required', { field: t('settings.phone') }))
       }
       if (!settings.whatsappNumber.trim()) {
-        throw new Error('WhatsApp number is required')
+        throw new Error(t('messages.validation.required', { field: t('settings.whatsappNumber') }))
       }
 
       const response = await fetch('/api/settings', {
@@ -156,13 +158,13 @@ export default function SettingsPage() {
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to save settings')
+        throw new Error(errorData.error || t('messages.error.saveFailed'))
       }
 
       const data = await response.json()
       
       if (data.ok || data.settings) {
-        toast.success('Settings saved successfully!', { id: loadingToast })
+        toast.success(t('messages.success.saved'), { id: loadingToast })
         
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('settings-updated', { 
@@ -178,7 +180,7 @@ export default function SettingsPage() {
       }
     } catch (error: any) {
       console.error('Failed to save settings:', error)
-      toast.error(error.message || 'Failed to save settings', { id: loadingToast })
+      toast.error(error.message || t('messages.error.saveFailed'), { id: loadingToast })
     } finally {
       setSaving(false)
     }
@@ -208,8 +210,8 @@ export default function SettingsPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Business Settings</h1>
-        <p className="text-gray-600">Configure your business information and appearance</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t('settings.title')}</h1>
+        <p className="text-gray-600">{t('settings.subtitle')}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -256,7 +258,7 @@ export default function SettingsPage() {
             onClick={fetchSettings}
             className="px-6 py-3 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
           >
-            Reset Changes
+            {t('settings.resetChanges')}
           </button>
           <button
             type="submit"
@@ -266,12 +268,12 @@ export default function SettingsPage() {
             {saving ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                <span>Saving...</span>
+                <span>{t('common.saving')}</span>
               </>
             ) : (
               <>
                 <Save className="w-5 h-5" />
-                <span>Save Settings</span>
+                <span>{t('settings.saveSettings')}</span>
               </>
             )}
           </button>

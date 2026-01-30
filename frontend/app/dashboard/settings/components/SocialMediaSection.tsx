@@ -1,5 +1,6 @@
 // frontend/app/dashboard/settings/components/SocialMediaSection.tsx
 import { Globe } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface SocialMediaSectionProps {
   settings: any
@@ -10,17 +11,19 @@ export default function SocialMediaSection({
   settings,
   handleChange
 }: SocialMediaSectionProps) {
+  const { t } = useTranslation('dashboard')
+  
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <div className="flex items-center mb-6">
         <Globe className="w-6 h-6 text-blue-600 mr-2" />
-        <h2 className="text-lg font-semibold">Social Media Links</h2>
+        <h2 className="text-lg font-semibold">{t('settings.socialMedia')}</h2>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Facebook URL
+            {t('settings.facebook')}
           </label>
           <input
             type="url"
@@ -34,7 +37,7 @@ export default function SocialMediaSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Instagram URL
+            {t('settings.instagram')}
           </label>
           <input
             type="url"
@@ -48,7 +51,7 @@ export default function SocialMediaSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            X (Twitter) URL
+            {t('settings.twitter')}
           </label>
           <input
             type="url"
@@ -62,7 +65,7 @@ export default function SocialMediaSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            LinkedIn URL
+            {t('settings.linkedin')}
           </label>
           <input
             type="url"
@@ -76,7 +79,7 @@ export default function SocialMediaSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            TikTok URL
+            {t('settings.tiktok')}
           </label>
           <input
             type="url"
@@ -90,7 +93,7 @@ export default function SocialMediaSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            YouTube URL
+            {t('settings.youtube')}
           </label>
           <input
             type="url"

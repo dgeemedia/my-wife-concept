@@ -4,6 +4,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { ArrowLeft, Save, Upload, X, Image as ImageIcon, Trash2, Info, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Product, ProductImage } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
@@ -24,6 +25,7 @@ export default function EditProductPage() {
   const params = useParams()
   const productId = params.id
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const { t } = useTranslation('dashboard')
 
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -55,7 +57,7 @@ export default function EditProductPage() {
       const data = await api.get(`/products/${productId}`)
       setProduct(data)
     } catch (error) {
-      toast.error('Failed to load product')
+      toast.error(t('messages.error.loadFailed'))
       router.push('/dashboard/products')
     } finally {
       setLoading(false)
@@ -225,7 +227,7 @@ export default function EditProductPage() {
       }
     } catch (error) {
       console.error('Upload error:', error)
-      toast.error('Failed to upload images')
+      toast.error(t('messages.error.uploadFailed'))
     } finally {
       setUploading(false)
       if (fileInputRef.current) {
@@ -237,7 +239,7 @@ export default function EditProductPage() {
   const handleRemoveImage = (imageIndex: number) => {
     const updatedImages = (product.images || []).filter((_, index) => index !== imageIndex)
     setProduct(prev => ({ ...prev, images: updatedImages }))
-    toast.success('Image removed')
+    toast.success(t('messages.success.deleted'))
   }
 
   const handleReorderImages = (fromIndex: number, toIndex: number) => {
@@ -259,7 +261,7 @@ export default function EditProductPage() {
       isPrimary: index === imageIndex
     }))
     setProduct(prev => ({ ...prev, images: updatedImages }))
-    toast.success('Primary image updated')
+    toast.success(t('messages.success.updated'))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -278,14 +280,14 @@ export default function EditProductPage() {
 
       if (productId === 'new') {
         await api.post('/products', productData)
-        toast.success('Product created successfully')
+        toast.success(t('messages.success.created'))
       } else {
         await api.put(`/products/${productId}`, productData)
-        toast.success('Product updated successfully')
+        toast.success(t('messages.success.updated'))
       }
       router.push('/dashboard/products')
     } catch (error) {
-      toast.error('Failed to save product')
+      toast.error(t('messages.error.saveFailed'))
     } finally {
       setSaving(false)
     }
@@ -319,10 +321,10 @@ export default function EditProductPage() {
           </Link>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              {productId === 'new' ? 'Add New Product' : 'Edit Product'}
+              {productId === 'new' ? t('products.addProduct') : t('products.editProduct')}
             </h1>
             <p className="text-gray-600">
-              {productId === 'new' ? 'Create a new product' : 'Update product details'}
+              {productId === 'new' ? t('products.createNewProduct') : t('products.updateProductDetails')}
             </p>
           </div>
         </div>
@@ -338,39 +340,39 @@ export default function EditProductPage() {
                 <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <h3 className="font-semibold text-blue-900 mb-2">
-                    📸 Image Upload Guidelines for Best Results
+                    📸 {t('products.imageUploadGuidelines')}
                   </h3>
                   <div className="text-sm text-blue-800 space-y-2">
                     <div className="grid md:grid-cols-2 gap-3">
                       <div className="flex items-start gap-2">
                         <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <strong>Recommended Size:</strong> 800x800 pixels (square format)
+                          <strong>{t('products.imageRecommendedSize')}</strong>
                         </div>
                       </div>
                       <div className="flex items-start gap-2">
                         <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <strong>Max File Size:</strong> 2MB (auto-optimized if larger)
+                          <strong>{t('products.imageMaxSize')}</strong>
                         </div>
                       </div>
                       <div className="flex items-start gap-2">
                         <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <strong>Formats:</strong> JPG, PNG, or WebP
+                          <strong>{t('products.imageFormats')}</strong>
                         </div>
                       </div>
                       <div className="flex items-start gap-2">
                         <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <strong>Aspect Ratio:</strong> 1:1 (square) works best
+                          <strong>{t('products.imageAspectRatio')}</strong>
                         </div>
                       </div>
                     </div>
                     <div className="pt-2 border-t border-blue-200">
                       <p className="flex items-center gap-2">
                         <AlertCircle className="w-4 h-4" />
-                        <span>Images will be automatically optimized and compressed for faster loading!</span>
+                        <span>{t('products.imageAutoOptimized')}</span>
                       </p>
                     </div>
                   </div>
@@ -389,7 +391,7 @@ export default function EditProductPage() {
           {/* MULTI-IMAGE GALLERY MANAGER */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
-              Product Images
+              {t('products.images')}
             </label>
             
             {/* Upload Button */}
@@ -412,25 +414,25 @@ export default function EditProductPage() {
                 {uploading ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    Optimizing & Uploading...
+                    {t('products.uploading')}
                   </>
                 ) : (
                   <>
                     <Upload className="w-4 h-4" />
-                    Upload Images (Multiple)
+                    {t('products.uploadImages')}
                   </>
                 )}
               </button>
               <div className="flex items-start gap-2 mt-2">
                 <Info className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-gray-500">
-                  Upload multiple images. First image will be the primary display. 
+                  {t('products.clickToUploadImages')}
                   <button 
                     type="button"
                     onClick={() => setShowGuidance(true)}
                     className="text-blue-600 hover:underline ml-1"
                   >
-                    View image guidelines
+                    {t('products.imageGuidelines')}
                   </button>
                 </p>
               </div>
@@ -462,7 +464,7 @@ export default function EditProductPage() {
                           type="button"
                           onClick={() => handleRemoveImage(index)}
                           className="p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                          title="Remove image"
+                          title={t('products.removeImage')}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -493,7 +495,7 @@ export default function EditProductPage() {
                       {/* Primary Badge */}
                       {image.isPrimary && (
                         <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded text-xs font-medium">
-                          Primary
+                          {t('products.primary')}
                         </div>
                       )}
 
@@ -509,7 +511,7 @@ export default function EditProductPage() {
                           onClick={() => handleSetPrimaryImage(index)}
                           className="absolute bottom-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 px-3 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700 transition-all"
                         >
-                          Set as Primary
+                          {t('products.setPrimary')}
                         </button>
                       )}
                     </div>
@@ -519,9 +521,9 @@ export default function EditProductPage() {
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-12">
                 <div className="text-center">
                   <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600 mb-2">No images uploaded</p>
+                  <p className="text-gray-600 mb-2">{t('products.noImagesUploaded')}</p>
                   <p className="text-sm text-gray-500">
-                    Click the upload button above to add product images
+                    {t('products.clickToUploadImages')}
                   </p>
                 </div>
               </div>
@@ -529,7 +531,7 @@ export default function EditProductPage() {
 
             {/* Legacy Image URL Input (Optional) */}
             <div className="mt-4">
-              <p className="text-sm text-gray-500 mb-2">Or enter a single image URL:</p>
+              <p className="text-sm text-gray-500 mb-2">{t('products.enterImageUrl')}</p>
               <input
                 type="url"
                 name="imageUrl"
@@ -544,7 +546,7 @@ export default function EditProductPage() {
           {/* Product Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Product Name *
+              {t('products.productName')} *
             </label>
             <input
               type="text"
@@ -553,7 +555,7 @@ export default function EditProductPage() {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="Enter product name"
+              placeholder={t('products.enterProductName')}
             />
           </div>
 
@@ -561,7 +563,7 @@ export default function EditProductPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price ({symbol}) *
+                {t('products.price')} ({symbol}) *
               </label>
               <input
                 type="number"
@@ -578,7 +580,7 @@ export default function EditProductPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Stock Quantity *
+                {t('products.stock')} *
               </label>
               <input
                 type="number"
@@ -596,7 +598,7 @@ export default function EditProductPage() {
           {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description
+              {t('products.description')}
             </label>
             <textarea
               name="description"
@@ -604,7 +606,7 @@ export default function EditProductPage() {
               onChange={handleChange}
               rows={4}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="Describe your product..."
+              placeholder={t('products.describeProduct')}
             />
           </div>
 
@@ -614,7 +616,7 @@ export default function EditProductPage() {
               href="/dashboard/products"
               className="px-6 py-2 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
             >
-              Cancel
+              {t('common.cancel')}
             </Link>
             <button
               type="submit"
@@ -624,12 +626,12 @@ export default function EditProductPage() {
               {saving ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>Saving...</span>
+                  <span>{t('common.saving')}</span>
                 </>
               ) : (
                 <>
                   <Save className="w-4 h-4" />
-                  <span>Save Product</span>
+                  <span>{t('products.saveProduct')}</span>
                 </>
               )}
             </button>

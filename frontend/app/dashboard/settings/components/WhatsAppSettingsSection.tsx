@@ -1,5 +1,6 @@
 // frontend/app/dashboard/settings/components/WhatsAppSettingsSection.tsx
 import { Phone } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface WhatsAppSettingsSectionProps {
   settings: any
@@ -10,16 +11,18 @@ export default function WhatsAppSettingsSection({
   settings,
   handleChange
 }: WhatsAppSettingsSectionProps) {
+  const { t } = useTranslation('dashboard')
+  
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <div className="flex items-center mb-6">
         <Phone className="w-6 h-6 text-green-600 mr-2" />
-        <h2 className="text-lg font-semibold">WhatsApp Settings</h2>
+        <h2 className="text-lg font-semibold">{t('settings.whatsapp')}</h2>
       </div>
       
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          WhatsApp Number *
+          {t('settings.whatsappNumber')} *
         </label>
         <input
           type="tel"

@@ -1,5 +1,6 @@
 // frontend/app/dashboard/settings/components/BusinessInfoSection.tsx
 import { Building, Upload, X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import Image from 'next/image'
 
 interface BusinessInfoSectionProps {
@@ -17,17 +18,19 @@ export default function BusinessInfoSection({
   removeLogo,
   uploading
 }: BusinessInfoSectionProps) {
+  const { t } = useTranslation('dashboard')
+  
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <div className="flex items-center mb-6">
         <Building className="w-6 h-6 text-blue-600 mr-2" />
-        <h2 className="text-lg font-semibold">Business Information</h2>
+        <h2 className="text-lg font-semibold">{t('settings.businessInfo')}</h2>
       </div>
       
       {/* Logo Upload */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Business Logo
+          {t('settings.logo')}
         </label>
         <div className="flex items-center gap-4">
           {settings.logo ? (
@@ -56,7 +59,7 @@ export default function BusinessInfoSection({
           <div>
             <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
               <Upload className="w-4 h-4" />
-              {uploading ? 'Uploading...' : settings.logo ? 'Change Logo' : 'Upload Logo'}
+              {uploading ? t('settings.uploading') : settings.logo ? t('settings.uploadLogo').replace('Upload', 'Change') : t('settings.uploadLogo')}
               <input
                 type="file"
                 accept="image/*"
@@ -75,7 +78,7 @@ export default function BusinessInfoSection({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Business Name *
+            {t('settings.businessName')} *
           </label>
           <input
             type="text"
@@ -89,7 +92,7 @@ export default function BusinessInfoSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Business Motto
+            {t('settings.businessMotto')}
           </label>
           <input
             type="text"
@@ -106,7 +109,7 @@ export default function BusinessInfoSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Business Type
+            {t('settings.businessType')}
           </label>
           <select
             name="businessType"
@@ -124,7 +127,7 @@ export default function BusinessInfoSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Phone Number *
+            {t('settings.phone')} *
           </label>
           <input
             type="tel"
@@ -138,7 +141,7 @@ export default function BusinessInfoSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Email
+            {t('settings.email')}
           </label>
           <input
             type="email"
@@ -151,7 +154,7 @@ export default function BusinessInfoSection({
 
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Address
+            {t('settings.address')}
           </label>
           <textarea
             name="address"
@@ -164,7 +167,7 @@ export default function BusinessInfoSection({
 
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Description
+            {t('settings.description')}
           </label>
           <textarea
             name="description"

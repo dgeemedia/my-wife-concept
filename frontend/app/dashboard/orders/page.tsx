@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react'
 import { Search, Filter, Eye, CheckCircle, XCircle, Clock, Truck, Package, X, Download, AlertTriangle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Order } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
@@ -13,6 +14,7 @@ type OrderStatus = 'PENDING' | 'CONFIRMED' | 'PREPARING' | 'OUT_FOR_DELIVERY' | 
 type PaymentStatus = 'PENDING' | 'CONFIRMED'
 
 export default function OrdersPage() {
+  const { t } = useTranslation('dashboard')
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -30,14 +32,14 @@ export default function OrdersPage() {
       const response = await api.get('/orders')
       setOrders(response.orders || [])
     } catch (error) {
-      toast.error('Failed to fetch orders')
+      toast.error(t('messages.error.loadFailed'))
     } finally {
       setLoading(false)
     }
   }
 
   const handleConfirmPayment = async (orderId: number) => {
-    if (!confirm('Confirm that payment has been received for this order?')) return
+    if (!confirm(t('messages.confirm.payment'))) return
 
     try {
       const response = await api.post(`/orders/${orderId}/confirm-payment`, {
@@ -45,9 +47,9 @@ export default function OrdersPage() {
       })
       
       setOrders(orders.map(o => o.id === orderId ? response.order : o))
-      toast.success('Payment confirmed successfully')
+      toast.success(t('messages.success.confirmed'))
     } catch (error) {
-      toast.error('Failed to confirm payment')
+      toast.error(t('messages.error.updateFailed'))
     }
   }
 
@@ -59,13 +61,13 @@ export default function OrdersPage() {
       })
       
       setOrders(orders.map(o => o.id === orderId ? response.order : o))
-      toast.success(`Order status updated to ${newStatus}`)
+      toast.success(t('messages.success.updated'))
       
       if (selectedOrder?.id === orderId) {
         setSelectedOrder(response.order)
       }
     } catch (error) {
-      toast.error('Failed to update status')
+      toast.error(t('messages.error.updateFailed'))
     }
   }
 
@@ -109,8 +111,8 @@ export default function OrdersPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Orders Management</h1>
-        <p className="text-gray-600">Track and manage customer orders</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t('orders.title')}</h1>
+        <p className="text-gray-600">{t('orders.subtitle')}</p>
       </div>
 
       {/* Filters */}
@@ -121,7 +123,7 @@ export default function OrdersPage() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="Search by order ID, customer name, or phone..."
+              placeholder={t('orders.searchByOrderId')}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -136,13 +138,13 @@ export default function OrdersPage() {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
-              <option value="ALL">All Orders</option>
-              <option value="PENDING">Pending</option>
-              <option value="CONFIRMED">Confirmed</option>
-              <option value="PREPARING">Preparing</option>
-              <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
-              <option value="DELIVERED">Delivered</option>
-              <option value="CANCELLED">Cancelled</option>
+              <option value="ALL">{t('orders.allOrders')}</option>
+              <option value="PENDING">{t('orders.statuses.pending')}</option>
+              <option value="CONFIRMED">{t('orders.statuses.confirmed')}</option>
+              <option value="PREPARING">{t('orders.statuses.preparing')}</option>
+              <option value="OUT_FOR_DELIVERY">{t('orders.statuses.outForDelivery')}</option>
+              <option value="DELIVERED">{t('orders.statuses.delivered')}</option>
+              <option value="CANCELLED">{t('orders.statuses.cancelled')}</option>
             </select>
           </div>
         </div>
@@ -155,7 +157,7 @@ export default function OrdersPage() {
             className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
           >
             <Download className="w-4 h-4" />
-            Export Orders to Excel
+            {t('orders.exportOrders')}
           </button>
           
           <button
@@ -163,7 +165,7 @@ export default function OrdersPage() {
             className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Download className="w-4 h-4" />
-            Export Customer Data
+            {t('orders.exportCustomers')}
           </button>
         </div>
       </div>
@@ -173,7 +175,7 @@ export default function OrdersPage() {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Pending</p>
+              <p className="text-sm text-gray-600">{t('orders.statuses.pending')}</p>
               <p className="text-2xl font-bold">
                 {orders.filter(o => o.status === 'PENDING').length}
               </p>
@@ -185,7 +187,7 @@ export default function OrdersPage() {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Confirmed</p>
+              <p className="text-sm text-gray-600">{t('orders.statuses.confirmed')}</p>
               <p className="text-2xl font-bold">
                 {orders.filter(o => o.status === 'CONFIRMED').length}
               </p>
@@ -197,7 +199,7 @@ export default function OrdersPage() {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">In Transit</p>
+              <p className="text-sm text-gray-600">{t('dashboard.stats.inTransit')}</p>
               <p className="text-2xl font-bold">
                 {orders.filter(o => o.status === 'OUT_FOR_DELIVERY').length}
               </p>
@@ -209,7 +211,7 @@ export default function OrdersPage() {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Delivered</p>
+              <p className="text-sm text-gray-600">{t('orders.statuses.delivered')}</p>
               <p className="text-2xl font-bold">
                 {orders.filter(o => o.status === 'DELIVERED').length}
               </p>
@@ -224,7 +226,7 @@ export default function OrdersPage() {
         {filteredOrders.length === 0 ? (
           <div className="p-12 text-center">
             <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">No orders found</p>
+            <p className="text-gray-500">{t('orders.noOrders')}</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -232,28 +234,28 @@ export default function OrdersPage() {
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Order ID
+                    {t('orders.orderID')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Customer
+                    {t('orders.customer')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Amount
+                    {t('orders.amount')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Currency
+                    {t('orders.currency')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Payment
+                    {t('orders.payment')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Status
+                    {t('orders.status')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Date
+                    {t('common.date')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Actions
+                    {t('common.actions')}
                   </th>
                 </tr>
               </thead>
@@ -276,7 +278,7 @@ export default function OrdersPage() {
                       <span className="text-sm text-gray-500">
                         {order.currency}
                         {order.currency !== businessCurrency && (
-                          <span className="ml-1 text-yellow-600" title="Different from current currency">⚠️</span>
+                          <span className="ml-1 text-yellow-600" title={t('orders.differentCurrency')}>⚠️</span>
                         )}
                       </span>
                     </td>
@@ -301,7 +303,7 @@ export default function OrdersPage() {
                             setShowModal(true)
                           }}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                          title="View Details"
+                          title={t('orders.viewDetails')}
                         >
                           <Eye className="w-4 h-4" />
                         </button>
@@ -310,7 +312,7 @@ export default function OrdersPage() {
                           <button
                             onClick={() => handleConfirmPayment(order.id)}
                             className="p-2 text-green-600 hover:bg-green-50 rounded-lg"
-                            title="Confirm Payment"
+                            title={t('orders.confirmPayment')}
                           >
                             <CheckCircle className="w-4 h-4" />
                           </button>
@@ -353,6 +355,7 @@ function OrderDetailsModal({
   onUpdateStatus: (orderId: number, status: OrderStatus) => void
   onConfirmPayment: (orderId: number) => void
 }) {
+  const { t } = useTranslation('dashboard')
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus>(order.status as OrderStatus)
   const { format, businessCurrency } = useCurrency()
 
@@ -384,14 +387,19 @@ function OrderDetailsModal({
         <div className="p-6 border-b">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-bold">Order #{order.id}</h2>
+              <h2 className="text-xl font-bold">{t('orders.orderID')} #{order.id}</h2>
               <p className="text-sm text-gray-600">
-                Placed on {new Date(order.createdAt).toLocaleString()}
+                {t('orders.placedOn')} {new Date(order.createdAt).toLocaleString()}
               </p>
               {order.currency !== businessCurrency && (
                 <div className="mt-2 flex items-center gap-2 text-sm text-yellow-600">
                   <AlertTriangle className="w-4 h-4" />
-                  <span>This order was made in {order.currency} (Current: {businessCurrency})</span>
+                  <span>
+                    {t('orders.orderMadeDifferentCurrency', { 
+                      currency: order.currency, 
+                      businessCurrency: businessCurrency 
+                    })}
+                  </span>
                 </div>
               )}
             </div>
@@ -408,31 +416,31 @@ function OrderDetailsModal({
         <div className="p-6 space-y-6">
           {/* Customer Info */}
           <div>
-            <h3 className="font-semibold mb-3">Customer Information</h3>
+            <h3 className="font-semibold mb-3">{t('orders.customerInformation')}</h3>
             <div className="bg-gray-50 rounded-lg p-4 space-y-2">
               <div className="flex justify-between">
-                <span className="text-gray-600">Name:</span>
+                <span className="text-gray-600">{t('orders.customerName')}:</span>
                 <span className="font-medium">{order.customerName}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Phone:</span>
+                <span className="text-gray-600">{t('orders.phone')}:</span>
                 <span className="font-medium">{order.phone}</span>
               </div>
               {order.email && (
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Email:</span>
+                  <span className="text-gray-600">{t('orders.email')}:</span>
                   <span className="font-medium">{order.email}</span>
                 </div>
               )}
               {order.address && (
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Address:</span>
+                  <span className="text-gray-600">{t('orders.address')}:</span>
                   <span className="font-medium">{order.address}</span>
                 </div>
               )}
               {order.message && (
                 <div>
-                  <span className="text-gray-600">Message:</span>
+                  <span className="text-gray-600">{t('orders.message')}:</span>
                   <p className="mt-1 text-sm">{order.message}</p>
                 </div>
               )}
@@ -441,13 +449,13 @@ function OrderDetailsModal({
 
           {/* Order Items */}
           <div>
-            <h3 className="font-semibold mb-3">Order Items</h3>
+            <h3 className="font-semibold mb-3">{t('orders.orderItems')}</h3>
             <div className="space-y-2">
               {order.items?.map((item, index) => (
                 <div key={index} className="flex justify-between items-center bg-gray-50 rounded-lg p-3">
                   <div>
                     <p className="font-medium">{item.product?.name || 'Product'}</p>
-                    <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                    <p className="text-sm text-gray-600">{t('orders.quantity')}: {item.quantity}</p>
                   </div>
                   <div className="text-right">
                     <p className="font-medium">{format(item.unitPrice * item.quantity, order.currency)}</p>
@@ -457,7 +465,7 @@ function OrderDetailsModal({
               ))}
             </div>
             <div className="mt-4 pt-4 border-t flex justify-between items-center">
-              <span className="font-semibold text-lg">Total Amount:</span>
+              <span className="font-semibold text-lg">{t('orders.totalAmount')}:</span>
               <span className="font-bold text-2xl text-primary-600">
                 {format(order.totalAmount, order.currency)}
               </span>
@@ -466,10 +474,10 @@ function OrderDetailsModal({
 
           {/* Payment Status */}
           <div>
-            <h3 className="font-semibold mb-3">Payment Status</h3>
+            <h3 className="font-semibold mb-3">{t('orders.paymentStatus')}</h3>
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="flex items-center justify-between">
-                <span className="text-gray-600">Status:</span>
+                <span className="text-gray-600">{t('orders.status')}:</span>
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${order.paymentStatus === 'CONFIRMED' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
                   {order.paymentStatus}
                 </span>
@@ -480,7 +488,7 @@ function OrderDetailsModal({
                   className="mt-3 w-full py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
                 >
                   <CheckCircle className="w-4 h-4" />
-                  Confirm Payment Received
+                  {t('orders.confirmPaymentReceived')}
                 </button>
               )}
             </div>
@@ -488,7 +496,7 @@ function OrderDetailsModal({
 
           {/* Order Status */}
           <div>
-            <h3 className="font-semibold mb-3">Order Status</h3>
+            <h3 className="font-semibold mb-3">{t('orders.orderStatus')}</h3>
             <div className="space-y-3">
               <select
                 value={selectedStatus}
@@ -496,7 +504,9 @@ function OrderDetailsModal({
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
               >
                 {statusOptions.map(status => (
-                  <option key={status} value={status}>{status}</option>
+                  <option key={status} value={status}>
+                    {t(`orders.statuses.${status.toLowerCase().replace(/_/g, '')}`)}
+                  </option>
                 ))}
               </select>
               
@@ -505,7 +515,7 @@ function OrderDetailsModal({
                   onClick={handleStatusUpdate}
                   className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  Update Status to {selectedStatus}
+                  {t('orders.updateStatus')} to {selectedStatus}
                 </button>
               )}
             </div>
@@ -514,7 +524,7 @@ function OrderDetailsModal({
           {/* Status History */}
           {order.statusHistory && Array.isArray(order.statusHistory) && order.statusHistory.length > 0 && (
             <div>
-              <h3 className="font-semibold mb-3">Status History</h3>
+              <h3 className="font-semibold mb-3">{t('orders.statusHistory')}</h3>
               <div className="space-y-2">
                 {order.statusHistory.map((history, index) => (
                   <div key={index} className="flex items-start gap-3 bg-gray-50 rounded-lg p-3">
@@ -543,7 +553,7 @@ function OrderDetailsModal({
             onClick={onClose}
             className="w-full py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
           >
-            Close
+            {t('common.close')}
           </button>
         </div>
       </div>

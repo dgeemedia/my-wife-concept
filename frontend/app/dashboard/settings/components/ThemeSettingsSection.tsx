@@ -1,5 +1,6 @@
 // frontend/app/dashboard/settings/components/ThemeSettingsSection.tsx
 import { Palette } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface ThemeSettingsSectionProps {
   settings: any
@@ -14,17 +15,19 @@ export default function ThemeSettingsSection({
   applyColorPreset,
   colorPresets
 }: ThemeSettingsSectionProps) {
+  const { t } = useTranslation('dashboard')
+  
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <div className="flex items-center mb-6">
         <Palette className="w-6 h-6 text-purple-600 mr-2" />
-        <h2 className="text-lg font-semibold">Theme Settings</h2>
+        <h2 className="text-lg font-semibold">{t('settings.theme')}</h2>
       </div>
       
       {/* Color Presets */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-3">
-          Quick Color Themes
+          {t('settings.colorPresets')}
         </label>
         <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
           {colorPresets.map(preset => (
@@ -53,7 +56,7 @@ export default function ThemeSettingsSection({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Primary Color
+            {t('settings.primaryColor')}
           </label>
           <div className="flex items-center space-x-3">
             <input
@@ -78,7 +81,7 @@ export default function ThemeSettingsSection({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Secondary Color
+            {t('settings.secondaryColor')}
           </label>
           <div className="flex items-center space-x-3">
             <input

@@ -1,5 +1,6 @@
 // frontend/app/dashboard/settings/components/LanguageCurrencySection.tsx
 import { Globe } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface LanguageCurrencySectionProps {
   settings: any
@@ -14,6 +15,8 @@ export default function LanguageCurrencySection({
   languages,
   currencies
 }: LanguageCurrencySectionProps) {
+  const { t } = useTranslation('dashboard')
+  
   const getRegionLanguages = (region: string) => {
     return languages.filter(l => l.region === region)
   }
@@ -26,14 +29,14 @@ export default function LanguageCurrencySection({
     <div className="bg-white rounded-xl shadow p-6">
       <div className="flex items-center mb-6">
         <Globe className="w-6 h-6 text-blue-600 mr-2" />
-        <h2 className="text-lg font-semibold">Language & Currency</h2>
+        <h2 className="text-lg font-semibold">{t('settings.languageAndCurrency')}</h2>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Language Selection */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Language *
+            {t('settings.language')} *
             <span className="ml-2 text-xs text-gray-500">
               ({languages.find(l => l.code === settings.language)?.nativeName || 'English'})
             </span>
@@ -93,14 +96,14 @@ export default function LanguageCurrencySection({
             </optgroup>
           </select>
           <p className="text-sm text-gray-500 mt-1">
-            This will affect text on your landing page. Currently showing: <strong>{languages.find(l => l.code === settings.language)?.country || 'Multiple countries'}</strong>
+            {t('settings.affectsLandingPage')}. Currently showing: <strong>{languages.find(l => l.code === settings.language)?.country || 'Multiple countries'}</strong>
           </p>
         </div>
 
         {/* Currency Selection */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Currency * 
+            {t('settings.currency')} * 
             <span className="ml-2 text-xs text-gray-500">
               ({currencies.find(c => c.code === settings.currency)?.symbol || '₦'})
             </span>
@@ -160,7 +163,7 @@ export default function LanguageCurrencySection({
             </optgroup>
           </select>
           <p className="text-sm text-gray-500 mt-1">
-            This will affect all product prices and order totals
+            {t('settings.affectsPrices')}
           </p>
         </div>
       </div>
@@ -170,18 +173,18 @@ export default function LanguageCurrencySection({
         <div className="flex items-start gap-3">
           <Globe className="w-5 h-5 text-blue-600 mt-0.5" />
           <div className="flex-1">
-            <h4 className="font-medium text-blue-900 mb-1">Current Selection</h4>
+            <h4 className="font-medium text-blue-900 mb-1">{t('settings.currentSelection')}</h4>
             <div className="text-sm text-blue-800 space-y-1">
               <p>
-                <strong>Language:</strong> {languages.find(l => l.code === settings.language)?.name || 'English'} 
+                <strong>{t('settings.language')}:</strong> {languages.find(l => l.code === settings.language)?.name || 'English'} 
                 ({languages.find(l => l.code === settings.language)?.nativeName || 'English'})
               </p>
               <p>
-                <strong>Currency:</strong> {currencies.find(c => c.code === settings.currency)?.name || 'Nigerian Naira'} 
+                <strong>{t('settings.currency')}:</strong> {currencies.find(c => c.code === settings.currency)?.name || 'Nigerian Naira'} 
                 ({currencies.find(c => c.code === settings.currency)?.symbol || '₦'})
               </p>
               <p className="text-xs text-blue-700 mt-2">
-                💡 Choose the language and currency that best serves your customers
+                💡 {t('settings.chooseLanguageCurrency')}
               </p>
             </div>
           </div>
