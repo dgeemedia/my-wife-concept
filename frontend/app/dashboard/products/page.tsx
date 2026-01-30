@@ -4,12 +4,14 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Plus, Search, Edit, Trash2, Package, Download } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Product } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 import { useCurrency } from '@/components/dashboard/CurrencyProvider'
 
 export default function ProductsPage() {
+  const { t } = useTranslation('dashboard')
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -25,26 +27,25 @@ export default function ProductsPage() {
       setProducts(Array.isArray(data) ? data : [])
     } catch (error) {
       console.error('Failed to fetch products:', error)
-      toast.error('Failed to fetch products')
+      toast.error(t('messages.error.loadFailed'))
     } finally {
       setLoading(false)
     }
   }
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Are you sure you want to delete this product?')) return
+    if (!confirm(t('messages.confirm.delete', { item: t('products.deleteProduct') }))) return
 
     try {
       await api.delete(`/products/${id}`)
       setProducts(products.filter(p => p.id !== id))
-      toast.success('Product deleted successfully')
+      toast.success(t('messages.success.deleted'))
     } catch (error) {
-      toast.error('Failed to delete product')
+      toast.error(t('messages.error.deleteFailed'))
     }
   }
 
   const exportProductsToExcel = () => {
-    // Basic export functionality - you can enhance this with a library like xlsx
     const data = products.map(product => ({
       ID: product.id,
       Name: product.name,
@@ -67,7 +68,7 @@ export default function ProductsPage() {
     link.click()
     document.body.removeChild(link)
     
-    toast.success('Products exported successfully')
+    toast.success(t('messages.success.uploaded'))
   }
 
   const filteredProducts = products.filter(product =>
@@ -86,8 +87,8 @@ export default function ProductsPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Products Management</h1>
-        <p className="text-gray-600">Manage your products and inventory</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t('products.title')}</h1>
+        <p className="text-gray-600">{t('products.subtitle')}</p>
       </div>
 
       {/* Actions Bar */}
@@ -98,7 +99,7 @@ export default function ProductsPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder={t('common.search')}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -112,7 +113,7 @@ export default function ProductsPage() {
               className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
               <Download className="w-4 h-4" />
-              Export
+              {t('common.export')}
             </button>
             
             <Link
@@ -120,7 +121,7 @@ export default function ProductsPage() {
               className="flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               <Plus className="w-4 h-4" />
-              Add Product
+              {t('products.addProduct')}
             </Link>
           </div>
         </div>
@@ -131,7 +132,7 @@ export default function ProductsPage() {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Total Products</p>
+              <p className="text-sm text-gray-600">{t('dashboard.stats.totalProducts')}</p>
               <p className="text-2xl font-bold">{products.length}</p>
             </div>
             <Package className="w-8 h-8 text-blue-500" />
@@ -141,7 +142,7 @@ export default function ProductsPage() {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">In Stock</p>
+              <p className="text-sm text-gray-600">{t('dashboard.stats.inStock')}</p>
               <p className="text-2xl font-bold">
                 {products.filter(p => p.stock > 0).length}
               </p>
@@ -153,7 +154,7 @@ export default function ProductsPage() {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Out of Stock</p>
+              <p className="text-sm text-gray-600">{t('dashboard.stats.outOfStock')}</p>
               <p className="text-2xl font-bold">
                 {products.filter(p => p.stock === 0).length}
               </p>
@@ -165,7 +166,7 @@ export default function ProductsPage() {
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Low Stock (&lt; 10)</p>
+              <p className="text-sm text-gray-600">{t('dashboard.stats.lowStock')}</p>
               <p className="text-2xl font-bold">
                 {products.filter(p => p.stock > 0 && p.stock < 10).length}
               </p>
@@ -180,13 +181,13 @@ export default function ProductsPage() {
         {filteredProducts.length === 0 ? (
           <div className="p-12 text-center">
             <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">No products found</p>
+            <p className="text-gray-500">{t('products.noProducts')}</p>
             {search && (
               <button
                 onClick={() => setSearch('')}
                 className="mt-4 text-primary-600 hover:text-primary-700"
               >
-                Clear search
+                {t('products.clearSearch')}
               </button>
             )}
           </div>
@@ -196,22 +197,22 @@ export default function ProductsPage() {
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Product
+                    {t('products.productName')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Price
+                    {t('products.price')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Stock
+                    {t('products.stock')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Status
+                    {t('common.status')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Last Updated
+                    {t('products.lastUpdated')}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Actions
+                    {t('common.actions')}
                   </th>
                 </tr>
               </thead>
@@ -234,7 +235,7 @@ export default function ProductsPage() {
                         <div>
                           <p className="font-medium text-gray-900">{product.name}</p>
                           <p className="text-sm text-gray-500 truncate max-w-xs">
-                            {product.description || 'No description'}
+                            {product.description || t('products.description')}
                           </p>
                         </div>
                       </div>
@@ -250,7 +251,7 @@ export default function ProductsPage() {
                           ? 'bg-yellow-100 text-yellow-800' 
                           : 'bg-red-100 text-red-800'
                       }`}>
-                        {product.stock} in stock
+                        {product.stock} {t('products.inStock')}
                       </span>
                     </td>
                     <td className="px-6 py-4">
@@ -259,7 +260,7 @@ export default function ProductsPage() {
                           ? 'bg-green-100 text-green-800' 
                           : 'bg-red-100 text-red-800'
                       }`}>
-                        {product.stock > 0 ? 'Active' : 'Out of Stock'}
+                        {product.stock > 0 ? t('products.active') : t('products.outOfStock')}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-500">
@@ -270,14 +271,14 @@ export default function ProductsPage() {
                         <Link
                           href={`/dashboard/products/${product.id}`}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                          title="Edit"
+                          title={t('common.edit')}
                         >
                           <Edit className="w-4 h-4" />
                         </Link>
                         <button
                           onClick={() => handleDelete(product.id)}
                           className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                          title="Delete"
+                          title={t('common.delete')}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>

@@ -1,9 +1,10 @@
-// components/dashboard/Sidebar.tsx
+// frontend/components/dashboard/Sidebar.tsx
 'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 import {
   Home,
   Package,
@@ -21,16 +22,17 @@ interface SidebarProps {
   onLogout: () => void
 }
 
-const navItems = [
-  { name: 'Dashboard', href: '/dashboard', icon: Home },
-  { name: 'Products', href: '/dashboard/products', icon: Package },
-  { name: 'Orders', href: '/dashboard/orders', icon: ShoppingCart },
-  { name: 'Staff', href: '/dashboard/staff', icon: Users },
-  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
-]
-
 export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
   const pathname = usePathname()
+  const { t } = useTranslation('dashboard')
+
+  const navItems = [
+    { name: t('navigation.dashboard'), href: '/dashboard', icon: Home },
+    { name: t('navigation.products'), href: '/dashboard/products', icon: Package },
+    { name: t('navigation.orders'), href: '/dashboard/orders', icon: ShoppingCart },
+    { name: t('navigation.staff'), href: '/dashboard/staff', icon: Users },
+    { name: t('navigation.settings'), href: '/dashboard/settings', icon: Settings },
+  ]
 
   return (
     <>
@@ -96,7 +98,7 @@ export default function Sidebar({ isOpen, onClose, onLogout }: SidebarProps) {
             className="flex items-center space-x-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition-colors"
           >
             <LogOut className="w-5 h-5" />
-            <span className="font-medium">Logout</span>
+            <span className="font-medium">{t('navigation.logout')}</span>
           </button>
         </div>
       </aside>

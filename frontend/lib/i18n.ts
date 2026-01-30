@@ -45,7 +45,6 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
   { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪', region: 'Europe' },
   { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸', region: 'Europe' },
   { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: '🇵🇹', region: 'Europe' },
-  { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸', region: 'Europe' },
   { code: 'it', name: 'Italian', nativeName: 'Italiano', flag: '🇮🇹', region: 'Europe' },
   { code: 'da', name: 'Danish', nativeName: 'Dansk', flag: '🇩🇰', region: 'Europe' },
 ];
@@ -58,6 +57,10 @@ i18n
   .init({
     fallbackLng: 'en',
     debug: process.env.NODE_ENV === 'development',
+    
+    // UPDATED: Configure namespaces for dashboard translations
+    ns: ['translation', 'dashboard'],
+    defaultNS: 'translation',
     
     detection: {
       order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
@@ -84,7 +87,8 @@ i18n
     },
     
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json',
+      // UPDATED: Support multiple namespaces
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
     
     supportedLngs: SUPPORTED_LANGUAGES.map(l => l.code),

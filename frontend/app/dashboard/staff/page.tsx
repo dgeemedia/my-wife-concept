@@ -1,13 +1,15 @@
-// app/dashboard/staff/page.tsx (UPDATED)
+// frontend/app/dashboard/staff/page.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
 import { Plus, Mail, User, Phone, Shield, Trash2, Ban, CheckCircle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { User as UserType } from '@/types'
 import api from '@/lib/api'
 import toast from 'react-hot-toast'
 
 export default function StaffPage() {
+  const { t } = useTranslation('dashboard')
   const [users, setUsers] = useState<UserType[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
@@ -41,7 +43,7 @@ export default function StaffPage() {
       const data = await api.get('/users')
       setUsers(data)
     } catch (error) {
-      toast.error('Failed to load staff')
+      toast.error(t('messages.error.loadFailed'))
     } finally {
       setLoading(false)
     }
@@ -52,7 +54,7 @@ export default function StaffPage() {
     
     try {
       await api.post('/users', formData)
-      toast.success('Staff member added successfully')
+      toast.success(t('messages.success.created'))
       setShowModal(false)
       setFormData({
         email: '',
@@ -64,48 +66,47 @@ export default function StaffPage() {
       })
       fetchUsers()
     } catch (error: any) {
-      toast.error(error.message || 'Failed to add staff member')
+      toast.error(error.message || t('messages.error.saveFailed'))
     }
   }
 
   const handleDelete = async (id: number, user: UserType) => {
-    // Check if trying to delete super-admin as admin
     if (currentUser?.role === 'admin' && user.role === 'super-admin') {
-      toast.error('Admin cannot delete super-admin')
+      toast.error(t('staff.cannotDeleteSuperAdmin'))
       return
     }
 
-    if (!confirm(`Are you sure you want to delete ${user.firstName} ${user.lastName}?`)) return
+    if (!confirm(t('messages.confirm.delete', { item: `${user.firstName} ${user.lastName}` }))) return
 
     try {
       await api.delete(`/users/${id}`)
-      toast.success('Staff member deleted')
+      toast.success(t('messages.success.deleted'))
       fetchUsers()
     } catch (error: any) {
-      toast.error(error.message || 'Failed to delete staff member')
+      toast.error(error.message || t('messages.error.deleteFailed'))
     }
   }
 
   const handleSuspend = async (id: number, user: UserType) => {
-    // Check if trying to suspend super-admin as admin
     if (currentUser?.role === 'admin' && user.role === 'super-admin') {
-      toast.error('Admin cannot suspend super-admin')
+      toast.error(t('staff.cannotSuspendSuperAdmin'))
       return
     }
 
-    if (!confirm(`Are you sure you want to ${user.active ? 'suspend' : 'reactivate'} ${user.firstName} ${user.lastName}?`)) return
+    const action = user.active ? 'suspend' : 'reactivate'
+    if (!confirm(t(`messages.confirm.${action}`, { name: `${user.firstName} ${user.lastName}` }))) return
 
     try {
       if (user.active) {
         await api.post(`/users/${id}/suspend`, {})
-        toast.success('Staff member suspended')
+        toast.success(t('messages.success.updated'))
       } else {
         await api.post(`/users/${id}/reactivate`, {})
-        toast.success('Staff member reactivated')
+        toast.success(t('messages.success.updated'))
       }
       fetchUsers()
     } catch (error: any) {
-      toast.error(error.message || `Failed to ${user.active ? 'suspend' : 'reactivate'} staff member`)
+      toast.error(error.message || t('messages.error.updateFailed'))
     }
   }
 
@@ -117,10 +118,8 @@ export default function StaffPage() {
     }))
   }
 
-  // Check if current user can create staff
   const canCreateStaff = currentUser?.role === 'super-admin' || currentUser?.role === 'admin'
 
-  // Check if user can manage target user
   const canManageUser = (targetUser: UserType) => {
     if (currentUser?.role === 'super-admin') return true
     if (currentUser?.role === 'admin' && targetUser.role !== 'super-admin') return true
@@ -139,8 +138,8 @@ export default function StaffPage() {
     <div>
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Staff Management</h1>
-          <p className="text-gray-600">Manage your staff members</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('staff.title')}</h1>
+          <p className="text-gray-600">{t('staff.subtitle')}</p>
         </div>
         {canCreateStaff && (
           <button
@@ -148,7 +147,7 @@ export default function StaffPage() {
             className="flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
           >
             <Plus size={20} />
-            Add Staff
+            {t('staff.addStaff')}
           </button>
         )}
       </div>
@@ -175,9 +174,9 @@ export default function StaffPage() {
                 user.active ? 'bg-green-100 text-green-800' :
                 'bg-red-100 text-red-800'
               }`}>
-                {user.role === 'super-admin' ? 'Super Admin' : 
-                 user.role === 'admin' ? 'Admin' :
-                 user.active ? 'Active' : 'Suspended'}
+                {user.role === 'super-admin' ? t('staff.roles.superAdmin') : 
+                 user.role === 'admin' ? t('staff.roles.admin') :
+                 user.active ? t('staff.active') : t('staff.suspended')}
               </div>
             </div>
 
@@ -194,17 +193,20 @@ export default function StaffPage() {
               )}
               <div className="flex items-center text-sm">
                 <Shield className="w-4 h-4 text-gray-400 mr-2" />
-                <span className="capitalize">{user.role.replace('-', ' ')}</span>
+                <span className="capitalize">
+                  {user.role === 'super-admin' ? t('staff.roles.superAdmin') :
+                   user.role === 'admin' ? t('staff.roles.admin') :
+                   t('staff.roles.staff')}
+                </span>
               </div>
             </div>
 
             <div className="flex justify-between pt-4 border-t">
               <div className="text-sm text-gray-500">
-                Joined {new Date(user.createdAt).toLocaleDateString()}
+                {t('staff.joined')} {new Date(user.createdAt).toLocaleDateString()}
               </div>
               {canManageUser(user) && (
                 <div className="flex gap-2">
-                  {/* Suspend/Reactivate Button */}
                   <button
                     onClick={() => handleSuspend(user.id, user)}
                     className={`p-2 rounded-lg ${
@@ -212,16 +214,15 @@ export default function StaffPage() {
                         ? 'text-orange-600 hover:bg-orange-50' 
                         : 'text-green-600 hover:bg-green-50'
                     }`}
-                    title={user.active ? 'Suspend' : 'Reactivate'}
+                    title={user.active ? t('staff.suspend') : t('staff.reactivate')}
                   >
                     {user.active ? <Ban size={16} /> : <CheckCircle size={16} />}
                   </button>
                   
-                  {/* Delete Button */}
                   <button
                     onClick={() => handleDelete(user.id, user)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                    title="Delete"
+                    title={t('common.delete')}
                   >
                     <Trash2 size={16} />
                   </button>
@@ -235,13 +236,13 @@ export default function StaffPage() {
       {users.length === 0 && (
         <div className="text-center py-12">
           <User className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500">No staff members yet</p>
+          <p className="text-gray-500">{t('staff.noStaff')}</p>
           {canCreateStaff && (
             <button
               onClick={() => setShowModal(true)}
               className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
             >
-              Add your first staff member
+              {t('staff.addFirstStaff')}
             </button>
           )}
         </div>
@@ -251,13 +252,13 @@ export default function StaffPage() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold mb-6">Add Staff Member</h2>
+            <h2 className="text-xl font-bold mb-6">{t('staff.addStaffMember')}</h2>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    First Name
+                    {t('staff.firstName')}
                   </label>
                   <input
                     type="text"
@@ -269,7 +270,7 @@ export default function StaffPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Last Name
+                    {t('staff.lastName')}
                   </label>
                   <input
                     type="text"
@@ -283,7 +284,7 @@ export default function StaffPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email *
+                  {t('staff.email')} *
                 </label>
                 <input
                   type="email"
@@ -297,7 +298,7 @@ export default function StaffPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password *
+                  {t('staff.password')} *
                 </label>
                 <input
                   type="password"
@@ -309,13 +310,13 @@ export default function StaffPage() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
                 <p className="text-sm text-gray-500 mt-1">
-                  Password must be at least 8 characters
+                  {t('staff.passwordHint')}
                 </p>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone
+                  {t('staff.phone')}
                 </label>
                 <input
                   type="tel"
@@ -328,7 +329,7 @@ export default function StaffPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Role
+                  {t('staff.role')}
                 </label>
                 <select
                   name="role"
@@ -336,16 +337,17 @@ export default function StaffPage() {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
-                  <option value="staff">Staff</option>
-                  <option value="admin">Admin</option>
-                  {/* Super-admin can only be created by super-admin */}
+                  <option value="staff">{t('staff.roles.staff')}</option>
+                  <option value="admin">{t('staff.roles.admin')}</option>
                   {currentUser?.role === 'super-admin' && (
-                    <option value="super-admin">Super Admin</option>
+                    <option value="super-admin">{t('staff.roles.superAdmin')}</option>
                   )}
                 </select>
-                <p className="text-sm text-gray-500 mt-1">
-                  {currentUser?.role === 'admin' && 'Note: You cannot create super-admin accounts'}
-                </p>
+                {currentUser?.role === 'admin' && (
+                  <p className="text-sm text-gray-500 mt-1">
+                    {t('staff.cannotCreateSuperAdmin')}
+                  </p>
+                )}
               </div>
 
               <div className="flex justify-end space-x-3 pt-4">
@@ -354,13 +356,13 @@ export default function StaffPage() {
                   onClick={() => setShowModal(false)}
                   className="px-6 py-2 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </button>
                 <button
                   type="submit"
                   className="px-6 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                 >
-                  Add Staff
+                  {t('staff.addStaff')}
                 </button>
               </div>
             </form>

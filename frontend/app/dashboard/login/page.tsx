@@ -4,10 +4,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { setToken } from '@/lib/auth'
 import toast from 'react-hot-toast'
 
 export default function LoginPage() {
+  const { t } = useTranslation('dashboard')
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -22,13 +24,12 @@ export default function LoginPage() {
     setError('')
 
     try {
-      // Call the Next.js API route (which sets the cookie)
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Important: Allow cookies to be set
+        credentials: 'include',
         body: JSON.stringify({
           email: formData.email,
           password: formData.password
@@ -37,25 +38,17 @@ export default function LoginPage() {
 
       const data = await response.json()
 
-      // Check if login was successful
       if (response.ok && data.ok && data.token) {
-        // Store the token in localStorage as backup
         setToken(data.token)
-        
-        // Show success message
-        toast.success('Login successful!')
-        
-        // Small delay to ensure cookie is set
+        toast.success(t('messages.success.loggedIn'))
         await new Promise(resolve => setTimeout(resolve, 100))
-        
-        // Redirect to dashboard
         router.push('/dashboard')
       } else {
-        throw new Error(data.error || 'Login failed')
+        throw new Error(data.error || t('messages.error.loginFailed'))
       }
     } catch (err: any) {
       console.error('Login error:', err)
-      const errorMessage = err.message || 'Login failed. Please check your credentials.'
+      const errorMessage = err.message || t('messages.error.loginFailed')
       setError(errorMessage)
       toast.error(errorMessage)
     } finally {
@@ -69,7 +62,6 @@ export default function LoginPage() {
       ...prev,
       [name]: value
     }))
-    // Clear error when user starts typing
     if (error) setError('')
   }
 
@@ -80,8 +72,8 @@ export default function LoginPage() {
           <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <LogIn className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Admin Login</h1>
-          <p className="text-gray-600 mt-2">Sign in to your dashboard</p>
+          <h1 className="text-3xl font-bold text-gray-900">{t('login.title')}</h1>
+          <p className="text-gray-600 mt-2">{t('login.subtitle')}</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-6">
@@ -95,7 +87,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
+                {t('login.email')}
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -114,7 +106,7 @@ export default function LoginPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password
+                {t('login.password')}
               </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -126,7 +118,7 @@ export default function LoginPage() {
                   required
                   disabled={loading}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
-                  placeholder="Enter your password"
+                  placeholder={t('login.password')}
                 />
               </div>
             </div>
@@ -139,10 +131,10 @@ export default function LoginPage() {
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  Signing in...
+                  {t('login.signingIn')}
                 </span>
               ) : (
-                'Sign In'
+                t('login.signIn')
               )}
             </button>
           </form>
@@ -153,7 +145,7 @@ export default function LoginPage() {
             href="/"
             className="text-blue-600 hover:text-blue-800 text-sm"
           >
-            ← Back to Home
+            ← {t('login.backToHome')}
           </a>
         </div>
       </div>
