@@ -16,7 +16,7 @@ export default function TrackOrderPage() {
   const handleTrack = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!orderId || !phone) {
-      setError('Please enter both order ID and phone number')
+      setError(t('order.enterOrderIdAndPhone'))
       return
     }
 
@@ -32,10 +32,10 @@ export default function TrackOrderPage() {
       if (data.success) {
         setOrder(data.order)
       } else {
-        setError(data.error || 'Order not found')
+        setError(data.error || t('order.orderNotFound'))
       }
     } catch {
-      setError('Failed to track order. Please try again.')
+      setError(t('order.failedToTrack'))
     } finally {
       setLoading(false)
     }
@@ -99,7 +99,7 @@ export default function TrackOrderPage() {
                   type="text"
                   value={orderId}
                   onChange={(e) => setOrderId(e.target.value)}
-                  placeholder="Enter order ID"
+                  placeholder={t('order.enterOrderIdPlaceholder')}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
                 />
@@ -113,7 +113,7 @@ export default function TrackOrderPage() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Enter phone number used for order"
+                  placeholder={t('order.enterPhoneNumberPlaceholder')}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
                 />
@@ -134,7 +134,7 @@ export default function TrackOrderPage() {
               {loading ? (
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  Tracking...
+                  {t('order.tracking')}
                 </>
               ) : (
                 <>
@@ -152,10 +152,10 @@ export default function TrackOrderPage() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900">
-                  Order #{order.id}
+                  {t('order.orderNumber')} #{order.id}
                 </h2>
                 <p className="text-gray-600">
-                  Placed on {new Date(order.createdAt).toLocaleDateString()}
+                  {t('order.placedOn', { date: new Date(order.createdAt).toLocaleDateString() })}
                 </p>
               </div>
               <div className={`px-4 py-2 rounded-full ${getStatusColor(order.status)}`}>
@@ -165,7 +165,7 @@ export default function TrackOrderPage() {
 
             {/* Status Timeline */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold mb-6">Order Status</h3>
+              <h3 className="text-lg font-semibold mb-6">{t('order.orderStatus')}</h3>
               <div className="space-y-6">
                 {order.statusHistory?.map((history: any, index: number) => (
                   <div key={index} className="flex items-start">
@@ -194,7 +194,7 @@ export default function TrackOrderPage() {
 
             {/* Order Items */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold mb-4">Order Items</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('order.orderItems')}</h3>
               <div className="space-y-4">
                 {order.items.map((item: any) => (
                   <div key={item.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
@@ -209,7 +209,7 @@ export default function TrackOrderPage() {
                       <div>
                         <h4 className="font-medium">{item.product?.name}</h4>
                         <p className="text-sm text-gray-500">
-                          Quantity: {item.quantity}
+                          {t('order.quantity')}: {item.quantity}
                         </p>
                       </div>
                     </div>
@@ -225,15 +225,15 @@ export default function TrackOrderPage() {
             <div className="border-t pt-6">
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal</span>
+                  <span className="text-gray-600">{t('order.subtotal')}</span>
                   <span>₦{order.totalAmount.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Delivery</span>
+                  <span className="text-gray-600">{t('order.delivery')}</span>
                   <span>₦0</span>
                 </div>
                 <div className="flex justify-between text-lg font-bold border-t pt-3">
-                  <span>Total</span>
+                  <span>{t('order.total')}</span>
                   <span className="text-primary-600">
                     ₦{order.totalAmount.toLocaleString()}
                   </span>
