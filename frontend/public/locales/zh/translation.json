@@ -177,6 +177,7 @@
     "track": "追踪您的订单",
     "trackYourOrder": "追踪您的订单",
     "enterOrderId": "输入您的订单号和电话号码以查看状态",
+    "phoneNumber": "电话号码",
     "orderId": "订单号",
     "orderDate": "订单日期",
     "status": "状态",

@@ -5,6 +5,7 @@ import { Menu, Search, User, LogOut, ChevronDown } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import NotificationPanel from './NotificationPanel'
+import DashboardLanguageSwitcher from './DashboardLanguageSwitcher'
 
 interface DashboardHeaderProps {
   onMenuClick: () => void
@@ -53,7 +54,10 @@ export default function DashboardHeader({ onMenuClick, user, onLogout }: Dashboa
       </div>
 
       <div className="flex items-center gap-4">
-        {/* NOTIFICATION PANEL - REPLACED BELL BUTTON */}
+        {/* LANGUAGE SWITCHER */}
+        <DashboardLanguageSwitcher />
+
+        {/* NOTIFICATION PANEL */}
         <NotificationPanel />
 
         {/* User Menu */}

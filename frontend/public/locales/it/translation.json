@@ -177,6 +177,7 @@
     "track": "Traccia il tuo ordine",
     "trackYourOrder": "Traccia il tuo ordine",
     "enterOrderId": "Inserisci il numero dell'ordine e il numero di telefono per verificare lo stato",
+    "phoneNumber": "Numero di Telefono",
     "orderId": "Numero ordine",
     "orderDate": "Data ordine",
     "status": "Stato",

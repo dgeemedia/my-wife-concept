@@ -177,6 +177,7 @@
     "track": "Rastrear tu pedido",
     "trackYourOrder": "Rastrear tu pedido",
     "enterOrderId": "Ingresa tu número de pedido y número de teléfono para verificar el estado",
+    "phoneNumber": "Número de Teléfono",
     "orderId": "Número de pedido",
     "orderDate": "Fecha del pedido",
     "status": "Estado",

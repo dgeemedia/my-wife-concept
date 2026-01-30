@@ -178,6 +178,7 @@
     "trackYourOrder": "Track Your Order",
     "enterOrderId": "Enter your order number and phone number to check status",
     "orderId": "Order Number",
+    "phoneNumber": "Phone Number",
     "orderDate": "Order Date",
     "status": "Status",
     "pending": "Pending",
