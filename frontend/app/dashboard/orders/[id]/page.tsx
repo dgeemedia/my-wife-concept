@@ -22,7 +22,7 @@ export default function OrderDetailsPage() {
   const [order, setOrder] = useState<Order | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus>('PENDING')
-  const { format, businessCurrency } = useCurrency()
+  const { format, currency: businessCurrency } = useCurrency()
 
   useEffect(() => {
     if (orderId) {

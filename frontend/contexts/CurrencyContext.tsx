@@ -1,3 +1,4 @@
+// frontend/contexts/CurrencyContext.tsx
 'use client'
 
 import { createContext, useContext, ReactNode } from 'react'
