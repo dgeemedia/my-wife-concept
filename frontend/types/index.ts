@@ -46,6 +46,9 @@ export interface Order {
   status: string
   paymentStatus: string
   paymentMethod?: string
+  paymentConfirmedAt?: string  
+  paymentConfirmedBy?: number  
+  notes?: string               
   currency: string
   createdAt: string
   updatedAt: string
