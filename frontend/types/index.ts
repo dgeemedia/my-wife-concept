@@ -69,7 +69,7 @@ export interface OrderStatusHistory {
 export interface User {
   id: number
   email: string
-  role: 'super-admin' | 'staff'
+  role: 'super-admin' | 'admin' | 'staff'
   firstName?: string
   lastName?: string
   phone?: string
