@@ -10,7 +10,8 @@ export interface Product {
   averageRating?: number
   totalRatings?: number
   recentRatings?: ProductRating[]
-  images?: ProductImage[]  
+  images?: ProductImage[]
+  businessId: number  // ✅ ADDED
   createdAt: string
   updatedAt: string
 }
@@ -23,7 +24,6 @@ export interface ProductImage {
   isPrimary: boolean
   createdAt: string
 }
-
 
 export interface ProductRating {
   id: number
@@ -46,10 +46,11 @@ export interface Order {
   status: string
   paymentStatus: string
   paymentMethod?: string
-  paymentConfirmedAt?: string  
-  paymentConfirmedBy?: number  
-  notes?: string               
+  paymentConfirmedAt?: string
+  paymentConfirmedBy?: number
+  notes?: string
   currency: string
+  businessId: number  // ✅ ADDED
   createdAt: string
   updatedAt: string
   statusHistory: OrderStatusHistory[]
@@ -77,15 +78,53 @@ export interface User {
   lastName?: string
   phone?: string
   active: boolean
+  businessId?: number  // ✅ ADDED - null for super-admin, required for others
   lastLogin?: string
   createdAt: string
 }
 
-export interface BusinessSettings {
+// ✅ NEW: Business model
+export interface Business {
   id: number
+  slug: string
   businessName: string
   businessType: string
-  businessMotto?: string  
+  businessMotto?: string
+  phone: string
+  email?: string
+  address?: string
+  description?: string
+  logo?: string
+  primaryColor: string
+  secondaryColor: string
+  currency: string
+  language: string
+  supportedLanguages?: string[]
+  autoDetectLanguage: boolean
+  defaultLanguage: string
+  whatsappNumber: string
+  facebookUrl?: string
+  instagramUrl?: string
+  twitterUrl?: string
+  linkedinUrl?: string
+  youtubeUrl?: string
+  tiktokUrl?: string
+  footerText?: string
+  footerCopyright?: string
+  footerAddress?: string
+  footerEmail?: string
+  footerPhone?: string
+  createdAt: string
+  updatedAt: string
+}
+
+// ✅ DEPRECATED: Keep for backward compatibility during migration
+export interface BusinessSettings {
+  id: number
+  slug: string
+  businessName: string
+  businessType: string
+  businessMotto?: string
   phone: string
   email?: string
   address?: string
@@ -99,9 +138,9 @@ export interface BusinessSettings {
   facebookUrl?: string
   instagramUrl?: string
   twitterUrl?: string
-  linkedinUrl?: string      
-  youtubeUrl?: string       
-  tiktokUrl?: string        
+  linkedinUrl?: string
+  youtubeUrl?: string
+  tiktokUrl?: string
   footerText?: string
   footerCopyright?: string
   footerAddress?: string
@@ -116,7 +155,6 @@ export interface CartItem {
   quantity: number
 }
 
-// ⭐ NEW: Notification interface
 export interface Notification {
   id: number
   type: 'order' | 'payment' | 'stock' | 'system'
@@ -127,10 +165,10 @@ export interface Notification {
   productId?: number
   read: boolean
   readAt?: string
+  businessId?: number  // ✅ ADDED
   createdAt: string
 }
 
-// ⭐ NEW: Notification API response
 export interface NotificationResponse {
   success: boolean
   notifications: Notification[]
@@ -138,9 +176,33 @@ export interface NotificationResponse {
 }
 
 export interface ApiResponse<T = any> {
-  ok: boolean
+  ok?: boolean
+  success?: boolean
   data?: T
   error?: string
   message?: string
-  success?: boolean
+}
+
+// ✅ NEW: Auth response with businessId
+export interface AuthResponse {
+  ok: boolean
+  token: string
+  user: {
+    id: number
+    email: string
+    role: 'super-admin' | 'admin' | 'staff'
+    businessId?: number  // ✅ ADDED
+    firstName?: string
+    lastName?: string
+  }
+}
+
+// ✅ NEW: JWT token payload
+export interface JWTPayload {
+  id: number
+  email: string
+  role: 'super-admin' | 'admin' | 'staff'
+  businessId?: number  // ✅ ADDED
+  iat?: number
+  exp?: number
 }

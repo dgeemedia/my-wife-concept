@@ -8,7 +8,12 @@ const prisma = new PrismaClient();
 async function login(req, res) {
   const { email, password } = req.body;
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  // Fetch user with business relationship
+  const user = await prisma.user.findUnique({ 
+    where: { email },
+    include: { business: true }
+  });
+  
   if (!user || !user.active) {
     throw new Error('Invalid credentials');
   }
@@ -24,8 +29,14 @@ async function login(req, res) {
     data: { lastLogin: new Date() },
   });
 
+  // 🔥 CRITICAL: Include businessId in JWT token
   const token = jwt.sign(
-    { id: user.id, email: user.email, role: user.role },
+    { 
+      id: user.id, 
+      email: user.email, 
+      role: user.role,
+      businessId: user.businessId  // ✅ ADDED
+    },
     process.env.JWT_SECRET,
     { expiresIn: '24h' }
   );
@@ -37,6 +48,7 @@ async function login(req, res) {
       id: user.id,
       email: user.email,
       role: user.role,
+      businessId: user.businessId,  // ✅ ADDED
       firstName: user.firstName,
       lastName: user.lastName,
     },
@@ -50,11 +62,12 @@ async function getCurrentUser(req, res) {
       id: true,
       email: true,
       role: true,
+      businessId: true,  // ✅ ADDED
       firstName: true,
       lastName: true,
       phone: true,
-      active: true,        // ✅ FIXED: Added active field
-      lastLogin: true,     // ✅ FIXED: Added lastLogin field
+      active: true,
+      lastLogin: true,
       createdAt: true,
     },
   });
@@ -66,7 +79,6 @@ async function changePassword(req, res) {
   try {
     const { currentPassword, newPassword } = req.body;
 
-    // Validate input
     if (!currentPassword || !newPassword) {
       return res.status(400).json({ 
         ok: false, 
@@ -81,7 +93,6 @@ async function changePassword(req, res) {
       });
     }
 
-    // Get user
     const user = await prisma.user.findUnique({
       where: { id: req.user.id },
     });
@@ -93,7 +104,6 @@ async function changePassword(req, res) {
       });
     }
 
-    // Verify current password
     const valid = await bcrypt.compare(currentPassword, user.passwordHash);
     if (!valid) {
       return res.status(400).json({ 
@@ -102,7 +112,6 @@ async function changePassword(req, res) {
       });
     }
 
-    // Hash and update new password
     const passwordHash = await bcrypt.hash(newPassword, 12);
 
     await prisma.user.update({

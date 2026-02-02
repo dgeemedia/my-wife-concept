@@ -1,14 +1,26 @@
-// backend/src/controllers/userController.js (UPDATED)
+// backend/src/controllers/userController.js
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+// ============================================================================
+// GET ALL USERS - WITH TENANT ISOLATION
+// ============================================================================
 async function getAllUsers(req, res) {
+  const where = {};
+
+  // 🔥 TENANT ISOLATION: Super-admin sees all, others see only their business
+  if (req.user.role !== 'super-admin') {
+    where.businessId = req.user.businessId;
+  }
+
   const users = await prisma.user.findMany({
+    where,
     select: {
       id: true,
       email: true,
       role: true,
+      businessId: true,  // ✅ ADDED
       firstName: true,
       lastName: true,
       phone: true,
@@ -17,38 +29,55 @@ async function getAllUsers(req, res) {
     },
     orderBy: { createdAt: 'desc' },
   });
+  
   res.json(users);
 }
 
+// ============================================================================
+// CREATE USER - WITH BUSINESS ASSIGNMENT
+// ============================================================================
 async function createUser(req, res) {
-  const { email, password, firstName, lastName, phone, role } = req.body;
+  const { email, password, firstName, lastName, phone, role, businessId } = req.body;
 
   if (!email || !password) {
     throw new Error('Email and password required');
   }
 
-  // ✅ PERMISSION CHECK: Only super-admin and admin can create users
-  if (req.user.role !== 'super-admin' && req.user.role !== 'admin') {
-    return res.status(403).json({ 
-      ok: false, 
-      error: 'Only super-admin and admin can create staff' 
-    });
-  }
-
-  // ✅ PERMISSION CHECK: Staff cannot create other users
+  // Permission check: Staff cannot create users
   if (req.user.role === 'staff') {
     return res.status(403).json({ 
       ok: false, 
-      error: 'Staff cannot create other staff members' 
+      error: 'Staff cannot create users' 
     });
   }
 
-  // ✅ PERMISSION CHECK: Admin cannot create super-admin
-  if (req.user.role === 'admin' && role === 'super-admin') {
-    return res.status(403).json({ 
-      ok: false, 
-      error: 'Admin cannot create super-admin accounts' 
-    });
+  // 🔥 BUSINESS ASSIGNMENT LOGIC
+  let assignedBusinessId = req.user.businessId;
+
+  // Super-admin can choose business or create super-admin
+  if (req.user.role === 'super-admin') {
+    if (role === 'super-admin') {
+      assignedBusinessId = null;  // Super-admins don't belong to a business
+    } else {
+      assignedBusinessId = businessId || null;
+    }
+  }
+
+  // Admin can ONLY create users in their business
+  if (req.user.role === 'admin') {
+    if (!assignedBusinessId) {
+      return res.status(400).json({ 
+        ok: false, 
+        error: 'Admin must have a business assigned' 
+      });
+    }
+    
+    if (role === 'super-admin') {
+      return res.status(403).json({ 
+        ok: false, 
+        error: 'Admin cannot create super-admin' 
+      });
+    }
   }
 
   // Check if user exists
@@ -64,6 +93,7 @@ async function createUser(req, res) {
       email,
       passwordHash,
       role: role || 'staff',
+      businessId: assignedBusinessId,  // 🔥 KEY LINE
       firstName: firstName || '',
       lastName: lastName || '',
       phone: phone || '',
@@ -73,6 +103,7 @@ async function createUser(req, res) {
       id: true,
       email: true,
       role: true,
+      businessId: true,
       firstName: true,
       lastName: true,
       phone: true,
@@ -80,11 +111,14 @@ async function createUser(req, res) {
     },
   });
 
-  console.log(`✅ User created: ${user.email} (${user.role}) by ${req.user.email}`);
+  console.log(`✅ User created: ${user.email} (${user.role}) by ${req.user.email} - Business: ${assignedBusinessId || 'none'}`);
 
   res.status(201).json({ ok: true, user });
 }
 
+// ============================================================================
+// UPDATE USER - WITH TENANT SECURITY
+// ============================================================================
 async function updateUser(req, res) {
   const userId = Number(req.params.id);
   const { role, active, ...otherUpdates } = req.body;
@@ -98,7 +132,18 @@ async function updateUser(req, res) {
     return res.status(404).json({ ok: false, error: 'User not found' });
   }
 
-  // ✅ PERMISSION CHECK: Admin cannot modify super-admin
+  // 🔥 TENANT SECURITY CHECK
+  if (
+    req.user.role !== 'super-admin' &&
+    targetUser.businessId !== req.user.businessId
+  ) {
+    return res.status(403).json({
+      ok: false,
+      error: 'You cannot manage users from another business'
+    });
+  }
+
+  // Admin cannot modify super-admin
   if (req.user.role === 'admin' && targetUser.role === 'super-admin') {
     return res.status(403).json({ 
       ok: false, 
@@ -106,7 +151,7 @@ async function updateUser(req, res) {
     });
   }
 
-  // ✅ PERMISSION CHECK: Admin cannot promote to super-admin
+  // Admin cannot promote to super-admin
   if (req.user.role === 'admin' && role === 'super-admin') {
     return res.status(403).json({ 
       ok: false, 
@@ -125,6 +170,7 @@ async function updateUser(req, res) {
       id: true,
       email: true,
       role: true,
+      businessId: true,
       firstName: true,
       lastName: true,
       phone: true,
@@ -137,11 +183,12 @@ async function updateUser(req, res) {
   res.json({ ok: true, user });
 }
 
-// NEW: Suspend user (soft delete - just deactivates)
+// ============================================================================
+// SUSPEND USER - WITH TENANT SECURITY
+// ============================================================================
 async function suspendUser(req, res) {
   const userId = Number(req.params.id);
 
-  // Prevent suspending yourself
   if (userId === req.user.id) {
     return res.status(400).json({ 
       ok: false, 
@@ -149,7 +196,6 @@ async function suspendUser(req, res) {
     });
   }
 
-  // Get the target user
   const targetUser = await prisma.user.findUnique({
     where: { id: userId }
   });
@@ -158,7 +204,17 @@ async function suspendUser(req, res) {
     return res.status(404).json({ ok: false, error: 'User not found' });
   }
 
-  // ✅ PERMISSION CHECK: Admin cannot suspend super-admin
+  // 🔥 TENANT SECURITY CHECK
+  if (
+    req.user.role !== 'super-admin' &&
+    targetUser.businessId !== req.user.businessId
+  ) {
+    return res.status(403).json({
+      ok: false,
+      error: 'You cannot manage users from another business'
+    });
+  }
+
   if (req.user.role === 'admin' && targetUser.role === 'super-admin') {
     return res.status(403).json({ 
       ok: false, 
@@ -166,7 +222,6 @@ async function suspendUser(req, res) {
     });
   }
 
-  // ✅ PERMISSION CHECK: Staff cannot suspend anyone
   if (req.user.role === 'staff') {
     return res.status(403).json({ 
       ok: false, 
@@ -181,6 +236,7 @@ async function suspendUser(req, res) {
       id: true,
       email: true,
       role: true,
+      businessId: true,
       firstName: true,
       lastName: true,
       active: true,
@@ -192,9 +248,30 @@ async function suspendUser(req, res) {
   res.json({ ok: true, message: 'User suspended', user });
 }
 
-// NEW: Reactivate user
+// ============================================================================
+// REACTIVATE USER - WITH TENANT SECURITY
+// ============================================================================
 async function reactivateUser(req, res) {
   const userId = Number(req.params.id);
+
+  const targetUser = await prisma.user.findUnique({
+    where: { id: userId }
+  });
+
+  if (!targetUser) {
+    return res.status(404).json({ ok: false, error: 'User not found' });
+  }
+
+  // 🔥 TENANT SECURITY CHECK
+  if (
+    req.user.role !== 'super-admin' &&
+    targetUser.businessId !== req.user.businessId
+  ) {
+    return res.status(403).json({
+      ok: false,
+      error: 'You cannot manage users from another business'
+    });
+  }
 
   const user = await prisma.user.update({
     where: { id: userId },
@@ -203,6 +280,7 @@ async function reactivateUser(req, res) {
       id: true,
       email: true,
       role: true,
+      businessId: true,
       firstName: true,
       lastName: true,
       active: true,
@@ -214,10 +292,12 @@ async function reactivateUser(req, res) {
   res.json({ ok: true, message: 'User reactivated', user });
 }
 
+// ============================================================================
+// DELETE USER - WITH TENANT SECURITY
+// ============================================================================
 async function deleteUser(req, res) {
   const userId = Number(req.params.id);
 
-  // Prevent deleting yourself
   if (userId === req.user.id) {
     return res.status(400).json({ 
       ok: false, 
@@ -225,7 +305,6 @@ async function deleteUser(req, res) {
     });
   }
 
-  // Get the target user
   const targetUser = await prisma.user.findUnique({
     where: { id: userId }
   });
@@ -234,7 +313,17 @@ async function deleteUser(req, res) {
     return res.status(404).json({ ok: false, error: 'User not found' });
   }
 
-  // ✅ PERMISSION CHECK: Admin cannot delete super-admin
+  // 🔥 TENANT SECURITY CHECK
+  if (
+    req.user.role !== 'super-admin' &&
+    targetUser.businessId !== req.user.businessId
+  ) {
+    return res.status(403).json({
+      ok: false,
+      error: 'You cannot manage users from another business'
+    });
+  }
+
   if (req.user.role === 'admin' && targetUser.role === 'super-admin') {
     return res.status(403).json({ 
       ok: false, 
@@ -242,7 +331,6 @@ async function deleteUser(req, res) {
     });
   }
 
-  // ✅ PERMISSION CHECK: Staff cannot delete anyone
   if (req.user.role === 'staff') {
     return res.status(403).json({ 
       ok: false, 

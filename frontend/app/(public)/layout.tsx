@@ -1,4 +1,4 @@
-// frontend/app/(public)/layout.tsx
+// frontend/app/(public)/layout.tsx - UPDATED
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import CartDrawer from '@/components/cart/CartDrawer'
 import WhatsAppWidget from '@/components/public/WhatsAppWidget'
 import { SettingsProvider } from '@/contexts/SettingsContext'
 import { CurrencyProvider } from '@/contexts/CurrencyContext'
+import { useBusiness } from '@/contexts/BusinessContext'
 import i18n, { detectAndSetLanguage } from '@/lib/i18n'
 import { applyThemeColors } from '@/lib/colorUtils'
 
@@ -17,6 +18,7 @@ export default function PublicLayout({
 }: {
   children: React.ReactNode
 }) {
+  const { business, loading: businessLoading, error: businessError } = useBusiness()
   const [settings, setSettings] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [i18nReady, setI18nReady] = useState(false)
@@ -36,7 +38,13 @@ export default function PublicLayout({
   }, [])
 
   useEffect(() => {
-    fetchSettings()
+    // Wait for business to load before fetching settings
+    if (!businessLoading && business) {
+      fetchSettings()
+    } else if (!businessLoading && !business) {
+      // No business context (main landing page)
+      fetchSettings()
+    }
 
     const handleSettingsUpdate = (event: CustomEvent) => {
       setSettings(event.detail)
@@ -47,14 +55,17 @@ export default function PublicLayout({
     return () => {
       window.removeEventListener('settings-updated' as any, handleSettingsUpdate as EventListener)
     }
-  }, [])
+  }, [business, businessLoading])
 
   const fetchSettings = async () => {
     try {
+      // Settings will automatically use business context from subdomain middleware
       const response = await fetch('/api/settings?' + new Date().getTime(), {
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache',
+          // Pass business slug for local development
+          ...(business?.slug && { 'X-Business-Slug': business.slug })
         }
       })
       
@@ -63,17 +74,50 @@ export default function PublicLayout({
       }
       
       const data = await response.json()
-      setSettings(data)
+      
+      // Merge business data with settings if available
+      const mergedSettings = {
+        ...data,
+        ...(business && {
+          businessName: business.businessName,
+          logo: business.logo,
+          primaryColor: business.primaryColor,
+          secondaryColor: business.secondaryColor,
+          currency: business.currency,
+          phone: business.phone,
+          whatsappNumber: business.whatsappNumber,
+          businessType: business.businessType,
+        })
+      }
+      
+      setSettings(mergedSettings)
     } catch (error) {
       console.error('Error fetching settings:', error)
-      setSettings({
-        businessName: 'My Business',
-        primaryColor: '#10B981',
-        secondaryColor: '#F59E0B',
-        currency: 'NGN',
-        language: 'en',
-        logo: null
-      })
+      
+      // Use business data as fallback if available
+      if (business) {
+        setSettings({
+          businessName: business.businessName,
+          businessType: business.businessType || 'food',
+          phone: business.phone,
+          whatsappNumber: business.whatsappNumber,
+          currency: business.currency || 'NGN',
+          language: business.language || 'en',
+          primaryColor: business.primaryColor || '#10B981',
+          secondaryColor: business.secondaryColor || '#F59E0B',
+          logo: business.logo || null
+        })
+      } else {
+        // Ultimate fallback
+        setSettings({
+          businessName: 'My Business',
+          primaryColor: '#10B981',
+          secondaryColor: '#F59E0B',
+          currency: 'NGN',
+          language: 'en',
+          logo: null
+        })
+      }
     } finally {
       setLoading(false)
     }
@@ -85,12 +129,33 @@ export default function PublicLayout({
     }
   }, [settings])
 
-  if (loading || !i18nReady) {
+  // Show business error if subdomain not found
+  if (businessError) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="text-6xl mb-4">🏪</div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Business Not Found</h1>
+          <p className="text-gray-600 mb-6">{businessError}</p>
+          <p className="text-sm text-gray-500">
+            Please check the URL or contact support if you believe this is an error.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (loading || !i18nReady || businessLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your store...</p>
+          <p className="text-gray-600">
+            {businessLoading ? 'Loading business...' : 'Loading your store...'}
+          </p>
+          {business && (
+            <p className="text-sm text-gray-500 mt-2">{business.businessName}</p>
+          )}
         </div>
       </div>
     )

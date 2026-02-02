@@ -9,6 +9,9 @@ function normalizePhone(phone) {
   return phone.replace(/\D/g, '');
 }
 
+// ============================================================================
+// CHECKOUT (Public) - WITH BUSINESS ASSIGNMENT
+// ============================================================================
 async function checkout(req, res) {
   const { customerName, phone, address, email, message, items } = req.body;
 
@@ -16,17 +19,29 @@ async function checkout(req, res) {
     throw new Error('Missing required fields');
   }
 
+  // 🔥 BUSINESS CONTEXT - Get from subdomain middleware
+  const businessId = req.businessId;
+  
+  if (!businessId) {
+    throw new Error('Business context required. Please access via proper subdomain.');
+  }
+
   const normalizedPhone = normalizePhone(phone);
   
-  console.log('📝 Creating order for phone:', normalizedPhone);
+  console.log(`📝 Creating order for business ${businessId}, phone:`, normalizedPhone);
 
   let totalAmount = 0;
   const orderItems = [];
   const productUpdates = [];
   
   const productIds = items.map(item => item.productId);
+  
+  // 🔥 TENANT FILTER - Only get products from this business
   const products = await prisma.product.findMany({
-    where: { id: { in: productIds } }
+    where: { 
+      id: { in: productIds },
+      businessId: businessId  // ✅ CRITICAL SECURITY CHECK
+    }
   });
   
   const productMap = new Map(products.map(p => [p.id, p]));
@@ -35,7 +50,7 @@ async function checkout(req, res) {
     const product = productMap.get(item.productId);
     
     if (!product) {
-      throw new Error(`Product ${item.productId} not found`);
+      throw new Error(`Product ${item.productId} not found or not available`);
     }
     
     if (product.stock < item.quantity) {
@@ -70,6 +85,7 @@ async function checkout(req, res) {
         paymentStatus: 'PENDING',
         status: 'PENDING',
         statusHistory,
+        businessId: businessId,  // 🔥 ASSIGN TO BUSINESS
         items: { create: orderItems },
       },
     });
@@ -96,16 +112,17 @@ async function checkout(req, res) {
     },
   });
 
-  // Create notification for new order
+  // Create notification for new order (with businessId)
   await createNotification({
     type: 'order',
     title: 'New Order',
     message: `Order #${order.id} from ${customerName}`,
     link: `/dashboard/orders/${order.id}`,
-    orderId: order.id
+    orderId: order.id,
+    businessId: businessId  // ✅ ADDED
   });
 
-  console.log('✅ Order created successfully:', completeOrder.id);
+  console.log(`✅ Order created successfully: ${completeOrder.id} for business ${businessId}`);
 
   res.status(201).json({
     success: true,
@@ -116,6 +133,9 @@ async function checkout(req, res) {
   });
 }
 
+// ============================================================================
+// CONFIRM PAYMENT - WITH TENANT SECURITY
+// ============================================================================
 async function confirmPayment(req, res) {
   const { paymentMethod } = req.body;
 
@@ -125,6 +145,17 @@ async function confirmPayment(req, res) {
 
   if (!order) {
     throw new Error('Order not found');
+  }
+
+  // 🔥 TENANT SECURITY CHECK
+  if (
+    req.user.role !== 'super-admin' &&
+    order.businessId !== req.user.businessId
+  ) {
+    return res.status(403).json({
+      success: false,
+      error: 'You cannot manage orders from another business'
+    });
   }
 
   const history = order.statusHistory ? JSON.parse(order.statusHistory) : [];
@@ -155,7 +186,8 @@ async function confirmPayment(req, res) {
     title: 'Payment Confirmed',
     message: `Payment for Order #${order.id} has been confirmed`,
     link: `/dashboard/orders/${order.id}`,
-    orderId: order.id
+    orderId: order.id,
+    businessId: order.businessId  // ✅ ADDED
   });
 
   console.log('💰 Payment confirmed for order:', updatedOrder.id);
@@ -169,6 +201,9 @@ async function confirmPayment(req, res) {
   });
 }
 
+// ============================================================================
+// UPDATE ORDER STATUS - WITH TENANT SECURITY
+// ============================================================================
 async function updateOrderStatus(req, res) {
   const { status, notes } = req.body;
 
@@ -183,6 +218,17 @@ async function updateOrderStatus(req, res) {
 
   if (!order) {
     throw new Error('Order not found');
+  }
+
+  // 🔥 TENANT SECURITY CHECK
+  if (
+    req.user.role !== 'super-admin' &&
+    order.businessId !== req.user.businessId
+  ) {
+    return res.status(403).json({
+      success: false,
+      error: 'You cannot manage orders from another business'
+    });
   }
 
   const history = order.statusHistory ? JSON.parse(order.statusHistory) : [];
@@ -210,7 +256,8 @@ async function updateOrderStatus(req, res) {
       title: `Order ${status}`,
       message: `Order #${order.id} has been ${status.toLowerCase()}`,
       link: `/dashboard/orders/${order.id}`,
-      orderId: order.id
+      orderId: order.id,
+      businessId: order.businessId  // ✅ ADDED
     });
   }
 
@@ -225,10 +272,19 @@ async function updateOrderStatus(req, res) {
   });
 }
 
+// ============================================================================
+// GET ALL ORDERS - WITH TENANT ISOLATION
+// ============================================================================
 async function getAllOrders(req, res) {
   const { page = 1, limit = 50, status, paymentStatus, search } = req.query;
 
   const where = {};
+  
+  // 🔥 TENANT ISOLATION - Super-admin sees all, others see only their business
+  if (req.user.role !== 'super-admin') {
+    where.businessId = req.user.businessId;
+  }
+  
   if (status) where.status = status;
   if (paymentStatus) where.paymentStatus = paymentStatus;
   if (search) {
@@ -257,6 +313,8 @@ async function getAllOrders(req, res) {
     statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : []
   }));
 
+  console.log(`📦 Fetched ${orders.length} orders for business ${req.user.businessId || 'all'}`);
+
   res.json({
     success: true,
     orders: ordersWithParsedHistory,
@@ -269,6 +327,9 @@ async function getAllOrders(req, res) {
   });
 }
 
+// ============================================================================
+// GET ORDER BY ID - WITH TENANT SECURITY
+// ============================================================================
 async function getOrderById(req, res) {
   const order = await prisma.order.findUnique({
     where: { id: Number(req.params.id) },
@@ -281,6 +342,17 @@ async function getOrderById(req, res) {
     throw new Error('Order not found');
   }
 
+  // 🔥 TENANT SECURITY CHECK
+  if (
+    req.user.role !== 'super-admin' &&
+    order.businessId !== req.user.businessId
+  ) {
+    return res.status(403).json({
+      success: false,
+      error: 'You cannot view orders from another business'
+    });
+  }
+
   res.json({ 
     success: true, 
     order: {
@@ -290,6 +362,9 @@ async function getOrderById(req, res) {
   });
 }
 
+// ============================================================================
+// TRACK ORDER (Public) - WITH BUSINESS CONTEXT
+// ============================================================================
 async function trackOrder(req, res) {
   const { orderId } = req.params;
   const { phone } = req.query;
@@ -300,13 +375,23 @@ async function trackOrder(req, res) {
 
   const normalizedPhone = normalizePhone(phone);
   
+  // 🔥 BUSINESS CONTEXT - Get from subdomain or allow all for tracking
+  const businessId = req.businessId;
+  
   console.log('🔍 Tracking order:', orderId, 'for phone:', normalizedPhone);
 
+  const where = {
+    id: Number(orderId),
+    phone: normalizedPhone,
+  };
+  
+  // If business context available, scope to that business
+  if (businessId) {
+    where.businessId = businessId;
+  }
+
   const order = await prisma.order.findFirst({
-    where: {
-      id: Number(orderId),
-      phone: normalizedPhone,
-    },
+    where,
     include: {
       items: { include: { product: { select: { name: true, imageUrl: true } } } },
     },
@@ -325,6 +410,9 @@ async function trackOrder(req, res) {
   });
 }
 
+// ============================================================================
+// DELETE ORDER - WITH TENANT SECURITY
+// ============================================================================
 async function deleteOrder(req, res) {
   const order = await prisma.order.findUnique({
     where: { id: Number(req.params.id) },
@@ -335,6 +423,18 @@ async function deleteOrder(req, res) {
     throw new Error('Order not found');
   }
 
+  // 🔥 TENANT SECURITY CHECK
+  if (
+    req.user.role !== 'super-admin' &&
+    order.businessId !== req.user.businessId
+  ) {
+    return res.status(403).json({
+      success: false,
+      error: 'You cannot delete orders from another business'
+    });
+  }
+
+  // Restore stock if payment was pending
   if (order.paymentStatus === 'PENDING') {
     for (const item of order.items) {
       await prisma.product.update({

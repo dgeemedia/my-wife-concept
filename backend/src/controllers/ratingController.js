@@ -33,7 +33,16 @@ async function submitRating(req, res) {
   
   // Check if product exists
   const product = await prisma.product.findUnique({
-    where: { id: Number(productId) }
+    where: { id: Number(productId) },
+    include: { 
+      business: {
+        select: {
+          id: true,
+          slug: true,
+          businessName: true
+        }
+      }
+    }
   });
   
   if (!product) {
@@ -42,10 +51,24 @@ async function submitRating(req, res) {
   }
   
   console.log('✅ Product found:', product.name);
+  console.log('   Business:', product.business.businessName, `(${product.business.slug})`);
+  
+  // 🔥 OPTIONAL: Validate product belongs to correct business context
+  // (Only if you're using subdomain middleware that sets req.businessId)
+  if (req.businessId && product.businessId !== req.businessId) {
+    console.log('❌ Product does not belong to current business context');
+    return res.status(403).json({
+      success: false,
+      error: 'Product not available in this business'
+    });
+  }
   
   // Debug: Check all orders for this phone
   const allOrders = await prisma.order.findMany({
-    where: { phone: normalizedPhone },
+    where: { 
+      phone: normalizedPhone,
+      businessId: product.businessId  // 🔥 ADDED: Only orders from this business
+    },
     select: {
       id: true,
       phone: true,
@@ -63,7 +86,7 @@ async function submitRating(req, res) {
     }
   });
   
-  console.log(`📦 Found ${allOrders.length} order(s) for this phone number`);
+  console.log(`📦 Found ${allOrders.length} order(s) for this phone number in business ${product.businessId}`);
   
   if (allOrders.length > 0) {
     allOrders.forEach((order, index) => {
@@ -82,8 +105,9 @@ async function submitRating(req, res) {
       productId: Number(productId),
       order: {
         phone: normalizedPhone,
-        paymentStatus: 'CONFIRMED',  // ⭐ Must be paid
-        status: 'DELIVERED'           // ⭐ Must be delivered
+        businessId: product.businessId,  // 🔥 ADDED: Same business
+        paymentStatus: 'CONFIRMED',      // ⭐ Must be paid
+        status: 'DELIVERED'               // ⭐ Must be delivered
       }
     },
     include: {
@@ -93,6 +117,7 @@ async function submitRating(req, res) {
           phone: true,
           status: true,
           paymentStatus: true,
+          businessId: true,
           createdAt: true
         }
       }
@@ -104,8 +129,9 @@ async function submitRating(req, res) {
     console.log('   Order ID:', hasOrdered.order.id);
     console.log('   Status:', hasOrdered.order.status);
     console.log('   Payment:', hasOrdered.order.paymentStatus);
+    console.log('   Business ID:', hasOrdered.order.businessId);
   } else {
-    console.log('❌ No eligible order found (must be DELIVERED with CONFIRMED payment)');
+    console.log('❌ No eligible order found (must be DELIVERED with CONFIRMED payment from same business)');
   }
   
   if (!hasOrdered) {
@@ -118,6 +144,7 @@ async function submitRating(req, res) {
     let debugInfo = {
       normalizedPhone,
       productId: Number(productId),
+      businessId: product.businessId,
       totalOrders: allOrders.length,
       hasOrderedProduct: hasAnyOrder,
     };
@@ -192,6 +219,23 @@ async function getProductRatings(req, res) {
   
   console.log(`📊 Fetching ratings for product ${productId}`);
   
+  // 🔥 OPTIONAL: Verify product belongs to correct business
+  if (req.businessId) {
+    const product = await prisma.product.findFirst({
+      where: { 
+        id: Number(productId),
+        businessId: req.businessId
+      }
+    });
+    
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        error: 'Product not found in this business'
+      });
+    }
+  }
+  
   const [ratings, total, stats] = await Promise.all([
     prisma.productRating.findMany({
       where: { productId: Number(productId) },
@@ -252,12 +296,38 @@ async function canRate(req, res) {
   console.log('   Product ID:', productId);
   console.log('   Normalized phone:', normalizedPhone);
   
+  // Get product with business info
+  const product = await prisma.product.findUnique({
+    where: { id: Number(productId) },
+    select: { 
+      id: true, 
+      businessId: true,
+      name: true
+    }
+  });
+  
+  if (!product) {
+    throw new Error('Product not found');
+  }
+  
+  // 🔥 OPTIONAL: Validate business context
+  if (req.businessId && product.businessId !== req.businessId) {
+    return res.json({
+      success: true,
+      canRate: false,
+      hasRated: false,
+      rating: null,
+      reason: 'Product not available in this business'
+    });
+  }
+  
   // Check if has ordered and delivered with confirmed payment
   const hasOrdered = await prisma.orderItem.findFirst({
     where: {
       productId: Number(productId),
       order: {
         phone: normalizedPhone,
+        businessId: product.businessId,  // 🔥 ADDED: Same business
         paymentStatus: 'CONFIRMED',
         status: 'DELIVERED'
       }
@@ -267,7 +337,8 @@ async function canRate(req, res) {
         select: {
           id: true,
           status: true,
-          paymentStatus: true
+          paymentStatus: true,
+          businessId: true
         }
       }
     }
@@ -290,6 +361,7 @@ async function canRate(req, res) {
     console.log('   Order ID:', hasOrdered.order.id);
     console.log('   Order status:', hasOrdered.order.status);
     console.log('   Payment status:', hasOrdered.order.paymentStatus);
+    console.log('   Business ID:', hasOrdered.order.businessId);
   }
   
   res.json({

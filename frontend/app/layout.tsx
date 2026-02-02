@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/components/cart/CartProvider'
 import { Toaster } from 'react-hot-toast'
+import { BusinessProvider } from '@/contexts/BusinessContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,12 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CartProvider>
-          {children}
-          <Toaster 
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
+        
+        <BusinessProvider>
+          <CartProvider>
+            {children}
+            <Toaster 
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
               style: {
                 background: '#363636',
                 color: '#fff',
@@ -47,6 +50,7 @@ export default function RootLayout({
             }}
           />
         </CartProvider>
+      </BusinessProvider>
       </body>
     </html>
   )
