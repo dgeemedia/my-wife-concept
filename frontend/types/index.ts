@@ -96,6 +96,9 @@ export interface BusinessSettings {
   facebookUrl?: string
   instagramUrl?: string
   twitterUrl?: string
+  linkedinUrl?: string      
+  youtubeUrl?: string       
+  tiktokUrl?: string        
   footerText?: string
   footerCopyright?: string
   footerAddress?: string
