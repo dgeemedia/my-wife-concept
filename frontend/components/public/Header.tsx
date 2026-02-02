@@ -89,7 +89,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
           {/* Right side buttons */}
           <div className="flex items-center space-x-2 md:space-x-4">
             <LanguageSwitcher />
-            <ThemeToggle />
+            
             
             {/* Cart Button */}
             <button

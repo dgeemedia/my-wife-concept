@@ -21,8 +21,8 @@ export default function OrdersPage() {
   const [statusFilter, setStatusFilter] = useState<string>('ALL')
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
   const [showModal, setShowModal] = useState(false)
-  const { format, businessCurrency } = useCurrency()
-
+  const { format, currency: businessCurrency } = useCurrency()
+  
   useEffect(() => {
     fetchOrders()
   }, [])
