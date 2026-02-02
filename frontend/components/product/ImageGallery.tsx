@@ -21,9 +21,9 @@ export default function ImageGallery({
   const { t } = useTranslation()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({})
-  const [imageError, setImageError] = useState<Record<number, boolean>>({})
-  const imageRefs = useRef<Record<number, boolean>>({})
+  const [imageLoaded, setImageLoaded] = useState<Record<string, boolean>>({})
+  const [imageError, setImageError] = useState<Record<string, boolean>>({})
+  const imageRefs = useRef<Record<string, boolean>>({})
 
   // Auto-rotation effect
   useEffect(() => {
