@@ -22,7 +22,7 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
   const [showModal, setShowModal] = useState(false)
   const { format, currency: businessCurrency } = useCurrency()
-  
+
   useEffect(() => {
     fetchOrders()
   }, [])
@@ -357,8 +357,8 @@ function OrderDetailsModal({
 }) {
   const { t } = useTranslation('dashboard')
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus>(order.status as OrderStatus)
-  const { format, businessCurrency } = useCurrency()
-
+  const { format, currency: businessCurrency } = useCurrency()
+  
   const statusOptions: OrderStatus[] = ['PENDING', 'CONFIRMED', 'PREPARING', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED']
 
   const handleStatusUpdate = () => {
