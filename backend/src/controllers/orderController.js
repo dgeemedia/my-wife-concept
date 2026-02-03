@@ -2,6 +2,15 @@
 const prisma = require('../lib/prisma');
 const { createNotification } = require('./notificationController');
 
+/**
+ * Resolve businessId with consistent priority:
+ *   1. req.businessId        – subdomain middleware
+ *   2. req.user?.businessId  – logged-in user's own business
+ */
+function resolveBusinessId(req) {
+  return req.businessId || req.user?.businessId || null;
+}
+
 // Helper function to normalize phone numbers
 function normalizePhone(phone) {
   if (!phone) return '';
@@ -20,42 +29,42 @@ async function checkout(req, res) {
 
   // 🔥 BUSINESS CONTEXT - Get from subdomain middleware
   const businessId = req.businessId;
-  
+
   if (!businessId) {
     throw new Error('Business context required. Please access via proper subdomain.');
   }
 
   const normalizedPhone = normalizePhone(phone);
-  
+
   console.log(`📝 Creating order for business ${businessId}, phone:`, normalizedPhone);
 
   let totalAmount = 0;
   const orderItems = [];
   const productUpdates = [];
-  
+
   const productIds = items.map(item => item.productId);
-  
+
   // 🔥 TENANT FILTER - Only get products from this business
   const products = await prisma.product.findMany({
-    where: { 
+    where: {
       id: { in: productIds },
       businessId: businessId  // ✅ CRITICAL SECURITY CHECK
     }
   });
-  
+
   const productMap = new Map(products.map(p => [p.id, p]));
-  
+
   for (const item of items) {
     const product = productMap.get(item.productId);
-    
+
     if (!product) {
       throw new Error(`Product ${item.productId} not found or not available`);
     }
-    
+
     if (product.stock < item.quantity) {
       throw new Error(`Insufficient stock for ${product.name}`);
     }
-    
+
     totalAmount += product.price * item.quantity;
     orderItems.push({
       productId: product.id,
@@ -64,13 +73,13 @@ async function checkout(req, res) {
     });
     productUpdates.push({ id: product.id, quantity: item.quantity });
   }
-  
+
   const statusHistory = JSON.stringify([{
     status: 'PENDING',
     timestamp: new Date().toISOString(),
     notes: 'Order created',
   }]);
-  
+
   const order = await prisma.$transaction(async (tx) => {
     const newOrder = await tx.order.create({
       data: {
@@ -88,7 +97,7 @@ async function checkout(req, res) {
         items: { create: orderItems },
       },
     });
-    
+
     await Promise.all(
       productUpdates.map(({ id, quantity }) =>
         tx.product.update({
@@ -97,7 +106,7 @@ async function checkout(req, res) {
         })
       )
     );
-    
+
     return newOrder;
   }, {
     maxWait: 10000,
@@ -147,10 +156,8 @@ async function confirmPayment(req, res) {
   }
 
   // 🔥 TENANT SECURITY CHECK
-  if (
-    req.user.role !== 'super-admin' &&
-    order.businessId !== req.user.businessId
-  ) {
+  const resolvedBiz = resolveBusinessId(req);
+  if (req.user.role !== 'super-admin' && order.businessId !== resolvedBiz) {
     return res.status(403).json({
       success: false,
       error: 'You cannot manage orders from another business'
@@ -191,8 +198,8 @@ async function confirmPayment(req, res) {
 
   console.log('💰 Payment confirmed for order:', updatedOrder.id);
 
-  res.json({ 
-    success: true, 
+  res.json({
+    success: true,
     order: {
       ...updatedOrder,
       statusHistory: JSON.parse(updatedOrder.statusHistory)
@@ -220,10 +227,8 @@ async function updateOrderStatus(req, res) {
   }
 
   // 🔥 TENANT SECURITY CHECK
-  if (
-    req.user.role !== 'super-admin' &&
-    order.businessId !== req.user.businessId
-  ) {
+  const resolvedBiz = resolveBusinessId(req);
+  if (req.user.role !== 'super-admin' && order.businessId !== resolvedBiz) {
     return res.status(403).json({
       success: false,
       error: 'You cannot manage orders from another business'
@@ -262,8 +267,8 @@ async function updateOrderStatus(req, res) {
 
   console.log(`📦 Order ${updatedOrder.id} status updated to:`, status);
 
-  res.json({ 
-    success: true, 
+  res.json({
+    success: true,
     order: {
       ...updatedOrder,
       statusHistory: JSON.parse(updatedOrder.statusHistory)
@@ -278,12 +283,24 @@ async function getAllOrders(req, res) {
   const { page = 1, limit = 50, status, paymentStatus, search } = req.query;
 
   const where = {};
-  
-  // 🔥 TENANT ISOLATION - Super-admin sees all, others see only their business
-  if (req.user.role !== 'super-admin') {
+
+  // 🔥 TENANT ISOLATION
+  // Priority: subdomain context > user's business > no filter (bare super-admin)
+  if (req.user.role === 'super-admin') {
+    // If super-admin accessed via subdomain, scope to that subdomain's business
+    const subdomainBiz = req.businessId; // from subdomain middleware
+    if (subdomainBiz) {
+      where.businessId = subdomainBiz;
+      console.log(`🔒 Super-admin scoped to business ${subdomainBiz} via subdomain`);
+    } else {
+      console.log(`🌐 Super-admin on bare localhost — no tenant filter (sees all)`);
+    }
+    // else: no filter — super-admin on bare localhost sees all tenants
+  } else {
+    // Admin / staff always scoped to their own business
     where.businessId = req.user.businessId;
   }
-  
+
   if (status) where.status = status;
   if (paymentStatus) where.paymentStatus = paymentStatus;
   if (search) {
@@ -312,7 +329,7 @@ async function getAllOrders(req, res) {
     statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : []
   }));
 
-  console.log(`📦 Fetched ${orders.length} orders for business ${req.user.businessId || 'all'}`);
+  console.log(`📦 Fetched ${orders.length} orders (total: ${total}) for context: ${where.businessId || 'all'}`);
 
   res.json({
     success: true,
@@ -342,18 +359,16 @@ async function getOrderById(req, res) {
   }
 
   // 🔥 TENANT SECURITY CHECK
-  if (
-    req.user.role !== 'super-admin' &&
-    order.businessId !== req.user.businessId
-  ) {
+  const resolvedBiz = resolveBusinessId(req);
+  if (req.user.role !== 'super-admin' && order.businessId !== resolvedBiz) {
     return res.status(403).json({
       success: false,
       error: 'You cannot view orders from another business'
     });
   }
 
-  res.json({ 
-    success: true, 
+  res.json({
+    success: true,
     order: {
       ...order,
       statusHistory: order.statusHistory ? JSON.parse(order.statusHistory) : []
@@ -373,17 +388,17 @@ async function trackOrder(req, res) {
   }
 
   const normalizedPhone = normalizePhone(phone);
-  
+
   // 🔥 BUSINESS CONTEXT - Get from subdomain or allow all for tracking
   const businessId = req.businessId;
-  
+
   console.log('🔍 Tracking order:', orderId, 'for phone:', normalizedPhone);
 
   const where = {
     id: Number(orderId),
     phone: normalizedPhone,
   };
-  
+
   // If business context available, scope to that business
   if (businessId) {
     where.businessId = businessId;
@@ -423,10 +438,8 @@ async function deleteOrder(req, res) {
   }
 
   // 🔥 TENANT SECURITY CHECK
-  if (
-    req.user.role !== 'super-admin' &&
-    order.businessId !== req.user.businessId
-  ) {
+  const resolvedBiz = resolveBusinessId(req);
+  if (req.user.role !== 'super-admin' && order.businessId !== resolvedBiz) {
     return res.status(403).json({
       success: false,
       error: 'You cannot delete orders from another business'

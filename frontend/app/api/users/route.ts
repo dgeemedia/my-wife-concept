@@ -3,53 +3,72 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
 
+function extractBusinessContext(request: NextRequest): string | null {
+  const host = (request.headers.get('host') || '').split(':')[0]
+  const parts = host.split('.')
+
+  if (parts[parts.length - 1] === 'localhost') {
+    return parts.length >= 2 ? parts[0] : null
+  }
+
+  if (parts.length <= 2 || parts[0] === 'www') return null
+  return parts[0]
+}
+
+// GET  /api/users   – list users for the current tenant
+// POST /api/users   – create user
 export async function GET(request: NextRequest) {
   try {
-    const token = request.cookies.get('auth_token')?.value
-    
+    const token        = request.cookies.get('auth_token')?.value
+    const businessSlug = extractBusinessContext(request)
+
+    if (!token) {
+      return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
+    }
+
     const response = await fetch(`${BACKEND_URL}/api/users`, {
+      method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        ...(businessSlug && { 'X-Business-Slug': businessSlug }),
       },
+      cache: 'no-store',
     })
-    
+
     const data = await response.json()
     return NextResponse.json(data, { status: response.status })
   } catch (error) {
-    console.error('[Users API] GET Error:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch users' },
-      { status: 500 }
-    )
+    console.error('Users GET error:', error)
+    return NextResponse.json([], { status: 500 })
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const token = request.cookies.get('auth_token')?.value
+    const token        = request.cookies.get('auth_token')?.value
+    const businessSlug = extractBusinessContext(request)
+
+    if (!token) {
+      return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
+    }
+
     const body = await request.json()
-    
-    console.log('[Users API] Creating user:', body.email)
-    
+
     const response = await fetch(`${BACKEND_URL}/api/users`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        ...(businessSlug && { 'X-Business-Slug': businessSlug }),
       },
       body: JSON.stringify(body),
     })
-    
+
     const data = await response.json()
-    
-    console.log('[Users API] Response:', response.status, data)
-    
     return NextResponse.json(data, { status: response.status })
   } catch (error) {
-    console.error('[Users API] POST Error:', error)
-    return NextResponse.json(
-      { error: 'Failed to create user' },
-      { status: 500 }
-    )
+    console.error('Users POST error:', error)
+    return NextResponse.json({ error: 'Failed to create user' }, { status: 500 })
   }
 }
