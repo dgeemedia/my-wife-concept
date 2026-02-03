@@ -26,61 +26,64 @@ interface BusinessContextType {
 
 const BusinessContext = createContext<BusinessContextType | undefined>(undefined)
 
+/**
+ * Extracts the business slug from window.location.hostname.
+ *
+ * LOCAL DEV
+ *   "houseofqg.localhost"      → "houseofqg"
+ *   "chrenisfarm.localhost"    → "chrenisfarm"
+ *   "localhost"                → null   (root / dashboard)
+ *
+ * PRODUCTION
+ *   "chrenisfarm.mypadifood.com" → "chrenisfarm"
+ *   "mypadifood.com"             → null
+ *   "www.mypadifood.com"         → null
+ */
+function extractSubdomain(): string | null {
+  if (typeof window === 'undefined') return null
+
+  // Strip port  →  "houseofqg.localhost:3000" → "houseofqg.localhost"
+  const host = window.location.hostname.split(':')[0]
+  const parts = host.split('.')
+
+  // ── LOCAL DEV: *.localhost ──────────────────────────────────
+  if (parts[parts.length - 1] === 'localhost') {
+    return parts.length >= 2 ? parts[0] : null
+  }
+
+  // ── PRODUCTION: *.domain.tld ─────────────────────────────────
+  if (parts.length <= 2) return null
+  if (parts[0] === 'www') return null
+
+  return parts[0]
+}
+
 export function BusinessProvider({ children }: { children: ReactNode }) {
   const [business, setBusiness] = useState<Business | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const extractSubdomain = () => {
-    if (typeof window === 'undefined') return null
-    
-    const hostname = window.location.hostname
-    
-    // For local development
-    if (hostname === 'localhost' || hostname.includes('127.0.0.1')) {
-      // Check localStorage or return default for testing
-      return localStorage.getItem('dev-business-slug') || 'chrenisfarm'
-    }
-    
-    // Extract subdomain
-    // Example: chrenisfarm.mypadifood.com -> chrenisfarm
-    const parts = hostname.split('.')
-    
-    // If www.mypadifood.com or mypadifood.com (no subdomain)
-    if (parts.length <= 2 || parts[0] === 'www') {
-      return null
-    }
-    
-    return parts[0]
-  }
-
   const fetchBusiness = async () => {
     try {
       setLoading(true)
       setError(null)
-      
+
       const subdomain = extractSubdomain()
-      
+
       if (!subdomain) {
-        // No subdomain - this is the main landing page
-        // Use default business or don't load business context
+        // Bare "localhost" or root production domain — no tenant context
         setLoading(false)
         return
       }
-      
+
       const response = await fetch(`/api/business/by-slug/${subdomain}`)
-      
+
       if (!response.ok) {
         throw new Error(`Business '${subdomain}' not found`)
       }
-      
+
       const data = await response.json()
       setBusiness(data)
-      
-      // Store in localStorage for dev purposes
-      if (hostname.includes('localhost')) {
-        localStorage.setItem('dev-business-slug', subdomain)
-      }
     } catch (err: any) {
       console.error('Failed to fetch business:', err)
       setError(err.message || 'Failed to load business')
@@ -98,12 +101,12 @@ export function BusinessProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <BusinessContext.Provider 
-      value={{ 
-        business, 
-        loading, 
+    <BusinessContext.Provider
+      value={{
+        business,
+        loading,
         error,
-        refreshBusiness 
+        refreshBusiness
       }}
     >
       {children}
