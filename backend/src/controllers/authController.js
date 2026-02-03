@@ -21,19 +21,36 @@ async function login(req, res) {
     throw new Error('Invalid credentials');
   }
 
+  // ✅ NEW: Prevent admin/staff from logging into wrong subdomain
+  if (user.role !== 'super-admin' && user.businessId) {
+    const currentSubdomainBusinessId = req.businessId; // From subdomain middleware
+    
+    if (currentSubdomainBusinessId && currentSubdomainBusinessId !== user.businessId) {
+      const userBusiness = await prisma.business.findUnique({
+        where: { id: user.businessId },
+        select: { slug: true, businessName: true }
+      });
+      
+      return res.status(403).json({
+        ok: false,
+        error: `Access denied. Please log in at ${userBusiness.slug}.localhost:3000 (${userBusiness.businessName})`
+      });
+    }
+  }
+
   // Update last login
   await prisma.user.update({
     where: { id: user.id },
     data: { lastLogin: new Date() },
   });
 
-  // 🔥 CRITICAL: Include businessId in JWT token
+  // Include businessId in JWT token
   const token = jwt.sign(
     { 
       id: user.id, 
       email: user.email, 
       role: user.role,
-      businessId: user.businessId  // ✅ ADDED
+      businessId: user.businessId
     },
     process.env.JWT_SECRET,
     { expiresIn: '24h' }
@@ -46,7 +63,7 @@ async function login(req, res) {
       id: user.id,
       email: user.email,
       role: user.role,
-      businessId: user.businessId,  // ✅ ADDED
+      businessId: user.businessId,
       firstName: user.firstName,
       lastName: user.lastName,
     },
@@ -60,7 +77,7 @@ async function getCurrentUser(req, res) {
       id: true,
       email: true,
       role: true,
-      businessId: true,  // ✅ ADDED
+      businessId: true,
       firstName: true,
       lastName: true,
       phone: true,
