@@ -1,6 +1,5 @@
 // backend/src/controllers/businessController.js
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../lib/prisma');
 
 // ============================================================================
 // GET BUSINESS BY SLUG (Public - used by frontend subdomain routing)

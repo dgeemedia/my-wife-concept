@@ -1,6 +1,5 @@
 // backend/src/controllers/notificationController.js
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../lib/prisma');
 
 // Get all notifications for a user (excluding archived ones by default)
 async function getNotifications(req, res) {

@@ -1,7 +1,6 @@
 // backend/src/controllers/orderController.js
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('../lib/prisma');
 const { createNotification } = require('./notificationController');
-const prisma = new PrismaClient();
 
 // Helper function to normalize phone numbers
 function normalizePhone(phone) {

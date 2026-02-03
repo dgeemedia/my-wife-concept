@@ -1,4 +1,4 @@
-// backend/src/server.js
+// backend/src/server.js - CORRECTED
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -34,10 +34,6 @@ app.use('/api/business', require('./routes/business'));
 
 // Product routes (admin - authenticated)
 app.use('/api/products', require('./routes/products'));
-
-// Public product routes (with business context from subdomain)
-// If you have a separate public products route, it would go here
-// Otherwise, products route handles both authenticated and public access
 
 // Order routes
 app.use('/api/orders', require('./routes/orders'));
@@ -137,12 +133,16 @@ app.listen(PORT, () => {
 });
 
 // Graceful shutdown
-process.on('SIGTERM', () => {
+process.on('SIGTERM', async () => {
   console.log('👋 SIGTERM received, shutting down gracefully...');
+  const prisma = require('./lib/prisma');
+  await prisma.$disconnect();
   process.exit(0);
 });
 
-process.on('SIGINT', () => {
+process.on('SIGINT', async () => {
   console.log('👋 SIGINT received, shutting down gracefully...');
+  const prisma = require('./lib/prisma');
+  await prisma.$disconnect();
   process.exit(0);
 });

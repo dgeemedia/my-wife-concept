@@ -1,7 +1,6 @@
 // backend/src/controllers/userController.js
 const bcrypt = require('bcrypt');
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require('../lib/prisma');
 
 // ============================================================================
 // GET ALL USERS - WITH TENANT ISOLATION

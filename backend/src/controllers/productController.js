@@ -1,9 +1,5 @@
 // backend/src/controllers/productController.js
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient({
-  log: ['error', 'warn'],
-});
+const prisma = require('../lib/prisma');
 
 // ============================================================================
 // GET ALL PRODUCTS - WITH TENANT ISOLATION
