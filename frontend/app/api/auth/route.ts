@@ -18,16 +18,24 @@ export async function POST(request: NextRequest) {
     
     const data = await response.json()
     
-    if (data.success) {
-      // Set token in response cookie
+    if (data.ok && data.token) {
+      // Set token in response cookie with proper domain settings
       const res = NextResponse.json(data)
-      res.cookies.set('token', data.token, {
+      
+      // ✅ CRITICAL: Set cookie domain to work across all subdomains
+      res.cookies.set('auth_token', data.token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 24 * 7, // 7 days
+        sameSite: 'lax', // Changed from 'strict' to 'lax' for subdomain support
+        maxAge: 60 * 60 * 24, // 24 hours
         path: '/',
+        // For localhost development - don't set domain
+        // For production - set to .yourdomain.com to work across subdomains
+        ...(process.env.NODE_ENV === 'production' && {
+          domain: '.mypadifood.com' // ✅ This allows cookies across all subdomains
+        })
       })
+      
       return res
     }
     
@@ -35,7 +43,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Auth error:', error)
     return NextResponse.json(
-      { success: false, error: 'Authentication failed' },
+      { ok: false, error: 'Authentication failed' },
       { status: 500 }
     )
   }

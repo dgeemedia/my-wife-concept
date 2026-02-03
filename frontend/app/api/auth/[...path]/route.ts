@@ -5,9 +5,6 @@ const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
 
 /**
  * Extracts the business slug from the Host header.
- *   "houseofqg.localhost:3000"   → "houseofqg"
- *   "localhost:3000"             → null
- *   "chrenisfarm.mypadifood.com" → "chrenisfarm"
  */
 function extractBusinessContext(request: NextRequest): string | null {
   const host = (request.headers.get('host') || '').split(':')[0]
@@ -27,10 +24,9 @@ async function handler(
 ) {
   try {
     const path = params.path.join('/')
-    const token = request.cookies.get('auth_token')?.value
+    const token = request.cookies.get('auth_token')?.value // ✅ Consistent cookie name
     const businessSlug = extractBusinessContext(request)
 
-    // ✅ FIX: proxy to /api/auth/ — was incorrectly hitting /api/settings/
     const url = `${BACKEND_URL}/api/auth/${path}`
 
     const options: RequestInit = {
@@ -49,6 +45,22 @@ async function handler(
 
     const response = await fetch(url, options)
     const data = await response.json()
+    
+    // ✅ If this is a login response, set the cookie
+    if (data.ok && data.token && path === 'login') {
+      const res = NextResponse.json(data, { status: response.status })
+      res.cookies.set('auth_token', data.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24, // 24 hours
+        path: '/',
+        ...(process.env.NODE_ENV === 'production' && {
+          domain: '.mypadifood.com'
+        })
+      })
+      return res
+    }
 
     return NextResponse.json(data, { status: response.status })
   } catch (error) {
