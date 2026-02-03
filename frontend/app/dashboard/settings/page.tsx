@@ -153,7 +153,10 @@ export default function SettingsPage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify(settings),
+        body: JSON.stringify({
+          ...settings,
+          businessId: settings.id, // tell the backend WHICH business to update
+        }),
       })
 
       if (!response.ok) {

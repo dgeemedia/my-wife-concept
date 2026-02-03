@@ -129,30 +129,49 @@ async function getSettings(req, res) {
 // ============================================================================
 async function updateSettings(req, res) {
   try {
-    // Must be authenticated
     if (!req.user) {
       return res.status(401).json({ error: 'Authentication required' });
     }
 
-    const businessId = req.user.businessId;
-    
-    if (!businessId) {
-      return res.status(403).json({ 
-        error: 'No business associated with your account' 
+    // ============================================================
+    // RESOLVE targetBusinessId
+    // Priority: 1) explicit body.businessId  2) subdomain middleware
+    //           3) user's own businessId     4) first business in DB
+    // ============================================================
+    let targetBusinessId = null;
+
+    if (req.body.businessId) {
+      // Explicit businessId in body (super-admin selecting a business)
+      targetBusinessId = Number(req.body.businessId);
+    } else if (req.businessId) {
+      // Subdomain middleware attached it
+      targetBusinessId = req.businessId;
+    } else if (req.user.businessId) {
+      // Normal admin/staff — use their own business
+      targetBusinessId = req.user.businessId;
+    } else {
+      // Super-admin with no explicit target — fall back to first business
+      const firstBusiness = await prisma.business.findFirst();
+      if (firstBusiness) {
+        targetBusinessId = firstBusiness.id;
+      }
+    }
+
+    if (!targetBusinessId) {
+      return res.status(400).json({
+        error: 'Could not determine which business to update. Please specify businessId.'
       });
     }
 
-    // Super-admin can update any business
-    // Admin/staff can only update their own business
-    let targetBusinessId = businessId;
-    
-    if (req.user.role === 'super-admin' && req.body.businessId) {
-      targetBusinessId = req.body.businessId;
+    // Only super-admin can update OTHER businesses
+    if (req.user.role !== 'super-admin' && req.user.businessId !== targetBusinessId) {
+      return res.status(403).json({ error: 'Access denied' });
     }
 
     const updateData = { ...req.body };
-    delete updateData.businessId; // Don't allow changing businessId via this endpoint
-    
+    delete updateData.businessId; // Never overwrite the businessId column itself
+    delete updateData.slug;       // Never change slug via settings
+
     // Stringify JSON fields safely
     if (updateData.supportedLanguages) {
       updateData.supportedLanguages = stringifySupportedLanguages(updateData.supportedLanguages);
@@ -166,13 +185,11 @@ async function updateSettings(req, res) {
       return res.status(404).json({ error: 'Business not found' });
     }
 
-    // Update business
     settings = await prisma.business.update({
       where: { id: targetBusinessId },
       data: updateData,
     });
 
-    // Parse JSON fields for response
     const parsedSettings = {
       ...settings,
       supportedLanguages: parseSupportedLanguages(settings.supportedLanguages)
@@ -183,10 +200,10 @@ async function updateSettings(req, res) {
     res.json({ ok: true, settings: parsedSettings });
   } catch (error) {
     console.error('❌ Error updating settings:', error);
-    res.status(500).json({ 
-      ok: false, 
+    res.status(500).json({
+      ok: false,
       error: 'Failed to update settings',
-      details: error.message 
+      details: error.message
     });
   }
 }

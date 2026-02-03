@@ -279,6 +279,11 @@ export default function EditProductPage() {
       }
 
       if (productId === 'new') {
+        // Fetch the current settings to resolve which business we're in
+        const settingsRes = await fetch('/api/settings', { cache: 'no-store' })
+        const settingsData = await settingsRes.json()
+        productData.businessId = settingsData.id  // business ID from settings
+
         await api.post('/products', productData)
         toast.success(t('messages.success.created'))
       } else {

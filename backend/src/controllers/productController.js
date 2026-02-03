@@ -125,7 +125,17 @@ async function createProduct(req, res) {
   
   // Super-admin can optionally specify businessId
   if (req.user.role === 'super-admin' && req.body.businessId) {
-    businessId = req.body.businessId;
+    businessId = Number(req.body.businessId);
+  }
+  
+  // Super-admin fallback: use subdomain context, then first business
+  if (!businessId && req.user.role === 'super-admin') {
+    if (req.businessId) {
+      businessId = req.businessId; // from subdomain middleware
+    } else {
+      const firstBusiness = await prisma.business.findFirst();
+      if (firstBusiness) businessId = firstBusiness.id;
+    }
   }
   
   if (!businessId) {
