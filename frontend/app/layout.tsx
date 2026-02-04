@@ -2,15 +2,15 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { CartProvider } from '@/components/cart/CartProvider'
-import { Toaster } from 'react-hot-toast'
 import { BusinessProvider } from '@/contexts/BusinessContext'
+import { Toaster } from 'react-hot-toast'
+import { CartProvider } from '@/components/cart/CartProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'MyPadiFood - Fresh Meals Delivered',
-  description: 'Order delicious meals and get them delivered to your doorstep',
+  title: 'MyPadiFood - Multi-Business Platform',
+  description: 'Manage multiple businesses from one platform',
 }
 
 export default function RootLayout({
@@ -21,11 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        
         <BusinessProvider>
-          <CartProvider>
-            {children}
-            <Toaster 
+          <CartProvider>  
+          {children}
+          <Toaster 
               position="top-right"
               toastOptions={{
                 duration: 4000,
@@ -49,8 +48,9 @@ export default function RootLayout({
               },
             }}
           />
-        </CartProvider>
-      </BusinessProvider>
+          </CartProvider>
+        </BusinessProvider>
+        
       </body>
     </html>
   )

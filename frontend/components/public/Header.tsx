@@ -21,12 +21,9 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
   const { itemCount, openCart } = useCart()
   const { t } = useTranslation()
 
-  // Function to open WhatsApp widget
   const openWhatsAppWidget = (e: React.MouseEvent) => {
     e.preventDefault()
-    // Dispatch custom event to open WhatsApp widget
     window.dispatchEvent(new CustomEvent('open-whatsapp-widget'))
-    // Close mobile menu if open
     setMenuOpen(false)
   }
 
@@ -75,7 +72,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
               {t('header.support')}
             </button>
             <Link 
-              href="/dashboard/login" 
+              href="/dashboard/login"
               className="px-4 py-1 rounded-lg font-medium border transition-colors"
               style={{
                 color: primaryColor || 'var(--color-primary, #10B981)',
@@ -89,7 +86,6 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
           {/* Right side buttons */}
           <div className="flex items-center space-x-2 md:space-x-4">
             <LanguageSwitcher />
-            
             
             {/* Cart Button */}
             <button
@@ -151,7 +147,7 @@ export default function Header({ businessName = 'MyPadiFood', logo, primaryColor
                 {t('header.support')}
               </button>
               <Link 
-                href="/dashboard/login" 
+                href="/dashboard/login"
                 className="px-4 py-2 rounded-lg font-medium border text-center"
                 onClick={() => setMenuOpen(false)}
                 style={{

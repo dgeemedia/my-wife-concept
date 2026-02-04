@@ -1,9 +1,10 @@
-// components/public/WhatsAppWidget.tsx
+// frontend/components/public/WhatsAppWidget.tsx
 'use client'
 
 import { useState, useEffect } from 'react'
 import { MessageCircle, X, Send, HelpCircle, Package, Phone } from 'lucide-react'
 import { useSettings } from '@/contexts/SettingsContext'
+import { useBusiness } from '@/contexts/BusinessContext'
 import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 
@@ -21,7 +22,13 @@ export default function WhatsAppWidget() {
   const [customMessage, setCustomMessage] = useState('')
   const [isVisible, setIsVisible] = useState(false)
   const { settings } = useSettings()
+  const { business } = useBusiness()
   const { t } = useTranslation()
+
+  // ✅ Only show widget if there's a business context (subdomain)
+  if (!business) {
+    return null
+  }
 
   // Show widget after a short delay for smooth entrance
   useEffect(() => {
@@ -78,6 +85,7 @@ export default function WhatsAppWidget() {
   ]
 
   const openWhatsApp = (message: string) => {
+    // ✅ Use business-specific WhatsApp number (from subdomain context)
     const whatsappNumber = settings?.whatsappNumber?.replace(/[^\d]/g, '') || ''
     
     if (!whatsappNumber) {

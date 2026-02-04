@@ -1,4 +1,4 @@
-// frontend/app/(public)/layout.tsx - UPDATED
+// frontend/app/(public)/layout.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -42,8 +42,8 @@ export default function PublicLayout({
     if (!businessLoading && business) {
       fetchSettings()
     } else if (!businessLoading && !business) {
-      // No business context (main landing page)
-      fetchSettings()
+      // No business context - don't fetch settings, just set loading to false
+      setLoading(false)
     }
 
     const handleSettingsUpdate = (event: CustomEvent) => {
@@ -59,12 +59,10 @@ export default function PublicLayout({
 
   const fetchSettings = async () => {
     try {
-      // Settings will automatically use business context from subdomain middleware
       const response = await fetch('/api/settings?' + new Date().getTime(), {
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache',
-          // Pass business slug for local development
           ...(business?.slug && { 'X-Business-Slug': business.slug })
         }
       })
@@ -75,7 +73,6 @@ export default function PublicLayout({
       
       const data = await response.json()
       
-      // Merge business data with settings if available
       const mergedSettings = {
         ...data,
         ...(business && {
@@ -94,7 +91,6 @@ export default function PublicLayout({
     } catch (error) {
       console.error('Error fetching settings:', error)
       
-      // Use business data as fallback if available
       if (business) {
         setSettings({
           businessName: business.businessName,
@@ -107,16 +103,6 @@ export default function PublicLayout({
           secondaryColor: business.secondaryColor || '#F59E0B',
           logo: business.logo || null
         })
-      } else {
-        // Ultimate fallback
-        setSettings({
-          businessName: 'My Business',
-          primaryColor: '#10B981',
-          secondaryColor: '#F59E0B',
-          currency: 'NGN',
-          language: 'en',
-          logo: null
-        })
       }
     } finally {
       setLoading(false)
@@ -128,6 +114,16 @@ export default function PublicLayout({
       applyThemeColors(settings.primaryColor, settings.secondaryColor)
     }
   }, [settings])
+
+  // ✅ NEW: If no business context, render children directly without header/footer
+  // This allows SuperAdminLanding to have its own header/footer
+  if (!businessLoading && !business) {
+    return (
+      <I18nextProvider i18n={i18n}>
+        {children}
+      </I18nextProvider>
+    )
+  }
 
   // Show business error if subdomain not found
   if (businessError) {
@@ -161,6 +157,7 @@ export default function PublicLayout({
     )
   }
 
+  // ✅ Only render Header/Footer/WhatsApp for subdomain businesses
   return (
     <I18nextProvider i18n={i18n}>
       <SettingsProvider>

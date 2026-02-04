@@ -6,6 +6,7 @@ const path = require('path');
 const cron = require('node-cron');
 const { cleanupOldNotifications } = require('./jobs/cleanupNotifications');
 const { extractSubdomain } = require('./middleware/subdomain');
+const onboardingRoutes = require('./routes/onboarding');
 
 const app = express();
 
@@ -55,6 +56,9 @@ app.use('/api', require('./routes/ratings'));
 
 // Language routes
 app.use('/api/language', require('./routes/language'));
+
+// Onboarding routes
+app.use('/api/onboarding', onboardingRoutes);
 
 // ============================================================================
 // HEALTH CHECK
