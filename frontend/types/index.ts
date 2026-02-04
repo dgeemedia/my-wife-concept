@@ -1,5 +1,3 @@
-// frontend/types/index.ts
-
 // ============================================================================
 // CORE BUSINESS MODELS
 // ============================================================================
@@ -43,11 +41,19 @@ export interface Business {
   footerEmail?: string
   footerPhone?: string
   
-  // ✅ NEW: Subscription & Status Management (from Prisma schema)
+  // ✅ Enhanced Subscription & Status Management
   isActive: boolean
   suspendedAt?: string
   suspensionReason?: string
+  
+  // ✅ NEW: Comprehensive Subscription Fields
+  subscriptionPlan?: string  // 'none', 'free_trial', 'monthly', 'annual'
+  subscriptionStartDate?: string
   subscriptionExpiry?: string
+  trialStartDate?: string
+  trialEndsAt?: string
+  lastPaymentDate?: string
+  subscriptionNotes?: string
   
   createdAt: string
   updatedAt: string
@@ -208,7 +214,7 @@ export interface OrderStatusHistory {
 // ============================================================================
 export interface Notification {
   id: number
-  type: 'order' | 'payment' | 'stock' | 'system'
+  type: 'order' | 'payment' | 'stock' | 'system' | 'subscription'
   title: string
   message: string
   link?: string
@@ -341,4 +347,13 @@ export interface DashboardStats {
   pendingRequests?: number
   recentOrders?: Order[]
   lowStockProducts?: Product[]
+  
+  // ✅ NEW: Subscription metrics
+  subscribedBusinesses?: number
+  expiringSoon?: number
+  expiredSubscriptions?: number
+  trialBusinesses?: number
+  monthlySubscribers?: number
+  annualSubscribers?: number
+  revenue?: number
 }

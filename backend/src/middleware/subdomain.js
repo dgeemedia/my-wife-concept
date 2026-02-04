@@ -1,38 +1,22 @@
-// backend/src/middleware/subdomain.js
+// backend/src/middleware/subdomain.js (UPDATED with maintenance mode)
 const prisma = require('../lib/prisma');
+
 /**
  * Extracts the business slug from a raw hostname string.
- *
- * Handles every pattern we need to support:
- *   LOCAL DEV  →  "houseofqg.localhost"       → "houseofqg"
- *                 "chrenisfarm.localhost"      → "chrenisfarm"
- *                 "localhost"                  → null  (no subdomain)
- *   PRODUCTION →  "chrenisfarm.mypadifood.com" → "chrenisfarm"
- *                 "mypadifood.com"            → null  (root / landing)
- *                 "www.mypadifood.com"        → null
- *
- * Port numbers are stripped before parsing so "houseofqg.localhost:3000"
- * works identically to "houseofqg.localhost".
  */
 function parseSlugFromHostname(hostname) {
   if (!hostname) return null;
 
-  // Strip port if present  →  "houseofqg.localhost:3000" → "houseofqg.localhost"
+  // Strip port if present
   const host = hostname.split(':')[0];
-
   const parts = host.split('.');
 
-  // ── LOCAL DEV: *.localhost ──────────────────────────────────────────
-  // parts = ["houseofqg", "localhost"]  →  return "houseofqg"
-  // parts = ["localhost"]               →  return null (bare localhost)
+  // LOCAL DEV: *.localhost
   if (parts[parts.length - 1] === 'localhost') {
     return parts.length >= 2 ? parts[0] : null;
   }
 
-  // ── PRODUCTION: *.domain.tld ────────────────────────────────────────
-  // parts = ["chrenisfarm", "mypadifood", "com"]  →  return "chrenisfarm"
-  // parts = ["mypadifood", "com"]                 →  return null
-  // parts = ["www", "mypadifood", "com"]          →  return null
+  // PRODUCTION: *.domain.tld
   if (parts.length <= 2) return null;
   if (parts[0] === 'www') return null;
 
@@ -41,20 +25,16 @@ function parseSlugFromHostname(hostname) {
 
 /**
  * Middleware to extract and attach business context from subdomain.
- * This runs BEFORE authentication for public routes.
+ * ✅ ENHANCED: Now checks if business is active and returns maintenance mode if suspended
  */
 async function extractSubdomain(req, res, next) {
   try {
     const hostname = req.hostname || req.get('host');
     console.log(`🔍 Extracting subdomain from: ${hostname}`);
 
-    // 1. Allow an explicit override header (useful for tests / curl)
+    // Allow explicit override header
     const headerSlug = req.get('X-Business-Slug');
-
-    // 2. Parse the actual hostname
     const parsedSlug = parseSlugFromHostname(hostname);
-
-    // Header takes priority, then parsed hostname
     const slug = headerSlug || parsedSlug;
 
     if (!slug) {
@@ -63,13 +43,66 @@ async function extractSubdomain(req, res, next) {
     }
 
     const business = await prisma.business.findUnique({
-      where: { slug }
+      where: { slug },
+      select: {
+        id: true,
+        slug: true,
+        businessName: true,
+        isActive: true,
+        suspendedAt: true,
+        suspensionReason: true,
+        subscriptionPlan: true,
+        subscriptionExpiry: true,
+        trialEndsAt: true,
+        whatsappNumber: true,
+        phone: true,
+        email: true,
+        logo: true,
+        primaryColor: true
+      }
     });
 
     if (business) {
-      req.businessId   = business.id;
+      req.businessId = business.id;
       req.businessSlug = business.slug;
-      console.log(`✅ Subdomain resolved: "${slug}" → Business ID ${business.id}`);
+      
+      // ✅ NEW: Check if business is suspended/inactive
+      if (!business.isActive) {
+        console.warn(`⚠️  Business "${slug}" is suspended/inactive`);
+        
+        // Set maintenance mode flag and data
+        req.maintenanceMode = true;
+        req.maintenanceData = {
+          businessName: business.businessName,
+          slug: business.slug,
+          suspensionReason: business.suspensionReason,
+          suspendedAt: business.suspendedAt,
+          whatsappNumber: business.whatsappNumber,
+          phone: business.phone,
+          email: business.email,
+          logo: business.logo,
+          primaryColor: business.primaryColor
+        };
+        
+        // Return maintenance response for API requests
+        if (req.path.startsWith('/api/')) {
+          return res.status(503).json({
+            error: 'Business is currently unavailable',
+            maintenanceMode: true,
+            reason: business.suspensionReason || 'Platform undergoing maintenance',
+            contactSupport: {
+              whatsapp: business.whatsappNumber,
+              phone: business.phone,
+              email: business.email
+            }
+          });
+        }
+        
+        // For regular requests, let Next.js handle the redirect to maintenance page
+        // You'll need to add middleware in Next.js to detect this and redirect
+      }
+      
+      console.log(`✅ Subdomain resolved: "${slug}" → Business ID ${business.id} (${business.isActive ? 'Active' : 'Suspended'})`);
     } else {
       console.warn(`⚠️  No business found for subdomain: "${slug}"`);
     }
@@ -77,12 +110,13 @@ async function extractSubdomain(req, res, next) {
     next();
   } catch (error) {
     console.error('❌ Subdomain extraction error:', error);
-    next(); // Continue even if extraction fails
+    next();
   }
 }
 
 /**
  * Middleware to require business context (for protected routes).
+ * ✅ ENHANCED: Also checks if business is active
  */
 function requireBusiness(req, res, next) {
   if (!req.businessId && !req.user?.businessId) {
@@ -96,11 +130,31 @@ function requireBusiness(req, res, next) {
     req.businessId = req.user.businessId;
   }
 
+  // ✅ NEW: Check if in maintenance mode
+  if (req.maintenanceMode) {
+    return res.status(503).json({
+      error: 'Business is currently unavailable',
+      maintenanceMode: true,
+      reason: req.maintenanceData?.suspensionReason || 'Platform undergoing maintenance'
+    });
+  }
+
+  next();
+}
+
+/**
+ * ✅ NEW: Middleware to allow access even in maintenance mode
+ * Use this for routes that should work even when business is suspended
+ * (e.g., admin routes, status check endpoints)
+ */
+function allowMaintenanceMode(req, res, next) {
+  // Simply skip the maintenance check
   next();
 }
 
 module.exports = {
   extractSubdomain,
   requireBusiness,
-  parseSlugFromHostname // exported so frontend shared-logic tests can reuse if needed
+  allowMaintenanceMode,
+  parseSlugFromHostname
 };

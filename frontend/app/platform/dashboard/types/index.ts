@@ -1,3 +1,4 @@
+// frontend/app/platform/dashboard/types/index.ts
 import { 
   Business as SharedBusiness,
   OnboardingRequest as SharedOnboardingRequest,
@@ -18,12 +19,7 @@ export interface OnboardingRequest extends SharedOnboardingRequest {
 
 // Dashboard-specific business with counts
 export interface DashboardBusiness extends SharedBusiness {
-  // Inherits ALL fields from SharedBusiness including:
-  // - isActive: boolean
-  // - suspendedAt?: string
-  // - suspensionReason?: string
-  // - subscriptionExpiry?: string ✅ Now included!
-  // - ... all other Business fields
+  // Inherits ALL fields from SharedBusiness including all subscription fields
   
   _count?: {
     users: number
@@ -31,10 +27,13 @@ export interface DashboardBusiness extends SharedBusiness {
     orders: number
   }
   
-  // You can add dashboard-specific computed fields here
+  // Dashboard-specific computed fields
   formattedSubscriptionExpiry?: string
+  formattedSubscriptionStart?: string
+  formattedTrialEnd?: string
   isSubscriptionExpiring?: boolean
   daysUntilExpiry?: number
+  subscriptionStatus?: 'trial' | 'trial_expired' | 'active' | 'expiring_soon' | 'expired' | 'none'
 }
 
 // Dashboard-specific stats with additional metrics
@@ -47,10 +46,18 @@ export interface DashboardStats extends SharedDashboardStats {
   revenue?: number
   growthRate?: number
   
-  // ✅ NEW: Subscription metrics
+  // ✅ Enhanced Subscription metrics
   subscribedBusinesses?: number
   expiringSoon?: number
   expiredSubscriptions?: number
+  trialBusinesses?: number
+  monthlySubscribers?: number
+  annualSubscribers?: number
+  
+  // Recent activities
+  recentSubscriptions?: DashboardBusiness[]
+  expiringSubscriptions?: DashboardBusiness[]
+  recentRequests?: OnboardingRequest[]
 }
 
 // ============================================================================
@@ -65,11 +72,15 @@ export interface CreateBusinessFromRequestData {
   businessName: string
   businessType: string
   ownerEmail: string
+  ownerName: string
+  ownerPhone: string
   preferredSlug?: string
   sendWelcomeEmail?: boolean
   temporaryPassword?: string
+  subscriptionPlan?: 'none' | 'free_trial' | 'monthly' | 'annual'
   subscriptionDuration?: number // days
   subscriptionExpiry?: string
+  trialDuration?: number // days (default 14)
 }
 
 // For business status management
@@ -77,7 +88,19 @@ export interface BusinessStatusUpdate {
   businessId: number
   isActive: boolean
   suspensionReason?: string
+  subscriptionPlan?: 'none' | 'free_trial' | 'monthly' | 'annual'
   subscriptionExpiry?: string
+}
+
+// ✅ NEW: For subscription management
+export interface SubscriptionUpdateData {
+  businessId: number
+  plan: 'none' | 'free_trial' | 'monthly' | 'annual'
+  startDate?: string
+  customExpiryDate?: string
+  notes?: string
+  activateBusiness?: boolean
+  trialDuration?: number
 }
 
 // For request filtering
@@ -91,9 +114,10 @@ export interface RequestFilters {
   businessType?: string
 }
 
-// ✅ NEW: For subscription filtering
+// ✅ Enhanced subscription filtering
 export interface SubscriptionFilters {
-  status: 'active' | 'expiring' | 'expired' | 'all'
+  status: 'all' | 'trial' | 'active' | 'expiring' | 'expired' | 'none'
+  plan?: 'all' | 'free_trial' | 'monthly' | 'annual' | 'none'
   daysThreshold?: number
 }
 
@@ -105,24 +129,27 @@ export interface PaginationParams {
   sortOrder?: 'asc' | 'desc'
 }
 
-// For business table data
+// Enhanced business table data with subscription info
 export interface BusinessTableData {
   id: number
   businessName: string
   slug: string
   businessType: string
   status: 'active' | 'suspended'
-  subscriptionStatus: 'active' | 'expiring' | 'expired' | 'none'
+  subscriptionStatus: 'trial' | 'trial_expired' | 'active' | 'expiring_soon' | 'expired' | 'none'
+  subscriptionPlan?: string
+  subscriptionExpiry?: string
+  trialEndsAt?: string
   users: number
   products: number
   orders: number
   createdAt: string
   lastOrder?: string
-  subscriptionExpiry?: string
   daysUntilExpiry?: number
+  trialDaysRemaining?: number
 }
 
-// For request table data
+// Enhanced request table data
 export interface RequestTableData {
   id: number
   businessName: string
@@ -133,6 +160,8 @@ export interface RequestTableData {
   daysOld: number
   businessType: string
   preferredSlug?: string
+  reviewedAt?: string
+  rejectionReason?: string
 }
 
 // Dashboard card metrics
@@ -156,10 +185,10 @@ export interface QuickAction {
   disabled?: boolean
 }
 
-// Modal state
+// Enhanced modal state
 export interface ModalState {
   isOpen: boolean
-  type: 'create-business' | 'suspend-business' | 'reject-request' | 'update-subscription' | null
+  type: 'create-business' | 'suspend-business' | 'reject-request' | 'update-subscription' | 'view-subscription' | null
   data?: any
 }
 
@@ -175,13 +204,14 @@ export interface DashboardToast {
 // Search state
 export interface SearchState {
   query: string
-  field: 'businessName' | 'ownerEmail' | 'ownerPhone' | 'slug' | 'subscriptionStatus'
+  field: 'businessName' | 'ownerEmail' | 'ownerPhone' | 'slug' | 'subscriptionStatus' | 'subscriptionPlan'
 }
 
-// Filter state
+// Enhanced filter state
 export interface FilterState {
   status?: ('active' | 'suspended')[]
-  subscriptionStatus?: ('active' | 'expiring' | 'expired' | 'none')[]
+  subscriptionStatus?: ('trial' | 'trial_expired' | 'active' | 'expiring_soon' | 'expired' | 'none')[]
+  subscriptionPlan?: ('free_trial' | 'monthly' | 'annual' | 'none')[]
   businessType?: string[]
   dateRange?: {
     from: string
@@ -200,6 +230,17 @@ export interface ChartData {
     backgroundColor: string
     borderColor: string
   }[]
+}
+
+// Subscription plan details
+export interface SubscriptionPlanDetails {
+  id: 'free_trial' | 'monthly' | 'annual' | 'none'
+  name: string
+  description: string
+  duration: number // days
+  color: string
+  icon: string
+  features: string[]
 }
 
 // ============================================================================
@@ -223,7 +264,9 @@ export interface CreateBusinessResponse {
   businessId: number
   adminUserId?: number
   temporaryPassword?: string
+  subscriptionPlan?: string
   subscriptionExpiry?: string
+  trialEndsAt?: string
   message: string
 }
 
@@ -232,15 +275,19 @@ export interface BusinessStatusResponse {
   businessId: number
   isActive: boolean
   suspendedAt?: string
+  suspensionReason?: string
   subscriptionExpiry?: string
   message: string
 }
 
-// ✅ NEW: Subscription response
+// Enhanced subscription response
 export interface SubscriptionUpdateResponse {
   success: boolean
   businessId: number
-  subscriptionExpiry: string
+  subscriptionPlan: string
+  subscriptionExpiry?: string
+  trialEndsAt?: string
+  isActive: boolean
   message: string
 }
 
@@ -304,23 +351,87 @@ export interface TableColumn<T> {
 // Re-export the base types for convenience
 export type { SharedBusiness as Business, SharedOnboardingRequest, SharedDashboardStats }
 
-// Helper function to calculate subscription status
-export function getSubscriptionStatus(expiryDate?: string): 'active' | 'expiring' | 'expired' | 'none' {
-  if (!expiryDate) return 'none'
+// Enhanced helper function to calculate subscription status
+export function getSubscriptionStatus(
+  business: DashboardBusiness
+): 'trial' | 'trial_expired' | 'active' | 'expiring_soon' | 'expired' | 'none' {
+  const now = new Date()
   
-  const expiry = new Date(expiryDate)
-  const today = new Date()
-  const thirtyDaysFromNow = new Date()
-  thirtyDaysFromNow.setDate(today.getDate() + 30)
+  // Check for trial
+  if (business.subscriptionPlan === 'free_trial' && business.trialEndsAt) {
+    const trialEnd = new Date(business.trialEndsAt)
+    if (trialEnd > now) {
+      return 'trial'
+    } else {
+      return 'trial_expired'
+    }
+  }
   
-  if (expiry < today) return 'expired'
-  if (expiry <= thirtyDaysFromNow) return 'expiring'
-  return 'active'
+  // Check for subscription expiry
+  if (business.subscriptionExpiry) {
+    const expiry = new Date(business.subscriptionExpiry)
+    const thirtyDaysFromNow = new Date()
+    thirtyDaysFromNow.setDate(now.getDate() + 30)
+    
+    if (expiry < now) {
+      return 'expired'
+    } else if (expiry <= thirtyDaysFromNow) {
+      return 'expiring_soon'
+    } else {
+      return 'active'
+    }
+  }
+  
+  return 'none'
+}
+
+// Helper function to get subscription plan details
+export function getSubscriptionPlanDetails(plan?: string): SubscriptionPlanDetails | null {
+  const plans: Record<string, SubscriptionPlanDetails> = {
+    free_trial: {
+      id: 'free_trial',
+      name: 'Free Trial',
+      description: '14-day trial period',
+      duration: 14,
+      color: 'yellow',
+      icon: 'Clock',
+      features: ['Full access for 14 days', 'All features included', 'No credit card required']
+    },
+    monthly: {
+      id: 'monthly',
+      name: 'Monthly',
+      description: 'Monthly subscription',
+      duration: 30,
+      color: 'blue',
+      icon: 'CreditCard',
+      features: ['Billed monthly', 'Full access', 'Priority support']
+    },
+    annual: {
+      id: 'annual',
+      name: 'Annual',
+      description: 'Annual subscription (save 20%)',
+      duration: 365,
+      color: 'green',
+      icon: 'Calendar',
+      features: ['Billed annually', 'Save 20%', 'Full access', 'Priority support']
+    },
+    none: {
+      id: 'none',
+      name: 'No Plan',
+      description: 'No active subscription',
+      duration: 0,
+      color: 'gray',
+      icon: 'X',
+      features: ['Limited features', 'Basic access only']
+    }
+  }
+  
+  return plan ? plans[plan] || null : null
 }
 
 // Helper function to format expiry date
 export function formatExpiryDate(expiryDate?: string): string {
-  if (!expiryDate) return 'No subscription'
+  if (!expiryDate) return 'No expiry date'
   
   const date = new Date(expiryDate)
   return date.toLocaleDateString('en-US', {
@@ -337,5 +448,15 @@ export function getDaysUntilExpiry(expiryDate?: string): number | null {
   const expiry = new Date(expiryDate)
   const today = new Date()
   const diffTime = expiry.getTime() - today.getTime()
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+}
+
+// Helper function to calculate trial days remaining
+export function getTrialDaysRemaining(trialEndsAt?: string): number | null {
+  if (!trialEndsAt) return null
+  
+  const endDate = new Date(trialEndsAt)
+  const today = new Date()
+  const diffTime = endDate.getTime() - today.getTime()
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 }

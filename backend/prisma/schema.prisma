@@ -1,5 +1,5 @@
 // backend/prisma/schema.prisma
-// Multi-tenant architecture with Business entity
+// Multi-tenant architecture with Business entity and Subscription Management
 
 generator client {
   provider = "prisma-client-js"
@@ -12,7 +12,7 @@ datasource db {
 }
 
 // ============================================================================
-// BUSINESS MODEL (Multi-tenant core)
+// BUSINESS MODEL (Multi-tenant core with Subscription Management)
 // ============================================================================
 model Business {
   id                  Int      @id @default(autoincrement())
@@ -20,11 +20,19 @@ model Business {
   businessName        String
   businessType        String   @default("food")
   
-  // ✅ NEW: Subscription & Status Management
+  // ✅ SUBSCRIPTION & STATUS MANAGEMENT (Enhanced)
   isActive            Boolean  @default(true)
   suspendedAt         DateTime?
   suspensionReason    String?
-  subscriptionExpiry  DateTime?
+  
+  // ✅ NEW: Comprehensive Subscription Fields
+  subscriptionPlan    String   @default("none")  // none, free_trial, monthly, annual
+  subscriptionStartDate DateTime?               // When paid subscription started
+  subscriptionExpiry  DateTime?                 // When subscription expires
+  trialStartDate      DateTime?                 // When free trial started
+  trialEndsAt         DateTime?                 // When 14-day trial ends
+  lastPaymentDate     DateTime?                 // Date of last payment
+  subscriptionNotes   String?                   // Admin notes about subscription
   
   businessMotto       String?
   phone               String
@@ -70,6 +78,10 @@ model Business {
   notifications       Notification[]
   
   @@index([slug])
+  @@index([isActive])
+  @@index([subscriptionExpiry])
+  @@index([subscriptionPlan])
+  @@index([trialEndsAt])
 }
 
 // ============================================================================
@@ -237,7 +249,7 @@ model ProductRating {
 
 model Notification {
   id         Int       @id @default(autoincrement())
-  type       String    // 'order', 'payment', 'stock', 'system'
+  type       String    // 'order', 'payment', 'stock', 'system', 'subscription'
   title      String
   message    String
   link       String?
@@ -280,7 +292,7 @@ model OnboardingRequest {
   description     String?
   preferredSlug   String?
 
-  // ✅ NEW: For storing credentials after approval
+  // For storing credentials after approval
   adminCreated    Boolean   @default(false)
   adminUserId     Int?
   temporaryPassword String?

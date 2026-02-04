@@ -1,6 +1,5 @@
 // backend/src/controllers/businessController.js
 const prisma = require('../lib/prisma');
-
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
@@ -12,6 +11,27 @@ function generatePassword(length = 12) {
     password += charset.charAt(Math.floor(Math.random() * charset.length));
   }
   return password;
+}
+
+// Helper function for calculating expiry dates
+function calculateExpiryDate(startDate, plan) {
+  const date = new Date(startDate);
+  
+  switch (plan) {
+    case 'monthly':
+      date.setDate(date.getDate() + 30);
+      break;
+    case 'annual':
+      date.setDate(date.getDate() + 365);
+      break;
+    case 'free_trial':
+      date.setDate(date.getDate() + 14);
+      break;
+    default:
+      return null;
+  }
+  
+  return date;
 }
 
 // ============================================================================
@@ -87,7 +107,7 @@ async function getBusiness(req, res) {
 }
 
 // ============================================================================
-// CREATE BUSINESS (Super-admin only)
+// CREATE BUSINESS (Super-admin only) - ENHANCED WITH TRIAL SUPPORT
 // ============================================================================
 async function createBusiness(req, res) {
   if (req.user.role !== 'super-admin') {
@@ -95,18 +115,80 @@ async function createBusiness(req, res) {
   }
   
   const {
+    // ✅ REQUIRED FIELDS
     slug,
     businessName,
     businessType,
     phone,
     whatsappNumber,
-    // ✅ NEW: Admin account details
+    
+    // ✅ ADMIN ACCOUNT DETAILS (Required)
     adminEmail,
     adminFirstName,
     adminLastName,
     adminPhone,
-    ...otherData
+    
+    // ✅ SUBSCRIPTION OPTIONS (Optional)
+    startWithTrial = true,  // Default to starting with trial
+    subscriptionPlan,       // 'monthly', 'annual', or undefined for trial
+    subscriptionExpiry,     // Custom expiry date if provided
+    
+    // ✅ OPTIONAL BUSINESS DETAILS (otherData captures ALL of these)
+    businessMotto,
+    email,
+    address,
+    description,
+    logo,
+    primaryColor,
+    secondaryColor,
+    currency,
+    language,
+    supportedLanguages,
+    autoDetectLanguage,
+    defaultLanguage,
+    facebookUrl,
+    twitterUrl,
+    instagramUrl,
+    youtubeUrl,
+    linkedinUrl,
+    tiktokUrl,
+    footerText,
+    footerCopyright,
+    footerAddress,
+    footerEmail,
+    footerPhone,
+    
+    // ... ANY other fields not explicitly destructured above
+    ...otherData  // This captures everything else not listed above
   } = req.body;
+  
+  // ============================================================================
+  // WHAT IS ...otherData?
+  // ============================================================================
+  // It's a JavaScript "rest parameter" that captures ALL remaining properties 
+  // from req.body that weren't explicitly destructured above.
+  //
+  // Example:
+  // If req.body = {
+  //   slug: 'mybiz',
+  //   businessName: 'My Business',
+  //   phone: '123',
+  //   whatsappNumber: '456',
+  //   adminEmail: 'admin@example.com',
+  //   customField1: 'value1',  ← These go into otherData
+  //   customField2: 'value2'   ← These go into otherData
+  // }
+  //
+  // Then otherData = { customField1: 'value1', customField2: 'value2' }
+  //
+  // When we use ...otherData in the Prisma create:
+  // It spreads these extra fields into the data object.
+  //
+  // This is useful for:
+  // 1. Forward compatibility - if you add new Business fields later
+  // 2. Flexibility - allows passing any valid Business model field
+  // 3. Cleaner code - no need to list every single optional field
+  // ============================================================================
   
   // Validate required fields
   if (!slug || !businessName || !phone || !whatsappNumber) {
@@ -115,7 +197,7 @@ async function createBusiness(req, res) {
     });
   }
 
-  // ✅ Validate admin email is provided
+  // Validate admin email is provided
   if (!adminEmail) {
     return res.status(400).json({ 
       error: 'Admin email is required to create business owner account' 
@@ -141,22 +223,95 @@ async function createBusiness(req, res) {
   }
 
   try {
-    // ✅ Generate random password for admin
+    // Generate random password for admin
     const generatedPassword = generatePassword(12);
     const passwordHash = await bcrypt.hash(generatedPassword, 12);
 
-    // ✅ Create business and admin in a transaction
+    // ✅ Prepare subscription data
+    const now = new Date();
+    let subscriptionData = {
+      isActive: true,
+    };
+    
+    // If specific subscription plan provided, use it
+    if (subscriptionPlan && ['monthly', 'annual'].includes(subscriptionPlan)) {
+      const expiryDate = subscriptionExpiry 
+        ? new Date(subscriptionExpiry)
+        : calculateExpiryDate(now, subscriptionPlan);
+      
+      subscriptionData = {
+        ...subscriptionData,
+        subscriptionPlan,
+        subscriptionStartDate: now,
+        subscriptionExpiry: expiryDate,
+        lastPaymentDate: now
+      };
+    }
+    // Otherwise, start with 14-day trial if requested
+    else if (startWithTrial) {
+      const trialEnd = new Date(now);
+      trialEnd.setDate(trialEnd.getDate() + 14);
+      
+      subscriptionData = {
+        ...subscriptionData,
+        subscriptionPlan: 'free_trial',
+        trialStartDate: now,
+        trialEndsAt: trialEnd
+      };
+    }
+    // No trial, no plan - business starts with 'none'
+    else {
+      subscriptionData.subscriptionPlan = 'none';
+    }
+
+    // ✅ Prepare optional business fields
+    const optionalFields = {};
+    
+    // Add fields only if they're provided
+    if (businessMotto) optionalFields.businessMotto = businessMotto;
+    if (email) optionalFields.email = email;
+    if (address) optionalFields.address = address;
+    if (description) optionalFields.description = description;
+    if (logo) optionalFields.logo = logo;
+    if (primaryColor) optionalFields.primaryColor = primaryColor;
+    if (secondaryColor) optionalFields.secondaryColor = secondaryColor;
+    if (currency) optionalFields.currency = currency;
+    if (language) optionalFields.language = language;
+    if (supportedLanguages) optionalFields.supportedLanguages = supportedLanguages;
+    if (autoDetectLanguage !== undefined) optionalFields.autoDetectLanguage = autoDetectLanguage;
+    if (defaultLanguage) optionalFields.defaultLanguage = defaultLanguage;
+    if (facebookUrl) optionalFields.facebookUrl = facebookUrl;
+    if (twitterUrl) optionalFields.twitterUrl = twitterUrl;
+    if (instagramUrl) optionalFields.instagramUrl = instagramUrl;
+    if (youtubeUrl) optionalFields.youtubeUrl = youtubeUrl;
+    if (linkedinUrl) optionalFields.linkedinUrl = linkedinUrl;
+    if (tiktokUrl) optionalFields.tiktokUrl = tiktokUrl;
+    if (footerText) optionalFields.footerText = footerText;
+    if (footerCopyright) optionalFields.footerCopyright = footerCopyright;
+    if (footerAddress) optionalFields.footerAddress = footerAddress;
+    if (footerEmail) optionalFields.footerEmail = footerEmail;
+    if (footerPhone) optionalFields.footerPhone = footerPhone;
+    
+    // Merge with otherData (in case there are any extra fields)
+    const allOptionalFields = { ...optionalFields, ...otherData };
+
+    // Create business and admin in a transaction
     const result = await prisma.$transaction(async (tx) => {
-      // 1. Create the business
+      // 1. Create the business with all data
       const business = await tx.business.create({
         data: {
+          // Required fields
           slug,
           businessName,
           businessType: businessType || 'food',
           phone,
           whatsappNumber,
-          isActive: true,
-          ...otherData
+          
+          // Subscription data
+          ...subscriptionData,
+          
+          // Optional fields
+          ...allOptionalFields
         }
       });
 
@@ -174,13 +329,32 @@ async function createBusiness(req, res) {
         }
       });
 
+      // 3. Create welcome notification
+      await tx.notification.create({
+        data: {
+          type: 'system',
+          title: 'Welcome to the Platform!',
+          message: subscriptionData.subscriptionPlan === 'free_trial'
+            ? `Your 14-day free trial has started. Enjoy exploring all features!`
+            : `Your business account has been created successfully.`,
+          businessId: business.id,
+          read: false
+        }
+      });
+
       return { business, admin, generatedPassword };
     });
 
     console.log(`✅ Created business: ${result.business.businessName} (${result.business.slug})`);
+    console.log(`   - Subscription: ${result.business.subscriptionPlan}`);
+    if (result.business.subscriptionPlan === 'free_trial') {
+      console.log(`   - Trial ends: ${result.business.trialEndsAt?.toDateString()}`);
+    } else if (result.business.subscriptionExpiry) {
+      console.log(`   - Expires: ${result.business.subscriptionExpiry.toDateString()}`);
+    }
     console.log(`✅ Created admin user: ${result.admin.email} for business ID ${result.business.id}`);
 
-    // ✅ Return business info with admin credentials
+    // Return business info with admin credentials
     res.status(201).json({
       ok: true,
       business: result.business,
@@ -191,6 +365,11 @@ async function createBusiness(req, res) {
         lastName: result.admin.lastName,
         // ✅ IMPORTANT: Return the generated password (only shown once!)
         temporaryPassword: result.generatedPassword
+      },
+      subscription: {
+        plan: result.business.subscriptionPlan,
+        expiresAt: result.business.subscriptionExpiry || result.business.trialEndsAt,
+        isTrial: result.business.subscriptionPlan === 'free_trial'
       },
       message: 'Business and admin account created successfully'
     });
@@ -294,7 +473,9 @@ async function getCurrentBusiness(req, res) {
   res.json(business);
 }
 
-// Toggle business active status (suspend/reactivate)
+// ============================================================================
+// TOGGLE BUSINESS STATUS (Suspend/Reactivate)
+// ============================================================================
 async function toggleBusinessStatus(req, res) {
   if (req.user.role !== 'super-admin') {
     return res.status(403).json({ error: 'Forbidden: Super-admin access required' });
