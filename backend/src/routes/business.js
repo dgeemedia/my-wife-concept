@@ -8,7 +8,8 @@ const {
   createBusiness,
   updateBusiness,
   deleteBusiness,
-  getCurrentBusiness
+  getCurrentBusiness,
+  toggleBusinessStatus
 } = require('../controllers/businessController');
 const { authMiddleware, requireSuperAdmin } = require('../middleware/auth');
 const { asyncHandler } = require('../middleware/errorHandler');
@@ -52,5 +53,7 @@ router.put('/:id', authMiddleware, asyncHandler(updateBusiness));
 // DELETE /api/business/:id
 // Delete business (super-admin only)
 router.delete('/:id', authMiddleware, requireSuperAdmin, asyncHandler(deleteBusiness));
+
+router.post('/:id/toggle-status', authMiddleware, requireSuperAdmin, asyncHandler(toggleBusinessStatus));
 
 module.exports = router;

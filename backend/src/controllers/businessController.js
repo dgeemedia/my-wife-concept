@@ -1,6 +1,19 @@
 // backend/src/controllers/businessController.js
 const prisma = require('../lib/prisma');
 
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+
+// Generate random password
+function generatePassword(length = 12) {
+  const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+  let password = '';
+  for (let i = 0; i < length; i++) {
+    password += charset.charAt(Math.floor(Math.random() * charset.length));
+  }
+  return password;
+}
+
 // ============================================================================
 // GET BUSINESS BY SLUG (Public - used by frontend subdomain routing)
 // ============================================================================
@@ -87,6 +100,11 @@ async function createBusiness(req, res) {
     businessType,
     phone,
     whatsappNumber,
+    // ✅ NEW: Admin account details
+    adminEmail,
+    adminFirstName,
+    adminLastName,
+    adminPhone,
     ...otherData
   } = req.body;
   
@@ -94,6 +112,13 @@ async function createBusiness(req, res) {
   if (!slug || !businessName || !phone || !whatsappNumber) {
     return res.status(400).json({ 
       error: 'slug, businessName, phone, and whatsappNumber are required' 
+    });
+  }
+
+  // ✅ Validate admin email is provided
+  if (!adminEmail) {
+    return res.status(400).json({ 
+      error: 'Admin email is required to create business owner account' 
     });
   }
   
@@ -105,21 +130,77 @@ async function createBusiness(req, res) {
   if (existing) {
     return res.status(400).json({ error: 'Business with this slug already exists' });
   }
-  
-  const business = await prisma.business.create({
-    data: {
-      slug,
-      businessName,
-      businessType: businessType || 'food',
-      phone,
-      whatsappNumber,
-      ...otherData
-    }
+
+  // Check if admin email already exists
+  const existingUser = await prisma.user.findUnique({
+    where: { email: adminEmail }
   });
-  
-  console.log(`✅ Created business: ${business.businessName} (${business.slug})`);
-  
-  res.status(201).json(business);
+
+  if (existingUser) {
+    return res.status(400).json({ error: 'A user with this email already exists' });
+  }
+
+  try {
+    // ✅ Generate random password for admin
+    const generatedPassword = generatePassword(12);
+    const passwordHash = await bcrypt.hash(generatedPassword, 12);
+
+    // ✅ Create business and admin in a transaction
+    const result = await prisma.$transaction(async (tx) => {
+      // 1. Create the business
+      const business = await tx.business.create({
+        data: {
+          slug,
+          businessName,
+          businessType: businessType || 'food',
+          phone,
+          whatsappNumber,
+          isActive: true,
+          ...otherData
+        }
+      });
+
+      // 2. Create the admin user for this business
+      const admin = await tx.user.create({
+        data: {
+          email: adminEmail,
+          passwordHash,
+          role: 'admin',
+          firstName: adminFirstName || 'Admin',
+          lastName: adminLastName || '',
+          phone: adminPhone || phone,
+          active: true,
+          businessId: business.id
+        }
+      });
+
+      return { business, admin, generatedPassword };
+    });
+
+    console.log(`✅ Created business: ${result.business.businessName} (${result.business.slug})`);
+    console.log(`✅ Created admin user: ${result.admin.email} for business ID ${result.business.id}`);
+
+    // ✅ Return business info with admin credentials
+    res.status(201).json({
+      ok: true,
+      business: result.business,
+      admin: {
+        id: result.admin.id,
+        email: result.admin.email,
+        firstName: result.admin.firstName,
+        lastName: result.admin.lastName,
+        // ✅ IMPORTANT: Return the generated password (only shown once!)
+        temporaryPassword: result.generatedPassword
+      },
+      message: 'Business and admin account created successfully'
+    });
+  } catch (error) {
+    console.error('❌ Error creating business:', error);
+    res.status(500).json({ 
+      error: 'Failed to create business and admin account',
+      details: error.message 
+    });
+  }
 }
 
 // ============================================================================
@@ -213,6 +294,41 @@ async function getCurrentBusiness(req, res) {
   res.json(business);
 }
 
+// Toggle business active status (suspend/reactivate)
+async function toggleBusinessStatus(req, res) {
+  if (req.user.role !== 'super-admin') {
+    return res.status(403).json({ error: 'Forbidden: Super-admin access required' });
+  }
+  
+  const businessId = Number(req.params.id);
+  const { isActive, suspensionReason } = req.body;
+  
+  const business = await prisma.business.findUnique({
+    where: { id: businessId }
+  });
+  
+  if (!business) {
+    return res.status(404).json({ error: 'Business not found' });
+  }
+  
+  const updated = await prisma.business.update({
+    where: { id: businessId },
+    data: {
+      isActive: isActive,
+      suspendedAt: !isActive ? new Date() : null,
+      suspensionReason: !isActive ? suspensionReason : null
+    }
+  });
+  
+  console.log(`${isActive ? '✅ Reactivated' : '⚠️ Suspended'} business: ${business.businessName}`);
+  
+  res.json({
+    ok: true,
+    message: isActive ? 'Business reactivated' : 'Business suspended',
+    business: updated
+  });
+}
+
 module.exports = {
   getBusinessBySlug,
   getAllBusinesses,
@@ -220,5 +336,6 @@ module.exports = {
   createBusiness,
   updateBusiness,
   deleteBusiness,
-  getCurrentBusiness
+  getCurrentBusiness,
+  toggleBusinessStatus
 };

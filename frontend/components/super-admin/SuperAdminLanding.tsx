@@ -188,10 +188,10 @@ function LandingHeader({ activeView, setActiveView }: any) {
               <span className="hidden sm:inline">Contact Us</span>
             </button>
             <button
-              onClick={() => router.push('/login')}
+              onClick={() => router.push('/platform/login')}
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
-              Admin Login
+              Login
             </button>
           </div>
         </div>
