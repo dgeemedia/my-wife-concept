@@ -746,3 +746,61 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, #2563eb, #7c3aed);
 }
+
+/* Add these styles to your global CSS or component styles */
+
+/* Social Link Hover Effects */
+.social-link {
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
+}
+
+/* X (Twitter) Icon Styles */
+.x-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: fill 0.3s ease;
+}
+
+.x-icon:hover {
+  fill: white;
+}
+
+/* Gradient Animation for Social Links */
+@keyframes socialPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+}
+
+.social-link.animate-pulse {
+  animation: socialPulse 2s infinite;
+}
+
+/* Staggered Animation for Social Links */
+.social-link:nth-child(1) { animation-delay: 0s; }
+.social-link:nth-child(2) { animation-delay: 0.1s; }
+.social-link:nth-child(3) { animation-delay: 0.2s; }
+.social-link:nth-child(4) { animation-delay: 0.3s; }
+.social-link:nth-child(5) { animation-delay: 0.4s; }
+
+/* Social Media Brand Colors on Hover */
+.hover\:bg-facebook:hover { background-color: #1877F2; }
+.hover\:bg-twitter:hover { background-color: #1DA1F2; }
+.hover\:bg-x:hover { background-color: #000000; }
+.hover\:bg-instagram:hover { 
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+.hover\:bg-linkedin:hover { background-color: #0077B5; }
+.hover\:bg-youtube:hover { background-color: #FF0000; }
+
+/* Newsletter Form Focus */
+.newsletter-input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}

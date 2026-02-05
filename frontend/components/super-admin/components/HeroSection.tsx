@@ -2,8 +2,25 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Building2, Store, MessageCircle, ChevronRight, Sparkles, TrendingUp, Users, Globe } from 'lucide-react'
-import FeatureCard from './FeatureCard'
+import { 
+  Globe, 
+  Languages, 
+  DollarSign, 
+  MessageCircle,
+  Star,
+  Zap,
+  ArrowRight,
+  Smartphone,
+  ShoppingBag,
+  Home,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Volume2,
+  Users,
+  CheckCircle,
+  TrendingUp 
+} from 'lucide-react'
 
 interface HeroSectionProps {
   setActiveView: (view: 'businesses' | 'onboarding') => void
@@ -11,270 +28,482 @@ interface HeroSectionProps {
 
 export default function HeroSection({ setActiveView }: HeroSectionProps) {
   const [animate, setAnimate] = useState(false)
-  const [activeDemo, setActiveDemo] = useState(0)
-  
-  const demos = [
-    { title: 'Restaurant Dashboard', color: 'from-orange-500 to-red-500', icon: '🍽️' },
-    { title: 'Retail Store', color: 'from-green-500 to-emerald-500', icon: '🛒' },
-    { title: 'Hotel Booking', color: 'from-blue-500 to-cyan-500', icon: '🏨' },
-    { title: 'Fashion Shop', color: 'from-pink-500 to-rose-500', icon: '👗' },
-  ]
+  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [currentLanguage, setCurrentLanguage] = useState('English')
+  const [currentCurrency, setCurrentCurrency] = useState('USD')
+  const [email, setEmail] = useState('')
+  const [isPlaying, setIsPlaying] = useState(true)
 
   useEffect(() => {
     setAnimate(true)
     
-    // Auto-rotate demos
-    const interval = setInterval(() => {
-      setActiveDemo((prev) => (prev + 1) % demos.length)
-    }, 4000)
+    // Auto-rotate testimonials
+    const testimonialInterval = setInterval(() => {
+      if (isPlaying) {
+        setCurrentTestimonial((prev) => (prev + 1) % 3)
+      }
+    }, 5000)
     
-    return () => clearInterval(interval)
-  }, [demos.length])
+    return () => clearInterval(testimonialInterval)
+  }, [isPlaying])
+
+  const handleQuickStart = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email) {
+      setActiveView('onboarding')
+      localStorage.setItem('prefill_email', email)
+    }
+  }
+
+  const testimonials = [
+    {
+      name: 'Christiana Isola',
+      business: 'Chrenis Farm',
+      industry: 'Agriculture',
+      avatarColor: 'bg-green-100',
+      icon: <ShoppingBag className="w-6 h-6 text-green-600" />,
+      quote: "MyPadiFood's AI-powered translation and multi-currency system helped my farm reach customers in 5 different countries. Sales grew by 300% in just 2 months!",
+      highlight: "AI Skill: Smart product categorization and seasonal demand prediction that optimized my inventory and increased sales.",
+      metrics: "300% growth • 5 countries • 2 months"
+    },
+    {
+      name: 'Regina Olumah',
+      business: 'House of QG',
+      industry: 'Fashion & Clothing',
+      avatarColor: 'bg-purple-100',
+      icon: <Smartphone className="w-6 h-6 text-purple-600" />,
+      quote: "Customers love that they can order in their local language without signing up. My international orders tripled immediately after setting up my store.",
+      highlight: "AI Skill: Fashion trend analysis and automated size recommendations that reduced return rates by 40%.",
+      metrics: "200% increase • 40% fewer returns • 12 languages"
+    },
+    {
+      name: 'Hunsu Mercy',
+      business: 'Mecap Apartment',
+      industry: 'Hospitality',
+      avatarColor: 'bg-blue-100',
+      icon: <Home className="w-6 h-6 text-blue-600" />,
+      quote: "International guests can now book my apartments in their currency and language. WhatsApp integration makes confirmations seamless!",
+      highlight: "AI Skill: Dynamic pricing and availability optimization that increased occupancy rates by 65% year-round.",
+      metrics: "65% occupancy • Instant bookings • Global reach"
+    }
+  ]
+
+  const languages = ['English', 'Español', 'Français', 'Deutsch', '中文', '日本語', '한국어', 'Português', 'العربية']
+  const currencies = ['USD', 'EUR', 'GBP', 'NGN', 'CAD', 'AUD', 'JPY', 'CNY', 'INR']
+
+  const features = [
+    {
+      title: 'Global Language Support',
+      description: 'Set your store language and let customers switch to their preferred language',
+      icon: <Languages className="w-6 h-6 text-blue-600" />
+    },
+    {
+      title: 'Multi-Currency Ready',
+      description: 'Display prices in any currency. Automatic conversion for international customers',
+      icon: <DollarSign className="w-6 h-6 text-green-600" />
+    },
+    {
+      title: 'No Sign-Up Required',
+      description: 'Customers can buy instantly with just their phone number. No registration needed',
+      icon: <Users className="w-6 h-6 text-purple-600" />
+    },
+    {
+      title: 'WhatsApp Integration',
+      description: 'All orders automatically route to your WhatsApp Business for instant follow-up',
+      icon: <MessageCircle className="w-6 h-6 text-green-500" />
+    },
+    {
+      title: 'Phone-Based Reviews',
+      description: 'Customers can rate and review using just their phone number from purchase',
+      icon: <Star className="w-6 h-6 text-amber-600" />
+    },
+    {
+      title: '24-Hour Global Setup',
+      description: 'Launch your international store in under 24 hours. No coding needed',
+      icon: <Zap className="w-6 h-6 text-red-600" />
+    }
+  ]
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        {/* Floating Language Symbols */}
+        <div className="absolute top-20 left-10 w-12 h-12 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full animate-blob"></div>
+        <div className="absolute top-40 right-20 w-16 h-16 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-32 left-1/4 w-14 h-14 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full animate-blob animation-delay-4000"></div>
         
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black_70%,transparent_100%)] opacity-20"></div>
+        {/* Currency Symbols Animation */}
+        <div className="absolute top-1/3 right-1/4 animate-float">
+          <div className="text-2xl opacity-20">€</div>
+        </div>
+        <div className="absolute bottom-1/4 left-1/3 animate-float animation-delay-1000">
+          <div className="text-2xl opacity-20">¥</div>
+        </div>
+        <div className="absolute top-1/2 right-1/3 animate-float animation-delay-1500">
+          <div className="text-2xl opacity-20">£</div>
+        </div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-32">
-        {/* Header with Animation */}
-        <div className="text-center mb-16 space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full text-blue-600 font-medium text-sm animate-fade-in">
-            <Sparkles className="w-4 h-4" />
-            The All-in-One Business Platform
-            <ChevronRight className="w-4 h-4" />
-          </div>
-          
-          <h1 className="text-6xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-            <span className={`block ${animate ? 'animate-slide-up' : 'opacity-0'} transition-all duration-1000`}>
-              Grow Your Business
-            </span>
-            <span className={`block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 ${animate ? 'animate-slide-up animation-delay-300' : 'opacity-0'} transition-all duration-1000 delay-300`}>
-              With MyPadiFood
-            </span>
-          </h1>
-          
-          <p className={`text-2xl text-gray-600 max-w-3xl mx-auto ${animate ? 'animate-fade-in animation-delay-600' : 'opacity-0'} transition-all duration-1000 delay-600`}>
-            Everything you need to start, run, and grow your business online. 
-            Join <span className="font-semibold text-blue-600">1,000+</span> successful businesses already with us.
-          </p>
-
-          {/* Stats */}
-          <div className={`flex flex-wrap justify-center gap-8 mt-10 ${animate ? 'animate-fade-in animation-delay-900' : 'opacity-0'} transition-all duration-1000 delay-900`}>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900">1,000+</div>
-              <div className="text-gray-600">Active Businesses</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900">50,000+</div>
-              <div className="text-gray-600">Monthly Orders</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900">₦500M+</div>
-              <div className="text-gray-600">Revenue Generated</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900">99.9%</div>
-              <div className="text-gray-600">Uptime</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Main CTA with Floating Effect */}
-        <div className={`flex flex-col sm:flex-row justify-center gap-6 mb-20 ${animate ? 'animate-fade-in animation-delay-1200' : 'opacity-0'} transition-all duration-1000 delay-1200`}>
-          <button
-            onClick={() => setActiveView('onboarding')}
-            className="group relative flex items-center justify-center px-10 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 font-semibold text-xl shadow-xl"
+      {/* Language/Currency Selector Demo */}
+      <div className="absolute top-6 right-6 z-20 flex gap-3">
+        <div className="glass rounded-full px-4 py-2 flex items-center gap-2 backdrop-blur-sm">
+          <Languages className="w-4 h-4" />
+          <select 
+            value={currentLanguage}
+            onChange={(e) => setCurrentLanguage(e.target.value)}
+            className="bg-transparent text-sm focus:outline-none"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur group-hover:blur-lg transition-all duration-300"></div>
-            <div className="relative z-10 flex items-center">
-              <Building2 className="w-7 h-7 mr-3 group-hover:animate-bounce" />
-              Start Your Business — Free 14-Day Trial
-              <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
-            </div>
-          </button>
-          
-          <button
-            onClick={() => setActiveView('businesses')}
-            className="group relative flex items-center justify-center px-10 py-5 bg-white text-gray-900 border-2 border-gray-200 rounded-2xl hover:border-blue-400 hover:shadow-xl transition-all duration-300 font-semibold text-xl"
-          >
-            <div className="relative z-10 flex items-center">
-              <Store className="w-7 h-7 mr-3 text-blue-600" />
-              Explore Live Demos
-              <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
-            </div>
-          </button>
+            {languages.map(lang => (
+              <option key={lang} value={lang}>{lang}</option>
+            ))}
+          </select>
         </div>
+        <div className="glass rounded-full px-4 py-2 flex items-center gap-2 backdrop-blur-sm">
+          <DollarSign className="w-4 h-4" />
+          <select 
+            value={currentCurrency}
+            onChange={(e) => setCurrentCurrency(e.target.value)}
+            className="bg-transparent text-sm focus:outline-none"
+          >
+            {currencies.map(curr => (
+              <option key={curr} value={curr}>{curr}</option>
+            ))}
+          </select>
+        </div>
+      </div>
 
-        {/* Interactive Demo Preview */}
-        <div className={`relative mb-20 ${animate ? 'animate-fade-in animation-delay-1500' : 'opacity-0'} transition-all duration-1000 delay-1500`}>
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl blur-3xl"></div>
-          
-          <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-200 overflow-hidden shadow-2xl">
-            <div className="p-6 border-b border-gray-200">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold text-gray-900">Live Demo Preview</h3>
-                <div className="flex gap-2">
-                  {demos.map((demo, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveDemo(index)}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                        activeDemo === index
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {demo.icon} {demo.title}
-                    </button>
-                  ))}
-                </div>
-              </div>
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+          {/* Left Column - Hero Content */}
+          <div className="lg:w-1/2 space-y-8 animate-fade-in">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white font-medium text-sm">
+              <Globe className="w-4 h-4" />
+              Serving Businesses in 50+ Countries
             </div>
             
-            <div className="relative h-[400px] overflow-hidden">
-              {/* Animated Dashboard Preview */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-full max-w-4xl">
-                  {/* Mock Browser Window */}
-                  <div className="bg-gray-100 rounded-t-lg p-4 flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                    <div className="ml-4 text-sm text-gray-600">https://{demos[activeDemo].title.toLowerCase().replace(/\s+/g, '')}.mypadifood.com</div>
-                  </div>
-                  
-                  <div className="bg-white rounded-b-lg shadow-lg overflow-hidden">
-                    <div className={`h-64 bg-gradient-to-br ${demos[activeDemo].color} flex items-center justify-center relative`}>
-                      <div className="text-7xl animate-pulse">{demos[activeDemo].icon}</div>
-                      
-                      {/* Animated Stats Overlay */}
-                      <div className="absolute bottom-4 left-4 right-4 flex justify-between">
-                        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 animate-slide-up">
-                          <TrendingUp className="w-6 h-6 text-green-600 mb-2" />
-                          <div className="text-2xl font-bold">45%</div>
-                          <div className="text-sm text-gray-600">Growth</div>
-                        </div>
-                        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 animate-slide-up animation-delay-200">
-                          <Users className="w-6 h-6 text-blue-600 mb-2" />
-                          <div className="text-2xl font-bold">1.2K</div>
-                          <div className="text-sm text-gray-600">Customers</div>
-                        </div>
-                        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 animate-slide-up animation-delay-400">
-                          <Globe className="w-6 h-6 text-purple-600 mb-2" />
-                          <div className="text-2xl font-bold">24/7</div>
-                          <div className="text-sm text-gray-600">Online</div>
-                        </div>
-                      </div>
+            {/* Main Headline */}
+            <div className="space-y-6">
+              <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+                Your Business,
+                <span className="gradient-text block">
+                  No Language Barrier.
+                </span>
+              </h1>
+              
+              <p className="text-xl text-gray-300">
+                The first truly global commerce platform where customers buy in their language, 
+                with their currency, without signing up. All orders go straight to your WhatsApp.
+              </p>
+            </div>
+
+            {/* Key Features Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {features.map((feature, index) => (
+                <div 
+                  key={index}
+                  className="glass rounded-xl p-4 backdrop-blur-sm border border-white/10 hover-shine transition-all duration-300 hover:scale-[1.02]"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                      {feature.icon}
                     </div>
-                    
-                    <div className="p-6 grid grid-cols-3 gap-4">
-                      {[1, 2, 3].map((i) => (
-                        <div key={i} className="h-4 bg-gray-200 rounded animate-pulse" style={{ animationDelay: `${i * 200}ms` }}></div>
-                      ))}
+                    <div>
+                      <div className="font-semibold text-white">{feature.title}</div>
+                      <div className="text-sm text-gray-400 mt-1">{feature.description}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Quick Start Form */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 shadow-2xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-4">
+                Go Global in 24 Hours
+              </h3>
+              
+              <form onSubmit={handleQuickStart} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Your Business Email
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="yourbusiness@example.com"
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+                >
+                  Start Free Trial
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                
+                <p className="text-xs text-gray-400 text-center">
+                  No credit card • 14-day free trial • Global support 24/7
+                </p>
+              </form>
+            </div>
+          </div>
+
+          {/* Right Column - Testimonials & Demo */}
+          <div className="lg:w-1/2">
+            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+              {/* Testimonial Header */}
+              <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 p-6 border-b border-white/10">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Global Success Stories</h3>
+                    <p className="text-blue-200/80">Real businesses, real results worldwide</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={() => setIsPlaying(!isPlaying)}
+                      className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                    >
+                      {isPlaying ? <Volume2 className="w-4 h-4 text-white" /> : <Play className="w-4 h-4 text-white" />}
+                    </button>
+                    <div className="flex items-center gap-1">
+                      <button 
+                        onClick={() => setCurrentTestimonial((prev) => (prev - 1 + 3) % 3)}
+                        className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                      >
+                        <ChevronLeft className="w-4 h-4 text-white" />
+                      </button>
+                      <button 
+                        onClick={() => setCurrentTestimonial((prev) => (prev + 1) % 3)}
+                        className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                      >
+                        <ChevronRight className="w-4 h-4 text-white" />
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
               
-              {/* Floating Elements */}
-              <div className="absolute top-10 left-10 w-16 h-16 bg-yellow-400/20 rounded-full animate-float"></div>
-              <div className="absolute bottom-20 right-20 w-24 h-24 bg-blue-400/20 rounded-full animate-float animation-delay-1000"></div>
-              <div className="absolute top-32 right-32 w-12 h-12 bg-green-400/20 rounded-full animate-float animation-delay-1500"></div>
+              {/* Testimonial Content */}
+              <div className="p-6">
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className={`transition-all duration-500 ${
+                      currentTestimonial === index ? 'block' : 'hidden'
+                    }`}
+                  >
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className={`w-14 h-14 rounded-xl ${testimonial.avatarColor} flex items-center justify-center`}>
+                        {testimonial.icon}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="text-lg font-bold text-white">{testimonial.name}</h4>
+                          <span className="px-2 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full text-xs font-medium text-blue-200">
+                            {testimonial.business}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-400">{testimonial.industry}</p>
+                        <div className="flex items-center gap-1 mt-2">
+                          {[1,2,3,4,5].map((star) => (
+                            <Star key={star} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <blockquote className="text-lg italic text-gray-300 mb-6 border-l-4 border-blue-500 pl-4 py-2">
+                      "{testimonial.quote}"
+                    </blockquote>
+                    
+                    <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-lg p-4 mb-4">
+                      <div className="flex items-center gap-2 text-sm font-medium text-cyan-300 mb-2">
+                        <Zap className="w-4 h-4" />
+                        AI-Powered Advantage
+                      </div>
+                      <p className="text-sm text-gray-300">{testimonial.highlight}</p>
+                    </div>
+                    
+                    <div className="flex items-center gap-4 text-sm">
+                      <div className="flex items-center gap-2 text-green-400">
+                        <TrendingUp className="w-4 h-4" />
+                        <span>{testimonial.metrics}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                {/* Testimonial Indicators */}
+                <div className="flex items-center justify-center gap-2 mt-6">
+                  {[0,1,2].map((index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentTestimonial(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        currentTestimonial === index 
+                          ? 'w-8 bg-gradient-to-r from-blue-500 to-cyan-500' 
+                          : 'bg-white/30 hover:bg-white/50'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+              
+              {/* Global Stats */}
+              <div className="border-t border-white/10 bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-white">50+</div>
+                    <div className="text-xs text-gray-300">Countries</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-white">24hr</div>
+                    <div className="text-xs text-gray-300">Setup Time</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-white">0</div>
+                    <div className="text-xs text-gray-300">Sign-Up Required</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-white">∞</div>
+                    <div className="text-xs text-gray-300">Languages Supported</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Features Grid with Enhanced Cards */}
-        <div className={`${animate ? 'animate-fade-in animation-delay-1800' : 'opacity-0'} transition-all duration-1000 delay-1800`}>
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-            Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Succeed</span>
-          </h2>
+        {/* How It Works Section */}
+        <div className={`mt-24 ${animate ? 'animate-slide-up' : 'opacity-0'}`}>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Three Steps to Global Commerce
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              From registration to international sales in less than 24 hours
+            </p>
+          </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={<div className="relative">
-                <Building2 className="w-14 h-14 text-blue-600" />
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center animate-pulse">
-                  <span className="text-sm font-bold text-blue-600">∞</span>
-                </div>
-              </div>}
-              title="Unlimited Businesses"
-              description="Manage multiple businesses from one dashboard. Scale without limits."
-              gradient="from-blue-500/10 to-blue-600/10"
-              features={['Multi-store management', 'Cross-business analytics', 'Unified customer database']}
-            />
+          {/* Steps Timeline */}
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-cyan-500"></div>
             
-            <FeatureCard
-              icon={<div className="relative">
-                <Store className="w-14 h-14 text-green-600" />
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center animate-bounce">
-                  <span className="text-sm font-bold text-green-600">⚡</span>
+            <div className="space-y-12">
+              {[
+                {
+                  step: 1,
+                  title: "Register Your Business",
+                  description: "Create your account with business details. Set your preferred language and currency.",
+                  icon: "🌍",
+                  delay: "300"
+                },
+                {
+                  step: 2,
+                  title: "Add Products & Set Prices",
+                  description: "Upload products in any currency. Customers see prices in their local currency automatically.",
+                  icon: "💰",
+                  delay: "600"
+                },
+                {
+                  step: 3,
+                  title: "Share & Start Selling",
+                  description: "Share your store link. Customers buy without signing up. Orders go to your WhatsApp.",
+                  icon: "📱",
+                  delay: "900"
+                }
+              ].map((stepData) => (
+                <div 
+                  key={stepData.step}
+                  className={`flex items-center justify-center gap-8 animate-slide-up animation-delay-${stepData.delay}`}
+                >
+                  <div className={`w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-2xl z-10 ${
+                    stepData.step % 2 === 0 ? 'order-3' : 'order-1'
+                  }`}>
+                    {stepData.icon}
+                  </div>
+                  
+                  <div className={`glass rounded-2xl p-6 w-96 backdrop-blur-sm border border-white/10 ${
+                    stepData.step % 2 === 0 ? 'order-1 text-right' : 'order-3'
+                  }`}>
+                    <div className="text-sm font-semibold text-blue-400 mb-2">STEP {stepData.step}</div>
+                    <h3 className="text-xl font-bold text-white mb-2">{stepData.title}</h3>
+                    <p className="text-gray-300">{stepData.description}</p>
+                  </div>
                 </div>
-              </div>}
-              title="Easy Onboarding"
-              description="Go live in minutes, not weeks. We handle the technical setup."
-              gradient="from-green-500/10 to-emerald-600/10"
-              features={['One-click setup', 'No coding required', '24/7 expert support']}
-            />
-            
-            <FeatureCard
-              icon={<div className="relative">
-                <MessageCircle className="w-14 h-14 text-purple-600" />
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center animate-ping">
-                  <span className="text-xs font-bold text-purple-600">!</span>
-                </div>
-              </div>}
-              title="24/7 Support"
-              description="Real human support via WhatsApp. Never be stuck again."
-              gradient="from-purple-500/10 to-pink-600/10"
-              features={['Instant WhatsApp support', 'Priority phone support', 'Dedicated account manager']}
-            />
-          </div>
-        </div>
-
-        {/* Trust Indicators */}
-        <div className={`mt-20 text-center ${animate ? 'animate-fade-in animation-delay-2100' : 'opacity-0'} transition-all duration-1000 delay-2100`}>
-          <p className="text-gray-600 mb-8">Trusted by businesses of all sizes</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70">
-            {/* You can replace these with actual logos */}
-            <div className="text-3xl">🏪</div>
-            <div className="text-3xl">🏨</div>
-            <div className="text-3xl">🍕</div>
-            <div className="text-3xl">👗</div>
-            <div className="text-3xl">📱</div>
-            <div className="text-3xl">💊</div>
-          </div>
-        </div>
-
-        {/* Final CTA with Countdown */}
-        <div className={`mt-20 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-pink-600/10 rounded-3xl p-8 text-center backdrop-blur-sm ${animate ? 'animate-fade-in animation-delay-2400' : 'opacity-0'} transition-all duration-1000 delay-2400`}>
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">
-            Ready to Transform Your Business?
-          </h3>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of successful businesses today. Free 14-day trial, no credit card required.
-          </p>
-          <button
-            onClick={() => setActiveView('onboarding')}
-            className="group relative inline-flex items-center px-10 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-bold text-lg shadow-xl"
-          >
-            <Sparkles className="w-6 h-6 mr-3 group-hover:rotate-180 transition-transform duration-300" />
-            Start Free Trial — Limited Time Offer
-            <div className="ml-4 px-3 py-1 bg-white/20 rounded-full text-sm animate-pulse">
-              14 Days Free
+              ))}
             </div>
-          </button>
-          <p className="text-sm text-gray-500 mt-4">
-            No setup fees • Cancel anytime • 30-day money-back guarantee
-          </p>
+          </div>
+          
+          {/* Global Reach Visualization */}
+          <div className="mt-20 glass rounded-3xl p-8 backdrop-blur-sm border border-white/10">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-white mb-2">
+                Worldwide Business Network
+              </h3>
+              <p className="text-gray-300">
+                Join thousands of businesses already selling across borders
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center p-4">
+                <div className="text-3xl font-bold text-blue-400 mb-2">5,000+</div>
+                <div className="text-gray-300">Global Businesses</div>
+              </div>
+              <div className="text-center p-4">
+                <div className="text-3xl font-bold text-green-400 mb-2">150K+</div>
+                <div className="text-gray-300">Monthly Transactions</div>
+              </div>
+              <div className="text-center p-4">
+                <div className="text-3xl font-bold text-purple-400 mb-2">75+</div>
+                <div className="text-gray-300">Languages Used</div>
+              </div>
+              <div className="text-center p-4">
+                <div className="text-3xl font-bold text-cyan-400 mb-2">40+</div>
+                <div className="text-gray-300">Currencies Supported</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Final CTA */}
+          <div className="mt-16 text-center">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full mb-8">
+              <CheckCircle className="w-5 h-5 text-green-400" />
+              <span className="text-white font-medium">No technical skills required</span>
+            </div>
+            
+            <h3 className="text-3xl font-bold text-white mb-6">
+              Ready to Sell to the World?
+            </h3>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <button
+                onClick={() => setActiveView('onboarding')}
+                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                Start Global Free Trial
+              </button>
+              <button
+                onClick={() => setActiveView('businesses')}
+                className="px-8 py-3 glass backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all"
+              >
+                See Live Global Stores
+              </button>
+            </div>
+            
+            <p className="text-gray-400 mt-6 text-sm">
+              Your customers are waiting worldwide. Start selling in their language today.
+            </p>
+          </div>
         </div>
       </div>
     </div>
