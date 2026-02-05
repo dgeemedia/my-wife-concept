@@ -1,7 +1,9 @@
 // frontend/components/super-admin/components/LandingFooter.tsx
 import { Phone, Mail, MessageCircle, Shield } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export default function LandingFooter() {
+  const { t } = useTranslation('landing')
   const currentYear = new Date().getFullYear()
   
   return (
@@ -14,7 +16,7 @@ export default function LandingFooter() {
               <span className="font-bold text-lg">MyPadiFood</span>
             </div>
             <p className="text-gray-400 mb-6">
-              Your trusted multi-business platform. Connecting customers with local businesses.
+              {t('footer.tagline')}
             </p>
             
             {/* Social Links */}
@@ -82,17 +84,17 @@ export default function LandingFooter() {
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
+            <h3 className="font-semibold mb-4">{t('footer.quickLinks.title')}</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Businesses</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Start Your Business</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact Support</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">{t('footer.quickLinks.aboutUs')}</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">{t('footer.quickLinks.businesses')}</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">{t('footer.quickLinks.startBusiness')}</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">{t('footer.quickLinks.contactSupport')}</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Contact</h3>
+            <h3 className="font-semibold mb-4">{t('footer.contact.title')}</h3>
             <ul className="space-y-2 text-gray-400">
               <li className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />
@@ -104,14 +106,14 @@ export default function LandingFooter() {
               </li>
               <li className="flex items-center space-x-2">
                 <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp Support</span>
+                <span>{t('footer.contact.whatsappSupport')}</span>
               </li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>© {currentYear} MyPadiFood. All rights reserved.</p>
+          <p>{t('footer.copyright', { year: currentYear })}</p>
         </div>
       </div>
     </footer>

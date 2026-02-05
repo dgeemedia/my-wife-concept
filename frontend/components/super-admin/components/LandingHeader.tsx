@@ -3,7 +3,9 @@
 
 import { useRouter } from 'next/navigation'
 import { Shield, MessageCircle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { PLATFORM_WHATSAPP } from '../constants/platform'
+import LandingLanguageSwitcher from './LandingLanguageSwitcher'
 
 interface LandingHeaderProps {
   activeView: 'landing' | 'businesses' | 'onboarding'
@@ -12,6 +14,7 @@ interface LandingHeaderProps {
 
 export default function LandingHeader({ activeView, setActiveView }: LandingHeaderProps) {
   const router = useRouter()
+  const { t } = useTranslation('landing')
   
   const handleWhatsApp = () => {
     const message = encodeURIComponent('Hi, I need help with MyPadiFood platform')
@@ -35,35 +38,38 @@ export default function LandingHeader({ activeView, setActiveView }: LandingHead
               onClick={() => setActiveView('landing')}
               className={`${activeView === 'landing' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
             >
-              Home
+              {t('header.home')}
             </button>
             <button
               onClick={() => setActiveView('businesses')}
               className={`${activeView === 'businesses' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
             >
-              Businesses
+              {t('header.businesses')}
             </button>
             <button
               onClick={() => setActiveView('onboarding')}
               className={`${activeView === 'onboarding' ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}
             >
-              Start Your Business
+              {t('header.startBusiness')}
             </button>
           </nav>
 
           <div className="flex items-center space-x-3">
+            {/* Landing-Specific Language Switcher */}
+            <LandingLanguageSwitcher />
+            
             <button
               onClick={handleWhatsApp}
               className="flex items-center space-x-2 px-4 py-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
             >
               <MessageCircle className="w-5 h-5" />
-              <span className="hidden sm:inline">Contact Us</span>
+              <span className="hidden sm:inline">{t('header.contactUs')}</span>
             </button>
             <button
               onClick={() => router.push('/platform/login')}
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
-              Login
+              {t('header.login')}
             </button>
           </div>
         </div>

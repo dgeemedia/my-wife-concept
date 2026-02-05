@@ -1,0 +1,153 @@
+{
+  "header": {
+    "home": "Accueil",
+    "businesses": "Entreprises",
+    "startBusiness": "Démarrez Votre Entreprise",
+    "contactUs": "Contactez-nous",
+    "login": "Connexion"
+  },
+  "footer": {
+    "tagline": "Autonomiser les entreprises du monde entier avec des commandes alimentées par l'IA et un support multilingue",
+    "quickLinks": {
+      "title": "Liens Rapides",
+      "aboutUs": "À Propos",
+      "businesses": "Pour les Entreprises",
+      "startBusiness": "Démarrez Votre Entreprise",
+      "contactSupport": "Support Client"
+    },
+    "contact": {
+      "title": "Contactez-nous",
+      "whatsappSupport": "Support WhatsApp Disponible"
+    },
+    "copyright": "© {{year}} MyPadiFood. Tous droits réservés."
+  },
+  "hero": {
+    "badge": "Plateforme d'Affaires Mondiale",
+    "headline": "Lancez Votre Entreprise",
+    "headlineHighlight": "Partout, Dans N'importe Quelle Langue",
+    "subtitle": "La seule plateforme qui permet aux clients de commander dans leur langue, de payer dans leur devise et de laisser des avis par téléphone - sans téléchargement d'application requis.",
+    "features": {
+      "globalLanguage": {
+        "title": "N'importe Quelle Langue",
+        "description": "Les clients commandent dans leur langue maternelle"
+      },
+      "multiCurrency": {
+        "title": "Multi-Devises",
+        "description": "Acceptez les paiements dans n'importe quelle devise"
+      },
+      "noSignUp": {
+        "title": "Pas d'Inscription",
+        "description": "Les clients commandent instantanément"
+      },
+      "whatsApp": {
+        "title": "Commandes WhatsApp",
+        "description": "Recevez des commandes via WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Avis Téléphoniques",
+        "description": "Collection d'avis vocaux automatisée"
+      },
+      "fastSetup": {
+        "title": "Configuration Rapide",
+        "description": "Lancez en moins de 24 heures"
+      }
+    },
+    "quickStart": {
+      "title": "Commencez Votre Essai Gratuit",
+      "emailLabel": "Email de Votre Entreprise",
+      "emailPlaceholder": "entreprise@exemple.com",
+      "buttonText": "Commencer Gratuitement",
+      "disclaimer": "Aucune carte de crédit requise. Configuration en quelques minutes."
+    }
+  },
+  "testimonials": {
+    "title": "Histoires de Réussite",
+    "subtitle": "Vraies entreprises, vrais résultats",
+    "aiPoweredAdvantage": "Avantage Alimenté par l'IA",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Agriculture",
+      "quote": "Le système de traduction et multi-devises alimenté par l'IA de MyPadiFood a aidé ma ferme à atteindre des clients dans 5 pays différents. Les ventes ont augmenté de 300% en seulement 2 mois!",
+      "highlight": "Compétence IA: Catégorisation intelligente des produits et prédiction de la demande saisonnière qui ont optimisé mon inventaire et augmenté les ventes.",
+      "metrics": "300% de croissance • 5 pays • 2 mois"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Mode & Vêtements",
+      "quote": "Les clients adorent pouvoir commander dans leur langue locale sans s'inscrire. Mes commandes internationales ont triplé immédiatement après la configuration de ma boutique.",
+      "highlight": "Compétence IA: Analyse des tendances de la mode et recommandations de tailles automatisées qui ont réduit les retours de 40%.",
+      "metrics": "200% d'augmentation • 40% moins de retours • 12 langues"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Hôtellerie",
+      "quote": "Les clients internationaux peuvent maintenant réserver mes appartements dans leur devise et leur langue. L'intégration WhatsApp rend les confirmations fluides!",
+      "highlight": "Compétence IA: Tarification dynamique et optimisation de la disponibilité qui ont augmenté les taux d'occupation de 65% toute l'année.",
+      "metrics": "65% d'occupation • Réservations instantanées • Portée mondiale"
+    },
+    "stats": {
+      "countries": "Pays Desservis",
+      "setupTime": "Configuration Moyenne",
+      "signUpRequired": "Inscription Client",
+      "languagesSupported": "Langues"
+    }
+  },
+  "howItWorks": {
+    "title": "Comment Ça Marche",
+    "subtitle": "Lancez votre entreprise mondiale en trois étapes simples",
+    "step1": {
+      "title": "Le Client Sélectionne sa Langue",
+      "description": "Vos clients parcourent votre menu dans leur langue préférée. L'IA traduit instantanément tout - articles du menu, descriptions, prix."
+    },
+    "step2": {
+      "title": "Choisir Leur Devise",
+      "description": "Les clients voient les prix dans leur devise locale. La conversion en temps réel gère automatiquement tous les calculs."
+    },
+    "step3": {
+      "title": "Commander via WhatsApp",
+      "description": "Les commandes arrivent directement sur votre WhatsApp. Aucun téléchargement d'application nécessaire pour vos clients. Simple et instantané."
+    }
+  },
+  "globalReach": {
+    "title": "Conçu pour le Commerce Mondial",
+    "subtitle": "Rejoignez des milliers d'entreprises servant des clients dans le monde entier",
+    "stats": {
+      "businesses": "Entreprises Actives",
+      "transactions": "Transactions Mensuelles",
+      "languagesUsed": "Langues Utilisées",
+      "currenciesSupported": "Devises"
+    }
+  },
+  "finalCta": {
+    "badge": "Rejoignez les entreprises prospères du monde entier",
+    "title": "Prêt à Devenir Mondial?",
+    "primaryButton": "Commencer l'Essai Gratuit",
+    "secondaryButton": "Voir les Histoires de Réussite",
+    "subtitle": "Aucune carte de crédit requise • Configuration en 24 heures • Annulation à tout moment"
+  },
+  "languages": {
+    "en": "Anglais",
+    "es": "Espagnol",
+    "fr": "Français",
+    "de": "Allemand",
+    "zh": "Chinois",
+    "ar": "Arabe",
+    "hi": "Hindi",
+    "pt": "Portugais",
+    "ru": "Russe",
+    "ja": "Japonais",
+    "ko": "Coréen",
+    "it": "Italien",
+    "nl": "Néerlandais",
+    "tr": "Turc",
+    "pl": "Polonais",
+    "vi": "Vietnamien",
+    "th": "Thaï",
+    "id": "Indonésien",
+    "ro": "Roumain",
+    "cs": "Tchèque"
+  }
+}

@@ -2,6 +2,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { 
   Globe, 
   Languages, 
@@ -27,9 +28,9 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ setActiveView }: HeroSectionProps) {
+  const { t, i18n } = useTranslation('landing')
   const [animate, setAnimate] = useState(false)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
-  const [currentLanguage, setCurrentLanguage] = useState('English')
   const [currentCurrency, setCurrentCurrency] = useState('USD')
   const [email, setEmail] = useState('')
   const [isPlaying, setIsPlaying] = useState(true)
@@ -57,69 +58,70 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
 
   const testimonials = [
     {
-      name: 'Christiana Isola',
-      business: 'Chrenis Farm',
-      industry: 'Agriculture',
+      name: t('testimonials.business1.name'),
+      business: t('testimonials.business1.business'),
+      industry: t('testimonials.business1.industry'),
       avatarColor: 'bg-green-100',
       icon: <ShoppingBag className="w-6 h-6 text-green-600" />,
-      quote: "MyPadiFood's AI-powered translation and multi-currency system helped my farm reach customers in 5 different countries. Sales grew by 300% in just 2 months!",
-      highlight: "AI Skill: Smart product categorization and seasonal demand prediction that optimized my inventory and increased sales.",
-      metrics: "300% growth • 5 countries • 2 months"
+      quote: t('testimonials.business1.quote'),
+      highlight: t('testimonials.business1.highlight'),
+      metrics: t('testimonials.business1.metrics')
     },
     {
-      name: 'Regina Olumah',
-      business: 'House of QG',
-      industry: 'Fashion & Clothing',
+      name: t('testimonials.business2.name'),
+      business: t('testimonials.business2.business'),
+      industry: t('testimonials.business2.industry'),
       avatarColor: 'bg-purple-100',
       icon: <Smartphone className="w-6 h-6 text-purple-600" />,
-      quote: "Customers love that they can order in their local language without signing up. My international orders tripled immediately after setting up my store.",
-      highlight: "AI Skill: Fashion trend analysis and automated size recommendations that reduced return rates by 40%.",
-      metrics: "200% increase • 40% fewer returns • 12 languages"
+      quote: t('testimonials.business2.quote'),
+      highlight: t('testimonials.business2.highlight'),
+      metrics: t('testimonials.business2.metrics')
     },
     {
-      name: 'Hunsu Mercy',
-      business: 'Mecap Apartment',
-      industry: 'Hospitality',
+      name: t('testimonials.business3.name'),
+      business: t('testimonials.business3.business'),
+      industry: t('testimonials.business3.industry'),
       avatarColor: 'bg-blue-100',
       icon: <Home className="w-6 h-6 text-blue-600" />,
-      quote: "International guests can now book my apartments in their currency and language. WhatsApp integration makes confirmations seamless!",
-      highlight: "AI Skill: Dynamic pricing and availability optimization that increased occupancy rates by 65% year-round.",
-      metrics: "65% occupancy • Instant bookings • Global reach"
+      quote: t('testimonials.business3.quote'),
+      highlight: t('testimonials.business3.highlight'),
+      metrics: t('testimonials.business3.metrics')
     }
   ]
 
-  const languages = ['English', 'Español', 'Français', 'Deutsch', '中文', '日本語', '한국어', 'Português', 'العربية']
+  // Get languages from translation file
+  const languages = Object.keys(t('languages', { returnObjects: true }))
   const currencies = ['USD', 'EUR', 'GBP', 'NGN', 'CAD', 'AUD', 'JPY', 'CNY', 'INR']
 
   const features = [
     {
-      title: 'Global Language Support',
-      description: 'Set your store language and let customers switch to their preferred language',
+      title: t('hero.features.globalLanguage.title'),
+      description: t('hero.features.globalLanguage.description'),
       icon: <Languages className="w-6 h-6 text-blue-600" />
     },
     {
-      title: 'Multi-Currency Ready',
-      description: 'Display prices in any currency. Automatic conversion for international customers',
+      title: t('hero.features.multiCurrency.title'),
+      description: t('hero.features.multiCurrency.description'),
       icon: <DollarSign className="w-6 h-6 text-green-600" />
     },
     {
-      title: 'No Sign-Up Required',
-      description: 'Customers can buy instantly with just their phone number. No registration needed',
+      title: t('hero.features.noSignUp.title'),
+      description: t('hero.features.noSignUp.description'),
       icon: <Users className="w-6 h-6 text-purple-600" />
     },
     {
-      title: 'WhatsApp Integration',
-      description: 'All orders automatically route to your WhatsApp Business for instant follow-up',
+      title: t('hero.features.whatsApp.title'),
+      description: t('hero.features.whatsApp.description'),
       icon: <MessageCircle className="w-6 h-6 text-green-500" />
     },
     {
-      title: 'Phone-Based Reviews',
-      description: 'Customers can rate and review using just their phone number from purchase',
+      title: t('hero.features.phoneReviews.title'),
+      description: t('hero.features.phoneReviews.description'),
       icon: <Star className="w-6 h-6 text-amber-600" />
     },
     {
-      title: '24-Hour Global Setup',
-      description: 'Launch your international store in under 24 hours. No coding needed',
+      title: t('hero.features.fastSetup.title'),
+      description: t('hero.features.fastSetup.description'),
       icon: <Zap className="w-6 h-6 text-red-600" />
     }
   ]
@@ -145,20 +147,8 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Language/Currency Selector Demo */}
+      {/* Currency Selector Demo (Language is in header now) */}
       <div className="absolute top-6 right-6 z-20 flex gap-3">
-        <div className="glass rounded-full px-4 py-2 flex items-center gap-2 backdrop-blur-sm">
-          <Languages className="w-4 h-4" />
-          <select 
-            value={currentLanguage}
-            onChange={(e) => setCurrentLanguage(e.target.value)}
-            className="bg-transparent text-sm focus:outline-none"
-          >
-            {languages.map(lang => (
-              <option key={lang} value={lang}>{lang}</option>
-            ))}
-          </select>
-        </div>
         <div className="glass rounded-full px-4 py-2 flex items-center gap-2 backdrop-blur-sm">
           <DollarSign className="w-4 h-4" />
           <select 
@@ -181,21 +171,20 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white font-medium text-sm">
               <Globe className="w-4 h-4" />
-              Serving Businesses in 50+ Countries
+              {t('hero.badge')}
             </div>
             
             {/* Main Headline */}
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
-                Your Business,
+                {t('hero.headline')}
                 <span className="gradient-text block">
-                  No Language Barrier.
+                  {t('hero.headlineHighlight')}
                 </span>
               </h1>
               
               <p className="text-xl text-gray-300">
-                The first truly global commerce platform where customers buy in their language, 
-                with their currency, without signing up. All orders go straight to your WhatsApp.
+                {t('hero.subtitle')}
               </p>
             </div>
 
@@ -222,19 +211,19 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
             {/* Quick Start Form */}
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 shadow-2xl p-6">
               <h3 className="text-lg font-semibold text-white mb-4">
-                Go Global in 24 Hours
+                {t('hero.quickStart.title')}
               </h3>
               
               <form onSubmit={handleQuickStart} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Your Business Email
+                    {t('hero.quickStart.emailLabel')}
                   </label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="yourbusiness@example.com"
+                    placeholder={t('hero.quickStart.emailPlaceholder')}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
@@ -244,12 +233,12 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
                 >
-                  Start Free Trial
+                  {t('hero.quickStart.buttonText')}
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 
                 <p className="text-xs text-gray-400 text-center">
-                  No credit card • 14-day free trial • Global support 24/7
+                  {t('hero.quickStart.disclaimer')}
                 </p>
               </form>
             </div>
@@ -262,8 +251,8 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
               <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 p-6 border-b border-white/10">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-white">Global Success Stories</h3>
-                    <p className="text-blue-200/80">Real businesses, real results worldwide</p>
+                    <h3 className="text-xl font-bold text-white">{t('testimonials.title')}</h3>
+                    <p className="text-blue-200/80">{t('testimonials.subtitle')}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <button 
@@ -326,7 +315,7 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
                     <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-lg p-4 mb-4">
                       <div className="flex items-center gap-2 text-sm font-medium text-cyan-300 mb-2">
                         <Zap className="w-4 h-4" />
-                        AI-Powered Advantage
+                        {t('testimonials.aiPoweredAdvantage')}
                       </div>
                       <p className="text-sm text-gray-300">{testimonial.highlight}</p>
                     </div>
@@ -361,19 +350,19 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
                     <div className="text-xl font-bold text-white">50+</div>
-                    <div className="text-xs text-gray-300">Countries</div>
+                    <div className="text-xs text-gray-300">{t('testimonials.stats.countries')}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xl font-bold text-white">24hr</div>
-                    <div className="text-xs text-gray-300">Setup Time</div>
+                    <div className="text-xs text-gray-300">{t('testimonials.stats.setupTime')}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xl font-bold text-white">0</div>
-                    <div className="text-xs text-gray-300">Sign-Up Required</div>
+                    <div className="text-xs text-gray-300">{t('testimonials.stats.signUpRequired')}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xl font-bold text-white">∞</div>
-                    <div className="text-xs text-gray-300">Languages Supported</div>
+                    <div className="text-xs text-gray-300">{t('testimonials.stats.languagesSupported')}</div>
                   </div>
                 </div>
               </div>
@@ -385,10 +374,10 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
         <div className={`mt-24 ${animate ? 'animate-slide-up' : 'opacity-0'}`}>
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Three Steps to Global Commerce
+              {t('howItWorks.title')}
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              From registration to international sales in less than 24 hours
+              {t('howItWorks.subtitle')}
             </p>
           </div>
           
@@ -401,22 +390,22 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
               {[
                 {
                   step: 1,
-                  title: "Register Your Business",
-                  description: "Create your account with business details. Set your preferred language and currency.",
+                  title: t('howItWorks.step1.title'),
+                  description: t('howItWorks.step1.description'),
                   icon: "🌍",
                   delay: "300"
                 },
                 {
                   step: 2,
-                  title: "Add Products & Set Prices",
-                  description: "Upload products in any currency. Customers see prices in their local currency automatically.",
+                  title: t('howItWorks.step2.title'),
+                  description: t('howItWorks.step2.description'),
                   icon: "💰",
                   delay: "600"
                 },
                 {
                   step: 3,
-                  title: "Share & Start Selling",
-                  description: "Share your store link. Customers buy without signing up. Orders go to your WhatsApp.",
+                  title: t('howItWorks.step3.title'),
+                  description: t('howItWorks.step3.description'),
                   icon: "📱",
                   delay: "900"
                 }
@@ -447,29 +436,29 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
           <div className="mt-20 glass rounded-3xl p-8 backdrop-blur-sm border border-white/10">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-white mb-2">
-                Worldwide Business Network
+                {t('globalReach.title')}
               </h3>
               <p className="text-gray-300">
-                Join thousands of businesses already selling across borders
+                {t('globalReach.subtitle')}
               </p>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center p-4">
                 <div className="text-3xl font-bold text-blue-400 mb-2">5,000+</div>
-                <div className="text-gray-300">Global Businesses</div>
+                <div className="text-gray-300">{t('globalReach.stats.businesses')}</div>
               </div>
               <div className="text-center p-4">
                 <div className="text-3xl font-bold text-green-400 mb-2">150K+</div>
-                <div className="text-gray-300">Monthly Transactions</div>
+                <div className="text-gray-300">{t('globalReach.stats.transactions')}</div>
               </div>
               <div className="text-center p-4">
                 <div className="text-3xl font-bold text-purple-400 mb-2">75+</div>
-                <div className="text-gray-300">Languages Used</div>
+                <div className="text-gray-300">{t('globalReach.stats.languagesUsed')}</div>
               </div>
               <div className="text-center p-4">
                 <div className="text-3xl font-bold text-cyan-400 mb-2">40+</div>
-                <div className="text-gray-300">Currencies Supported</div>
+                <div className="text-gray-300">{t('globalReach.stats.currenciesSupported')}</div>
               </div>
             </div>
           </div>
@@ -478,11 +467,11 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
           <div className="mt-16 text-center">
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full mb-8">
               <CheckCircle className="w-5 h-5 text-green-400" />
-              <span className="text-white font-medium">No technical skills required</span>
+              <span className="text-white font-medium">{t('finalCta.badge')}</span>
             </div>
             
             <h3 className="text-3xl font-bold text-white mb-6">
-              Ready to Sell to the World?
+              {t('finalCta.title')}
             </h3>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -490,18 +479,18 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
                 onClick={() => setActiveView('onboarding')}
                 className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl hover:scale-105"
               >
-                Start Global Free Trial
+                {t('finalCta.primaryButton')}
               </button>
               <button
                 onClick={() => setActiveView('businesses')}
                 className="px-8 py-3 glass backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all"
               >
-                See Live Global Stores
+                {t('finalCta.secondaryButton')}
               </button>
             </div>
             
             <p className="text-gray-400 mt-6 text-sm">
-              Your customers are waiting worldwide. Start selling in their language today.
+              {t('finalCta.subtitle')}
             </p>
           </div>
         </div>

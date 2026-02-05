@@ -1,0 +1,153 @@
+{
+  "header": {
+    "home": "Home",
+    "businesses": "Businesses",
+    "startBusiness": "Start Your Business",
+    "contactUs": "Contact Us",
+    "login": "Login"
+  },
+  "footer": {
+    "tagline": "Empowering businesses worldwide with AI-powered ordering and multi-language support",
+    "quickLinks": {
+      "title": "Quick Links",
+      "aboutUs": "About Us",
+      "businesses": "For Businesses",
+      "startBusiness": "Start Your Business",
+      "contactSupport": "Contact Support"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "whatsappSupport": "WhatsApp Support Available"
+    },
+    "copyright": "© {{year}} MyPadiFood. All rights reserved."
+  },
+  "hero": {
+    "badge": "Global Business Platform",
+    "headline": "Launch Your Business",
+    "headlineHighlight": "Anywhere, In Any Language",
+    "subtitle": "The only platform that lets customers order in their language, pay in their currency, and review via phone call - no app download required.",
+    "features": {
+      "globalLanguage": {
+        "title": "Any Language",
+        "description": "Customers order in their native language"
+      },
+      "multiCurrency": {
+        "title": "Multi-Currency",
+        "description": "Accept payments in any currency"
+      },
+      "noSignUp": {
+        "title": "No Sign-Up Needed",
+        "description": "Customers order instantly"
+      },
+      "whatsApp": {
+        "title": "WhatsApp Orders",
+        "description": "Receive orders via WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Phone Reviews",
+        "description": "Automated voice review collection"
+      },
+      "fastSetup": {
+        "title": "Quick Setup",
+        "description": "Launch in under 24 hours"
+      }
+    },
+    "quickStart": {
+      "title": "Start Your Free Trial",
+      "emailLabel": "Your Business Email",
+      "emailPlaceholder": "business@example.com",
+      "buttonText": "Get Started Free",
+      "disclaimer": "No credit card required. Setup in minutes."
+    }
+  },
+  "testimonials": {
+    "title": "Success Stories",
+    "subtitle": "Real businesses, real results",
+    "aiPoweredAdvantage": "AI-Powered Advantage",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Agriculture",
+      "quote": "MyPadiFood's AI-powered translation and multi-currency system helped my farm reach customers in 5 different countries. Sales grew by 300% in just 2 months!",
+      "highlight": "AI Skill: Smart product categorization and seasonal demand prediction that optimized my inventory and increased sales.",
+      "metrics": "300% growth • 5 countries • 2 months"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Fashion & Clothing",
+      "quote": "Customers love that they can order in their local language without signing up. My international orders tripled immediately after setting up my store.",
+      "highlight": "AI Skill: Fashion trend analysis and automated size recommendations that reduced return rates by 40%.",
+      "metrics": "200% increase • 40% fewer returns • 12 languages"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Hospitality",
+      "quote": "International guests can now book my apartments in their currency and language. WhatsApp integration makes confirmations seamless!",
+      "highlight": "AI Skill: Dynamic pricing and availability optimization that increased occupancy rates by 65% year-round.",
+      "metrics": "65% occupancy • Instant bookings • Global reach"
+    },
+    "stats": {
+      "countries": "Countries Served",
+      "setupTime": "Average Setup",
+      "signUpRequired": "Customer Sign-up",
+      "languagesSupported": "Languages"
+    }
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "subtitle": "Launch your global business in three simple steps",
+    "step1": {
+      "title": "Customer Selects Language",
+      "description": "Your customers browse your menu in their preferred language. AI instantly translates everything - menu items, descriptions, prices."
+    },
+    "step2": {
+      "title": "Choose Their Currency",
+      "description": "Customers see prices in their local currency. Real-time conversion handles all the calculations automatically."
+    },
+    "step3": {
+      "title": "Order via WhatsApp",
+      "description": "Orders come directly to your WhatsApp. No app downloads needed for your customers. Simple and instant."
+    }
+  },
+  "globalReach": {
+    "title": "Built for Global Commerce",
+    "subtitle": "Join thousands of businesses serving customers worldwide",
+    "stats": {
+      "businesses": "Active Businesses",
+      "transactions": "Monthly Transactions",
+      "languagesUsed": "Languages in Use",
+      "currenciesSupported": "Currencies"
+    }
+  },
+  "finalCta": {
+    "badge": "Join successful businesses worldwide",
+    "title": "Ready to Go Global?",
+    "primaryButton": "Start Free Trial",
+    "secondaryButton": "View Success Stories",
+    "subtitle": "No credit card required • Setup in 24 hours • Cancel anytime"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "de": "German",
+    "zh": "Chinese",
+    "ar": "Arabic",
+    "hi": "Hindi",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "it": "Italian",
+    "nl": "Dutch",
+    "tr": "Turkish",
+    "pl": "Polish",
+    "vi": "Vietnamese",
+    "th": "Thai",
+    "id": "Indonesian",
+    "ro": "Romanian",
+    "cs": "Czech"
+  }
+}

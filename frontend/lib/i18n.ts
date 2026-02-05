@@ -59,7 +59,7 @@ i18n
     debug: process.env.NODE_ENV === 'development',
     
     // UPDATED: Configure namespaces for dashboard translations
-    ns: ['translation', 'dashboard'],
+    ns: ['translation', 'dashboard', 'landing'],
     defaultNS: 'translation',
     
     detection: {
