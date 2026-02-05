@@ -13,7 +13,7 @@
       "aboutUs": "About Us",
       "businesses": "For Businesses",
       "startBusiness": "Start Your Business",
-      "contactSupport": "Contact Support"
+      "successStories": "Success Stories"
     },
     "contact": {
       "title": "Contact Us",
@@ -59,6 +59,42 @@
       "buttonText": "Get Started Free",
       "disclaimer": "No credit card required. Setup in minutes."
     }
+  },
+  "aboutUs": {
+    "title": "About MyPadiFood",
+    "subtitle": "Breaking down language and currency barriers to empower businesses worldwide",
+    "mission": {
+      "title": "Our Mission",
+      "description": "We believe every business, regardless of size or location, deserves access to global customers. MyPadiFood was born from a simple observation: language and currency barriers shouldn't limit a business's potential to serve customers worldwide.",
+      "point1": "Enable businesses to reach customers in any language without the complexity of manual translation",
+      "point2": "Eliminate the friction of currency conversion and international payment processing"
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "We envision a world where a small farm in Nigeria can seamlessly serve customers in Japan, a boutique in Paris can effortlessly ship to Brazil, and a restaurant in Mexico can take orders from customers in India - all without worrying about language barriers or payment complications.",
+      "point1": "Power over 1 million businesses globally by 2030",
+      "point2": "Support commerce in every language and currency worldwide"
+    },
+    "values": {
+      "title": "What Drives Us",
+      "value1": {
+        "title": "Accessibility",
+        "description": "Technology should empower, not complicate. No apps to download, no complex setups."
+      },
+      "value2": {
+        "title": "Innovation",
+        "description": "AI-powered translation and automation that works seamlessly in the background."
+      },
+      "value3": {
+        "title": "Inclusivity",
+        "description": "Every business deserves global reach, regardless of technical expertise or budget."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Success Stories",
+    "subtitle": "Real businesses achieving extraordinary growth with MyPadiFood",
+    "viewMore": "View More Success Stories"
   },
   "testimonials": {
     "title": "Success Stories",
@@ -149,5 +185,25 @@
     "id": "Indonesian",
     "ro": "Romanian",
     "cs": "Czech"
+  },
+  "whatsappWidget": {
+    "title": "Chat with Us",
+    "subtitle": "Platform Support",
+    "selectTopic": "Select a topic to start chatting:",
+    "customMessage": "Start Custom Chat",
+    "opening": "Opening WhatsApp...",
+    "messages": {
+      "generalHelp": "Hi, I need help with MyPadiFood platform",
+      "setupStore": "I want to set up my online store. Can you help me get started?",
+      "pricing": "What are your pricing plans? I'd like to know the costs and features.",
+      "technicalIssue": "I'm experiencing a technical issue with my store. Can you assist?",
+      "multiLanguage": "How does the multi-language translation feature work?",
+      "payments": "I have questions about payment processing and multi-currency support.",
+      "whatsappIntegration": "How do I integrate WhatsApp orders with my store?",
+      "customDomain": "Can I use my own custom domain for my store?",
+      "migration": "I want to migrate my existing business to MyPadiFood. How does it work?",
+      "bulkOrders": "How can I handle bulk orders and wholesale customers?",
+      "custom": "Hi, I have a question about MyPadiFood platform"
+    }
   }
 }

@@ -1,10 +1,47 @@
 // frontend/components/super-admin/components/LandingFooter.tsx
-import { Phone, Mail, MessageCircle, Shield } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
+'use client'
 
-export default function LandingFooter() {
+import { Phone, Mail, MessageCircle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import Image from 'next/image'
+
+interface LandingFooterProps {
+  setActiveView: (view: 'landing' | 'businesses' | 'onboarding') => void
+}
+
+export default function LandingFooter({ setActiveView }: LandingFooterProps) {
   const { t } = useTranslation('landing')
   const currentYear = new Date().getFullYear()
+  
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
+  // About Us -> Hero Section (About Us)
+  const handleAboutUs = () => {
+    setActiveView('landing')
+    setTimeout(() => scrollToSection('about-us'), 100)
+  }
+
+  // For Businesses -> Hero Section (How It Works)
+  const handleBusinesses = () => {
+    setActiveView('landing')
+    setTimeout(() => scrollToSection('how-it-works'), 100)
+  }
+
+  // Start Your Business -> Registration/Onboarding
+  const handleStartBusiness = () => {
+    setActiveView('onboarding')
+  }
+
+  // Success Stories -> Hero Section (Success Stories)
+  const handleSuccessStories = () => {
+    setActiveView('landing')
+    setTimeout(() => scrollToSection('success-stories'), 100)
+  }
   
   return (
     <footer className="bg-gray-900 text-white py-12">
@@ -12,7 +49,13 @@ export default function LandingFooter() {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <Shield className="w-6 h-6" />
+              <Image 
+                src="/logo.svg" 
+                alt="MyPadiFood Logo" 
+                width={24} 
+                height={24}
+                className="w-6 h-6"
+              />
               <span className="font-bold text-lg">MyPadiFood</span>
             </div>
             <p className="text-gray-400 mb-6">
@@ -86,10 +129,38 @@ export default function LandingFooter() {
           <div>
             <h3 className="font-semibold mb-4">{t('footer.quickLinks.title')}</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">{t('footer.quickLinks.aboutUs')}</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">{t('footer.quickLinks.businesses')}</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">{t('footer.quickLinks.startBusiness')}</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">{t('footer.quickLinks.contactSupport')}</a></li>
+              <li>
+                <button 
+                  onClick={handleAboutUs}
+                  className="hover:text-white transition-colors text-left"
+                >
+                  {t('footer.quickLinks.aboutUs')}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={handleBusinesses}
+                  className="hover:text-white transition-colors text-left"
+                >
+                  {t('footer.quickLinks.businesses')}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={handleStartBusiness}
+                  className="hover:text-white transition-colors text-left"
+                >
+                  {t('footer.quickLinks.startBusiness')}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={handleSuccessStories}
+                  className="hover:text-white transition-colors text-left"
+                >
+                  {t('footer.quickLinks.successStories')}
+                </button>
+              </li>
             </ul>
           </div>
           

@@ -20,7 +20,11 @@ import {
   Volume2,
   Users,
   CheckCircle,
-  TrendingUp 
+  TrendingUp,
+  Target,
+  Rocket,
+  Award,
+  Shield
 } from 'lucide-react'
 
 interface HeroSectionProps {
@@ -53,6 +57,13 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
     if (email) {
       setActiveView('onboarding')
       localStorage.setItem('prefill_email', email)
+    }
+  }
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
 
@@ -370,8 +381,136 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
           </div>
         </div>
 
+        {/* About Us Section */}
+        <div id="about-us" className={`mt-24 scroll-mt-20 ${animate ? 'animate-slide-up' : 'opacity-0'}`}>
+          <div className="glass rounded-3xl p-12 backdrop-blur-sm border border-white/10">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                {t('aboutUs.title')}
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                {t('aboutUs.subtitle')}
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-4">{t('aboutUs.mission.title')}</h3>
+                <p className="text-gray-300 leading-relaxed mb-6">
+                  {t('aboutUs.mission.description')}
+                </p>
+                <div className="flex items-start gap-3 mb-4">
+                  <Target className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
+                  <p className="text-gray-300">{t('aboutUs.mission.point1')}</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Rocket className="w-6 h-6 text-purple-400 flex-shrink-0 mt-1" />
+                  <p className="text-gray-300">{t('aboutUs.mission.point2')}</p>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-4">{t('aboutUs.vision.title')}</h3>
+                <p className="text-gray-300 leading-relaxed mb-6">
+                  {t('aboutUs.vision.description')}
+                </p>
+                <div className="flex items-start gap-3 mb-4">
+                  <Award className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
+                  <p className="text-gray-300">{t('aboutUs.vision.point1')}</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Shield className="w-6 h-6 text-cyan-400 flex-shrink-0 mt-1" />
+                  <p className="text-gray-300">{t('aboutUs.vision.point2')}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl p-8">
+              <h3 className="text-2xl font-bold text-white mb-4 text-center">{t('aboutUs.values.title')}</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Globe className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">{t('aboutUs.values.value1.title')}</h4>
+                  <p className="text-sm text-gray-300">{t('aboutUs.values.value1.description')}</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Zap className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">{t('aboutUs.values.value2.title')}</h4>
+                  <p className="text-sm text-gray-300">{t('aboutUs.values.value2.description')}</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Users className="w-6 h-6 text-green-400" />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">{t('aboutUs.values.value3.title')}</h4>
+                  <p className="text-sm text-gray-300">{t('aboutUs.values.value3.description')}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Success Stories Section */}
+        <div id="success-stories" className={`mt-24 scroll-mt-20 ${animate ? 'animate-slide-up' : 'opacity-0'}`}>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              {t('successStories.title')}
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              {t('successStories.subtitle')}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="glass rounded-2xl p-6 backdrop-blur-sm border border-white/10 hover-shine transition-all duration-300 hover:scale-[1.02]">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className={`w-12 h-12 rounded-xl ${testimonial.avatarColor} flex items-center justify-center flex-shrink-0`}>
+                    {testimonial.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-400">{testimonial.business}</p>
+                    <p className="text-xs text-gray-500">{testimonial.industry}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-1 mb-4">
+                  {[1,2,3,4,5].map((star) => (
+                    <Star key={star} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+
+                <p className="text-gray-300 text-sm mb-4 italic">"{testimonial.quote}"</p>
+                
+                <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-lg p-3 mb-3">
+                  <p className="text-xs text-gray-300">{testimonial.highlight}</p>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs text-green-400">
+                  <TrendingUp className="w-3 h-3" />
+                  <span>{testimonial.metrics}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <button
+              onClick={() => scrollToSection('success-stories')}
+              className="px-6 py-3 glass backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all"
+            >
+              {t('successStories.viewMore')}
+            </button>
+          </div>
+        </div>
+
         {/* How It Works Section */}
-        <div className={`mt-24 ${animate ? 'animate-slide-up' : 'opacity-0'}`}>
+        <div id="how-it-works" className={`mt-24 scroll-mt-20 ${animate ? 'animate-slide-up' : 'opacity-0'}`}>
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">
               {t('howItWorks.title')}
@@ -482,7 +621,7 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
                 {t('finalCta.primaryButton')}
               </button>
               <button
-                onClick={() => setActiveView('businesses')}
+                onClick={() => scrollToSection('success-stories')}
                 className="px-8 py-3 glass backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all"
               >
                 {t('finalCta.secondaryButton')}
