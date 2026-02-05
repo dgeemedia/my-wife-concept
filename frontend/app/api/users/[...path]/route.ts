@@ -27,9 +27,22 @@ async function handler(
     }
     
     const response = await fetch(url, options)
-    const data = await response.json()
     
-    return NextResponse.json(data, { status: response.status })
+    // ✅ FIX: Check content type before parsing JSON
+    const contentType = response.headers.get('content-type')
+    
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json()
+      return NextResponse.json(data, { status: response.status })
+    } else {
+      // If not JSON, it's likely an HTML error page
+      const text = await response.text()
+      console.error('Non-JSON response from backend:', text.substring(0, 200))
+      return NextResponse.json(
+        { error: 'Invalid response from server' },
+        { status: response.status || 500 }
+      )
+    }
   } catch (error) {
     console.error('Users API error:', error)
     return NextResponse.json(

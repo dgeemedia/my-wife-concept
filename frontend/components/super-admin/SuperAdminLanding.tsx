@@ -11,6 +11,7 @@ import OnboardingForm from './components/OnboardingForm'
 import LandingFooter from './components/LandingFooter'
 import PlatformWhatsAppWidget from './components/PlatformWhatsAppWidget'
 import SuperAdminDashboard from './components/SuperAdminDashboard'
+import { getBusinessUrl } from '@/lib/domain-helper'
 import { BUSINESS_TYPES } from './constants/businessTypes'
 import { PLATFORM_WHATSAPP } from './constants/platform'
 import type { Business, User } from './types'
@@ -53,7 +54,9 @@ export default function SuperAdminLanding() {
           const businessResponse = await fetch(`/api/business/${data.user.businessId}`)
           if (businessResponse.ok) {
             const business = await businessResponse.json()
-            window.location.href = `http://${business.slug}.localhost:3000/dashboard`
+            // Use domain helper for redirect
+            const businessUrl = getBusinessUrl(business.slug)
+            window.location.href = `${businessUrl}/dashboard`
           }
         }
       }

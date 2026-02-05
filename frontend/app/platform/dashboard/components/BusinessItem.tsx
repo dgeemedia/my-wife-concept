@@ -1,6 +1,7 @@
 // frontend/app/platform/dashboard/components/BusinessItem.tsx
 import { Building2, Power, PowerOff, Users, Package, ShoppingCart, Calendar, Globe, CreditCard, Clock, Zap } from 'lucide-react'
 import { DashboardBusiness } from '../types'
+import { getDisplayDomain } from '@/lib/domain-helper'
 
 interface BusinessItemProps {
   business: DashboardBusiness
@@ -88,6 +89,9 @@ export default function BusinessItem({ business, onToggleStatus, onUpdateSubscri
   const isSubscriptionExpiring = subscriptionStatus.status === 'expiring'
   const isSubscriptionExpired = subscriptionStatus.status === 'expired'
 
+  // Get display domain - always shows .mypadifood.com to clients
+  const displayDomain = getDisplayDomain(business.slug, true)
+
   return (
     <div className={`p-6 border-b transition-all duration-200 group ${
       isSubscriptionExpiring ? 'bg-yellow-50 hover:bg-yellow-100' :
@@ -147,11 +151,11 @@ export default function BusinessItem({ business, onToggleStatus, onUpdateSubscri
               </span>
             </div>
 
-            {/* Subdomain */}
+            {/* Subdomain - Shows production domain */}
             <div className="flex items-center space-x-2 mb-3">
               <Globe className="w-4 h-4 text-gray-400" />
               <p className="text-sm text-gray-600 font-medium">
-                {business.slug}.localhost:3000
+                {displayDomain}
               </p>
             </div>
 

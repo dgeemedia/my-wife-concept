@@ -1,6 +1,7 @@
 // frontend/app/platform/dashboard/components/CreateBusinessModal.tsx
 import { Plus, X, Mail, Globe, Building2, User, CheckCircle } from 'lucide-react'
 import { OnboardingRequest } from '../types'
+import { getDisplayDomain, formatBusinessUrlForDisplay } from '@/lib/domain-helper'
 
 interface CreateBusinessModalProps {
   request: OnboardingRequest
@@ -30,6 +31,10 @@ export default function CreateBusinessModal({
       day: 'numeric'
     })
   }
+
+  // Get the display URL (always shows production domain to clients)
+  const slug = getSlug()
+  const { displayUrl, protocol } = formatBusinessUrlForDisplay(slug)
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
@@ -95,8 +100,7 @@ export default function CreateBusinessModal({
               </label>
               <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
                 <p className="text-gray-900 font-medium">
-                  https://{getSlug()}
-                  <span className="text-gray-400">.localhost:3000</span>
+                  {protocol}://<span className="text-blue-600">{displayUrl}</span>
                 </p>
                 <p className="text-xs text-gray-500 mt-1">Business owners will access their dashboard here</p>
               </div>

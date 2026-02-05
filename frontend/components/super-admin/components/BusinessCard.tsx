@@ -1,6 +1,7 @@
 // frontend/components/super-admin/components/BusinessCard.tsx
 import { ExternalLink } from 'lucide-react'
 import { BUSINESS_TYPES } from '../constants/businessTypes'
+import { getBusinessUrl, getDisplayDomain } from '@/lib/domain-helper'
 import type { Business } from '../types'
 
 interface BusinessCardProps {
@@ -9,6 +10,11 @@ interface BusinessCardProps {
 
 export default function BusinessCard({ business }: BusinessCardProps) {
   const businessInfo = BUSINESS_TYPES[business.businessType as keyof typeof BUSINESS_TYPES] || BUSINESS_TYPES.other
+  
+  // Get display domain for UI (shows production domain)
+  const displayDomain = getDisplayDomain(business.slug, true)
+  // Get actual URL for the link (works in both dev and prod)
+  const businessUrl = getBusinessUrl(business.slug)
   
   return (
     <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all overflow-hidden group">
@@ -36,8 +42,13 @@ export default function BusinessCard({ business }: BusinessCardProps) {
           <p className="text-gray-600 text-sm mb-4 line-clamp-2">{business.description}</p>
         )}
         
+        {/* Display domain in text */}
+        <div className="mb-3 text-sm text-gray-500 flex items-center">
+          <span className="truncate">{displayDomain}</span>
+        </div>
+        
         <a
-          href={`http://${business.slug}.localhost:3000`}
+          href={businessUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"

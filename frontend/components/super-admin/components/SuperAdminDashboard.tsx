@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Building2, Users, Package, ShoppingCart, Shield } from 'lucide-react'
 import StatCard from './StatCard'
+import { getBusinessUrl, getDisplayDomain } from '@/lib/domain-helper'
 import type { Business, User } from '../types'
 
 interface SuperAdminDashboardProps {
@@ -159,6 +160,11 @@ function BusinessesList({ businesses, router }: { businesses: Business[]; router
 }
 
 function BusinessListItem({ business, router }: { business: Business; router: any }) {
+  // Get display domain for UI (shows production domain)
+  const displayDomain = getDisplayDomain(business.slug, true)
+  // Get actual URL for links (works in both dev and prod)
+  const businessUrl = getBusinessUrl(business.slug)
+
   return (
     <div className="p-6 hover:bg-gray-50 transition-colors">
       <div className="flex items-center justify-between">
@@ -173,12 +179,12 @@ function BusinessListItem({ business, router }: { business: Business; router: an
           <div>
             <h4 className="font-semibold text-gray-900">{business.businessName}</h4>
             <a 
-              href={`http://${business.slug}.localhost:3000`} 
+              href={businessUrl}
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm text-blue-600 hover:underline"
             >
-              {business.slug}.localhost:3000
+              {displayDomain}
             </a>
           </div>
         </div>
