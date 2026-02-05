@@ -43,13 +43,20 @@ export default function TabNavigation({
           {pendingRequestsCount}
         </span>
       ) : undefined
+    },
+    { 
+      id: 'settings' as const, 
+      label: 'Settings', 
+      icon: Settings,
+      description: 'Account settings'
     }
   ]
 
   return (
     <div className="bg-white border-b shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex">
           {tabs.map(tab => {
             const isActive = activeTab === tab.id
             return (
@@ -92,15 +99,23 @@ export default function TabNavigation({
               </button>
             )
           })}
-          
-          {/* Settings Tab (Optional) */}
-          <button
-            onClick={() => {/* Add settings functionality */}}
-            className="ml-auto flex items-center px-4 py-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+        </div>
+
+        {/* Mobile Navigation - Dropdown */}
+        <div className="md:hidden py-3">
+          <select
+            value={activeTab}
+            onChange={(e) => onTabChange(e.target.value as ActiveTab)}
+            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-medium text-gray-900"
           >
-            <Settings className="w-5 h-5 mr-2" />
-            <span className="text-sm font-medium">Settings</span>
-          </button>
+            {tabs.map(tab => (
+              <option key={tab.id} value={tab.id}>
+                {tab.label}
+                {tab.id === 'requests' && pendingRequestsCount > 0 && ` (${pendingRequestsCount})`}
+                {tab.id === 'businesses' && expiringSubscriptionsCount > 0 && ` (${expiringSubscriptionsCount} expiring)`}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </div>

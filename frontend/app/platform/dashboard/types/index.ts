@@ -1,4 +1,4 @@
-// frontend/app/platform/dashboard/types/index.ts
+// frontend/app/platform/dashboard/types/index.ts - Updated ActiveTab
 import { 
   Business as SharedBusiness,
   OnboardingRequest as SharedOnboardingRequest,
@@ -64,7 +64,7 @@ export interface DashboardStats extends SharedDashboardStats {
 // DASHBOARD-SPECIFIC TYPES
 // ============================================================================
 
-export type ActiveTab = 'overview' | 'businesses' | 'requests'
+export type ActiveTab = 'overview' | 'businesses' | 'requests' | 'settings'
 
 // For the create business modal
 export interface CreateBusinessFromRequestData {

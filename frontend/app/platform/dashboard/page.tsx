@@ -6,6 +6,7 @@ import TabNavigation from './components/TabNavigation'
 import OverviewTab from './components/OverviewTab'
 import BusinessesTab from './components/BusinessesTab'
 import RequestsTab from './components/RequestsTab'
+import SettingsTab from './components/SettingsTab'
 import CreateBusinessModal from './components/CreateBusinessModal'
 import { useDashboard } from './hooks/useDashboard'
 
@@ -87,6 +88,10 @@ export default function PlatformDashboard() {
             onReject={handleRejectRequest}
             onApproveAndCreate={handleApproveAndCreate}
           />
+        )}
+
+        {activeTab === 'settings' && (
+          <SettingsTab currentUser={user} />
         )}
       </div>
 
