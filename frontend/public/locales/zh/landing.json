@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "首页",
+    "businesses": "商家",
+    "startBusiness": "开始您的业务",
+    "contactUs": "联系我们",
+    "login": "登录"
+  },
+  "footer": {
+    "tagline": "通过AI驱动的订购和多语言支持,赋能全球企业",
+    "quickLinks": {
+      "title": "快速链接",
+      "home": "首页",
+      "businesses": "商家",
+      "startBusiness": "开始您的业务",
+      "faq": "常见问题"
+    },
+    "contact": {
+      "title": "联系我们",
+      "whatsappSupport": "提供WhatsApp支持"
+    },
+    "copyright": "© {{year}} MyPadiFood. 保留所有权利。"
+  },
+  "hero": {
+    "badge": "全球商业平台",
+    "headline": "启动您的业务",
+    "headlineHighlight": "在任何地方,用任何语言",
+    "subtitle": "唯一让客户能够用他们的语言订购、用他们的货币支付、通过电话评论的平台 - 无需下载应用程序。",
+    "features": {
+      "globalLanguage": {
+        "title": "任何语言",
+        "description": "客户用母语订购"
+      },
+      "multiCurrency": {
+        "title": "多币种",
+        "description": "接受任何货币的支付"
+      },
+      "noSignUp": {
+        "title": "无需注册",
+        "description": "客户即时订购"
+      },
+      "whatsApp": {
+        "title": "WhatsApp订单",
+        "description": "通过WhatsApp接收订单"
+      },
+      "phoneReviews": {
+        "title": "电话评论",
+        "description": "自动语音评论收集"
+      },
+      "fastSetup": {
+        "title": "快速设置",
+        "description": "24小时内启动"
+      }
+    },
+    "quickStart": {
+      "title": "开始免费试用",
+      "emailLabel": "您的企业邮箱",
+      "emailPlaceholder": "business@example.com",
+      "buttonText": "免费开始",
+      "disclaimer": "无需信用卡。几分钟内完成设置。"
+    }
+  },
+  "aboutUs": {
+    "title": "关于MyPadiFood",
+    "subtitle": "打破语言和货币障碍,赋能全球企业",
+    "mission": {
+      "title": "我们的使命",
+      "description": "我们相信每个企业,无论规模或地点如何,都应该有机会接触全球客户。MyPadiFood源于一个简单的观察:语言和货币障碍不应该限制企业为全球客户服务的潜力。",
+      "point1": "使企业能够用任何语言接触客户,无需复杂的手动翻译",
+      "point2": "消除货币转换和国际支付处理的摩擦"
+    },
+    "vision": {
+      "title": "我们的愿景",
+      "description": "我们设想一个世界,尼日利亚的小农场可以无缝服务日本的客户,巴黎的精品店可以轻松运送到巴西,墨西哥的餐厅可以接受来自印度客户的订单 - 所有这些都无需担心语言障碍或支付复杂性。",
+      "point1": "到2030年为全球超过100万家企业提供支持",
+      "point2": "支持全球每种语言和货币的商业"
+    },
+    "values": {
+      "title": "驱动我们的力量",
+      "value1": {
+        "title": "可访问性",
+        "description": "技术应该赋能,而不是使事情复杂化。无需下载应用程序,无需复杂设置。"
+      },
+      "value2": {
+        "title": "创新",
+        "description": "AI驱动的翻译和自动化,在后台无缝工作。"
+      },
+      "value3": {
+        "title": "包容性",
+        "description": "每个企业都应该有全球影响力,无论技术专长或预算如何。"
+      }
+    }
+  },
+  "successStories": {
+    "title": "成功案例",
+    "subtitle": "真实企业通过MyPadiFood实现非凡增长",
+    "viewMore": "查看更多成功案例"
+  },
+  "testimonials": {
+    "title": "成功案例",
+    "subtitle": "真实企业,真实成果",
+    "aiPoweredAdvantage": "AI驱动优势",
+    "business1": {
+      "name": "克里斯蒂安娜·伊索拉",
+      "business": "克雷尼斯农场",
+      "industry": "农业",
+      "quote": "MyPadiFood的AI驱动翻译和多币种系统帮助我的农场接触到5个不同国家的客户。仅2个月内销售额增长了300%!",
+      "highlight": "AI技能:智能产品分类和季节性需求预测,优化了我的库存并增加了销售额。",
+      "metrics": "300%增长 • 5个国家 • 2个月"
+    },
+    "business2": {
+      "name": "雷吉娜·奥卢马",
+      "business": "QG之家",
+      "industry": "时尚与服装",
+      "quote": "客户喜欢无需注册就能用当地语言订购。设置商店后,我的国际订单立即增加了三倍。",
+      "highlight": "AI技能:时尚趋势分析和自动尺码推荐,将退货率降低了40%。",
+      "metrics": "200%增长 • 40%更少退货 • 12种语言"
+    },
+    "business3": {
+      "name": "洪苏·梅西",
+      "business": "梅卡普公寓",
+      "industry": "酒店业",
+      "quote": "国际客人现在可以用他们的货币和语言预订我的公寓。WhatsApp集成使确认变得无缝!",
+      "highlight": "AI技能:动态定价和可用性优化,全年入住率提高了65%。",
+      "metrics": "65%入住率 • 即时预订 • 全球覆盖"
+    },
+    "stats": {
+      "countries": "服务国家",
+      "setupTime": "平均设置时间",
+      "signUpRequired": "客户注册",
+      "languagesSupported": "支持语言"
+    }
+  },
+  "howItWorks": {
+    "title": "如何运作",
+    "subtitle": "通过三个简单步骤启动您的全球业务",
+    "step1": {
+      "title": "客户选择语言",
+      "description": "您的客户用他们喜欢的语言浏览您的菜单。AI即时翻译一切 - 菜单项、描述、价格。"
+    },
+    "step2": {
+      "title": "选择货币",
+      "description": "客户以当地货币查看价格。实时转换自动处理所有计算。"
+    },
+    "step3": {
+      "title": "通过WhatsApp订购",
+      "description": "订单直接发送到您的WhatsApp。客户无需下载应用程序。简单即时。"
+    }
+  },
+  "globalReach": {
+    "title": "为全球商业而建",
+    "subtitle": "加入数千家为全球客户服务的企业",
+    "stats": {
+      "businesses": "活跃企业",
+      "transactions": "月交易量",
+      "languagesUsed": "使用中的语言",
+      "currenciesSupported": "支持货币"
+    }
+  },
+  "finalCta": {
+    "badge": "加入全球成功企业",
+    "title": "准备走向全球?",
+    "primaryButton": "开始免费试用",
+    "secondaryButton": "查看成功案例",
+    "subtitle": "无需信用卡 • 24小时内设置 • 随时取消"
+  },
+  "languages": {
+    "en": "英语",
+    "es": "西班牙语",
+    "fr": "法语",
+    "de": "德语",
+    "zh": "中文",
+    "ar": "阿拉伯语",
+    "hi": "印地语",
+    "pt": "葡萄牙语",
+    "ru": "俄语",
+    "ja": "日语",
+    "ko": "韩语",
+    "it": "意大利语",
+    "nl": "荷兰语",
+    "tr": "土耳其语",
+    "pl": "波兰语",
+    "vi": "越南语",
+    "th": "泰语",
+    "id": "印尼语",
+    "ro": "罗马尼亚语",
+    "cs": "捷克语"
+  },
+  "whatsappWidget": {
+    "title": "与我们聊天",
+    "subtitle": "平台支持",
+    "selectTopic": "选择一个话题开始聊天:",
+    "customMessage": "开始自定义聊天",
+    "opening": "正在打开WhatsApp...",
+    "messages": {
+      "generalHelp": "您好,我需要MyPadiFood平台的帮助",
+      "setupStore": "我想设置我的在线商店。你能帮我开始吗?",
+      "pricing": "你们的定价计划是什么?我想了解费用和功能。",
+      "technicalIssue": "我的商店遇到技术问题。你能帮忙吗?",
+      "multiLanguage": "多语言翻译功能如何工作?",
+      "payments": "我对支付处理和多币种支持有疑问。",
+      "whatsappIntegration": "如何将WhatsApp订单与我的商店集成?",
+      "customDomain": "我可以为我的商店使用自己的自定义域名吗?",
+      "migration": "我想将现有业务迁移到MyPadiFood。如何操作?",
+      "bulkOrders": "我如何处理批量订单和批发客户?",
+      "custom": "您好,我对MyPadiFood平台有疑问"
+    }
+  },
+  "faq": {
+    "title": "常见问题",
+    "subtitle": "关于MyPadiFood您需要知道的一切",
+    "backToHome": "返回首页",
+    "stillHaveQuestions": "还有问题?",
+    "contactSupport": "我们的支持团队随时准备帮助您成功",
+    "chatWithSupport": "在WhatsApp上与支持聊天",
+    "whatsappMessage": "您好,我有一个FAQ中未涵盖的关于MyPadiFood的问题",
+    "categories": {
+      "general": "一般信息",
+      "pricing": "定价与计费",
+      "features": "功能与能力",
+      "gettingStarted": "入门指南",
+      "support": "支持与培训"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "什么是MyPadiFood?",
+      "whoCanUse": "谁可以使用MyPadiFood?",
+      "howDifferent": "MyPadiFood与其他电子商务平台有何不同?",
+      "freeTrial": "你们提供免费试用吗?",
+      "subscriptionPlans": "你们提供哪些订阅计划?",
+      "paymentMethods": "你们接受哪些订阅付款方式?",
+      "cancelAnytime": "我可以随时取消订阅吗?",
+      "languagesSupported": "MyPadiFood支持多少种语言?",
+      "currenciesSupported": "我可以接受哪些货币的付款?",
+      "whatsappOrders": "WhatsApp订单如何工作?",
+      "customDomain": "我可以使用自己的自定义域名吗?",
+      "cashPayments": "MyPadiFood为我的业务处理现金支付吗?",
+      "setupTime": "设置我的商店需要多长时间?",
+      "technicalKnowledge": "我需要技术知识才能使用MyPadiFood吗?",
+      "productLimit": "我可以添加的产品数量有限制吗?",
+      "migration": "我可以将现有在线商店迁移到MyPadiFood吗?",
+      "customerSupport": "你们提供什么样的客户支持?",
+      "training": "你们提供培训或入职协助吗?",
+      "updates": "你们多久发布新功能和更新?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood是一个全球电子商务平台,使企业能够向全球客户销售产品和服务。我们的AI驱动平台自动将您的商店翻译成多种语言,处理多币种支付,并允许客户通过WhatsApp订购,无需下载任何应用程序。我们打破语言和货币障碍,让您可以专注于全球业务增长。",
+      "whoCanUseAnswer": "MyPadiFood非常适合任何希望全球扩张的企业 - 从小农场和餐馆到时尚精品店、酒店服务和批发供应商。无论您是个体创业者、小企业主还是成长中的企业,我们的平台都能随着您的需求扩展。如果您有产品或服务要销售并希望接触国际客户,MyPadiFood就是为您而建的。",
+      "howDifferentAnswer": "与传统电子商务平台不同,MyPadiFood专门为全球商业设计。我们独特的功能包括:(1)AI驱动翻译成20多种语言,无需手动操作,(2)客户可以在不创建账户或下载应用程序的情况下订购,(3)WhatsApp集成实现无缝订单管理,(4)具有自动转换的多币种支持,(5)基于电话的客户评论收集,以及(6)无需技术专长即可开始。",
+      "freeTrialAnswer": "是的!我们提供慷慨的14天免费试用,可完全访问所有功能。开始试用无需信用卡。这给您充足的时间设置商店、添加产品、自定义设置并测试我们所有的功能。14天试用期结束后,您的商店将暂时暂停,直到您选择适合您的订阅计划。您可以随时通过订阅重新激活。",
+      "subscriptionPlansAnswer": "我们提供灵活的订阅计划以匹配您的业务需求:最大灵活性的月度订阅,具有成本节省的季度计划,更好价值的半年(6个月)订阅,以及最优惠价格的年度计划。订阅费用因您的所在国家而异,以确保基于当地经济条件的公平定价。通过WhatsApp联系我们的支持团队,获取您所在国家的具体定价,并讨论哪个计划最适合您的业务目标。",
+      "paymentMethodsAnswer": "我们根据您所在的国家接受多种订阅费用支付方式,包括信用卡/借记卡、银行转账、移动支付和其他本地支付选项。我们的目标是让您尽可能轻松地订阅和维护您的账户。联系我们的支持团队,了解您所在地区可用的具体支付方式。",
+      "cancelAnytimeAnswer": "当然可以!您对订阅拥有完全控制权。您可以随时取消,无需罚款或隐藏费用。如果您在计费周期内取消,您将继续访问商店,直到该付费期结束。我们相信每个月都要赢得您的业务,而不是将您锁定在您不想要的长期合同中。",
+      "languagesSupportedAnswer": "MyPadiFood目前支持20多种主要语言,包括英语、西班牙语、法语、德语、中文、阿拉伯语、印地语、葡萄牙语、俄语、日语、韩语、意大利语、荷兰语、土耳其语、波兰语、越南语、泰语、印尼语、罗马尼亚语和捷克语。我们的AI翻译系统确保您的产品描述、菜单和商店内容实时准确翻译。我们根据客户需求不断添加更多语言。",
+      "currenciesSupportedAnswer": "您可以接受世界上几乎任何主要货币的付款。我们的平台自动处理实时货币转换,因此客户以当地货币查看价格,而您以首选货币接收付款。这包括美元、欧元、英镑、奈拉、日元、人民币、卢比等等。系统定期更新汇率以确保准确定价。",
+      "whatsappOrdersAnswer": "当客户在您的MyPadiFood商店下订单时,您会直接在您的企业WhatsApp号码上收到即时通知。订单详细信息格式清晰,包含客户信息、订购商品、送货地址和付款状态。您可以确认订单、更新客户订单状态,并直接通过WhatsApp沟通 - 无需学习新系统。就像与客户对话一样简单。",
+      "customDomainAnswer": "是的!您可以将自己的自定义域名连接到您的MyPadiFood商店,以获得专业品牌体验。例如,您可以使用shop.yourbusiness.com或您拥有的任何域名,而不是yourbusiness.mypadifood.com。此功能在选定的订阅计划中提供。我们的支持团队可以指导您完成简单的设置过程。",
+      "cashPaymentsAnswer": "MyPadiFood不代表您的企业接受、处理或管理现金支付。所有与现金相关的交易都直接在您和客户之间管理。您对现金支付、收款和对账保持完全控制。MyPadiFood仅提供订购平台和数字支付处理。任何现金支付安排都是您独立管理的责任。",
+      "setupTimeAnswer": "大多数企业可以在24小时或更短时间内完全设置好商店并准备接受订单。我们简化的入职流程将引导您完成:创建账户、添加产品、设置支付方式、自定义商店外观以及连接WhatsApp。许多用户在2小时内完成基本设置。我们提供逐步指导和支持,帮助您快速启动。",
+      "technicalKnowledgeAnswer": "不需要技术知识!MyPadiFood是为企业主设计的,而不是开发人员。我们直观的界面通过清晰的说明引导您完成每一步。您不需要知道如何编码、理解网络托管或管理服务器。如果您会使用WhatsApp和电子邮件,就可以管理您的MyPadiFood商店。我们的支持团队也随时解答任何问题。",
+      "productLimitAnswer": "您可以添加到商店的产品数量没有限制。无论您有10件产品还是10,000件,MyPadiFood都可以处理您的目录。您可以将产品组织到类别中,添加详细的描述和图片,设置库存水平,并从仪表板管理所有内容。随着您的业务增长,您的商店也会随之增长。",
+      "migrationAnswer": "是的,我们可以帮助您将现有在线商店迁移到MyPadiFood!我们支持从各种平台迁移,包括Shopify、WooCommerce和其他电子商务系统。我们的团队可以协助转移您的产品目录、客户数据和订单历史。通过WhatsApp联系我们的支持团队,讨论您的具体迁移需求、时间表和任何自定义要求。我们将使过渡尽可能顺利。",
+      "customerSupportAnswer": "我们通过多个渠道提供全面支持:WhatsApp支持快速问题和实时协助,电子邮件支持详细查询,帮助中心提供指南和教程,以及复杂功能的视频演练。我们的支持团队在工作时间运营,我们力求在24小时内回复所有查询。高级支持套餐提供专门的客户经理,适用于成长中的企业。",
+      "trainingAnswer": "是的!我们提供广泛的培训资源帮助您成功:注册时的免费入职会议,涵盖所有功能的视频教程,书面逐步指南,新功能的实时网络研讨会,以及一对一培训会议(高级计划提供)。我们希望确保您在使用平台的每个方面来发展业务时充满信心。",
+      "updatesAnswer": "我们通过定期更新和新功能持续改进MyPadiFood。主要功能发布通常每季度进行一次,根据需要发布小的改进和错误修复。所有更新都包含在您的订阅中,无需额外费用。我们通过电子邮件、应用内通知和社交媒体渠道宣布新功能。您的反馈有助于塑造我们的路线图,因此我们始终在构建企业最需要的东西。"
+    }
+  },
+  "onboarding": {
+    "title": "开始您的业务",
+    "subtitle": "填写下面的表格,我们的团队将帮助您开始",
+    "submitSuccess": "申请提交成功!",
+    "submitError": "提交申请失败",
+    "submitting": "正在提交...",
+    "submitButton": "提交申请",
+    "submitAnother": "提交另一个请求",
+    "successTitle": "谢谢!",
+    "successMessage": "您的入职请求已成功提交。我们的团队将在24小时内与您联系。",
+    "categories": {
+      "foodDining": "🍽️ 餐饮美食",
+      "agricultureFarming": "🌾 农业种植",
+      "hospitality": "🏨 酒店业",
+      "retailShopping": "🛍️ 零售购物",
+      "technologyElectronics": "💻 技术与电子产品",
+      "healthBeauty": "💄 健康与美容",
+      "homeLiving": "🏠 家居生活",
+      "automotive": "🚗 汽车",
+      "educationLearning": "🎓 教育与学习",
+      "sportsRecreation": "⚽ 体育与娱乐",
+      "professionalServices": "💼 专业服务",
+      "otherServices": "🔧 其他服务"
+    },
+    "businessInfo": {
+      "title": "企业信息",
+      "businessName": "企业名称",
+      "businessNamePlaceholder": "例如,新鲜农产品",
+      "businessType": "企业类型",
+      "other": "其他",
+      "preferredSlug": "首选URL标识",
+      "slugPlaceholder": "freshfarm",
+      "slugHint": "仅小写字母、数字和连字符",
+      "urlPreviewLabel": "您的业务将可在以下位置访问:",
+      "description": "描述",
+      "descriptionPlaceholder": "告诉我们您的业务..."
+    },
+    "ownerInfo": {
+      "title": "所有者信息",
+      "fullName": "全名",
+      "fullNamePlaceholder": "张三",
+      "email": "电子邮箱",
+      "emailPlaceholder": "zhang@example.com",
+      "phone": "电话",
+      "phonePlaceholder": "+86 138 0000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "我们的商家",
+    "subtitle": "在我们的平台上发现令人惊叹的本地企业",
+    "noBusinesses": "此类别中未找到商家",
+    "tryDifferent": "尝试选择不同的类别以探索更多商家"
+  },
+  "businessFilter": {
+    "allBusinesses": "所有商家"
+  },
+  "businessCard": {
+    "products": "产品",
+    "visitStore": "访问商店"
+  }
+}

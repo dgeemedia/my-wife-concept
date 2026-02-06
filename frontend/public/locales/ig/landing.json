@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Ụlọ",
+    "businesses": "Azụmahịa",
+    "startBusiness": "Bido Azụmahịa Gị",
+    "contactUs": "Kpọtụrụ Anyị",
+    "login": "Banye"
+  },
+  "footer": {
+    "tagline": "Na-enye azụmahịa zuru ụwa ọnụ ike site na ịtụ AI na nkwado asụsụ dị iche iche",
+    "quickLinks": {
+      "title": "Njikọ Ngwa Ngwa",
+      "home": "Ụlọ",
+      "businesses": "Azụmahịa",
+      "startBusiness": "Bido Azụmahịa Gị",
+      "faq": "Ajụjụ A Na-ajụkarị"
+    },
+    "contact": {
+      "title": "Kpọtụrụ Anyị",
+      "whatsappSupport": "Nkwado WhatsApp Dị"
+    },
+    "copyright": "© {{year}} MyPadiFood. Nwerekwa ikike niile."
+  },
+  "hero": {
+    "badge": "Ikpo Okwu Azụmahịa Zuru Ụwa Ọnụ",
+    "headline": "Wepụta Azụmahịa Gị",
+    "headlineHighlight": "N'ebe Ọ Bụla, N'asụsụ Ọ Bụla",
+    "subtitle": "Naanị ikpo okwu nke na-enye ndị ahịa ohere ịtụ n'asụsụ ha, kwụọ ụgwọ na ego ha, ma nyochaa site na oku ekwentị - na-enweghị mkpa ịbudata ngwa.",
+    "features": {
+      "globalLanguage": {
+        "title": "Asụsụ Ọ Bụla",
+        "description": "Ndị ahịa na-atụ n'asụsụ nke ha"
+      },
+      "multiCurrency": {
+        "title": "Ego Dị Iche Iche",
+        "description": "Nabata ịkwụ ụgwọ n'ego ọ bụla"
+      },
+      "noSignUp": {
+        "title": "O Nweghị Ndebanye Aha Achọrọ",
+        "description": "Ndị ahịa na-atụ ozugbo"
+      },
+      "whatsApp": {
+        "title": "Ịtụ WhatsApp",
+        "description": "Nweta ịtụ site na WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Nyocha Ekwentị",
+        "description": "Nchịkọta nyocha olu akpaghị aka"
+      },
+      "fastSetup": {
+        "title": "Ntọlite Ngwa Ngwa",
+        "description": "Wepụta n'ihe erughị awa 24"
+      }
+    },
+    "quickStart": {
+      "title": "Bido Nnwale Gị N'efu",
+      "emailLabel": "Email Azụmahịa Gị",
+      "emailPlaceholder": "azụmahịa@ọmụmaatụ.com",
+      "buttonText": "Bido N'efu",
+      "disclaimer": "Achọghị kaadị kredit. Ntọlite n'ime nkeji ole na ole."
+    }
+  },
+  "aboutUs": {
+    "title": "Banyere MyPadiFood",
+    "subtitle": "Na-agbaji ihe mgbochi asụsụ na ego iji nye azụmahịa zuru ụwa ọnụ ike",
+    "mission": {
+      "title": "Ebumnuche Anyị",
+      "description": "Anyị kwenyere na azụmahịa ọ bụla, n'agbanyeghị nha ma ọ bụ ọnọdụ ya, kwesịrị ịnweta ndị ahịa zuru ụwa ọnụ. A mụrụ MyPadiFood site na nleba anya dị mfe: ihe mgbochi asụsụ na ego ekwesịghị igbochi ike azụmahịa nwere iji jere ndị ahịa zuru ụwa ọnụ ozi.",
+      "point1": "Ime ka azụmahịa nwee ike iru ndị ahịa n'asụsụ ọ bụla na-enweghị mgbagwoju anya nke ntụgharị aka",
+      "point2": "Iwepụ mgbagwoju anya nke ntụgharị ego na nhazi ịkwụ ụgwọ mba ụwa"
+    },
+    "vision": {
+      "title": "Ọhụụ Anyị",
+      "description": "Anyị na-ahụ ụwa ebe obere ugbo na Naịjirịa nwere ike ijere ndị ahịa na Japan ozi n'enweghị nsogbu, ụlọ ahịa na Paris nwere ike izipu ngwa ngwa na Brazil, na ụlọ oriri na ọṅụṅụ na Mexico nwere ike ịnara ịtụ site n'aka ndị ahịa na India - niile na-enweghị ichegbu onwe ha banyere ihe mgbochi asụsụ ma ọ bụ nsogbu ịkwụ ụgwọ.",
+      "point1": "Na-enye ike karịa azụmahịa nde 1 gburugburu ụwa site na 2030",
+      "point2": "Kwado azụmahịa n'asụsụ na ego ọ bụla zuru ụwa ọnụ"
+    },
+    "values": {
+      "title": "Ihe Na-akpali Anyị",
+      "value1": {
+        "title": "Nnweta",
+        "description": "Teknụzụ kwesịrị inye ike, ọ bụghị ịme mgbagwoju anya. Enweghị ngwa iji budata, enweghị ntọlite dị mgbagwoju anya."
+      },
+      "value2": {
+        "title": "Ihe Ọhụrụ",
+        "description": "Ntụgharị AI na akpaghị aka nke na-arụ ọrụ n'ụzọ dị mfe n'azụ."
+      },
+      "value3": {
+        "title": "Ntinye Onye Ọ Bụla",
+        "description": "Azụmahịa ọ bụla kwesịrị iru ụwa niile, n'agbanyeghị ọmụma nka ma ọ bụ mmefu ego."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Akụkọ Ihe Ịga Nke Ọma",
+    "subtitle": "Azụmahịa n'ezie na-enweta uto pụrụ iche na MyPadiFood",
+    "viewMore": "Lee Akụkọ Ihe Ịga Nke Ọma Ndị Ọzọ"
+  },
+  "testimonials": {
+    "title": "Akụkọ Ihe Ịga Nke Ọma",
+    "subtitle": "Azụmahịa n'ezie, nsonaazụ n'ezie",
+    "aiPoweredAdvantage": "Uru AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Ọrụ Ugbo",
+      "quote": "Usoro ntụgharị asụsụ AI na ego dị iche iche nke MyPadiFood nyeere ugbo m aka iru ndị ahịa na mba 5 dị iche iche. Ire ahịa toro 300% n'ime naanị ọnwa 2!",
+      "highlight": "Nkà AI: Nhazi ngwaahịa ọgụgụ isi na amụma mkpa oge nke meziri ngwa ahịa m ma mee ka ire ahịa.",
+      "metrics": "Uto 300% • Mba 5 • Ọnwa 2"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Ejiji & Uwe",
+      "quote": "Ndị ahịa hụrụ n'anya na ha nwere ike ịtụ n'asụsụ mpaghara ha na-enweghị ịdebanye aha. Ịtụ mba ụwa m gbagoro okpukpu atọ ozugbo m tọrọ ụlọ ahịa m.",
+      "highlight": "Nkà AI: Nyocha usoro ejiji na ndụmọdụ nha akpaghị aka nke belatara ọnụego nloghachi 40%.",
+      "metrics": "Mmụba 200% • Mbelata nloghachi 40% • Asụsụ 12"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Nnabata Ndị Ọbịa",
+      "quote": "Ndị ọbịa mba ụwa nwere ike ịkwụ ụgwọ ụlọ m n'ego na asụsụ ha ugbu a. Njikọ WhatsApp na-eme nkwenye dị mfe!",
+      "highlight": "Nkà AI: Ọnụahịa na-agbanwe agbanwe na njikarịcha dị nke mere ka ọnọdụ obibi mụbaa 65% n'afọ niile.",
+      "metrics": "Obibi 65% • Nkwụ ụgwọ ozugbo • Iru ụwa niile"
+    },
+    "stats": {
+      "countries": "Mba E Jere Ozi",
+      "setupTime": "Ntọlite Nkezi",
+      "signUpRequired": "Ndebanye Aha Onye Ahịa",
+      "languagesSupported": "Asụsụ"
+    }
+  },
+  "howItWorks": {
+    "title": "Otu Ọ Si Arụ Ọrụ",
+    "subtitle": "Wepụta azụmahịa gị zuru ụwa ọnụ n'usoro atọ dị mfe",
+    "step1": {
+      "title": "Onye Ahịa Na-ahọrọ Asụsụ",
+      "description": "Ndị ahịa gị na-achọgharị menu gị n'asụsụ ha chọrọ. AI na-atụgharị ihe niile ozugbo - ihe menu, nkọwa, ọnụahịa."
+    },
+    "step2": {
+      "title": "Họrọ Ego Ha",
+      "description": "Ndị ahịa na-ahụ ọnụahịa n'ego mpaghara ha. Ntụgharị oge na-ahụ maka mgbakọ niile na-akpaghị aka."
+    },
+    "step3": {
+      "title": "Tụọ Site na WhatsApp",
+      "description": "Ịtụ na-abịa ozugbo na WhatsApp gị. Ndị ahịa gị achọghị ibudata ngwa. Dị mfe ma dị ngwa ngwa."
+    }
+  },
+  "globalReach": {
+    "title": "E Wuru Maka Azụmahịa Zuru Ụwa Ọnụ",
+    "subtitle": "Soro ọtụtụ puku azụmahịa na-ejere ndị ahịa zuru ụwa ọnụ ozi",
+    "stats": {
+      "businesses": "Azụmahịa Na-arụ Ọrụ",
+      "transactions": "Azụmahịa Kwa Ọnwa",
+      "languagesUsed": "Asụsụ A Na-eji",
+      "currenciesSupported": "Ego"
+    }
+  },
+  "finalCta": {
+    "badge": "Soro azụmahịa gara nke ọma zuru ụwa ọnụ",
+    "title": "Ị Dị Njikere Ịga Ụwa Niile?",
+    "primaryButton": "Bido Nnwale N'efu",
+    "secondaryButton": "Lee Akụkọ Ihe Ịga Nke Ọma",
+    "subtitle": "Achọghị kaadị kredit • Ntọlite n'ime awa 24 • Kagbuo mgbe ọ bụla"
+  },
+  "languages": {
+    "en": "Bekee",
+    "es": "Spanish",
+    "fr": "French",
+    "de": "German",
+    "zh": "Chinese",
+    "ar": "Arabic",
+    "hi": "Hindi",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "it": "Italian",
+    "nl": "Dutch",
+    "tr": "Turkish",
+    "pl": "Polish",
+    "vi": "Vietnamese",
+    "th": "Thai",
+    "id": "Indonesian",
+    "ro": "Romanian",
+    "cs": "Czech"
+  },
+  "whatsappWidget": {
+    "title": "Gwaa Anyị Okwu",
+    "subtitle": "Nkwado Ikpo Okwu",
+    "selectTopic": "Họrọ isiokwu iji bido nkata:",
+    "customMessage": "Bido Nkata Ahaziri",
+    "opening": "Na-emepe WhatsApp...",
+    "messages": {
+      "generalHelp": "Ndewo, achọrọ m enyemaka banyere ikpo okwu MyPadiFood",
+      "setupStore": "Achọrọ m ịtọ ụlọ ahịa m n'ịntanetị. Ị nwere ike inyere m aka ịmalite?",
+      "pricing": "Kedu atụmatụ ọnụahịa gị? Achọrọ m ịmata ọnụ ahịa na atụmatụ.",
+      "technicalIssue": "Ana m enwe nsogbu teknụzụ na ụlọ ahịa m. Ị nwere ike inye aka?",
+      "multiLanguage": "Kedu ka atụmatụ ntụgharị asụsụ dị iche iche si arụ ọrụ?",
+      "payments": "Enwere m ajụjụ gbasara nhazi ịkwụ ụgwọ na nkwado ego dị iche iche.",
+      "whatsappIntegration": "Kedu ka m ga-esi jikọta ịtụ WhatsApp na ụlọ ahịa m?",
+      "customDomain": "Enwere m ike iji ngalaba ahaziri nke m maka ụlọ ahịa m?",
+      "migration": "Achọrọ m ịkwaga azụmahịa m dị ugbu a na MyPadiFood. Kedu ka ọ si arụ ọrụ?",
+      "bulkOrders": "Kedu ka m ga-esi ejikwa nnukwu ịtụ na ndị ahịa nnukwu?",
+      "custom": "Ndewo, enwere m ajụjụ gbasara ikpo okwu MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Ajụjụ A Na-ajụkarị",
+    "subtitle": "Ihe niile ị kwesịrị ịma banyere MyPadiFood",
+    "backToHome": "Laghachi na Ụlọ",
+    "stillHaveQuestions": "Ị Ka Nwere Ajụjụ?",
+    "contactSupport": "Ndị otu nkwado anyị dị njikere inyere gị aka ịga nke ọma",
+    "chatWithSupport": "Gwaa Nkwado Okwu na WhatsApp",
+    "whatsappMessage": "Ndewo, enwere m ajụjụ gbasara MyPadiFood nke ejikọtaghị na FAQ",
+    "categories": {
+      "general": "Ozi Izugbe",
+      "pricing": "Ọnụahịa & Ịkwụ Ụgwọ",
+      "features": "Atụmatụ & Ike",
+      "gettingStarted": "Ịmalite",
+      "support": "Nkwado & Ọzụzụ"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Kedu ihe bụ MyPadiFood?",
+      "whoCanUse": "Onye nwere ike iji MyPadiFood?",
+      "howDifferent": "Kedu ka MyPadiFood si dị iche na ikpo okwu e-azụmahịa ndị ọzọ?",
+      "freeTrial": "Ị na-enye nnwale n'efu?",
+      "subscriptionPlans": "Kedu atụmatụ ndebanye aha ị na-enye?",
+      "paymentMethods": "Kedu ụzọ ịkwụ ụgwọ ị na-anabata maka ndebanye aha?",
+      "cancelAnytime": "Enwere m ike ịkagbu ndebanye aha m mgbe ọ bụla?",
+      "languagesSupported": "Asụsụ ole ka MyPadiFood na-akwado?",
+      "currenciesSupported": "Kedu ego m nwere ike ịnabata ịkwụ ụgwọ?",
+      "whatsappOrders": "Kedu ka ịtụ WhatsApp si arụ ọrụ?",
+      "customDomain": "Enwere m ike iji ngalaba ahaziri nke m?",
+      "cashPayments": "MyPadiFood ọ na-ejikwa ịkwụ ụgwọ ego maka azụmahịa m?",
+      "setupTime": "Ogologo oge ole ka ọ na-ewe ịtọ ụlọ ahịa m?",
+      "technicalKnowledge": "Ọ dị m mkpa ịmata ihe teknụzụ iji jiri MyPadiFood?",
+      "productLimit": "Enwere oke ole ngwaahịa m nwere ike ịgbakwunye?",
+      "migration": "Enwere m ike ịkwaga ụlọ ahịa m n'ịntanetị dị ugbu a na MyPadiFood?",
+      "customerSupport": "Kedu ụdị nkwado ndị ahịa ị na-enye?",
+      "training": "Ị na-enye ọzụzụ ma ọ bụ enyemaka mmalite?",
+      "updates": "Ugboro ole ka ị na-ewepụta atụmatụ ọhụrụ na mmelite?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood bụ ikpo okwu e-azụmahịa zuru ụwa ọnụ nke na-eme ka azụmahịa nwee ike ire ngwaahịa na ọrụ nye ndị ahịa zuru ụwa ọnụ. Ikpo okwu anyị nke AI na-arụ ọrụ na-atụgharị ụlọ ahịa gị na-akpaghị aka n'ọtụtụ asụsụ, na-ahụ maka ịkwụ ụgwọ ego dị iche iche, ma na-enye ndị ahịa ohere ịtụ site na WhatsApp na-enweghị ibudata ngwa ọ bụla. Anyị na-agbaji ihe mgbochi asụsụ na ego ka ị nwee ike ilekwasị anya n'ịkwalite azụmahịa gị n'ụwa niile.",
+      "whoCanUseAnswer": "MyPadiFood dị mma maka azụmahịa ọ bụla na-achọ ịgbasa n'ụwa niile - site na obere ugbo na ụlọ oriri na ọṅụṅụ ruo na ụlọ ahịa ejiji, ọrụ nnabata ndị ọbịa, na ndị na-eweta nnukwu. Ma ị bụ onye na-eme azụmahịa naanị gị, onye nwe obere azụmahịa, ma ọ bụ azụmahịa na-eto eto, ikpo okwu anyị na-eto eto na mkpa gị. Ọ bụrụ na ị nwere ngwaahịa ma ọ bụ ọrụ ị ga-ere ma chọọ iru ndị ahịa mba ụwa, e wuru MyPadiFood maka gị.",
+      "howDifferentAnswer": "N'adịghị ka ikpo okwu e-azụmahịa ọdịnala, e mere MyPadiFood kpọmkwem maka azụmahịa zuru ụwa ọnụ. Atụmatụ anyị pụrụ iche gụnyere: (1) Ntụgharị asụsụ AI n'asụsụ 20+ na-enweghị mbọ aka, (2) Ndị ahịa nwere ike ịtụ na-enweghị ịmepụta akaụntụ ma ọ bụ ibudata ngwa, (3) Njikọ WhatsApp maka njikwa ịtụ dị mfe, (4) Nkwado ego dị iche iche nwere ntụgharị akpaghị aka, (5) Nchịkọta nyocha ndị ahịa dabere na ekwentị, na (6) Achọghị ọmụma nka teknụzụ iji malite.",
+      "freeTrialAnswer": "Ee! Anyị na-enye nnwale n'efu ụbọchị 14 nwere nnweta zuru ezu na atụmatụ niile. Achọghị kaadị kredit iji malite nnwale gị. Nke a na-enye gị oge zuru oke ịtọ ụlọ ahịa gị, tinye ngwaahịa, hazie ntọlite gị, ma nwalee atụmatụ anyị niile. Mgbe nnwale ụbọchị 14 gwụchara, a ga-akwụsịtụ ụlọ ahịa gị nwa oge ruo mgbe ị họọrọ atụmatụ ndebanye aha na-arụ ọrụ maka gị. Ị nwere ike ịgbagha mgbe ọ bụla site na ndebanye aha.",
+      "subscriptionPlansAnswer": "Anyị na-enye atụmatụ ndebanye aha na-agbanwe agbanwe iji kwekọọ na mkpa azụmahịa gị: Ndebanye aha kwa ọnwa maka mgbanwe kachasị, Atụmatụ nkeji iri atọ nwere nchekwa ego, Ndebanye aha nke ọnwa isii (ọnwa 6) maka uru ka mma, na Atụmatụ kwa afọ maka ọnụego kacha mma. Ụgwọ ndebanye aha dị iche iche site na mba gị iji hụ na ọnụahịa ziri ezi dabere na ọnọdụ akụ na ụba mpaghara. Kpọtụrụ ndị otu nkwado anyị site na WhatsApp iji nweta ọnụahịa kpọmkwem maka mba gị ma kwurịta ụka banyere atụmatụ kacha dabara na ebumnuche azụmahịa gị.",
+      "paymentMethodsAnswer": "Anyị na-anabata ọtụtụ ụzọ ịkwụ ụgwọ maka ụgwọ ndebanye aha dabere na mba gị, gụnyere kaadị kredit/debit, ntụgharị ego ụlọ akụ, ego ekwentị mkpanaaka, na nhọrọ ịkwụ ụgwọ mpaghara ndị ọzọ. Ebumnuche anyị bụ ime ka ọ dịrị gị mfe ịdebanye aha ma debe akaụntụ gị. Kpọtụrụ ndị otu nkwado anyị iji mụta banyere ụzọ ịkwụ ụgwọ kpọmkwem dị na mpaghara gị.",
+      "cancelAnytimeAnswer": "N'ezie! Ị nwere njikwa zuru ezu n'elu ndebanye aha gị. Ị nwere ike ịkagbu mgbe ọ bụla na-enweghị ntaramahụhụ ma ọ bụ ụgwọ zoro ezo. Ọ bụrụ na ị kagbuo n'oge usoro ịkwụ ụgwọ gị, ị ga-aga n'ihu inwe ohere ịbanye na ụlọ ahịa gị ruo ọgwụgwụ oge akwụ ụgwọ ahụ. Anyị kwenyere n'ịkpata azụmahịa gị kwa ọnwa, ọ bụghị ịkpọchi gị na nkwekọrịta ogologo oge ị chọghị.",
+      "languagesSupportedAnswer": "MyPadiFood ugbu a na-akwado asụsụ 20+ gụnyere Bekee, Spanish, French, German, Chinese, Arabic, Hindi, Portuguese, Russian, Japanese, Korean, Italian, Dutch, Turkish, Polish, Vietnamese, Thai, Indonesian, Romanian, na Czech. Usoro ntụgharị asụsụ AI anyị na-eme ka nkọwa ngwaahịa gị, menu, na ọdịnaya ụlọ ahịa tụgharịrị nke ọma n'oge ọ bụla. Anyị na-agbakwunye asụsụ ndị ọzọ mgbe niile dabere na ihe ndị ahịa chọrọ.",
+      "currenciesSupportedAnswer": "Ị nwere ike ịnabata ịkwụ ụgwọ n'ihe fọrọ nke nta ka ọ bụrụ ego buru ibu ọ bụla zuru ụwa ọnụ. Ikpo okwu anyị na-ahụ maka ntụgharị ego oge n'oge na-akpaghị aka, ya mere ndị ahịa na-ahụ ọnụahịa n'ego mpaghara ha ebe ị na-anata ịkwụ ụgwọ n'ego ị họọrọ. Nke a gụnyere USD, EUR, GBP, NGN, JPY, CNY, INR, na ọtụtụ ndị ọzọ. Usoro ahụ na-emelite ọnụego mgbanwe mgbe niile iji hụ na ọnụahịa ziri ezi.",
+      "whatsappOrdersAnswer": "Mgbe ndị ahịa tinyere ịtụ na ụlọ ahịa gị MyPadiFood, ị na-enweta ọkwa ozugbo na nọmba WhatsApp azụmahịa gị. A na-ahazi nkọwa ịtụ ahụ nke ọma na ozi ndị ahịa, ihe e nyere iwu, adreesị nnyefe, na ọnọdụ ịkwụ ụgwọ. Ị nwere ike ikwenye ịtụ, melite ndị ahịa na ọnọdụ ịtụ, ma kparịta ụka ozugbo site na WhatsApp - ọ dịghị mkpa ịmụta usoro ọhụrụ. Ọ dị mfe dị ka inwe mkparịta ụka na onye ahịa gị.",
+      "customDomainAnswer": "Ee! Ị nwere ike ijikọ ngalaba ahaziri nke gị na ụlọ ahịa gị MyPadiFood maka ahụmịhe akara ọkachamara. Dịka ọmụmaatụ, kama azụmahịagị.mypadifood.com, ị nwere ike iji shop.azụmahịagị.com ma ọ bụ ngalaba ọ bụla ị nwere. Atụmatụ a dị na atụmatụ ndebanye aha a họpụtara. Ndị otu nkwado anyị nwere ike iduzi gị site na usoro nhazi dị mfe.",
+      "cashPaymentsAnswer": "MyPadiFood ANAGHỊ anabata, ejikwa, ma ọ bụ jikwaa ịkwụ ụgwọ ego n'aha azụmahịa gị. A na-ejikwa azụmahịa niile metụtara ego n'etiti gị na ndị ahịa gị ozugbo. Ị na-ejigide njikwa zuru ezu n'ụgwọ ego gị, nchịkọta, na ndozi. MyPadiFood na-eme ka ikpo okwu ịtụ na nhazi ịkwụ ụgwọ dijitalụ dị mfe. Nhazi ịkwụ ụgwọ ego ọ bụla bụ ọrụ gị ijikwa n'onwe gị.",
+      "setupTimeAnswer": "Ọtụtụ azụmahịa nwere ike ịme ka ụlọ ahịa ha zuru ezu ma dị njikere ịnabata ịtụ n'ime awa 24 ma ọ bụ ihe erughị ya. Usoro mmalite anyị a haziri nke ọma na-eduzi gị site na: imepụta akaụntụ gị, itinye ngwaahịa gị, ịtọ ụzọ ịkwụ ụgwọ, ịhazi ọdịdị ụlọ ahịa gị, na ijikọ WhatsApp gị. Ọtụtụ ndị ọrụ na-emecha nhazi bụ isi n'ime awa 2. Anyị na-enye nduzi nzọụkwụ na nkwado iji nyere gị aka ịmalite ngwa ngwa.",
+      "technicalKnowledgeAnswer": "Achọghị ihe ọmụma teknụzụ! E mere MyPadiFood maka ndị nwe azụmahịa, ọ bụghị ndị mmepe. Oghere anyị dị mfe na-eduzi gị gafee nzọụkwụ ọ bụla na ntuziaka doro anya. Ị mkpa ịmata ka esi eme koodu, ịghọta nkwado weebụ, ma ọ bụ ijikwa sava. Ọ bụrụ na ị nwere ike iji WhatsApp na email, ị nwere ike ijikwa ụlọ ahịa gị MyPadiFood. Ndị otu nkwado anyị dịkwa maka inye aka na ajụjụ ọ bụla.",
+      "productLimitAnswer": "Enweghị oke ole ngwaahịa ị nwere ike ịgbakwunye na ụlọ ahịa gị. Ma ị nwere ngwaahịa 10 ma ọ bụ 10,000, MyPadiFood nwere ike ijikwa katalọgụ gị. Ị nwere ike ịhazi ngwaahịa n'ụdị dị iche iche, tinye nkọwa zuru ezu na foto, tọọ ọkwa ngwa ahịa, ma jikwaa ihe niile site na dashboard gị. Ka azụmahịa gị na-eto, ụlọ ahịa gị na-eto na gị.",
+      "migrationAnswer": "Ee, anyị nwere ike inyere gị aka ịkwaga ụlọ ahịa gị n'ịntanetị dị ugbu a na MyPadiFood! Anyị na-akwado nkwaga site na ikpo okwu dị iche iche gụnyere Shopify, WooCommerce, na usoro e-azụmahịa ndị ọzọ. Ndị otu anyị nwere ike inye aka n'ịkwaga katalọgụ ngwaahịa gị, data ndị ahịa, na akụkọ ịtụ. Kpọtụrụ ndị otu nkwado anyị site na WhatsApp iji kwurịta ụka banyere mkpa nkwaga gị kpọmkwem, usoro iheomume, na ihe ọ bụla achọrọ. Anyị ga-eme ka mgbanwe ahụ dị mfe dị ka o kwere mee.",
+      "customerSupportAnswer": "Anyị na-enye nkwado zuru ezu site na ọwa dị iche iche: Nkwado WhatsApp maka ajụjụ ngwa ngwa na enyemaka oge ọ bụla, Nkwado email maka ajụjụ zuru ezu, Ebe enyemaka nwere ntuziaka na ọzụzụ, na Nleta vidiyo maka atụmatụ dị mgbagwoju anya. Ndị otu nkwado anyị na-arụ ọrụ n'oge azụmahịa ma anyị na-achọ ịza ajụjụ niile n'ime awa 24. A na-enweta ngwa nkwado premium nwere ndị njikwa akaụntụ raara onwe ha nye maka azụmahịa na-eto eto.",
+      "trainingAnswer": "Ee! Anyị na-enye akụrụngwa ọzụzụ zuru oke iji nyere gị aka ịga nke ọma: Nnọkọ mmalite n'efu mgbe ị debanyere aha, Ọzụzụ vidiyo na-ekpuchi atụmatụ niile, Ntuziaka edere nzọụkwụ, Webinar dị ndụ maka atụmatụ ọhụrụ, na Nnọkọ ọzụzụ mmadụ na mmadụ (dị na atụmatụ premium). Anyị chọrọ ịhụ na ị nwere obi ike iji akụkụ ọ bụla nke ikpo okwu iji kwalite azụmahịa gị.",
+      "updatesAnswer": "Anyị na-aga n'ihu na-emezi MyPadiFood na mmelite mgbe niile na atụmatụ ọhụrụ. Mwepụta atụmatụ buru ibu na-emekarị kwa iri ụka atọ, yana obere mmezi na ndozi ahụhụ a na-ewepụta dị ka achọrọ. A na-agụnye mmelite niile na ndebanye aha gị na-enweghị ọnụ ahịa ọzọ. Anyị na-ekwupụta atụmatụ ọhụrụ site na email, ọkwa n'ime ngwa, na ọwa mgbasa ozi anyị. Nzaghachi gị na-enyere aka ịkpụ ụzọ anyị, ya mere anyị na-ewu mgbe niile ihe azụmahịa chọrọ kachasị."
+    }
+  },
+  "onboarding": {
+    "title": "Bido Azụmahịa Gị",
+    "subtitle": "Dejupụta fọọm dị n'okpuru ebe a ma ndị otu anyị ga-enyere gị aka ịmalite",
+    "submitSuccess": "E nyefere arịrịọ nke ọma!",
+    "submitError": "E nweghị ike inyefe arịrịọ",
+    "submitting": "Na-enyefe...",
+    "submitButton": "Nyefee Arịrịọ",
+    "submitAnother": "Nyefee Arịrịọ Ọzọ",
+    "successTitle": "Daalụ!",
+    "successMessage": "E nyefere arịrịọ mmalite gị nke ọma. Ndị otu anyị ga-akpọtụrụ gị n'ime awa 24.",
+    "categories": {
+      "foodDining": "🍽️ Nri & Iri Nri",
+      "agricultureFarming": "🌾 Ọrụ Ugbo & Ịkọ Ugbo",
+      "hospitality": "🏨 Nnabata Ndị Ọbịa",
+      "retailShopping": "🛍️ Ire Ahịa & Ịzụ Ahịa",
+      "technologyElectronics": "💻 Teknụzụ & Ngwa Eletrọniki",
+      "healthBeauty": "💄 Ahụike & Ịma Mma",
+      "homeLiving": "🏠 Ụlọ & Ibi Ndụ",
+      "automotive": "🚗 Ụgbọ Ala",
+      "educationLearning": "🎓 Mmụta & Ịmụ Ihe",
+      "sportsRecreation": "⚽ Egwuregwu & Ntụrụndụ",
+      "professionalServices": "💼 Ọrụ Ọkachamara",
+      "otherServices": "🔧 Ọrụ Ndị Ọzọ"
+    },
+    "businessInfo": {
+      "title": "Ozi Azụmahịa",
+      "businessName": "Aha Azụmahịa",
+      "businessNamePlaceholder": "dịka, Fresh Farm Produce",
+      "businessType": "Ụdị Azụmahịa",
+      "other": "Ndị Ọzọ",
+      "preferredSlug": "Slug URL A Họọrọ",
+      "slugPlaceholder": "freshfarm",
+      "slugHint": "Naanị mkpụrụedemede obere, ọnụọgụ, na hyphens",
+      "urlPreviewLabel": "A ga-enweta azụmahịa gị na:",
+      "description": "Nkọwa",
+      "descriptionPlaceholder": "Gwa anyị banyere azụmahịa gị..."
+    },
+    "ownerInfo": {
+      "title": "Ozi Onye Nwe",
+      "fullName": "Aha Zuru Ezu",
+      "fullNamePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john@ọmụmaatụ.com",
+      "phone": "Ekwentị",
+      "phonePlaceholder": "+234 800 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Azụmahịa Anyị",
+    "subtitle": "Chọpụta azụmahịa mpaghara dị ịtụnanya na ikpo okwu anyị",
+    "noBusinesses": "Achọtaghị azụmahịa n'ụdị a",
+    "tryDifferent": "Gbalịa ịhọrọ ụdị dị iche iji chọpụta azụmahịa ndị ọzọ"
+  },
+  "businessFilter": {
+    "allBusinesses": "Azụmahịa Niile"
+  },
+  "businessCard": {
+    "products": "Ngwaahịa",
+    "visitStore": "Gaa Ụlọ Ahịa"
+  }
+}

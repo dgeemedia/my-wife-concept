@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Gida",
+    "businesses": "Kasuwanci",
+    "startBusiness": "Fara Kasuwancinka",
+    "contactUs": "Tuntube Mu",
+    "login": "Shiga"
+  },
+  "footer": {
+    "tagline": "Ƙarfafa kasuwanci a duk duniya tare da odar AI da tallafin harsuna da yawa",
+    "quickLinks": {
+      "title": "Hanyoyin Sauri",
+      "home": "Gida",
+      "businesses": "Kasuwanci",
+      "startBusiness": "Fara Kasuwancinka",
+      "faq": "Tambayoyin da Ake Yawan Yi"
+    },
+    "contact": {
+      "title": "Tuntube Mu",
+      "whatsappSupport": "Ana Samun Tallafi ta WhatsApp"
+    },
+    "copyright": "© {{year}} MyPadiFood. Duk haƙƙoƙin da aka keɓe."
+  },
+  "hero": {
+    "badge": "Dandalin Kasuwanci na Duniya",
+    "headline": "Ƙaddamar da Kasuwancinka",
+    "headlineHighlight": "A Ko'ina, Cikin Kowane Harshe",
+    "subtitle": "Dandalin da ke ba abokan ciniki damar yin oda cikin harshensu, biya da kuɗin ƙasarsu, kuma yi sharhi ta wayar hannu - ba tare da zama dole su sauke app ba.",
+    "features": {
+      "globalLanguage": {
+        "title": "Kowane Harshe",
+        "description": "Abokan ciniki suna yin oda cikin harshensu"
+      },
+      "multiCurrency": {
+        "title": "Kuɗi da Yawa",
+        "description": "Karɓi biyan kuɗi cikin kowane kuɗi"
+      },
+      "noSignUp": {
+        "title": "Ba A Buƙatar Rijista",
+        "description": "Abokan ciniki suna yin oda nan take"
+      },
+      "whatsApp": {
+        "title": "Oda ta WhatsApp",
+        "description": "Karɓi oda ta WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Sharhi ta Waya",
+        "description": "Tattara sharhi ta sauti ta atomatik"
+      },
+      "fastSetup": {
+        "title": "Saiti Mai Sauri",
+        "description": "Ƙaddamar a ƙasa da awanni 24"
+      }
+    },
+    "quickStart": {
+      "title": "Fara Gwajin Kyauta",
+      "emailLabel": "Imel ɗin Kasuwancinka",
+      "emailPlaceholder": "kasuwanci@misali.com",
+      "buttonText": "Fara Kyauta",
+      "disclaimer": "Ba a buƙatar katin kiredit. Saiti cikin mintuna kaɗan."
+    }
+  },
+  "aboutUs": {
+    "title": "Game da MyPadiFood",
+    "subtitle": "Rushe shingayen harshe da kuɗi don ƙarfafa kasuwanci a duk duniya",
+    "mission": {
+      "title": "Manufarmu",
+      "description": "Mun yi imani cewa kowane kasuwanci, ko da yaya girmansa ko inda yake, ya cancanci damar samun abokan ciniki a duk duniya. An haifi MyPadiFood daga lura mai sauƙi: shingayen harshe da kuɗi bai kamata su iyakance ikon kasuwanci na hidimar abokan ciniki a duk duniya ba.",
+      "point1": "Baiwa kasuwanci damar isa ga abokan ciniki cikin kowane harshe ba tare da rikicewar fassara da hannu ba",
+      "point2": "Kawar da matsalar canza kuɗi da aiwatar da biyan kuɗi na ƙasa da ƙasa"
+    },
+    "vision": {
+      "title": "Hankalinmu",
+      "description": "Muna ganin duniyar da ƙaramin gona a Najeriya zai iya hidimar abokan ciniki a Japan ba tare da matsala ba, kantin sayar da kayayyaki a Paris zai iya jigilar kaya zuwa Brazil cikin sauƙi, kuma gidan abinci a Mexico zai iya karɓar oda daga abokan ciniki a Indiya - duk ba tare da damuwa game da shingayen harshe ko matsalolin biyan kuɗi ba.",
+      "point1": "Samar da wutar lantarki ga sama da kasuwanci miliyan 1 a duk duniya nan da 2030",
+      "point2": "Tallafa wa kasuwanci cikin kowane harshe da kuɗi a duk duniya"
+    },
+    "values": {
+      "title": "Abin da Ke Motsa Mu",
+      "value1": {
+        "title": "Samun Dama",
+        "description": "Fasaha ya kamata ta ƙarfafa, ba ta rikitar da al'amura ba. Babu apps da za a sauke, babu saiti mai rikitarwa."
+      },
+      "value2": {
+        "title": "Ƙirƙira",
+        "description": "Fassara da atomatik wanda ke aiki ta AI wanda ke aiki cikin sauƙi a bango."
+      },
+      "value3": {
+        "title": "Haɗa Kowa",
+        "description": "Kowane kasuwanci ya cancanci isa ga duniya, ba tare da la'akari da ƙwarewar fasaha ko kasafin kuɗi ba."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Labaran Nasara",
+    "subtitle": "Kasuwancin gaske suna samun ci gaba mai ban mamaki tare da MyPadiFood",
+    "viewMore": "Duba Ƙarin Labaran Nasara"
+  },
+  "testimonials": {
+    "title": "Labaran Nasara",
+    "subtitle": "Kasuwanci na gaske, sakamako na gaske",
+    "aiPoweredAdvantage": "Fa'idar AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Aikin Gona",
+      "quote": "Tsarin fassara da kuɗi da yawa na MyPadiFood wanda ke aiki da AI ya taimaka wa gonar nawa ta isa ga abokan ciniki a ƙasashe 5 daban-daban. Tallace-tallace ya yi girma da kashi 300% cikin watanni 2 kawai!",
+      "highlight": "Ƙwarewar AI: Rarrabuwar samfuran da hazaka da hasashen buƙatu na lokaci wanda ya inganta kayayyakina kuma ya ƙara tallace-tallace.",
+      "metrics": "Ci gaba na 300% • Ƙasashe 5 • Watanni 2"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Tufafi & Kayan Sawa",
+      "quote": "Abokan ciniki suna son yadda za su iya yin oda cikin harshen yankinsu ba tare da yin rijista ba. Oda na na ƙasa da ƙasa ya ninka sau uku nan da nan bayan saita shagona.",
+      "highlight": "Ƙwarewar AI: Nazarin yanayin tufafi da shawarwarin girman da aka yi ta atomatik wanda ya rage yawan dawowar kaya da kashi 40%.",
+      "metrics": "Ƙaruwa na 200% • Raguwar dawowa na 40% • Harsuna 12"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Masaukin Baƙi",
+      "quote": "Baƙi na ƙasa da ƙasa yanzu suna iya yin ajiyar gidajenta cikin kuɗin su da harshensu. Haɗin WhatsApp yana sanya tabbatarwa mai sauƙi!",
+      "highlight": "Ƙwarewar AI: Ƙimar mai canzawa da inganta samuwa wanda ya ƙara yawan cikawa da kashi 65% a duk shekara.",
+      "metrics": "Cikawa na 65% • Ajiyar nan take • Isa ga duniya"
+    },
+    "stats": {
+      "countries": "Ƙasashen da Ake Hidima",
+      "setupTime": "Matsakaicin Saiti",
+      "signUpRequired": "Rijista na Abokin Ciniki",
+      "languagesSupported": "Harsuna"
+    }
+  },
+  "howItWorks": {
+    "title": "Yadda Yake Aiki",
+    "subtitle": "Ƙaddamar da kasuwancinka na duniya cikin matakai uku masu sauƙi",
+    "step1": {
+      "title": "Abokin Ciniki Ya Zaɓi Harshe",
+      "description": "Abokan cinikinka suna kallon menu ɗinka cikin harshen da suka fi so. AI yana fassara komai nan take - abubuwan menu, bayanai, farashi."
+    },
+    "step2": {
+      "title": "Zaɓi Kuɗin Su",
+      "description": "Abokan ciniki suna ganin farashi cikin kuɗin yankinsu. Canjin lokaci-lokaci yana ɗaukar duk lissafin ta atomatik."
+    },
+    "step3": {
+      "title": "Oda ta WhatsApp",
+      "description": "Oda suna zuwa kai tsaye zuwa WhatsApp ɗinka. Ba a buƙatar abokan cinikinka su sauke app. Mai sauƙi kuma nan take."
+    }
+  },
+  "globalReach": {
+    "title": "An Gina Don Kasuwancin Duniya",
+    "subtitle": "Shiga dubban kasuwancin da ke hidimar abokan ciniki a duk duniya",
+    "stats": {
+      "businesses": "Kasuwanci Masu Aiki",
+      "transactions": "Ma'amaloli na Wata-wata",
+      "languagesUsed": "Harsuna Ana Amfani",
+      "currenciesSupported": "Kuɗi"
+    }
+  },
+  "finalCta": {
+    "badge": "Shiga kasuwancin da suka yi nasara a duk duniya",
+    "title": "Shirye Don Zuwa Duniya?",
+    "primaryButton": "Fara Gwajin Kyauta",
+    "secondaryButton": "Duba Labaran Nasara",
+    "subtitle": "Ba a buƙatar katin kiredit • Saiti cikin awanni 24 • Soke kowane lokaci"
+  },
+  "languages": {
+    "en": "Turanci",
+    "es": "Sifen",
+    "fr": "Faransanci",
+    "de": "Jamusanci",
+    "zh": "Sinanci",
+    "ar": "Larabci",
+    "hi": "Hindi",
+    "pt": "Fotugis",
+    "ru": "Rashanci",
+    "ja": "Japananci",
+    "ko": "Koriya",
+    "it": "Italiyanci",
+    "nl": "Yaren Dutch",
+    "tr": "Baturke",
+    "pl": "Yaren mutanen Poland",
+    "vi": "Vietnamese",
+    "th": "Thai",
+    "id": "Indonesian",
+    "ro": "Romanian",
+    "cs": "Czech"
+  },
+  "whatsappWidget": {
+    "title": "Yi Hira Tare da Mu",
+    "subtitle": "Tallafin Dandali",
+    "selectTopic": "Zaɓi batun don fara hira:",
+    "customMessage": "Fara Hira ta Musamman",
+    "opening": "Ana buɗe WhatsApp...",
+    "messages": {
+      "generalHelp": "Sannu, ina buƙatar taimako game da dandalin MyPadiFood",
+      "setupStore": "Ina so in saita shagona na kan layi. Kuna iya taimaka mini in fara?",
+      "pricing": "Me ne tsare-tsaren farashi naku? Ina so in san farashi da fasalulluka.",
+      "technicalIssue": "Ina fuskantar matsala ta fasaha tare da shagona. Kuna iya taimakawa?",
+      "multiLanguage": "Ta yaya aikin fassarar harsuna da yawa ke aiki?",
+      "payments": "Ina da tambayoyi game da aiwatar da biya da tallafin kuɗi da yawa.",
+      "whatsappIntegration": "Ta yaya zan haɗa oda na WhatsApp da shagona?",
+      "customDomain": "Zan iya amfani da domain na musamman don shagona?",
+      "migration": "Ina so in ƙaura da kasuwancina na yanzu zuwa MyPadiFood. Ta yaya yake aiki?",
+      "bulkOrders": "Ta yaya zan iya sarrafa manyan oda da abokan cinikin jumla?",
+      "custom": "Sannu, ina da tambaya game da dandalin MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Tambayoyin da Ake Yawan Yi",
+    "subtitle": "Duk abin da kuke buƙatar sani game da MyPadiFood",
+    "backToHome": "Komawa Gida",
+    "stillHaveQuestions": "Har Yanzu Kuna da Tambayoyi?",
+    "contactSupport": "Ƙungiyar tallafin mu a shirye take don taimaka muku ku yi nasara",
+    "chatWithSupport": "Yi Hira da Tallafi a kan WhatsApp",
+    "whatsappMessage": "Sannu, ina da tambaya game da MyPadiFood wanda ba a rufe a cikin FAQ ba",
+    "categories": {
+      "general": "Bayanan Gabaɗaya",
+      "pricing": "Farashi & Biyan Kuɗi",
+      "features": "Fasalulluka & Ƙarfi",
+      "gettingStarted": "Farawa",
+      "support": "Tallafi & Horo"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Me ne MyPadiFood?",
+      "whoCanUse": "Wane ne zai iya amfani da MyPadiFood?",
+      "howDifferent": "Ta yaya MyPadiFood ya bambanta da sauran dandalin e-commerce?",
+      "freeTrial": "Kuna ba da gwaji kyauta?",
+      "subscriptionPlans": "Waɗanne tsare-tsaren biyan kuɗi kuke bayarwa?",
+      "paymentMethods": "Waɗanne hanyoyin biya kuke karɓa don biyan kuɗi?",
+      "cancelAnytime": "Zan iya soke biyan kuɗi na kowane lokaci?",
+      "languagesSupported": "Harsuna nawa MyPadiFood ke tallafawa?",
+      "currenciesSupported": "Waɗanne kuɗi zan iya karɓar biya?",
+      "whatsappOrders": "Ta yaya oda na WhatsApp ke aiki?",
+      "customDomain": "Zan iya amfani da domain na musamman?",
+      "cashPayments": "Shin MyPadiFood yana kula da biyan kuɗi na tsabar kuɗi don kasuwancina?",
+      "setupTime": "Har lokaci nawa ake ɗaukar saita shagona?",
+      "technicalKnowledge": "Shin ina buƙatar ilimin fasaha don amfani da MyPadiFood?",
+      "productLimit": "Akwai iyaka ga yawan samfuran da zan iya ƙarawa?",
+      "migration": "Zan iya ƙaura da shagona na kan layi zuwa MyPadiFood?",
+      "customerSupport": "Wane irin tallafin abokin ciniki kuke bayarwa?",
+      "training": "Kuna ba da horo ko taimakon farawa?",
+      "updates": "Sau nawa kuke fitar da sabbin fasalulluka da sabuntawa?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood dandalin kasuwancin e-commerce ne na duniya wanda ke baiwa kasuwanci damar sayar da samfura da ayyuka ga abokan ciniki a duk duniya. Dandalin mu wanda ke aiki da AI yana fassara shagonku ta atomatik zuwa harsuna da yawa, yana kula da biyan kuɗi da kuɗi da yawa, kuma yana barin abokan ciniki su yi oda ta WhatsApp ba tare da sauke kowane app ba. Muna rushe shingayen harshe da kuɗi don ku mayar da hankali kan haɓaka kasuwancin ku a duniya.",
+      "whoCanUseAnswer": "MyPadiFood yana da kyau ga kowane kasuwanci da ke neman faɗaɗa duniya - daga ƙananan gonaki da gidajen abinci zuwa kantunan sayar da tufafi, ayyukan masaukin baƙi, da masu samar da jumla. Ko kai ɗan kasuwa ne, mai kasuwancin ƙarami, ko babban kasuwanci mai girma, dandalin mu yana girma tare da bukatunku. Idan kuna da samfura ko ayyuka da za ku sayar kuma kuna son isa ga abokan ciniki na ƙasa da ƙasa, an gina MyPadiFood don ku.",
+      "howDifferentAnswer": "Ba kamar dandalin e-commerce na gargajiya ba, an ƙera MyPadiFood musamman don kasuwancin duniya. Fasalullukan mu na musamman sun haɗa da: (1) Fassara da AI zuwa harsuna 20+ ba tare da ƙoƙarin hannu ba, (2) Abokan ciniki suna iya yin oda ba tare da ƙirƙirar asusun ko sauke apps ba, (3) Haɗin WhatsApp don gudanar da oda mai sauƙi, (4) Tallafin kuɗi da yawa tare da canjin atomatik, (5) Tattara sharhi na abokin ciniki ta tushen waya, da (6) Ba a buƙatar ƙwarewar fasaha don farawa.",
+      "freeTrialAnswer": "I! Muna ba da gwaji kyauta na kwanaki 14 tare da cikakken damar yin amfani da duk fasalulluka. Ba a buƙatar katin kiredit don fara gwajin ku. Wannan yana ba ku isasshen lokaci don saita shagonku, ƙara samfura, keɓance saitunan ku, da gwada duk fasalullukanmu. Bayan ƙarshen gwajin kwanaki 14, za a dakatar da shagonku na ɗan lokaci har sai kun zaɓi tsarin biyan kuɗi wanda ya dace da ku. Kuna iya sake kunna kowane lokaci ta hanyar biyan kuɗi.",
+      "subscriptionPlansAnswer": "Muna ba da tsare-tsaren biyan kuɗi masu sassauƙa don dacewa da bukatun kasuwancin ku: Biyan kuɗi na wata-wata don mafi girman sassauci, Tsare-tsaren kwata tare da ajiyar kuɗi, Biyan kuɗi na rabin shekara (watanni 6) don kyakkyawan ƙima, da Tsare-tsaren shekara don mafi kyawun farashi. Kuɗin biyan kuɗi sun bambanta gwargwadon ƙasar da kuke ciki don tabbatar da daidaitattun farashi dangane da yanayin tattalin arzikin gida. Tuntuɓi ƙungiyar tallafin mu ta WhatsApp don samun takamaiman farashi na ƙasarku da tattaunawa akan tsarin da ya fi dacewa da manufofin kasuwancin ku.",
+      "paymentMethodsAnswer": "Muna karɓar hanyoyin biya da yawa don kuɗin biyan kuɗi dangane da ƙasarku, gami da katunan kiredit/zare kuɗi, canja wurin banki, kuɗin wayar hannu, da sauran zaɓuɓɓukan biyan kuɗi na gida. Manufarmu ita ce sauƙaƙa ku biyan kuɗi da kiyaye asusunku gwargwadon yadda zai yiwu. Tuntuɓi ƙungiyar tallafin mu don koyon game da takamaiman hanyoyin biya da ake samu a yankinku.",
+      "cancelAnytimeAnswer": "Lallai! Kuna da cikakken iko akan biyan kuɗi naku. Kuna iya sokewa kowane lokaci ba tare da hukunci ko kuɗin ɓoye ba. Idan kun soke a cikin zagayowar biyan kuɗi naku, za ku ci gaba da samun damar shiga shagonku har zuwa ƙarshen lokacin da aka biya. Mun yi imani da samun kasuwancin ku kowane wata, ba kulle ku cikin kwangiloli na dogon lokaci da ba ku so ba.",
+      "languagesSupportedAnswer": "MyPadiFood a halin yanzu yana tallafawa manyan harsuna 20+ ciki har da Turanci, Sifen, Faransanci, Jamusanci, Sinanci, Larabci, Hindi, Fotugis, Rashanci, Japananci, Koriya, Italiyanci, Dutch, Baturke, Polish, Vietnamese, Thai, Indonesian, Romanian, da Czech. Tsarin fassara mu na AI yana tabbatar da cewa bayanan samfuran ku, menu, da abun ciki na shago ana fassara su daidai a lokaci-lokaci. Muna ci gaba da ƙara ƙarin harsuna bisa buƙatar abokin ciniki.",
+      "currenciesSupportedAnswer": "Kuna iya karɓar biya cikin kusan kowane babban kuɗi a duniya. Dandalin mu yana sarrafa canjin kuɗi ta atomatik a lokaci-lokaci, don haka abokan ciniki suna ganin farashi cikin kuɗin yankinsu yayin da kuke karɓar biya cikin kuɗin da kuka fi so. Wannan ya haɗa da USD, EUR, GBP, NGN, JPY, CNY, INR, da ƙari da yawa. Tsarin yana sabunta ƙimar musayar kuɗi akai-akai don tabbatar da daidaitattun farashi.",
+      "whatsappOrdersAnswer": "Lokacin da abokan ciniki suka yi oda a kan shagon ku na MyPadiFood, kuna karɓar sanarwa nan take zuwa lambar WhatsApp na kasuwancin ku. An tsara cikakkun bayanan oda a fili tare da bayanan abokin ciniki, abubuwan da aka yi oda, adireshin isar da kaya, da matsayin biya. Kuna iya tabbatar da oda, sabunta abokan ciniki kan matsayin oda, kuma sadarwa kai tsaye ta WhatsApp - ba buƙatar koyon sabon tsarin. Yana da sauƙi kamar samun tattaunawa tare da abokin ciniki naku.",
+      "customDomainAnswer": "I! Kuna iya haɗa domain naku na musamman zuwa shagon ku na MyPadiFood don ƙwarewar alama ta ƙwararru. Misali, maimakon kasuwanci.mypadifood.com, kuna iya amfani da shago.kasuwanci.com ko kowane domain da kuke da shi. Wannan fasalin yana samuwa akan zaɓaɓɓun tsare-tsaren biyan kuɗi. Ƙungiyar tallafin mu za ta iya jagorantar ku ta hanyar tsarin saiti mai sauƙi.",
+      "cashPaymentsAnswer": "MyPadiFood BA YA karɓa, sarrafa, ko gudanar da biyan kuɗi na tsabar kuɗi a madadin kasuwancin ku. Duk ma'amaloli da suka shafi tsabar kuɗi ana sarrafa su kai tsaye tsakanin ku da abokan ciniki naku. Kuna riƙe cikakken iko akan biyan kuɗi naku na tsabar kuɗi, tattarawa, da sulhu. MyPadiFood kawai yana sauƙaƙa dandalin oda da aiwatar da biyan kuɗi na dijital. Duk shirye-shiryen biyan kuɗi na tsabar kuɗi alhakinku ne ku gudanar da su zaman kanku.",
+      "setupTimeAnswer": "Yawancin kasuwanci suna iya samun shagonsu cikakke kuma a shirye don karɓar oda a cikin awanni 24 ko ƙasa da haka. Tsarin mu na farawa mai sauri yana jagorantar ku ta hanyar: ƙirƙirar asusunku, ƙara samfuran ku, saita hanyoyin biya, keɓance kamannin shagonku, da haɗa WhatsApp ɗinku. Masu amfani da yawa suna kammala saiti na asali a cikin awanni 2. Muna bayar da jagora ta mataki-mataki da tallafi don taimaka muku ku ƙaddamar da sauri.",
+      "technicalKnowledgeAnswer": "Ba a buƙatar ilimin fasaha! An ƙera MyPadiFood don masu kasuwanci, ba masu haɓakawa ba. Mu'amalarmu mai sauƙin fahimta tana jagorantar ku ta kowane mataki tare da bayyanannun umarnai. Ba kwa buƙatar sanin yadda ake yin code, fahimtar yanar gizo, ko gudanar da sabobin. Idan za ku iya amfani da WhatsApp da imel, za ku iya sarrafa shagon ku na MyPadiFood. Ƙungiyar tallafin mu kuma tana samuwa don taimakawa da kowane tambaya.",
+      "productLimitAnswer": "Babu iyaka ga yawan samfuran da za ku iya ƙarawa zuwa shagonku. Ko kuna da samfura 10 ko 10,000, MyPadiFood zai iya sarrafa catalog ɗinku. Kuna iya shirya samfura zuwa nau'o'i, ƙara cikakkun bayanai da hotuna, saita matakan kaya, da sarrafa komai daga dashboard ɗinku. Yayin da kasuwancin ku ke girma, shagon ku yana girma tare da ku.",
+      "migrationAnswer": "I, za mu iya taimaka muku ƙaura da shagon ku na kan layi zuwa MyPadiFood! Muna tallafawa ƙaura daga dandali daban-daban ciki har da Shopify, WooCommerce, da sauran tsarin e-commerce. Ƙungiyar mu na iya taimakawa wajen canja wurin catalog ɗin samfuran ku, bayanan abokin ciniki, da tarihin oda. Tuntuɓi ƙungiyar tallafin mu ta WhatsApp don tattaunawa akan takamaiman bukatun ƙaura naku, lokaci, da kowane buƙatu na musamman. Za mu sanya canjin ya zama mai sauƙi gwargwadon yadda zai yiwu.",
+      "customerSupportAnswer": "Muna ba da cikakken tallafi ta hanyoyi da yawa: Tallafin WhatsApp don tambayoyi masu sauri da taimako na lokaci-lokaci, Tallafin imel don cikakkun tambayoyi, Cibiyar taimako tare da jagororin da koyarwa, da Bidiyo jagororin don hadaddun fasalulluka. Ƙungiyar tallafin mu tana aiki a lokutan kasuwanci kuma muna nufin amsawa duk tambayoyi a cikin awanni 24. Ana samun fakitin tallafi na premium tare da manajojin asusun da aka keɓe don kasuwanci masu girma.",
+      "trainingAnswer": "I! Muna ba da kayan aikin horo masu yawa don taimaka muku ku yi nasara: Zaman farawa kyauta lokacin da kuka yi rajista, Koyarwar bidiyo da ke rufe duk fasalulluka, Jagororin rubuce-rubuce na mataki-mataki, Taron yanar gizo na kai tsaye don sabbin fasalulluka, da Zaman horo na mutum-da-mutum (ana samun tare da tsare-tsaren premium). Muna son tabbatar da cewa kuna jin ƙarfin yin amfani da kowane al'amari na dandalin don haɓaka kasuwancin ku.",
+      "updatesAnswer": "Muna ci gaba da inganta MyPadiFood tare da sabuntawa akai-akai da sabbin fasalulluka. Manyan sakin fasalulluka yawanci suna faruwa kowane kwata, tare da ƙananan haɓakawa da gyara kurakuran da ake sakewa yadda ake buƙata. An haɗa duk sabuntawa a cikin biyan kuɗi naku ba tare da ƙarin farashi ba. Muna sanar da sabbin fasalulluka ta hanyar imel, sanarwa a cikin app, da tashoshin mu na kafofin watsa labarai. Ra'ayinku yana taimakawa wajen tsara taswirar hanya, don haka kullum muna gina abin da kasuwanci ke buƙata mafi yawa."
+    }
+  },
+  "onboarding": {
+    "title": "Fara Kasuwancinka",
+    "subtitle": "Cika fom ɗin da ke ƙasa kuma ƙungiyarmu za ta taimake ku ku fara",
+    "submitSuccess": "An ƙaddamar da aikace-aikacen nasara!",
+    "submitError": "An kasa ƙaddamar da aikace-aikacen",
+    "submitting": "Ana Ƙaddamarwa...",
+    "submitButton": "Ƙaddamar da Aikace-aikacen",
+    "submitAnother": "Ƙaddamar da Wani Buƙata",
+    "successTitle": "Na Gode!",
+    "successMessage": "An ƙaddamar da buƙatar farawa ta nasara. Ƙungiyarmu za ta tuntuɓe ku a cikin awanni 24.",
+    "categories": {
+      "foodDining": "🍽️ Abinci & Cin Abinci",
+      "agricultureFarming": "🌾 Aikin Gona & Noma",
+      "hospitality": "🏨 Masaukin Baƙi",
+      "retailShopping": "🛍️ Sayar da Kayayyaki & Siyayya",
+      "technologyElectronics": "💻 Fasaha & Na'urori Lantarki",
+      "healthBeauty": "💄 Lafiya & Kyau",
+      "homeLiving": "🏠 Gida & Rayuwa",
+      "automotive": "🚗 Motoci",
+      "educationLearning": "🎓 Ilimi & Koyo",
+      "sportsRecreation": "⚽ Wasanni & Nishaɗi",
+      "professionalServices": "💼 Ayyukan Ƙwararru",
+      "otherServices": "🔧 Sauran Ayyuka"
+    },
+    "businessInfo": {
+      "title": "Bayanan Kasuwanci",
+      "businessName": "Sunan Kasuwanci",
+      "businessNamePlaceholder": "misali, Fresh Farm Produce",
+      "businessType": "Nau'in Kasuwanci",
+      "other": "Sauran",
+      "preferredSlug": "Slug URL da Ake So",
+      "slugPlaceholder": "freshfarm",
+      "slugHint": "Haruffa ƙanana kawai, lambobi, da hyphens",
+      "urlPreviewLabel": "Za a sami damar isa ga kasuwancin ku a:",
+      "description": "Bayanin",
+      "descriptionPlaceholder": "Gaya mana game da kasuwancin ku..."
+    },
+    "ownerInfo": {
+      "title": "Bayanan Mai Kasuwanci",
+      "fullName": "Cikakken Suna",
+      "fullNamePlaceholder": "John Doe",
+      "email": "Imel",
+      "emailPlaceholder": "john@misali.com",
+      "phone": "Waya",
+      "phonePlaceholder": "+234 800 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Kasuwancinmu",
+    "subtitle": "Gano kasuwancin gida masu ban mamaki akan dandalinmu",
+    "noBusinesses": "Ba a sami kasuwanci a cikin wannan nau'in ba",
+    "tryDifferent": "Gwada zabar wani nau'in don bincika ƙarin kasuwanci"
+  },
+  "businessFilter": {
+    "allBusinesses": "Duk Kasuwanci"
+  },
+  "businessCard": {
+    "products": "Samfura",
+    "visitStore": "Ziyarci Shago"
+  }
+}

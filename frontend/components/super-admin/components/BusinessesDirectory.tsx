@@ -3,12 +3,14 @@
 
 import { useState, useEffect } from 'react'
 import { Store } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import BusinessCard from './BusinessCard'
 import BusinessTypeFilter from './BusinessTypeFilter'
 import { BUSINESS_TYPES } from '../constants/businessTypes'
 import type { Business } from '../types'
 
 export default function BusinessesDirectory() {
+  const { t } = useTranslation('landing')
   const [businesses, setBusinesses] = useState<Business[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedType, setSelectedType] = useState('all')
@@ -35,7 +37,6 @@ export default function BusinessesDirectory() {
     ? businesses 
     : businesses.filter(b => b.businessType === selectedType)
 
-  // Get count of businesses per type for the filter
   const businessTypeCounts = businesses.reduce((acc, business) => {
     acc[business.businessType] = (acc[business.businessType] || 0) + 1
     return acc
@@ -48,13 +49,14 @@ export default function BusinessesDirectory() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
             <Store className="w-8 h-8 text-blue-600" />
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Businesses</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            {t('businessDirectory.title')}
+          </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover amazing local businesses on our platform
+            {t('businessDirectory.subtitle')}
           </p>
         </div>
 
-        {/* Filter */}
         <BusinessTypeFilter
           selectedType={selectedType}
           onSelectType={setSelectedType}
@@ -62,7 +64,6 @@ export default function BusinessesDirectory() {
           totalCount={businesses.length}
         />
 
-        {/* Businesses Grid */}
         {loading ? (
           <BusinessesSkeleton />
         ) : filteredBusinesses.length === 0 ? (
@@ -95,13 +96,17 @@ function BusinessesSkeleton() {
 }
 
 function EmptyBusinessesState() {
+  const { t } = useTranslation('landing')
+  
   return (
     <div className="text-center py-16">
       <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-4">
         <Store className="w-10 h-10 text-gray-400" />
       </div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">No businesses found in this category</h3>
-      <p className="text-gray-600">Try selecting a different category to explore more businesses</p>
+      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+        {t('businessDirectory.noBusinesses')}
+      </h3>
+      <p className="text-gray-600">{t('businessDirectory.tryDifferent')}</p>
     </div>
   )
 }

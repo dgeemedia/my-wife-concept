@@ -263,5 +263,65 @@
       "trainingAnswer": "Yes! We provide extensive training resources to help you succeed: Free onboarding session when you sign up, Video tutorials covering all features, Written step-by-step guides, Live webinars for new features, and One-on-one training sessions (available with premium plans). We want to ensure you feel confident using every aspect of the platform to grow your business.",
       "updatesAnswer": "We continuously improve MyPadiFood with regular updates and new features. Major feature releases typically happen quarterly, with minor improvements and bug fixes released as needed. All updates are included in your subscription at no extra cost. We announce new features through email, in-app notifications, and our social media channels. Your feedback helps shape our roadmap, so we're always building what businesses need most."
     }
+  },
+  "onboarding": {
+    "title": "Start Your Business",
+    "subtitle": "Fill out the form below and our team will help you get started",
+    "submitSuccess": "Application submitted successfully!",
+    "submitError": "Failed to submit application",
+    "submitting": "Submitting...",
+    "submitButton": "Submit Application",
+    "submitAnother": "Submit Another Request",
+    "successTitle": "Thank You!",
+    "successMessage": "Your onboarding request has been submitted successfully. Our team will contact you within 24 hours.",
+    "categories": {
+      "foodDining": "🍽️ Food & Dining",
+      "agricultureFarming": "🌾 Agriculture & Farming",
+      "hospitality": "🏨 Hospitality",
+      "retailShopping": "🛍️ Retail & Shopping",
+      "technologyElectronics": "💻 Technology & Electronics",
+      "healthBeauty": "💄 Health & Beauty",
+      "homeLiving": "🏠 Home & Living",
+      "automotive": "🚗 Automotive",
+      "educationLearning": "🎓 Education & Learning",
+      "sportsRecreation": "⚽ Sports & Recreation",
+      "professionalServices": "💼 Professional Services",
+      "otherServices": "🔧 Other Services"
+    },
+    "businessInfo": {
+      "title": "Business Information",
+      "businessName": "Business Name",
+      "businessNamePlaceholder": "e.g., Fresh Farm Produce",
+      "businessType": "Business Type",
+      "other": "Other",
+      "preferredSlug": "Preferred URL Slug",
+      "slugPlaceholder": "freshfarm",
+      "slugHint": "Only lowercase letters, numbers, and hyphens",
+      "urlPreviewLabel": "Your business will be accessible at:",
+      "description": "Description",
+      "descriptionPlaceholder": "Tell us about your business..."
+    },
+    "ownerInfo": {
+      "title": "Owner Information",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+234 800 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Our Businesses",
+    "subtitle": "Discover amazing local businesses on our platform",
+    "noBusinesses": "No businesses found in this category",
+    "tryDifferent": "Try selecting a different category to explore more businesses"
+  },
+  "businessFilter": {
+    "allBusinesses": "All Businesses"
+  },
+  "businessCard": {
+    "products": "Products",
+    "visitStore": "Visit Store"
   }
 }

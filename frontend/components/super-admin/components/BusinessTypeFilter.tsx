@@ -1,4 +1,5 @@
 // frontend/components/super-admin/components/BusinessTypeFilter.tsx
+import { useTranslation } from 'react-i18next'
 import { BUSINESS_TYPES } from '../constants/businessTypes'
 
 interface BusinessTypeFilterProps {
@@ -14,25 +15,8 @@ export default function BusinessTypeFilter({
   counts,
   totalCount 
 }: BusinessTypeFilterProps) {
+  const { t } = useTranslation('landing')
   
-  // Get categories with emoji icons
-  const categoryIcons: Record<string, string> = {
-    'all': '🏪',
-    'food': '🍕',
-    'restaurant': '🍽️',
-    'farming': '🌾',
-    'agriculture': '🚜',
-    'livestock': '🐄',
-    'hotel': '🏨',
-    'retail': '🛍️',
-    'fashion': '👗',
-    'electronics': '📱',
-    'beauty': '💄',
-    'health': '💊',
-    'services': '⚙️',
-  }
-
-  // Show most popular types first, then alphabetically
   const popularTypes = ['all', 'food', 'restaurant', 'farming', 'agriculture', 'retail', 'fashion']
   const otherTypes = Object.keys(BUSINESS_TYPES)
     .filter(type => !popularTypes.includes(type) && counts[type] > 0)
@@ -48,7 +32,7 @@ export default function BusinessTypeFilter({
           if (count === 0 && type !== 'all') return null
 
           const businessInfo = type === 'all' 
-            ? { label: 'All Businesses', icon: '🏪' }
+            ? { label: t('businessFilter.allBusinesses'), icon: '🏪' }
             : BUSINESS_TYPES[type as keyof typeof BUSINESS_TYPES]
 
           return (

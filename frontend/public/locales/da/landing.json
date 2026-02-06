@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Hjem",
+    "businesses": "Virksomheder",
+    "startBusiness": "Start Din Virksomhed",
+    "contactUs": "Kontakt Os",
+    "login": "Log Ind"
+  },
+  "footer": {
+    "tagline": "Styrker virksomheder verden over med AI-drevet bestilling og flersproget support",
+    "quickLinks": {
+      "title": "Hurtige Links",
+      "home": "Hjem",
+      "businesses": "Virksomheder",
+      "startBusiness": "Start Din Virksomhed",
+      "faq": "Ofte Stillede Spørgsmål"
+    },
+    "contact": {
+      "title": "Kontakt Os",
+      "whatsappSupport": "WhatsApp Support Tilgængelig"
+    },
+    "copyright": "© {{year}} MyPadiFood. Alle rettigheder forbeholdes."
+  },
+  "hero": {
+    "badge": "Global Forretningsplatform",
+    "headline": "Start Din Virksomhed",
+    "headlineHighlight": "Hvor Som Helst, På Hvilket Som Helst Sprog",
+    "subtitle": "Den eneste platform, der lader kunder bestille på deres sprog, betale i deres valuta og anmelde via telefonopkald - ingen app-download påkrævet.",
+    "features": {
+      "globalLanguage": {
+        "title": "Hvilket Som Helst Sprog",
+        "description": "Kunder bestiller på deres modersmål"
+      },
+      "multiCurrency": {
+        "title": "Multi-Valuta",
+        "description": "Accepter betalinger i enhver valuta"
+      },
+      "noSignUp": {
+        "title": "Ingen Tilmelding Nødvendig",
+        "description": "Kunder bestiller øjeblikkeligt"
+      },
+      "whatsApp": {
+        "title": "WhatsApp Ordrer",
+        "description": "Modtag ordrer via WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Telefon Anmeldelser",
+        "description": "Automatiseret stemme-anmeldelsesindsamling"
+      },
+      "fastSetup": {
+        "title": "Hurtig Opsætning",
+        "description": "Start på under 24 timer"
+      }
+    },
+    "quickStart": {
+      "title": "Start Din Gratis Prøveperiode",
+      "emailLabel": "Din Virksomheds E-mail",
+      "emailPlaceholder": "virksomhed@eksempel.com",
+      "buttonText": "Kom Gratis I Gang",
+      "disclaimer": "Ingen kreditkort påkrævet. Opsætning på få minutter."
+    }
+  },
+  "aboutUs": {
+    "title": "Om MyPadiFood",
+    "subtitle": "Nedbryder sprog- og valutalærrier for at styrke virksomheder verden over",
+    "mission": {
+      "title": "Vores Mission",
+      "description": "Vi mener, at enhver virksomhed, uanset størrelse eller placering, fortjener adgang til globale kunder. MyPadiFood blev født af en simpel observation: sprog- og valutalærrier bør ikke begrænse en virksomheds potentiale til at betjene kunder verden over.",
+      "point1": "Gøre det muligt for virksomheder at nå kunder på ethvert sprog uden kompleksiteten af manuel oversættelse",
+      "point2": "Eliminere friktionen ved valutaomregning og international betalingsbehandling"
+    },
+    "vision": {
+      "title": "Vores Vision",
+      "description": "Vi forestiller os en verden, hvor en lille farm i Nigeria problemfrit kan betjene kunder i Japan, en boutique i Paris nemt kan sende til Brasilien, og en restaurant i Mexico kan tage imod ordrer fra kunder i Indien - alt sammen uden at bekymre sig om sprogbarrierer eller betalingskomplikationer.",
+      "point1": "Drive over 1 million virksomheder globalt inden 2030",
+      "point2": "Understøtte handel på ethvert sprog og valuta verden over"
+    },
+    "values": {
+      "title": "Hvad Driver Os",
+      "value1": {
+        "title": "Tilgængelighed",
+        "description": "Teknologi skal styrke, ikke komplicere. Ingen apps at downloade, ingen komplekse opsætninger."
+      },
+      "value2": {
+        "title": "Innovation",
+        "description": "AI-drevet oversættelse og automatisering, der fungerer problemfrit i baggrunden."
+      },
+      "value3": {
+        "title": "Inklusivitet",
+        "description": "Enhver virksomhed fortjener global rækkevidde, uanset teknisk ekspertise eller budget."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Succeshistorier",
+    "subtitle": "Rigtige virksomheder, der opnår ekstraordinær vækst med MyPadiFood",
+    "viewMore": "Se Flere Succeshistorier"
+  },
+  "testimonials": {
+    "title": "Succeshistorier",
+    "subtitle": "Rigtige virksomheder, rigtige resultater",
+    "aiPoweredAdvantage": "AI-Drevet Fordel",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Landbrug",
+      "quote": "MyPadiFoots AI-drevne oversættelse og multi-valuta system hjalp min farm med at nå kunder i 5 forskellige lande. Salget voksede med 300% på kun 2 måneder!",
+      "highlight": "AI Færdighed: Smart produktkategorisering og sæsonbestemt efterspørgselsprognose, der optimerede mit lager og øgede salget.",
+      "metrics": "300% vækst • 5 lande • 2 måneder"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Mode & Tøj",
+      "quote": "Kunderne elsker, at de kan bestille på deres lokale sprog uden at tilmelde sig. Mine internationale ordrer blev tredoblet umiddelbart efter at have sat min butik op.",
+      "highlight": "AI Færdighed: Modetrendanalyse og automatiserede størrelsesanbefalinger, der reducerede returprocenten med 40%.",
+      "metrics": "200% stigning • 40% færre returneringer • 12 sprog"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Gæstfrihed",
+      "quote": "Internationale gæster kan nu booke mine lejligheder i deres valuta og sprog. WhatsApp-integration gør bekræftelser problemfri!",
+      "highlight": "AI Færdighed: Dynamisk prissætning og tilgængelighedsoptimering, der øgede belægningsprocenten med 65% året rundt.",
+      "metrics": "65% belægning • Øjeblikkelige bookinger • Global rækkevidde"
+    },
+    "stats": {
+      "countries": "Betjente Lande",
+      "setupTime": "Gennemsnitlig Opsætning",
+      "signUpRequired": "Kundetilmelding",
+      "languagesSupported": "Sprog"
+    }
+  },
+  "howItWorks": {
+    "title": "Sådan Fungerer Det",
+    "subtitle": "Start din globale virksomhed i tre enkle trin",
+    "step1": {
+      "title": "Kunde Vælger Sprog",
+      "description": "Dine kunder gennemser din menu på deres foretrukne sprog. AI oversætter øjeblikkeligt alt - menupunkter, beskrivelser, priser."
+    },
+    "step2": {
+      "title": "Vælg Deres Valuta",
+      "description": "Kunder ser priser i deres lokale valuta. Realtidskonvertering håndterer alle beregningerne automatisk."
+    },
+    "step3": {
+      "title": "Bestil via WhatsApp",
+      "description": "Ordrer kommer direkte til din WhatsApp. Ingen app-downloads nødvendige for dine kunder. Simpelt og øjeblikkeligt."
+    }
+  },
+  "globalReach": {
+    "title": "Bygget til Global Handel",
+    "subtitle": "Deltag i tusindvis af virksomheder, der betjener kunder verden over",
+    "stats": {
+      "businesses": "Aktive Virksomheder",
+      "transactions": "Månedlige Transaktioner",
+      "languagesUsed": "Sprog i Brug",
+      "currenciesSupported": "Valutaer"
+    }
+  },
+  "finalCta": {
+    "badge": "Deltag i succesfulde virksomheder verden over",
+    "title": "Klar til at Gå Globalt?",
+    "primaryButton": "Start Gratis Prøveperiode",
+    "secondaryButton": "Se Succeshistorier",
+    "subtitle": "Ingen kreditkort påkrævet • Opsætning på 24 timer • Opsig når som helst"
+  },
+  "languages": {
+    "en": "Engelsk",
+    "es": "Spansk",
+    "fr": "Fransk",
+    "de": "Tysk",
+    "zh": "Kinesisk",
+    "ar": "Arabisk",
+    "hi": "Hindi",
+    "pt": "Portugisisk",
+    "ru": "Russisk",
+    "ja": "Japansk",
+    "ko": "Koreansk",
+    "it": "Italiensk",
+    "nl": "Hollandsk",
+    "tr": "Tyrkisk",
+    "pl": "Polsk",
+    "vi": "Vietnamesisk",
+    "th": "Thailandsk",
+    "id": "Indonesisk",
+    "ro": "Rumænsk",
+    "cs": "Tjekkisk"
+  },
+  "whatsappWidget": {
+    "title": "Chat Med Os",
+    "subtitle": "Platform Support",
+    "selectTopic": "Vælg et emne for at starte chat:",
+    "customMessage": "Start Brugerdefineret Chat",
+    "opening": "Åbner WhatsApp...",
+    "messages": {
+      "generalHelp": "Hej, jeg har brug for hjælp med MyPadiFood platformen",
+      "setupStore": "Jeg vil gerne oprette min online butik. Kan I hjælpe mig med at komme i gang?",
+      "pricing": "Hvad er jeres prisplaner? Jeg vil gerne kende omkostningerne og funktionerne.",
+      "technicalIssue": "Jeg oplever et teknisk problem med min butik. Kan I hjælpe?",
+      "multiLanguage": "Hvordan fungerer funktionen med flersproget oversættelse?",
+      "payments": "Jeg har spørgsmål om betalingsbehandling og multi-valuta support.",
+      "whatsappIntegration": "Hvordan integrerer jeg WhatsApp-ordrer med min butik?",
+      "customDomain": "Kan jeg bruge mit eget brugerdefinerede domæne til min butik?",
+      "migration": "Jeg vil gerne migrere min eksisterende virksomhed til MyPadiFood. Hvordan fungerer det?",
+      "bulkOrders": "Hvordan kan jeg håndtere bulkordrer og engros kunder?",
+      "custom": "Hej, jeg har et spørgsmål om MyPadiFood platformen"
+    }
+  },
+  "faq": {
+    "title": "Ofte Stillede Spørgsmål",
+    "subtitle": "Alt, hvad du behøver at vide om MyPadiFood",
+    "backToHome": "Tilbage Til Hjem",
+    "stillHaveQuestions": "Har Du Stadig Spørgsmål?",
+    "contactSupport": "Vores supportteam er klar til at hjælpe dig med at lykkes",
+    "chatWithSupport": "Chat med Support på WhatsApp",
+    "whatsappMessage": "Hej, jeg har et spørgsmål om MyPadiFood, som ikke blev dækket i FAQ",
+    "categories": {
+      "general": "Generel Information",
+      "pricing": "Priser & Fakturering",
+      "features": "Funktioner & Muligheder",
+      "gettingStarted": "Kom I Gang",
+      "support": "Support & Træning"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Hvad er MyPadiFood?",
+      "whoCanUse": "Hvem kan bruge MyPadiFood?",
+      "howDifferent": "Hvordan er MyPadiFood anderledes end andre e-handelsplatforme?",
+      "freeTrial": "Tilbyder I en gratis prøveperiode?",
+      "subscriptionPlans": "Hvilke abonnementsplaner tilbyder I?",
+      "paymentMethods": "Hvilke betalingsmetoder accepterer I til abonnementer?",
+      "cancelAnytime": "Kan jeg opsige mit abonnement når som helst?",
+      "languagesSupported": "Hvor mange sprog understøtter MyPadiFood?",
+      "currenciesSupported": "Hvilke valutaer kan jeg acceptere betalinger i?",
+      "whatsappOrders": "Hvordan fungerer WhatsApp-ordrer?",
+      "customDomain": "Kan jeg bruge mit eget brugerdefinerede domæne?",
+      "cashPayments": "Håndterer MyPadiFood kontantbetalinger for min virksomhed?",
+      "setupTime": "Hvor lang tid tager det at oprette min butik?",
+      "technicalKnowledge": "Har jeg brug for teknisk viden for at bruge MyPadiFood?",
+      "productLimit": "Er der en grænse for, hvor mange produkter jeg kan tilføje?",
+      "migration": "Kan jeg migrere min eksisterende online butik til MyPadiFood?",
+      "customerSupport": "Hvilken slags kundesupport tilbyder I?",
+      "training": "Tilbyder I træning eller onboarding assistance?",
+      "updates": "Hvor ofte udgiver I nye funktioner og opdateringer?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood er en global e-handelsplatform, der gør det muligt for virksomheder at sælge produkter og tjenester til kunder verden over. Vores AI-drevne platform oversætter automatisk din butik til flere sprog, håndterer multi-valuta betalinger og lader kunder bestille via WhatsApp uden at downloade nogen apps. Vi nedbryder sprog- og valutalærrier, så du kan fokusere på at vokse din virksomhed globalt.",
+      "whoCanUseAnswer": "MyPadiFood er perfekt til enhver virksomhed, der ønsker at ekspandere globalt - fra små farme og restauranter til modebutikker, gæstfrihedstjenester og engrosudbydere. Uanset om du er soloentreprenør, lille virksomhedsejer eller voksende virksomhed, skalerer vores platform med dine behov. Hvis du har produkter eller tjenester at sælge og ønsker at nå internationale kunder, er MyPadiFood bygget til dig.",
+      "howDifferentAnswer": "I modsætning til traditionelle e-handelsplatforme er MyPadiFood specifikt designet til global handel. Vores unikke funktioner inkluderer: (1) AI-drevet oversættelse til 20+ sprog uden manuel indsats, (2) Kunder kan bestille uden at oprette konti eller downloade apps, (3) WhatsApp-integration til problemfri ordrehåndtering, (4) Multi-valuta support med automatisk konvertering, (5) Telefonbaseret kundeanameldelses-indsamling, og (6) Ingen teknisk ekspertise påkrævet for at komme i gang.",
+      "freeTrialAnswer": "Ja! Vi tilbyder en generøs 14-dages gratis prøveperiode med fuld adgang til alle funktioner. Ingen kreditkort er påkrævet for at starte din prøveperiode. Dette giver dig masser af tid til at oprette din butik, tilføje produkter, tilpasse dine indstillinger og teste alle vores funktioner. Efter 14-dages prøveperioden udløber, vil din butik blive midlertidigt suspenderet, indtil du vælger en abonnementsplan, der passer til dig. Du kan genaktivere når som helst ved at abonnere.",
+      "subscriptionPlansAnswer": "Vi tilbyder fleksible abonnementsplaner, der matcher dine forretningsmæssige behov: Månedlige abonnementer for maksimal fleksibilitet, Kvartalsvise planer med omkostningsbesparelser, Halvårlige (6 måneders) abonnementer for bedre værdi og Årlige planer for de bedste priser. Abonnementsgebyrer varierer efter dit værtsland for at sikre fair prissætning baseret på lokale økonomiske forhold. Kontakt vores supportteam via WhatsApp for at få den specifikke prissætning for dit land og diskutere, hvilken plan der passer bedst til dine forretningsmål.",
+      "paymentMethodsAnswer": "Vi accepterer flere betalingsmetoder til abonnementsgebyrer afhængigt af dit land, herunder kredit-/betalingskort, bankoverførsler, mobile penge og andre lokale betalingsmuligheder. Vores mål er at gøre det så nemt som muligt for dig at abonnere og vedligeholde din konto. Kontakt vores supportteam for at lære om de specifikke betalingsmetoder, der er tilgængelige i din region.",
+      "cancelAnytimeAnswer": "Absolut! Du har fuld kontrol over dit abonnement. Du kan opsige når som helst uden bøder eller skjulte gebyrer. Hvis du opsiger i løbet af din faktureringscyklus, vil du fortsat have adgang til din butik indtil slutningen af den betalte periode. Vi mener på at tjene din forretning hver måned, ikke låse dig fast i langsigtede kontrakter, du ikke ønsker.",
+      "languagesSupportedAnswer": "MyPadiFood understøtter i øjeblikket 20+ større sprog, herunder engelsk, spansk, fransk, tysk, kinesisk, arabisk, hindi, portugisisk, russisk, japansk, koreansk, italiensk, hollandsk, tyrkisk, polsk, vietnamesisk, thailandsk, indonesisk, rumænsk og tjekkisk. Vores AI-oversættelsessystem sikrer, at dine produktbeskrivelser, menuer og butiksindhold oversættes nøjagtigt i realtid. Vi tilføjer løbende flere sprog baseret på kundeefterspørgsel.",
+      "currenciesSupportedAnswer": "Du kan acceptere betalinger i næsten enhver større valuta verden over. Vores platform håndterer realtids-valutakonvertering automatisk, så kunder ser priser i deres lokale valuta, mens du modtager betalinger i din foretrukne valuta. Dette inkluderer USD, EUR, GBP, NGN, JPY, CNY, INR og mange flere. Systemet opdaterer valutakurser regelmæssigt for at sikre nøjagtig prissætning.",
+      "whatsappOrdersAnswer": "Når kunder afgiver ordrer på din MyPadiFood-butik, modtager du øjeblikkelige notifikationer direkte til dit virksomheds WhatsApp-nummer. Ordredetaljerne formateres tydeligt med kundeoplysninger, bestilte varer, leveringsadresse og betalingsstatus. Du kan bekræfte ordrer, opdatere kunder om ordrestatus og kommunikere direkte gennem WhatsApp - ingen behov for at lære et nyt system. Det er lige så simpelt som at have en samtale med din kunde.",
+      "customDomainAnswer": "Ja! Du kan forbinde dit eget brugerdefinerede domæne til din MyPadiFood-butik for en professionel brandet oplevelse. For eksempel, i stedet for yourbusiness.mypadifood.com, kan du bruge shop.yourbusiness.com eller et hvilket som helst domæne, du ejer. Denne funktion er tilgængelig på udvalgte abonnementsplaner. Vores supportteam kan guide dig gennem den enkle opsætningsproces.",
+      "cashPaymentsAnswer": "MyPadiFood accepterer IKKE, håndterer eller administrerer kontantbetalinger på vegne af din virksomhed. Alle kontantrelaterede transaktioner håndteres direkte mellem dig og dine kunder. Du bevarer fuld kontrol over dine kontantbetalinger, opkrævninger og afstemning. MyPadiFood letter kun bestillingsplatformen og digital betalingsbehandling. Eventuelle kontantbetalingsaftaler er dit ansvar at administrere selvstændigt.",
+      "setupTimeAnswer": "De fleste virksomheder kan få deres butik fuldt opsat og klar til at acceptere ordrer inden for 24 timer eller mindre. Vores strømlinede onboarding-proces fører dig gennem: oprettelse af din konto, tilføjelse af dine produkter, opsætning af betalingsmetoder, tilpasning af din butiks udseende og tilslutning af din WhatsApp. Mange brugere fuldfører grundlæggende opsætning på under 2 timer. Vi leverer trin-for-trin vejledning og support for at hjælpe dig med at lancere hurtigt.",
+      "technicalKnowledgeAnswer": "Ingen teknisk viden er påkrævet! MyPadiFood er designet til virksomhedsejere, ikke udviklere. Vores intuitive grænseflade guider dig gennem hvert trin med klare instruktioner. Du behøver ikke at vide, hvordan man koder, forstår webhosting eller administrerer servere. Hvis du kan bruge WhatsApp og e-mail, kan du administrere din MyPadiFood-butik. Vores supportteam er også tilgængeligt for at hjælpe med eventuelle spørgsmål.",
+      "productLimitAnswer": "Der er ingen grænse for antallet af produkter, du kan tilføje til din butik. Uanset om du har 10 produkter eller 10.000, kan MyPadiFood håndtere dit katalog. Du kan organisere produkter i kategorier, tilføje detaljerede beskrivelser og billeder, indstille lagerniveauer og administrere alt fra dit dashboard. Når din virksomhed vokser, vokser din butik med dig.",
+      "migrationAnswer": "Ja, vi kan hjælpe dig med at migrere din eksisterende online butik til MyPadiFood! Vi understøtter migration fra forskellige platforme, herunder Shopify, WooCommerce og andre e-handelssystemer. Vores team kan hjælpe med at overføre dit produktkatalog, kundedata og ordrehistorik. Kontakt vores supportteam via WhatsApp for at diskutere dine specifikke migrationsbehov, tidsplan og eventuelle brugerdefinerede krav. Vi vil gøre overgangen så glat som muligt.",
+      "customerSupportAnswer": "Vi tilbyder omfattende support gennem flere kanaler: WhatsApp support til hurtige spørgsmål og realtidsassistance, E-mail support til detaljerede forespørgsler, Hjælpecenter med guider og tutorials og Videowalkthroughs til komplekse funktioner. Vores supportteam opererer i arbejdstiden, og vi sigter mod at svare på alle forespørgsler inden for 24 timer. Premium supportpakker med dedikerede kontoansvarlige er tilgængelige for voksende virksomheder.",
+      "trainingAnswer": "Ja! Vi leverer omfattende træningsressourcer for at hjælpe dig med at få succes: Gratis onboarding-session, når du tilmelder dig, Videovejledninger, der dækker alle funktioner, Skrevne trin-for-trin guider, Live webinarer for nye funktioner og En-til-en træningssessioner (tilgængelige med premium-planer). Vi ønsker at sikre, at du føler dig sikker på at bruge alle aspekter af platformen til at vokse din virksomhed.",
+      "updatesAnswer": "Vi forbedrer løbende MyPadiFood med regelmæssige opdateringer og nye funktioner. Store funktionsudgivelser sker typisk kvartalsvis, med mindre forbedringer og fejlrettelser frigivet efter behov. Alle opdateringer er inkluderet i dit abonnement uden ekstra omkostninger. Vi annoncerer nye funktioner gennem e-mail, in-app-notifikationer og vores sociale mediekanaler. Din feedback hjælper med at forme vores køreplan, så vi bygger altid, hvad virksomheder har mest brug for."
+    }
+  },
+  "onboarding": {
+    "title": "Start Din Virksomhed",
+    "subtitle": "Udfyld formularen nedenfor, og vores team vil hjælpe dig med at komme i gang",
+    "submitSuccess": "Ansøgning indsendt med succes!",
+    "submitError": "Kunne ikke indsende ansøgning",
+    "submitting": "Indsender...",
+    "submitButton": "Indsend Ansøgning",
+    "submitAnother": "Indsend Endnu En Anmodning",
+    "successTitle": "Tak!",
+    "successMessage": "Din onboarding-anmodning er blevet indsendt med succes. Vores team vil kontakte dig inden for 24 timer.",
+    "categories": {
+      "foodDining": "🍽️ Mad & Spisesteder",
+      "agricultureFarming": "🌾 Landbrug & Farming",
+      "hospitality": "🏨 Gæstfrihed",
+      "retailShopping": "🛍️ Detailhandel & Shopping",
+      "technologyElectronics": "💻 Teknologi & Elektronik",
+      "healthBeauty": "💄 Sundhed & Skønhed",
+      "homeLiving": "🏠 Hjem & Bolig",
+      "automotive": "🚗 Bil",
+      "educationLearning": "🎓 Uddannelse & Læring",
+      "sportsRecreation": "⚽ Sport & Rekreation",
+      "professionalServices": "💼 Professionelle Tjenester",
+      "otherServices": "🔧 Andre Tjenester"
+    },
+    "businessInfo": {
+      "title": "Virksomhedsinformation",
+      "businessName": "Virksomhedsnavn",
+      "businessNamePlaceholder": "f.eks., Fresh Farm Produce",
+      "businessType": "Virksomhedstype",
+      "other": "Andet",
+      "preferredSlug": "Foretrukken URL Slug",
+      "slugPlaceholder": "freshfarm",
+      "slugHint": "Kun små bogstaver, tal og bindestreger",
+      "urlPreviewLabel": "Din virksomhed vil være tilgængelig på:",
+      "description": "Beskrivelse",
+      "descriptionPlaceholder": "Fortæl os om din virksomhed..."
+    },
+    "ownerInfo": {
+      "title": "Ejerinformation",
+      "fullName": "Fulde Navn",
+      "fullNamePlaceholder": "John Doe",
+      "email": "E-mail",
+      "emailPlaceholder": "john@eksempel.com",
+      "phone": "Telefon",
+      "phonePlaceholder": "+234 800 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Vores Virksomheder",
+    "subtitle": "Opdag fantastiske lokale virksomheder på vores platform",
+    "noBusinesses": "Ingen virksomheder fundet i denne kategori",
+    "tryDifferent": "Prøv at vælge en anden kategori for at udforske flere virksomheder"
+  },
+  "businessFilter": {
+    "allBusinesses": "Alle Virksomheder"
+  },
+  "businessCard": {
+    "products": "Produkter",
+    "visitStore": "Besøg Butik"
+  }
+}

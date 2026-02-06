@@ -3,12 +3,14 @@
 
 import { useState } from 'react'
 import { Send, Check } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 import BusinessInfoSection from './onboarding/BusinessInfoSection'
 import OwnerInfoSection from './onboarding/OwnerInfoSection'
 import type { OnboardingFormData } from '../types'
 
 export default function OnboardingForm() {
+  const { t } = useTranslation('landing')
   const [formData, setFormData] = useState<OnboardingFormData>({
     businessName: '',
     businessType: 'food',
@@ -35,10 +37,10 @@ export default function OnboardingForm() {
       const data = await response.json()
 
       if (response.ok) {
-        toast.success(data.message || 'Application submitted successfully!')
+        toast.success(data.message || t('onboarding.submitSuccess'))
         setSubmitted(true)
       } else {
-        throw new Error(data.error || 'Failed to submit')
+        throw new Error(data.error || t('onboarding.submitError'))
       }
     } catch (error: any) {
       toast.error(error.message)
@@ -58,9 +60,11 @@ export default function OnboardingForm() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">Start Your Business</h2>
+        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          {t('onboarding.title')}
+        </h2>
         <p className="text-xl text-gray-600">
-          Fill out the form below and our team will help you get started
+          {t('onboarding.subtitle')}
         </p>
       </div>
 
@@ -75,21 +79,25 @@ export default function OnboardingForm() {
 }
 
 function SuccessScreen({ onReset }: { onReset: () => void }) {
+  const { t } = useTranslation('landing')
+  
   return (
     <div className="max-w-2xl mx-auto px-4 py-20">
       <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
           <Check className="w-10 h-10 text-green-600" />
         </div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Thank You!</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          {t('onboarding.successTitle')}
+        </h2>
         <p className="text-lg text-gray-600 mb-8">
-          Your onboarding request has been submitted successfully. Our team will contact you within 24 hours.
+          {t('onboarding.successMessage')}
         </p>
         <button
           onClick={onReset}
           className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
         >
-          Submit Another Request
+          {t('onboarding.submitAnother')}
         </button>
       </div>
     </div>
@@ -97,6 +105,8 @@ function SuccessScreen({ onReset }: { onReset: () => void }) {
 }
 
 function SubmitButton({ submitting }: { submitting: boolean }) {
+  const { t } = useTranslation('landing')
+  
   return (
     <button
       type="submit"
@@ -106,12 +116,12 @@ function SubmitButton({ submitting }: { submitting: boolean }) {
       {submitting ? (
         <>
           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-          Submitting...
+          {t('onboarding.submitting')}
         </>
       ) : (
         <>
           <Send className="w-5 h-5 mr-2" />
-          Submit Application
+          {t('onboarding.submitButton')}
         </>
       )}
     </button>

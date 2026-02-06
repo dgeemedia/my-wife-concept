@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Tuis",
+    "businesses": "Besighede",
+    "startBusiness": "Begin Jou Besigheid",
+    "contactUs": "Kontak Ons",
+    "login": "Teken In"
+  },
+  "footer": {
+    "tagline": "Bemagtiging van besighede wêreldwyd met KI-aangedrewe bestellings en meertalige ondersteuning",
+    "quickLinks": {
+      "title": "Vinnige Skakels",
+      "home": "Tuis",
+      "businesses": "Besighede",
+      "startBusiness": "Begin Jou Besigheid",
+      "faq": "Algemene Vrae"
+    },
+    "contact": {
+      "title": "Kontak Ons",
+      "whatsappSupport": "WhatsApp Ondersteuning Beskikbaar"
+    },
+    "copyright": "© {{year}} MyPadiFood. Alle regte voorbehou."
+  },
+  "hero": {
+    "badge": "Globale Besigheidsplatform",
+    "headline": "Begin Jou Besigheid",
+    "headlineHighlight": "Oral, In Enige Taal",
+    "subtitle": "Die enigste platform wat kliënte toelaat om in hul taal te bestel, in hul geldeenheid te betaal en via foonoproep te resenseer - geen program aflaai nodig nie.",
+    "features": {
+      "globalLanguage": {
+        "title": "Enige Taal",
+        "description": "Kliënte bestel in hul moedertaal"
+      },
+      "multiCurrency": {
+        "title": "Multi-geldeenheid",
+        "description": "Aanvaar betalings in enige geldeenheid"
+      },
+      "noSignUp": {
+        "title": "Geen Registrasie Nodig",
+        "description": "Kliënte bestel onmiddellik"
+      },
+      "whatsApp": {
+        "title": "WhatsApp Bestellings",
+        "description": "Ontvang bestellings via WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Foon Resensies",
+        "description": "Geoutomatiseerde stem resensie-insameling"
+      },
+      "fastSetup": {
+        "title": "Vinnige Opstelling",
+        "description": "Begin binne 24 uur"
+      }
+    },
+    "quickStart": {
+      "title": "Begin Jou Gratis Proeftydperk",
+      "emailLabel": "Jou Besigheidse-pos",
+      "emailPlaceholder": "besigheid@voorbeeld.com",
+      "buttonText": "Begin Gratis",
+      "disclaimer": "Geen kredietkaart nodig nie. Opstelling in minute."
+    }
+  },
+  "aboutUs": {
+    "title": "Oor MyPadiFood",
+    "subtitle": "Afbreek van taal- en geldeenheidstruikelblokke om besighede wêreldwyd te bemagtig",
+    "mission": {
+      "title": "Ons Missie",
+      "description": "Ons glo elke besigheid, ongeag grootte of ligging, verdien toegang tot globale kliënte. MyPadiFood is gebore uit 'n eenvoudige waarneming: taal- en geldeenheidstruikelblokke moet nie 'n besigheid se potensiaal om kliënte wêreldwyd te bedien, beperk nie.",
+      "point1": "Stel besighede in staat om kliënte in enige taal te bereik sonder die kompleksiteit van handmatige vertaling",
+      "point2": "Verwyder die wrywing van geldeenheidomskakeling en internasionale betalingsverwerking"
+    },
+    "vision": {
+      "title": "Ons Visie",
+      "description": "Ons sien 'n wêreld voor waar 'n klein plaas in Nigerië naatloos kliënte in Japan kan bedien, 'n boetiek in Parys moeiteloos na Brasilië kan stuur, en 'n restaurant in Meksiko bestellings van kliënte in Indië kan neem - alles sonder om oor taalversperrings of betalingskomplikasies bekommerd te wees.",
+      "point1": "Bemagtig meer as 1 miljoen besighede globaal teen 2030",
+      "point2": "Ondersteun handel in elke taal en geldeenheid wêreldwyd"
+    },
+    "values": {
+      "title": "Wat Ons Dryf",
+      "value1": {
+        "title": "Toeganklikheid",
+        "description": "Tegnologie moet bemagtig, nie kompliseer nie. Geen programme om af te laai, geen komplekse opstellings nie."
+      },
+      "value2": {
+        "title": "Innovasie",
+        "description": "KI-aangedrewe vertaling en outomatisering wat naatloos op die agtergrond werk."
+      },
+      "value3": {
+        "title": "Inklusiwiteit",
+        "description": "Elke besigheid verdien globale bereik, ongeag tegniese kundigheid of begroting."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Suksesverhale",
+    "subtitle": "Werklike besighede wat buitengewone groei met MyPadiFood bereik",
+    "viewMore": "Bekyk Meer Suksesverhale"
+  },
+  "testimonials": {
+    "title": "Suksesverhale",
+    "subtitle": "Werklike besighede, werklike resultate",
+    "aiPoweredAdvantage": "KI-aangedrewe Voordeel",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Landbou",
+      "quote": "MyPadiFood se KI-aangedrewe vertaling en multi-geldeenheidstelsel het my plaas gehelp om kliënte in 5 verskillende lande te bereik. Verkope het met 300% gegroei in net 2 maande!",
+      "highlight": "KI-vaardigheid: Slim produkkategorisering en seisoenale aanvraagvoorspelling wat my voorraad geoptimaliseer en verkope verhoog het.",
+      "metrics": "300% groei • 5 lande • 2 maande"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Mode & Klere",
+      "quote": "Kliënte is lief daarvoor dat hulle in hul plaaslike taal kan bestel sonder om aan te meld. My internasionale bestellings het onmiddellik verdriedubbel nadat ek my winkel opgestel het.",
+      "highlight": "KI-vaardigheid: Mode-neiging analise en outomatiese grootte-aanbevelings wat terugsendingskoerse met 40% verminder het.",
+      "metrics": "200% toename • 40% minder terugsendings • 12 tale"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Gasvryheid",
+      "quote": "Internasionale gaste kan nou my woonstelle in hul geldeenheid en taal bespreek. WhatsApp-integrasie maak bevestigings naatloos!",
+      "highlight": "KI-vaardigheid: Dinamiese prysbepaling en beskikbaarheidsoptimalisering wat beleggingskoerse met 65% verhoog het deur die jaar.",
+      "metrics": "65% belegging • Onmiddellike besprekings • Globale bereik"
+    },
+    "stats": {
+      "countries": "Lande Bedien",
+      "setupTime": "Gemiddelde Opstelling",
+      "signUpRequired": "Kliënt Registrasie",
+      "languagesSupported": "Tale"
+    }
+  },
+  "howItWorks": {
+    "title": "Hoe Dit Werk",
+    "subtitle": "Begin jou globale besigheid in drie eenvoudige stappe",
+    "step1": {
+      "title": "Kliënt Kies Taal",
+      "description": "Jou kliënte blaai deur jou spyskaart in hul voorkeur taal. KI vertaal onmiddellik alles - spyskaartitems, beskrywings, pryse."
+    },
+    "step2": {
+      "title": "Kies Hul Geldeenheid",
+      "description": "Kliënte sien pryse in hul plaaslike geldeenheid. Intydse omskakeling hanteer alle berekeninge outomaties."
+    },
+    "step3": {
+      "title": "Bestel via WhatsApp",
+      "description": "Bestellings kom direk na jou WhatsApp. Geen program aflaaie nodig vir jou kliënte nie. Eenvoudig en onmiddellik."
+    }
+  },
+  "globalReach": {
+    "title": "Gebou vir Globale Handel",
+    "subtitle": "Sluit aan by duisende besighede wat kliënte wêreldwyd bedien",
+    "stats": {
+      "businesses": "Aktiewe Besighede",
+      "transactions": "Maandelikse Transaksies",
+      "languagesUsed": "Tale in Gebruik",
+      "currenciesSupported": "Geldeenhede"
+    }
+  },
+  "finalCta": {
+    "badge": "Sluit aan by suksesvolle besighede wêreldwyd",
+    "title": "Gereed om Globaal te Gaan?",
+    "primaryButton": "Begin Gratis Proeftydperk",
+    "secondaryButton": "Bekyk Suksesverhale",
+    "subtitle": "Geen kredietkaart nodig nie • Opstelling in 24 uur • Kanselleer enige tyd"
+  },
+  "languages": {
+    "en": "Engels",
+    "es": "Spaans",
+    "fr": "Frans",
+    "de": "Duits",
+    "zh": "Chinees",
+    "ar": "Arabies",
+    "hi": "Hindi",
+    "pt": "Portugees",
+    "ru": "Russies",
+    "ja": "Japannees",
+    "ko": "Koreaans",
+    "it": "Italiaans",
+    "nl": "Nederlands",
+    "tr": "Turks",
+    "pl": "Pools",
+    "vi": "Viëtnamees",
+    "th": "Thai",
+    "id": "Indonesies",
+    "ro": "Roemeens",
+    "cs": "Tsjeggies"
+  },
+  "whatsappWidget": {
+    "title": "Gesels met Ons",
+    "subtitle": "Platform Ondersteuning",
+    "selectTopic": "Kies 'n onderwerp om te begin gesels:",
+    "customMessage": "Begin Pasgemaakte Gesels",
+    "opening": "Maak WhatsApp oop...",
+    "messages": {
+      "generalHelp": "Hallo, ek het hulp nodig met die MyPadiFood platform",
+      "setupStore": "Ek wil my aanlyn winkel opstel. Kan julle my help om te begin?",
+      "pricing": "Wat is julle pryspakkette? Ek wil graag die koste en kenmerke weet.",
+      "technicalIssue": "Ek ondervind 'n tegniese probleem met my winkel. Kan julle help?",
+      "multiLanguage": "Hoe werk die meertalige vertalingsfunksie?",
+      "payments": "Ek het vrae oor betalingsverwerking en multi-geldeenheid ondersteuning.",
+      "whatsappIntegration": "Hoe integreer ek WhatsApp bestellings met my winkel?",
+      "customDomain": "Kan ek my eie pasgemaakte domein vir my winkel gebruik?",
+      "migration": "Ek wil my bestaande besigheid na MyPadiFood migreer. Hoe werk dit?",
+      "bulkOrders": "Hoe kan ek grootmaat bestellings en groothandel kliënte hanteer?",
+      "custom": "Hallo, ek het 'n vraag oor die MyPadiFood platform"
+    }
+  },
+  "faq": {
+    "title": "Algemene Vrae",
+    "subtitle": "Alles wat jy moet weet oor MyPadiFood",
+    "backToHome": "Terug na Tuis",
+    "stillHaveQuestions": "Het Jy Nog Vrae?",
+    "contactSupport": "Ons ondersteuningspan is gereed om jou te help slaag",
+    "chatWithSupport": "Gesels met Ondersteuning op WhatsApp",
+    "whatsappMessage": "Hallo, ek het 'n vraag oor MyPadiFood wat nie in die Algemene Vrae gedek is nie",
+    "categories": {
+      "general": "Algemene Inligting",
+      "pricing": "Pryse & Fakturering",
+      "features": "Kenmerke & Vermoëns",
+      "gettingStarted": "Aan die Gang Kom",
+      "support": "Ondersteuning & Opleiding"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Wat is MyPadiFood?",
+      "whoCanUse": "Wie kan MyPadiFood gebruik?",
+      "howDifferent": "Hoe verskil MyPadiFood van ander e-handelsplatforms?",
+      "freeTrial": "Bied julle 'n gratis proeftydperk aan?",
+      "subscriptionPlans": "Watter intekenplanne bied julle aan?",
+      "paymentMethods": "Watter betalingsmetodes aanvaar julle vir intekengelde?",
+      "cancelAnytime": "Kan ek my intekening enige tyd kanselleer?",
+      "languagesSupported": "Hoeveel tale ondersteun MyPadiFood?",
+      "currenciesSupported": "In watter geldeenhede kan ek betalings aanvaar?",
+      "whatsappOrders": "Hoe werk WhatsApp bestellings?",
+      "customDomain": "Kan ek my eie pasgemaakte domein gebruik?",
+      "cashPayments": "Hanteer MyPadiFood kontantbetalings vir my besigheid?",
+      "setupTime": "Hoe lank neem dit om my winkel op te stel?",
+      "technicalKnowledge": "Het ek tegniese kennis nodig om MyPadiFood te gebruik?",
+      "productLimit": "Is daar 'n limiet op hoeveel produkte ek kan byvoeg?",
+      "migration": "Kan ek my bestaande aanlyn winkel na MyPadiFood migreer?",
+      "customerSupport": "Watter soort kliëntediens bied julle?",
+      "training": "Bied julle opleiding of inlywingshulp aan?",
+      "updates": "Hoe gereeld stel julle nuwe kenmerke en opdaterings vry?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood is 'n globale e-handelsplatform wat besighede in staat stel om produkte en dienste aan kliënte wêreldwyd te verkoop. Ons KI-aangedrewe platform vertaal jou winkel outomaties in verskeie tale, hanteer multi-geldeenheid betalings en laat kliënte toe om via WhatsApp te bestel sonder om enige programme af te laai. Ons breek taal- en geldeenheidstruikelblokke af sodat jy op jou besigheid se globale groei kan fokus.",
+      "whoCanUseAnswer": "MyPadiFood is perfek vir enige besigheid wat globaal wil uitbrei - van klein plase en restaurante tot modeboetieke, gasvryheiddienste en groothandelverskaffer. Of jy 'n alleenonderneming, klein besigheidseienaar of groeiende onderneming is, ons platform skaal met jou behoeftes. As jy produkte of dienste het om te verkoop en internasionale kliënte wil bereik, is MyPadiFood vir jou gebou.",
+      "howDifferentAnswer": "Anders as tradisionele e-handelsplatforms, is MyPadiFood spesifiek ontwerp vir globale handel. Ons unieke kenmerke sluit in: (1) KI-aangedrewe vertaling in 20+ tale sonder handmatige moeite, (2) Kliënte kan bestel sonder om rekeninge te skep of programme af te laai, (3) WhatsApp-integrasie vir naatlose bestellingsbestuur, (4) Multi-geldeenheid ondersteuning met outomatiese omskakeling, (5) Foon-gebaseerde kliënt resensie-insameling, en (6) Geen tegniese kundigheid nodig om te begin nie.",
+      "freeTrialAnswer": "Ja! Ons bied 'n vrygewige 14-dae gratis proeftydperk met volle toegang tot alle kenmerke. Geen kredietkaart nodig om jou proeftydperk te begin nie. Dit gee jou genoeg tyd om jou winkel op te stel, produkte by te voeg, jou instellings aan te pas en al ons kenmerke te toets. Nadat die 14-dae proeftydperk eindig, sal jou winkel tydelik opgeskort word totdat jy 'n intekenpakket kies wat vir jou werk. Jy kan enige tyd heraktiveer deur in te teken.",
+      "subscriptionPlansAnswer": "Ons bied buigsame intekenplanne om by jou besigheidsbehoeftes te pas: Maandelikse intekengelde vir maksimum buigsaamheid, Kwartaalplanne met kostebesparing, Halfjaarliks (6-maande) intekengelde vir beter waarde, en Jaarlikse planne vir die beste tariewe. Intekengelde wissel volgens jou tuisland om regverdige pryse gebaseer op plaaslike ekonomiese toestande te verseker. Kontak ons ondersteuningspan via WhatsApp om die spesifieke pryse vir jou land te kry en te bespreek watter plan die beste by jou besigheidsdoelwitte pas.",
+      "paymentMethodsAnswer": "Ons aanvaar verskeie betalingsmetodes vir intekengelde afhangende van jou land, insluitend krediet-/debietkaarte, bankoordragte, mobiele geld en ander plaaslike betalingsopsies. Ons doel is om dit so maklik as moontlik vir jou te maak om in te teken en jou rekening te onderhou. Kontak ons ondersteuningspan om meer te leer oor die spesifieke betalingsmetodes beskikbaar in jou streek.",
+      "cancelAnytimeAnswer": "Absoluut! Jy het volledige beheer oor jou intekening. Jy kan enige tyd kanselleer sonder boetes of verskuilde fooie. As jy tydens jou faktureringsiklus kanselleer, sal jy steeds toegang tot jou winkel hê tot aan die einde van daardie betaalde periode. Ons glo daaraan om jou besigheid elke maand te verdien, nie om jou in langtermyn kontrakte vas te sluit wat jy nie wil hê nie.",
+      "languagesSupportedAnswer": "MyPadiFood ondersteun tans 20+ hooftale insluitend Engels, Spaans, Frans, Duits, Chinees, Arabies, Hindi, Portugees, Russies, Japannees, Koreaans, Italiaans, Nederlands, Turks, Pools, Viëtnamees, Thai, Indonesies, Roemeens en Tsjeggies. Ons KI-vertaalstelsel verseker dat jou produkbeskrywings, spyskaarte en winkel-inhoud akkuraat in intyd vertaal word. Ons voeg voortdurend meer tale by gebaseer op kliënteaanvraag.",
+      "currenciesSupportedAnswer": "Jy kan betalings aanvaar in byna enige hoofgeldeenheid wêreldwyd. Ons platform hanteer intydse geldeenheidsomskakeling outomaties, sodat kliënte pryse in hul plaaslike geldeenheid sien terwyl jy betalings in jou voorkeurgeldeenheid ontvang. Dit sluit in USD, EUR, GBP, NGN, JPY, CNY, INR en baie meer. Die stelsel dateer wisselkoerse gereeld op om akkurate pryse te verseker.",
+      "whatsappOrdersAnswer": "Wanneer kliënte bestellings op jou MyPadiFood winkel plaas, ontvang jy onmiddellike kennisgewings direk op jou besigheid WhatsApp nommer. Die bestellingsbesonderhede is duidelik geformateer met kliëntinligting, items bestel, afleweringsadres en betalingstatus. Jy kan bestellings bevestig, kliënte opdateer oor bestellingstatus en direk via WhatsApp kommunikeer - geen behoefte om 'n nuwe stelsel te leer nie. Dit is so eenvoudig soos om 'n gesprek met jou kliënt te hê.",
+      "customDomainAnswer": "Ja! Jy kan jou eie pasgemaakte domein aan jou MyPadiFood winkel koppel vir 'n professionele handelsmerkervaring. Byvoorbeeld, in plaas van joubesigheid.mypadifood.com, kan jy winkel.joubesigheid.com of enige domein wat jy besit, gebruik. Hierdie kenmerk is beskikbaar op geselekteerde intekenplanne. Ons ondersteuningspan kan jou deur die eenvoudige opstellingsproses lei.",
+      "cashPaymentsAnswer": "MyPadiFood aanvaar NIE, hanteer NIE of bestuur NIE kontantbetalings namens jou besigheid nie. Alle kontantverwante transaksies word direk tussen jou en jou kliënte bestuur. Jy behou volledige beheer oor jou kontantbetalings, invorderings en versoening. MyPadiFood fasiliteer slegs die bestellingsplatform en digitale betalingsverwerking. Enige kontantbetalingsreëlings is jou verantwoordelikheid om onafhanklik te bestuur.",
+      "setupTimeAnswer": "Die meeste besighede kan hul winkel binne 24 uur of minder volledig opgestel hê en gereed wees om bestellings te aanvaar. Ons gestroomlynde inlywingsproses lei jou deur: jou rekening skep, jou produkte byvoeg, betalingsmetodes opstel, jou winkelvoorkoms aanpas en jou WhatsApp koppel. Baie gebruikers voltooi basiese opstelling in minder as 2 uur. Ons bied stap-vir-stap leiding en ondersteuning om jou te help vinnig te begin.",
+      "technicalKnowledgeAnswer": "Geen tegniese kennis nodig nie! MyPadiFood is ontwerp vir besigheidseienaars, nie ontwikkelaars nie. Ons intuïtiewe koppelvlak lei jou deur elke stap met duidelike instruksies. Jy hoef nie te weet hoe om te kodeer, webgasheerdienste te verstaan of bedieners te bestuur nie. As jy WhatsApp en e-pos kan gebruik, kan jy jou MyPadiFood winkel bestuur. Ons ondersteuningspan is ook beskikbaar om met enige vrae te help.",
+      "productLimitAnswer": "Daar is geen limiet op die aantal produkte wat jy by jou winkel kan byvoeg nie. Of jy 10 produkte of 10,000 het, MyPadiFood kan jou katalogus hanteer. Jy kan produkte in kategorieë organiseer, gedetailleerde beskrywings en beelde byvoeg, voorraadvlakke stel en alles vanaf jou dashboard bestuur. Soos jou besigheid groei, groei jou winkel saam met jou.",
+      "migrationAnswer": "Ja, ons kan jou help om jou bestaande aanlyn winkel na MyPadiFood te migreer! Ons ondersteun migrasie vanaf verskeie platforms insluitend Shopify, WooCommerce en ander e-handelstelsels. Ons span kan help met die oordrag van jou produkkatalogus, kliëntedata en bestellingsgeskiedenis. Kontak ons ondersteuningspan via WhatsApp om jou spesifieke migrasiebehoeftes, tydlyn en enige pasgemaakte vereistes te bespreek. Ons sal die oorgang so glad as moontlik maak.",
+      "customerSupportAnswer": "Ons bied omvattende ondersteuning deur verskeie kanale: WhatsApp ondersteuning vir vinnige vrae en intydse bystand, E-pos ondersteuning vir gedetailleerde navrae, Hulpsentrum met gidse en tutoriale, en Video-deurlopies vir komplekse kenmerke. Ons ondersteuningspan werk gedurende besigheidsure en ons streef daarna om alle navrae binne 24 uur te beantwoord. Premium ondersteuningspakkette met toegewyde rekeningbestuurders is beskikbaar vir groeiende besighede.",
+      "trainingAnswer": "Ja! Ons bied uitgebreide opleidingsbronne om jou te help slaag: Gratis inlywingsessie wanneer jy aanmeld, Video tutoriale wat alle kenmerke dek, Geskrewe stap-vir-stap gidse, Lewendige webinare vir nuwe kenmerke, en Een-tot-een opleidingsessies (beskikbaar met premium planne). Ons wil verseker dat jy selfversekerd voel om elke aspek van die platform te gebruik om jou besigheid te laat groei.",
+      "updatesAnswer": "Ons verbeter MyPadiFood voortdurend met gereelde opdaterings en nuwe kenmerke. Groot kenmerk vrystelling gebeur tipies kwartaalliks, met kleiner verbeteringe en foutregstellings vrygestel soos nodig. Alle opdaterings is ingesluit in jou intekening teen geen ekstra koste nie. Ons kondig nuwe kenmerke aan deur e-pos, in-program kennisgewings en ons sosiale media kanale. Jou terugvoer help vorm ons padkaart, so ons bou altyd wat besighede die meeste nodig het."
+    }
+  },
+  "onboarding": {
+    "title": "Begin Jou Besigheid",
+    "subtitle": "Vul die vorm hieronder in en ons span sal jou help om te begin",
+    "submitSuccess": "Aansoek suksesvol ingedien!",
+    "submitError": "Kon nie aansoek indien nie",
+    "submitting": "Dien in...",
+    "submitButton": "Dien Aansoek In",
+    "submitAnother": "Dien Nog 'n Versoek In",
+    "successTitle": "Dankie!",
+    "successMessage": "Jou inlywingsversoek is suksesvol ingedien. Ons span sal jou binne 24 uur kontak.",
+    "categories": {
+      "foodDining": "🍽️ Kos & Eetplek",
+      "agricultureFarming": "🌾 Landbou & Boerdery",
+      "hospitality": "🏨 Gasvryheid",
+      "retailShopping": "🛍️ Kleinhandel & Inkopies",
+      "technologyElectronics": "💻 Tegnologie & Elektronika",
+      "healthBeauty": "💄 Gesondheid & Skoonheid",
+      "homeLiving": "🏠 Huis & Lewe",
+      "automotive": "🚗 Motorvoertuie",
+      "educationLearning": "🎓 Onderwys & Leer",
+      "sportsRecreation": "⚽ Sport & Ontspanning",
+      "professionalServices": "💼 Professionele Dienste",
+      "otherServices": "🔧 Ander Dienste"
+    },
+    "businessInfo": {
+      "title": "Besigheidsinligting",
+      "businessName": "Besigheidsnaam",
+      "businessNamePlaceholder": "bv., Vars Plaasproduk",
+      "businessType": "Besigheidstipe",
+      "other": "Ander",
+      "preferredSlug": "Voorkeur URL Slug",
+      "slugPlaceholder": "varsplaas",
+      "slugHint": "Slegs kleinletters, syfers en koppeltekens",
+      "urlPreviewLabel": "Jou besigheid sal toeganklik wees by:",
+      "description": "Beskrywing",
+      "descriptionPlaceholder": "Vertel ons van jou besigheid..."
+    },
+    "ownerInfo": {
+      "title": "Eienaarinligting",
+      "fullName": "Volle Naam",
+      "fullNamePlaceholder": "Jan van der Merwe",
+      "email": "E-pos",
+      "emailPlaceholder": "jan@voorbeeld.com",
+      "phone": "Foon",
+      "phonePlaceholder": "+27 82 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Ons Besighede",
+    "subtitle": "Ontdek wonderlike plaaslike besighede op ons platform",
+    "noBusinesses": "Geen besighede gevind in hierdie kategorie nie",
+    "tryDifferent": "Probeer 'n ander kategorie kies om meer besighede te verken"
+  },
+  "businessFilter": {
+    "allBusinesses": "Alle Besighede"
+  },
+  "businessCard": {
+    "products": "Produkte",
+    "visitStore": "Besoek Winkel"
+  }
+}

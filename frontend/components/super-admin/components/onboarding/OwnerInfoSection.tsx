@@ -1,17 +1,23 @@
 // frontend/components/super-admin/components/onboarding/OwnerInfoSection.tsx
+import { useTranslation } from 'react-i18next'
+
 interface OwnerInfoSectionProps {
   formData: any
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
 }
 
 export default function OwnerInfoSection({ formData, onChange }: OwnerInfoSectionProps) {
+  const { t } = useTranslation('landing')
+
   return (
     <div className="pt-6 border-t">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Owner Information</h3>
+      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        {t('onboarding.ownerInfo.title')}
+      </h3>
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Full Name *
+            {t('onboarding.ownerInfo.fullName')} *
           </label>
           <input
             type="text"
@@ -19,7 +25,7 @@ export default function OwnerInfoSection({ formData, onChange }: OwnerInfoSectio
             value={formData.ownerName}
             onChange={onChange}
             required
-            placeholder="John Doe"
+            placeholder={t('onboarding.ownerInfo.fullNamePlaceholder')}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -27,7 +33,7 @@ export default function OwnerInfoSection({ formData, onChange }: OwnerInfoSectio
         <div className="grid md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email *
+              {t('onboarding.ownerInfo.email')} *
             </label>
             <input
               type="email"
@@ -35,14 +41,14 @@ export default function OwnerInfoSection({ formData, onChange }: OwnerInfoSectio
               value={formData.ownerEmail}
               onChange={onChange}
               required
-              placeholder="john@example.com"
+              placeholder={t('onboarding.ownerInfo.emailPlaceholder')}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Phone *
+              {t('onboarding.ownerInfo.phone')} *
             </label>
             <input
               type="tel"
@@ -50,7 +56,7 @@ export default function OwnerInfoSection({ formData, onChange }: OwnerInfoSectio
               value={formData.ownerPhone}
               onChange={onChange}
               required
-              placeholder="+234 800 000 0000"
+              placeholder={t('onboarding.ownerInfo.phonePlaceholder')}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
