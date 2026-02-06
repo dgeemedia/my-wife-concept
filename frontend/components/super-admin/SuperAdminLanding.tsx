@@ -104,7 +104,7 @@ function PublicLandingPage({ activeView, setActiveView }: any) {
       {activeView === 'businesses' && <BusinessesDirectory />}
       {activeView === 'onboarding' && <OnboardingForm />}
       
-      <LandingFooter />
+      <LandingFooter setActiveView={setActiveView} />
       <PlatformWhatsAppWidget />
     </div>
   )

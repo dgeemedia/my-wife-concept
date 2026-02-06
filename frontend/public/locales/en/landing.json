@@ -10,10 +10,10 @@
     "tagline": "Empowering businesses worldwide with AI-powered ordering and multi-language support",
     "quickLinks": {
       "title": "Quick Links",
-      "aboutUs": "About Us",
-      "businesses": "For Businesses",
+      "home": "Home",
+      "businesses": "Businesses",
       "startBusiness": "Start Your Business",
-      "successStories": "Success Stories"
+      "faq": "FAQ"
     },
     "contact": {
       "title": "Contact Us",
@@ -204,6 +204,64 @@
       "migration": "I want to migrate my existing business to MyPadiFood. How does it work?",
       "bulkOrders": "How can I handle bulk orders and wholesale customers?",
       "custom": "Hi, I have a question about MyPadiFood platform"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about MyPadiFood",
+    "backToHome": "Back to Home",
+    "stillHaveQuestions": "Still Have Questions?",
+    "contactSupport": "Our support team is ready to help you succeed",
+    "chatWithSupport": "Chat with Support on WhatsApp",
+    "whatsappMessage": "Hi, I have a question about MyPadiFood that wasn't covered in the FAQ",
+    "categories": {
+      "general": "General Information",
+      "pricing": "Pricing & Billing",
+      "features": "Features & Capabilities",
+      "gettingStarted": "Getting Started",
+      "support": "Support & Training"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "What is MyPadiFood?",
+      "whoCanUse": "Who can use MyPadiFood?",
+      "howDifferent": "How is MyPadiFood different from other e-commerce platforms?",
+      "freeTrial": "Do you offer a free trial?",
+      "subscriptionPlans": "What subscription plans do you offer?",
+      "paymentMethods": "What payment methods do you accept for subscriptions?",
+      "cancelAnytime": "Can I cancel my subscription anytime?",
+      "languagesSupported": "How many languages does MyPadiFood support?",
+      "currenciesSupported": "What currencies can I accept payments in?",
+      "whatsappOrders": "How do WhatsApp orders work?",
+      "customDomain": "Can I use my own custom domain?",
+      "cashPayments": "Does MyPadiFood handle cash payments for my business?",
+      "setupTime": "How long does it take to set up my store?",
+      "technicalKnowledge": "Do I need technical knowledge to use MyPadiFood?",
+      "productLimit": "Is there a limit to how many products I can add?",
+      "migration": "Can I migrate my existing online store to MyPadiFood?",
+      "customerSupport": "What kind of customer support do you provide?",
+      "training": "Do you provide training or onboarding assistance?",
+      "updates": "How often do you release new features and updates?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood is a global e-commerce platform that enables businesses to sell products and services to customers worldwide. Our AI-powered platform automatically translates your store into multiple languages, handles multi-currency payments, and allows customers to order via WhatsApp without downloading any apps. We break down language and currency barriers so you can focus on growing your business globally.",
+      "whoCanUseAnswer": "MyPadiFood is perfect for any business looking to expand globally - from small farms and restaurants to fashion boutiques, hospitality services, and wholesale suppliers. Whether you're a solopreneur, small business owner, or growing enterprise, our platform scales with your needs. If you have products or services to sell and want to reach international customers, MyPadiFood is built for you.",
+      "howDifferentAnswer": "Unlike traditional e-commerce platforms, MyPadiFood is specifically designed for global commerce. Our unique features include: (1) AI-powered translation into 20+ languages with no manual effort, (2) Customers can order without creating accounts or downloading apps, (3) WhatsApp integration for seamless order management, (4) Multi-currency support with automatic conversion, (5) Phone-based customer review collection, and (6) No technical expertise required to get started.",
+      "freeTrialAnswer": "Yes! We offer a generous 14-day free trial with full access to all features. No credit card is required to start your trial. This gives you plenty of time to set up your store, add products, customize your settings, and test all our features. After the 14-day trial ends, your store will be temporarily suspended until you choose a subscription plan that works for you. You can reactivate anytime by subscribing.",
+      "subscriptionPlansAnswer": "We offer flexible subscription plans to match your business needs: Monthly subscriptions for maximum flexibility, Quarterly plans with cost savings, Bi-annual (6-month) subscriptions for better value, and Annual plans for the best rates. Subscription fees vary by your host country to ensure fair pricing based on local economic conditions. Contact our support team via WhatsApp to get the specific pricing for your country and discuss which plan best fits your business goals.",
+      "paymentMethodsAnswer": "We accept multiple payment methods for subscription fees depending on your country, including credit/debit cards, bank transfers, mobile money, and other local payment options. Our goal is to make it as easy as possible for you to subscribe and maintain your account. Contact our support team to learn about the specific payment methods available in your region.",
+      "cancelAnytimeAnswer": "Absolutely! You have complete control over your subscription. You can cancel at any time without penalties or hidden fees. If you cancel during your billing cycle, you'll continue to have access to your store until the end of that paid period. We believe in earning your business every month, not locking you into long-term contracts you don't want.",
+      "languagesSupportedAnswer": "MyPadiFood currently supports 20+ major languages including English, Spanish, French, German, Chinese, Arabic, Hindi, Portuguese, Russian, Japanese, Korean, Italian, Dutch, Turkish, Polish, Vietnamese, Thai, Indonesian, Romanian, and Czech. Our AI translation system ensures your product descriptions, menus, and store content are accurately translated in real-time. We're constantly adding more languages based on customer demand.",
+      "currenciesSupportedAnswer": "You can accept payments in virtually any major currency worldwide. Our platform handles real-time currency conversion automatically, so customers see prices in their local currency while you receive payments in your preferred currency. This includes USD, EUR, GBP, NGN, JPY, CNY, INR, and many more. The system updates exchange rates regularly to ensure accurate pricing.",
+      "whatsappOrdersAnswer": "When customers place orders on your MyPadiFood store, you receive instant notifications directly to your business WhatsApp number. The order details are formatted clearly with customer information, items ordered, delivery address, and payment status. You can confirm orders, update customers on order status, and communicate directly through WhatsApp - no need to learn a new system. It's as simple as having a conversation with your customer.",
+      "customDomainAnswer": "Yes! You can connect your own custom domain to your MyPadiFood store for a professional branded experience. For example, instead of yourbusiness.mypadifood.com, you can use shop.yourbusiness.com or any domain you own. This feature is available on select subscription plans. Our support team can guide you through the simple setup process.",
+      "cashPaymentsAnswer": "MyPadiFood does NOT accept, handle, or manage cash payments on behalf of your business. All cash-related transactions are managed directly between you and your customers. You maintain complete control over your cash payments, collections, and reconciliation. MyPadiFood only facilitates the ordering platform and digital payment processing. Any cash payment arrangements are your responsibility to manage independently.",
+      "setupTimeAnswer": "Most businesses can have their store fully set up and ready to accept orders within 24 hours or less. Our streamlined onboarding process walks you through: creating your account, adding your products, setting up payment methods, customizing your store appearance, and connecting your WhatsApp. Many users complete basic setup in under 2 hours. We provide step-by-step guidance and support to help you launch quickly.",
+      "technicalKnowledgeAnswer": "No technical knowledge is required! MyPadiFood is designed for business owners, not developers. Our intuitive interface guides you through every step with clear instructions. You don't need to know how to code, understand web hosting, or manage servers. If you can use WhatsApp and email, you can manage your MyPadiFood store. Our support team is also available to help with any questions.",
+      "productLimitAnswer": "There is no limit to the number of products you can add to your store. Whether you have 10 products or 10,000, MyPadiFood can handle your catalog. You can organize products into categories, add detailed descriptions and images, set inventory levels, and manage everything from your dashboard. As your business grows, your store grows with you.",
+      "migrationAnswer": "Yes, we can help you migrate your existing online store to MyPadiFood! We support migration from various platforms including Shopify, WooCommerce, and other e-commerce systems. Our team can assist with transferring your product catalog, customer data, and order history. Contact our support team via WhatsApp to discuss your specific migration needs, timeline, and any custom requirements. We'll make the transition as smooth as possible.",
+      "customerSupportAnswer": "We provide comprehensive support through multiple channels: WhatsApp support for quick questions and real-time assistance, Email support for detailed inquiries, Help center with guides and tutorials, and Video walkthroughs for complex features. Our support team operates during business hours and we aim to respond to all inquiries within 24 hours. Premium support packages with dedicated account managers are available for growing businesses.",
+      "trainingAnswer": "Yes! We provide extensive training resources to help you succeed: Free onboarding session when you sign up, Video tutorials covering all features, Written step-by-step guides, Live webinars for new features, and One-on-one training sessions (available with premium plans). We want to ensure you feel confident using every aspect of the platform to grow your business.",
+      "updatesAnswer": "We continuously improve MyPadiFood with regular updates and new features. Major feature releases typically happen quarterly, with minor improvements and bug fixes released as needed. All updates are included in your subscription at no extra cost. We announce new features through email, in-app notifications, and our social media channels. Your feedback helps shape our roadmap, so we're always building what businesses need most."
     }
   }
 }

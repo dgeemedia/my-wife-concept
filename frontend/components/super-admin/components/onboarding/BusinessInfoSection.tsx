@@ -1,7 +1,6 @@
 // frontend/components/super-admin/components/onboarding/BusinessInfoSection.tsx
 import { BUSINESS_TYPES } from '../../constants/businessTypes'
 import { getDisplayDomain } from '@/lib/domain-helper'
-import { useState, useEffect } from 'react'
 
 interface BusinessInfoSectionProps {
   formData: any
@@ -23,6 +22,22 @@ export default function BusinessInfoSection({ formData, onChange }: BusinessInfo
   const slugPreview = getSlugPreview()
   // Always show production domain to users
   const displayDomain = getDisplayDomain(slugPreview, true)
+
+  // Group business types by category
+  const businessCategories = {
+    'Food & Dining': ['food', 'restaurant', 'bakery', 'cafe', 'fastfood', 'catering'],
+    'Agriculture & Farming': ['farming', 'agriculture', 'livestock', 'fishery', 'dairy', 'organic'],
+    'Hospitality': ['hotel', 'shortlet'],
+    'Retail & Shopping': ['retail', 'supermarket', 'fashion', 'boutique', 'jewelry', 'toys', 'pets'],
+    'Technology & Electronics': ['electronics', 'phones', 'computers', 'software', 'telecommunications'],
+    'Health & Beauty': ['beauty', 'pharmacy', 'gym', 'spa', 'clinic', 'dental'],
+    'Home & Living': ['furniture', 'realestate', 'construction', 'plumbing', 'electrical', 'cleaning', 'florist'],
+    'Automotive': ['automotive', 'carwash'],
+    'Education & Learning': ['education', 'bookstore', 'daycare'],
+    'Sports & Recreation': ['sports', 'entertainment'],
+    'Professional Services': ['services', 'consulting', 'legal', 'accounting', 'events', 'photography'],
+    'Other Services': ['laundry', 'logistics', 'printing', 'artcraft']
+  }
 
   return (
     <div>
@@ -53,11 +68,19 @@ export default function BusinessInfoSection({ formData, onChange }: BusinessInfo
             onChange={onChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           >
-            {Object.entries(BUSINESS_TYPES).map(([type, info]) => (
-              <option key={type} value={type}>
-                {info.icon} {info.label}
-              </option>
+            {Object.entries(businessCategories).map(([category, types]) => (
+              <optgroup key={category} label={category}>
+                {types.map(type => {
+                  const businessInfo = BUSINESS_TYPES[type as keyof typeof BUSINESS_TYPES]
+                  return (
+                    <option key={type} value={type}>
+                      {businessInfo.icon} {businessInfo.label}
+                    </option>
+                  )
+                })}
+              </optgroup>
             ))}
+            <option value="other">💼 Other</option>
           </select>
         </div>
 

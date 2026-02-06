@@ -26,6 +26,7 @@ import {
   Award,
   Shield
 } from 'lucide-react'
+import LandingFAQ from './LandingFAQ'
 
 interface HeroSectionProps {
   setActiveView: (view: 'businesses' | 'onboarding') => void
@@ -601,37 +602,40 @@ export default function HeroSection({ setActiveView }: HeroSectionProps) {
               </div>
             </div>
           </div>
-          
-          {/* Final CTA */}
-          <div className="mt-16 text-center">
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full mb-8">
-              <CheckCircle className="w-5 h-5 text-green-400" />
-              <span className="text-white font-medium">{t('finalCta.badge')}</span>
-            </div>
-            
-            <h3 className="text-3xl font-bold text-white mb-6">
-              {t('finalCta.title')}
-            </h3>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button
-                onClick={() => setActiveView('onboarding')}
-                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl hover:scale-105"
-              >
-                {t('finalCta.primaryButton')}
-              </button>
-              <button
-                onClick={() => scrollToSection('success-stories')}
-                className="px-8 py-3 glass backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all"
-              >
-                {t('finalCta.secondaryButton')}
-              </button>
-            </div>
-            
-            <p className="text-gray-400 mt-6 text-sm">
-              {t('finalCta.subtitle')}
-            </p>
+        </div>
+
+        {/* FAQ Section - ADDED HERE */}
+        <LandingFAQ />
+
+        {/* Final CTA */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full mb-8">
+            <CheckCircle className="w-5 h-5 text-green-400" />
+            <span className="text-white font-medium">{t('finalCta.badge')}</span>
           </div>
+          
+          <h3 className="text-3xl font-bold text-white mb-6">
+            {t('finalCta.title')}
+          </h3>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button
+              onClick={() => setActiveView('onboarding')}
+              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl hover:scale-105"
+            >
+              {t('finalCta.primaryButton')}
+            </button>
+            <button
+              onClick={() => scrollToSection('success-stories')}
+              className="px-8 py-3 glass backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all"
+            >
+              {t('finalCta.secondaryButton')}
+            </button>
+          </div>
+          
+          <p className="text-gray-400 mt-6 text-sm">
+            {t('finalCta.subtitle')}
+          </p>
         </div>
       </div>
     </div>

@@ -29,14 +29,92 @@ export default function BusinessItem({ business, onToggleStatus, onUpdateSubscri
 
   const getBusinessTypeIcon = (type: string) => {
     const icons: Record<string, string> = {
-      'food': '🍔',
+      // Food & Dining
+      'food': '🍕',
+      'restaurant': '🍽️',
+      'bakery': '🥐',
+      'cafe': '☕',
+      'fastfood': '🍔',
+      'catering': '🍱',
+      
+      // Agriculture & Farming
+      'farming': '🌾',
+      'agriculture': '🚜',
+      'livestock': '🐄',
+      'fishery': '🐟',
+      'dairy': '🥛',
+      'organic': '🥬',
+      
+      // Hospitality
+      'hotel': '🏨',
+      'shortlet': '🏠',
+      
+      // Retail & Shopping
       'retail': '🛍️',
+      'supermarket': '🏬',
+      'fashion': '👗',
+      'boutique': '👠',
+      'jewelry': '💎',
+      'toys': '🧸',
+      'pets': '🐕',
+      
+      // Technology & Electronics
+      'electronics': '📱',
+      'phones': '📱',
+      'computers': '💻',
+      'software': '💾',
+      'telecommunications': '📡',
+      
+      // Health & Beauty
+      'beauty': '💄',
+      'pharmacy': '💊',
+      'gym': '🏋️',
+      'spa': '💆',
+      'clinic': '🏥',
+      'dental': '🦷',
+      
+      // Home & Living
+      'furniture': '🛋️',
+      'realestate': '🏡',
+      'construction': '🏗️',
+      'plumbing': '🔧',
+      'electrical': '💡',
+      'cleaning': '🧹',
+      'florist': '🌺',
+      
+      // Automotive
+      'automotive': '🚗',
+      'carwash': '🚿',
+      
+      // Education & Learning
+      'education': '🎓',
+      'bookstore': '📚',
+      'daycare': '👶',
+      
+      // Sports & Recreation
+      'sports': '⚽',
+      'entertainment': '🎬',
+      
+      // Professional Services
+      'services': '⚙️',
+      'consulting': '💼',
+      'legal': '⚖️',
+      'accounting': '📊',
+      'events': '🎉',
+      'photography': '📸',
+      
+      // Other Services
+      'laundry': '👔',
+      'logistics': '🚚',
+      'printing': '🖨️',
+      'artcraft': '🎨',
+      
+      // Legacy/General
       'service': '🔧',
       'ecommerce': '🛒',
-      'education': '📚',
       'health': '🏥',
-      'entertainment': '🎬',
-      'technology': '💻'
+      'technology': '💻',
+      'other': '🏢'
     }
     return icons[type] || '🏢'
   }

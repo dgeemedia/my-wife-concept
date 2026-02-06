@@ -20,27 +20,25 @@ export default function LandingFooter({ setActiveView }: LandingFooterProps) {
     }
   }
 
-  // About Us -> Hero Section (About Us)
-  const handleAboutUs = () => {
+  // Home -> Landing Page
+  const handleHome = () => {
     setActiveView('landing')
-    setTimeout(() => scrollToSection('about-us'), 100)
   }
 
-  // For Businesses -> Hero Section (How It Works)
+  // Businesses -> Businesses View
   const handleBusinesses = () => {
-    setActiveView('landing')
-    setTimeout(() => scrollToSection('how-it-works'), 100)
+    setActiveView('businesses')
   }
 
-  // Start Your Business -> Registration/Onboarding
+  // Start Your Business -> Onboarding
   const handleStartBusiness = () => {
     setActiveView('onboarding')
   }
 
-  // Success Stories -> Hero Section (Success Stories)
-  const handleSuccessStories = () => {
+  // FAQ -> Scroll to FAQ section on landing page
+  const handleFAQ = () => {
     setActiveView('landing')
-    setTimeout(() => scrollToSection('success-stories'), 100)
+    setTimeout(() => scrollToSection('faq-section'), 100)
   }
   
   return (
@@ -131,10 +129,10 @@ export default function LandingFooter({ setActiveView }: LandingFooterProps) {
             <ul className="space-y-2 text-gray-400">
               <li>
                 <button 
-                  onClick={handleAboutUs}
+                  onClick={handleHome}
                   className="hover:text-white transition-colors text-left"
                 >
-                  {t('footer.quickLinks.aboutUs')}
+                  {t('footer.quickLinks.home')}
                 </button>
               </li>
               <li>
@@ -155,10 +153,10 @@ export default function LandingFooter({ setActiveView }: LandingFooterProps) {
               </li>
               <li>
                 <button 
-                  onClick={handleSuccessStories}
+                  onClick={handleFAQ}
                   className="hover:text-white transition-colors text-left"
                 >
-                  {t('footer.quickLinks.successStories')}
+                  {t('footer.quickLinks.faq')}
                 </button>
               </li>
             </ul>
