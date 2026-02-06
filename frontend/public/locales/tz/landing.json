@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Nyumbani",
+    "businesses": "Biashara",
+    "startBusiness": "Anza Biashara Yako",
+    "contactUs": "Wasiliana Nasi",
+    "login": "Ingia"
+  },
+  "footer": {
+    "tagline": "Kuwezesha biashara duniani kote kwa maagizo yanayotumia AI na msaada wa lugha nyingi",
+    "quickLinks": {
+      "title": "Viungo vya Haraka",
+      "home": "Nyumbani",
+      "businesses": "Biashara",
+      "startBusiness": "Anza Biashara Yako",
+      "faq": "Maswali Yanayoulizwa Mara kwa Mara"
+    },
+    "contact": {
+      "title": "Wasiliana Nasi",
+      "whatsappSupport": "Msaada wa WhatsApp Unapatikana"
+    },
+    "copyright": "© {{year}} MyPadiFood. Haki zote zimehifadhiwa."
+  },
+  "hero": {
+    "badge": "Jukwaa la Biashara la Kimataifa",
+    "headline": "Zindua Biashara Yako",
+    "headlineHighlight": "Popote, Kwa Lugha Yoyote",
+    "subtitle": "Jukwaa pekee linalowapa wateja wako kuagiza kwa lugha yao, kulipa kwa sarafu yao, na kutoa ukaguzi kupitia simu - bila kuhitaji kupakua programu.",
+    "features": {
+      "globalLanguage": {
+        "title": "Lugha Yoyote",
+        "description": "Wateja wanaagiza kwa lugha yao ya asili"
+      },
+      "multiCurrency": {
+        "title": "Sarafu Nyingi",
+        "description": "Kubali malipo kwa sarafu yoyote"
+      },
+      "noSignUp": {
+        "title": "Hakuna Kujisajili",
+        "description": "Wateja wanaagiza mara moja"
+      },
+      "whatsApp": {
+        "title": "Maagizo ya WhatsApp",
+        "description": "Pokea maagizo kupitia WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Ukaguzi wa Simu",
+        "description": "Ukusanyaji wa kiotomatiki wa ukaguzi wa sauti"
+      },
+      "fastSetup": {
+        "title": "Usanidi wa Haraka",
+        "description": "Zindua ndani ya masaa 24"
+      }
+    },
+    "quickStart": {
+      "title": "Anza Jaribio Lako la Bure",
+      "emailLabel": "Barua Pepe ya Biashara Yako",
+      "emailPlaceholder": "biashara@mfano.com",
+      "buttonText": "Anza Bure",
+      "disclaimer": "Kadi ya mkopo haihitajiki. Sanidi kwa dakika."
+    }
+  },
+  "aboutUs": {
+    "title": "Kuhusu MyPadiFood",
+    "subtitle": "Kuvunja vizuizi vya lugha na sarafu ili kuwezesha biashara duniani kote",
+    "mission": {
+      "title": "Dhamira Yetu",
+      "description": "Tunaamini kila biashara, bila kujali ukubwa au eneo, inastahili kupata wateja wa kimataifa. MyPadiFood alizaliwa kutokana na uchunguzi rahisi: vizuizi vya lugha na sarafu havipaswi kupunguza uwezo wa biashara kuwahudumia wateja duniani kote.",
+      "point1": "Kuwezesha biashara kufikia wateja kwa lugha yoyote bila ugumu wa tafsiri ya mkono",
+      "point2": "Kuondoa msuguano wa ubadilishaji wa sarafu na usindikaji wa malipo ya kimataifa"
+    },
+    "vision": {
+      "title": "Maono Yetu",
+      "description": "Tunaona ulimwengu ambapo shamba dogo nchini Nigeria linaweza kuwahudumia wateja nchini Japan bila shida, duka dogo la Paris linaweza kutuma bidhaa kwa urahisi Brazil, na mkahawa nchini Mexico anaweza kupokea maagizo kutoka kwa wateja nchini India - yote bila kujali vizuizi vya lugha au matatizo ya malipo.",
+      "point1": "Kuwezesha biashara zaidi ya milioni 1 duniani kote ifikapo 2030",
+      "point2": "Kuunga mkono biashara kwa kila lugha na sarafu duniani kote"
+    },
+    "values": {
+      "title": "Kinachotusukuma",
+      "value1": {
+        "title": "Upatikanaji",
+        "description": "Teknolojia inapaswa kuwezesha, si kufanya ugumu. Hakuna programu za kupakua, hakuna usanidi mgumu."
+      },
+      "value2": {
+        "title": "Ubunifu",
+        "description": "Tafsiri na kiotomatiki inayotumia AI ambayo inafanya kazi bila shida nyuma."
+      },
+      "value3": {
+        "title": "Ujumuishaji",
+        "description": "Kila biashara inastahili kufikia kimataifa, bila kujali ujuzi wa kiufundi au bajeti."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Hadithi za Mafanikio",
+    "subtitle": "Biashara halisi zinazopata ukuaji wa ajabu na MyPadiFood",
+    "viewMore": "Tazama Hadithi Zaidi za Mafanikio"
+  },
+  "testimonials": {
+    "title": "Hadithi za Mafanikio",
+    "subtitle": "Biashara halisi, matokeo halisi",
+    "aiPoweredAdvantage": "Faida ya AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Kilimo",
+      "quote": "Mfumo wa tafsiri na sarafu nyingi unaotumia AI wa MyPadiFood ulisaidia shamba langu kufikia wateja katika nchi 5 tofauti. Mauzo yaliongezeka kwa asilimia 300 kwa miezi 2 tu!",
+      "highlight": "Ujuzi wa AI: Uainishaji mahiri wa bidhaa na utabiri wa mahitaji ya msimu ambao uliboresha hesabu yangu na kuongeza mauzo.",
+      "metrics": "Ukuaji wa 300% • Nchi 5 • Miezi 2"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Mitindo na Mavazi",
+      "quote": "Wateja wanapenda wanaweza kuagiza kwa lugha yao ya karibu bila kujisajili. Maagizo yangu ya kimataifa yaliongezeka mara tatu mara baada ya kusanidi duka langu.",
+      "highlight": "Ujuzi wa AI: Uchanganuzi wa mitindo ya mitindo na mapendekezo ya kiotomatiki ya ukubwa ambayo yalipunguza kiwango cha kurudi kwa asilimia 40.",
+      "metrics": "Ongezeko la 200% • Kurudi 40% chini • Lugha 12"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Ukarimu",
+      "quote": "Wageni wa kimataifa sasa wanaweza kuweka nafasi katika vyumba vyangu kwa sarafu na lugha yao. Uunganisho wa WhatsApp unafanya uthibitisho kuwa rahisi!",
+      "highlight": "Ujuzi wa AI: Bei za daynamiki na uboreshaji wa upatikanaji ambao uliongeza viwango vya upatikanaji kwa asilimia 65 mwaka mzima.",
+      "metrics": "Upatikanaji wa 65% • Nafasi za papo hapo • Kufikia kimataifa"
+    },
+    "stats": {
+      "countries": "Nchi Zilizohudumika",
+      "setupTime": "Usanidi wa Wastani",
+      "signUpRequired": "Kujisajili kwa Mteja",
+      "languagesSupported": "Lugha"
+    }
+  },
+  "howItWorks": {
+    "title": "Jinsi Inavyofanya Kazi",
+    "subtitle": "Zindua biashara yako ya kimataifa kwa hatua tatu rahisi",
+    "step1": {
+      "title": "Mteja Anachagua Lugha",
+      "description": "Wateja wako wanatazama menyu yako kwa lugha wanayopendelea. AI inatafsiri kila kitu mara moja - vitu vya menyu, maelezo, bei."
+    },
+    "step2": {
+      "title": "Wanachagua Sarafu Yao",
+      "description": "Wateja wanaona bei katika sarafu yao ya karibu. Ubadilishaji wa wakati halisi unashughulikia hesabu zote kiotomatiki."
+    },
+    "step3": {
+      "title": "Agiza kupitia WhatsApp",
+      "description": "Maagizo yanakuja moja kwa moja kwenye WhatsApp yako. Hakuna haja ya kupakua programu kwa wateja wako. Rahisi na papo hapo."
+    }
+  },
+  "globalReach": {
+    "title": "Imejengwa kwa Biashara ya Kimataifa",
+    "subtitle": "Jiunge na maelfu ya biashara zinazowahudumia wateja duniani kote",
+    "stats": {
+      "businesses": "Biashara Zinazofanya Kazi",
+      "transactions": "Miamala ya Kila Mwezi",
+      "languagesUsed": "Lugha Zinazotumiwa",
+      "currenciesSupported": "Sarafu"
+    }
+  },
+  "finalCta": {
+    "badge": "Jiunge na biashara zenye mafanikio duniani kote",
+    "title": "Uko Tayari Kwenda Kimataifa?",
+    "primaryButton": "Anza Jaribio la Bure",
+    "secondaryButton": "Tazama Hadithi za Mafanikio",
+    "subtitle": "Kadi ya mkopo haihitajiki • Sanidi ndani ya masaa 24 • Ghairi wakati wowote"
+  },
+  "languages": {
+    "en": "Kiingereza",
+    "es": "Kihispania",
+    "fr": "Kifaransa",
+    "de": "Kijerumani",
+    "zh": "Kichina",
+    "ar": "Kiarabu",
+    "hi": "Kihindi",
+    "pt": "Kireno",
+    "ru": "Kirusi",
+    "ja": "Kijapani",
+    "ko": "Kikorea",
+    "it": "Kiitaliano",
+    "nl": "Kiholanzi",
+    "tr": "Kituruki",
+    "pl": "Kipolandi",
+    "vi": "Kivietinamu",
+    "th": "Kithai",
+    "id": "Kiindonesia",
+    "ro": "Kiromania",
+    "cs": "Kicheki"
+  },
+  "whatsappWidget": {
+    "title": "Ongea Nasi",
+    "subtitle": "Msaada wa Jukwaa",
+    "selectTopic": "Chagua mada ili kuanza kuongea:",
+    "customMessage": "Anza Mazungumzo Maalum",
+    "opening": "Inafungua WhatsApp...",
+    "messages": {
+      "generalHelp": "Habari, nahitaji msaada na jukwaa la MyPadiFood",
+      "setupStore": "Nataka kusanidi duka langu la mtandaoni. Unaweza kunisaidia kuanza?",
+      "pricing": "Ni mipango gani ya bei mnayo? Ningependa kujua gharama na vipengele.",
+      "technicalIssue": "Ninakabiliwa na tatizo la kiufundi katika duka langu. Unaweza kusaidia?",
+      "multiLanguage": "Kipengele cha tafsiri ya lugha nyingi kinafanyaje kazi?",
+      "payments": "Nina maswali kuhusu usindikaji wa malipo na msaada wa sarafu nyingi.",
+      "whatsappIntegration": "Ninaunganiaje maagizo ya WhatsApp na duka langu?",
+      "customDomain": "Je, ninaweza kutumia kikoa changu maalum kwa duka langu?",
+      "migration": "Nataka kuhamisha biashara yangu iliyopo kwenye MyPadiFood. Inafanyaje kazi?",
+      "bulkOrders": "Ninawezaje kushughulikia maagizo makubwa na wateja wa jumla?",
+      "custom": "Habari, nina swali kuhusu jukwaa la MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Maswali Yanayoulizwa Mara kwa Mara",
+    "subtitle": "Kila kitu unachohitaji kujua kuhusu MyPadiFood",
+    "backToHome": "Rudi Nyumbani",
+    "stillHaveQuestions": "Bado Una Maswali?",
+    "contactSupport": "Timu yetu ya msaada iko tayari kukusaidia kufanikiwa",
+    "chatWithSupport": "Ongea na Msaada kwenye WhatsApp",
+    "whatsappMessage": "Habari, nina swali kuhusu MyPadiFood ambalo halikushughulikiwa kwenye FAQ",
+    "categories": {
+      "general": "Taarifa ya Jumla",
+      "pricing": "Bei na Malipo",
+      "features": "Vipengele na Uwezo",
+      "gettingStarted": "Kuanza",
+      "support": "Msaada na Mafunzo"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "MyPadiFood ni nini?",
+      "whoCanUse": "Nani anaweza kutumia MyPadiFood?",
+      "howDifferent": "MyPadiFood inatofautiana vipi na majukwaa mengine ya biashara mtandaoni?",
+      "freeTrial": "Je, mnatoa jaribio la bure?",
+      "subscriptionPlans": "Ni mipango gani ya usajili mnayotoa?",
+      "paymentMethods": "Ni njia gani za malipo mnazokubali kwa usajili?",
+      "cancelAnytime": "Je, ninaweza kughairi usajili wangu wakati wowote?",
+      "languagesSupported": "MyPadiFood inasaidia lugha ngapi?",
+      "currenciesSupported": "Ni sarafu gani ninazoweza kukubali malipo?",
+      "whatsappOrders": "Maagizo ya WhatsApp yanafanyaje kazi?",
+      "customDomain": "Je, ninaweza kutumia kikoa changu maalum?",
+      "cashPayments": "Je, MyPadiFood inashughulikia malipo ya pesa taslimu kwa biashara yangu?",
+      "setupTime": "Inachukua muda gani kusanidi duka langu?",
+      "technicalKnowledge": "Je, nahitaji maarifa ya kiufundi kutumia MyPadiFood?",
+      "productLimit": "Je, kuna kikomo cha bidhaa ninazoweza kuongeza?",
+      "migration": "Je, ninaweza kuhamisha duka langu la mtandaoni lililopo kwenye MyPadiFood?",
+      "customerSupport": "Ni aina gani ya msaada wa wateja mnaotoa?",
+      "training": "Je, mnatoa mafunzo au msaada wa kuanza?",
+      "updates": "Mnatoa vipengele vipya na masasisho mara ngapi?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood ni jukwaa la biashara mtandaoni la kimataifa linalowapa biashara uwezo wa kuuza bidhaa na huduma kwa wateja duniani kote. Jukwaa letu linaloendeshwa na AI linatafsiri duka lako kiotomatiki kuwa lugha nyingi, linashughulikia malipo ya sarafu nyingi, na kuwaruhusu wateja kuagiza kupitia WhatsApp bila kupakua programu yoyote. Tunavunja vizuizi vya lugha na sarafu ili uweze kuzingatia kukuza biashara yako kimataifa.",
+      "whoCanUseAnswer": "MyPadiFood ni kamili kwa biashara yoyote inayotaka kupanua kimataifa - kutoka mashamba madogo na mikahawa hadi maduka ya mitindo, huduma za ukarimu, na wasambazaji wa jumla. Iwe wewe ni mjasiriamali mmoja, mmiliki wa biashara ndogo, au kampuni inayokua, jukwaa letu linakua na mahitaji yako. Ikiwa una bidhaa au huduma za kuuza na unataka kufikia wateja wa kimataifa, MyPadiFood limejengwa kwa ajili yako.",
+      "howDifferentAnswer": "Tofauti na majukwaa ya kawaida ya biashara mtandaoni, MyPadiFood imeundwa maalum kwa biashara ya kimataifa. Vipengele vyetu vya kipekee ni pamoja na: (1) Tafsiri inayoendeshwa na AI kuwa lugha 20+ bila juhudi za mkono, (2) Wateja wanaweza kuagiza bila kuunda akaunti au kupakua programu, (3) Uunganisho wa WhatsApp kwa usimamizi rahisi wa maagizo, (4) Msaada wa sarafu nyingi na ubadilishaji wa kiotomatiki, (5) Ukusanyaji wa ukaguzi wa wateja wa simu, na (6) Hakuna ujuzi wa kiufundi unaohitajika kuanza.",
+      "freeTrialAnswer": "Ndiyo! Tunatoa jaribio la bure la siku 14 lenye ufikiaji kamili wa vipengele vyote. Kadi ya mkopo haihitajiki kuanza jaribio lako. Hii inakupa muda wa kutosha kusanidi duka lako, kuongeza bidhaa, kubinafsisha mipangilio yako, na kujaribu vipengele vyetu vyote. Baada ya jaribio la siku 14 kumalizika, duka lako litasimamishwa kwa muda hadi uchague mpango wa usajili unaokufaa. Unaweza kuanzisha tena wakati wowote kwa kujisajili.",
+      "subscriptionPlansAnswer": "Tunatoa mipango ya usajili yenye kubadilika kulingana na mahitaji ya biashara yako: Usajili wa kila mwezi kwa kubadilika kwa kiwango cha juu, Mipango ya robo mwaka yenye ukomo wa gharama, Usajili wa nusu mwaka (miezi 6) kwa thamani bora, na Mipango ya kila mwaka kwa viwango bora zaidi. Ada za usajili zinatofautiana kulingana na nchi yako ya uenyeji ili kuhakikisha bei za haki kulingana na hali za kiuchumi za eneo. Wasiliana na timu yetu ya msaada kupitia WhatsApp kupata bei maalum kwa nchi yako na kujadili ni mpango upi unaofaa zaidi malengo ya biashara yako.",
+      "paymentMethodsAnswer": "Tunakubali njia nyingi za malipo kwa ada za usajili kulingana na nchi yako, ikiwa ni pamoja na kadi za mkopo/debiti, uhamisho wa benki, pesa za simu, na chaguzi zingine za malipo za eneo. Lengo letu ni kufanya iwe rahisi iwezekanavyo kwako kujisajili na kudumisha akaunti yako. Wasiliana na timu yetu ya msaada kujifunza kuhusu njia maalum za malipo zinazopatikana katika eneo lako.",
+      "cancelAnytimeAnswer": "Kabisa! Una udhibiti kamili juu ya usajili wako. Unaweza kughairi wakati wowote bila adhabu au ada zisizoonekana. Ukighairi wakati wa mzunguko wako wa malipo, utaendelea kuwa na ufikiaji wa duka lako hadi mwisho wa kipindi hicho kilicholipwa. Tunaamini katika kuchuma biashara yako kila mwezi, si kukufunga katika mikataba ya muda mrefu usiyotaka.",
+      "languagesSupportedAnswer": "MyPadiFood kwa sasa inasaidia lugha kuu 20+ ikiwa ni pamoja na Kiingereza, Kihispania, Kifaransa, Kijerumani, Kichina, Kiarabu, Kihindi, Kireno, Kirusi, Kijapani, Kikorea, Kiitaliano, Kiholanzi, Kituruki, Kipolandi, Kivietinamu, Kithai, Kiindonesia, Kiromania, na Kicheki. Mfumo wetu wa tafsiri ya AI unahakikisha maelezo ya bidhaa zako, menyu, na maudhui ya duka yanatafsiriwa kwa usahihi wakati halisi. Tunaongeza lugha zaidi daima kulingana na mahitaji ya wateja.",
+      "currenciesSupportedAnswer": "Unaweza kukubali malipo katika karibu sarafu yoyote kuu duniani kote. Jukwaa letu linashughulikia ubadilishaji wa sarafu wa wakati halisi kiotomatiki, hivyo wateja wanaona bei katika sarafu yao ya eneo wakati wewe unapokea malipo katika sarafu unayopendelea. Hii ni pamoja na USD, EUR, GBP, NGN, JPY, CNY, INR, na nyingi zaidi. Mfumo husasisha viwango vya ubadilishaji mara kwa mara kuhakikisha bei sahihi.",
+      "whatsappOrdersAnswer": "Wateja wanapoweka maagizo kwenye duka lako la MyPadiFood, unapokea arifa papo hapo moja kwa moja kwa nambari yako ya biashara ya WhatsApp. Maelezo ya agizo yanatengenezwa wazi na taarifa za mteja, vitu vilivyoagizwa, anwani ya utoaji, na hali ya malipo. Unaweza kuthibitisha maagizo, kusasisha wateja kuhusu hali ya agizo, na kuwasiliana moja kwa moja kupitia WhatsApp - hakuna haja ya kujifunza mfumo mpya. Ni rahisi kama kuwa na mazungumzo na mteja wako.",
+      "customDomainAnswer": "Ndiyo! Unaweza kuunganisha kikoa chako maalum kwenye duka lako la MyPadiFood kwa uzoefu wa chapa ya kitaalamu. Kwa mfano, badala ya biasharayako.mypadifood.com, unaweza kutumia duka.biasharayako.com au kikoa chochote unachomiliki. Kipengele hiki kinapatikana kwenye mipango maalum ya usajili. Timu yetu ya msaada inaweza kukuongoza kupitia mchakato rahisi wa usanidi.",
+      "cashPaymentsAnswer": "MyPadiFood HAIKUSUBALI, kushughulikia, au kusimamia malipo ya pesa taslimu kwa niaba ya biashara yako. Miamala yote inayohusiana na pesa taslimu inasimamizwa moja kwa moja kati yako na wateja wako. Unadumisha udhibiti kamili juu ya malipo yako ya pesa taslimu, ukusanyaji, na upatanisho. MyPadiFood inarahisisha tu jukwaa la maagizo na usindikaji wa malipo ya kidijitali. Mikataba yoyote ya malipo ya pesa taslimu ni jukumu lako kusimamia kwa uhuru.",
+      "setupTimeAnswer": "Biashara nyingi zinaweza kuwa na duka lao limesanidiwa kikamili na tayari kukubali maagizo ndani ya masaa 24 au chini. Mchakato wetu ulioimarishwa wa kuanza unakuongoza kupitia: kuunda akaunti yako, kuongeza bidhaa zako, kusanidi njia za malipo, kubinafsisha mwonekano wa duka lako, na kuunganisha WhatsApp yako. Watumiaji wengi wanakamilisha usanidi wa msingi kwa masaa chini ya 2. Tunatoa mwongozo wa hatua kwa hatua na msaada kukusaidia kuzindua haraka.",
+      "technicalKnowledgeAnswer": "Hakuna maarifa ya kiufundi yanayohitajika! MyPadiFood imeundwa kwa wamiliki wa biashara, si watengenezaji. Kiolesura chetu cha ufahamu kinakuongoza kupitia kila hatua na maelekezo wazi. Huhitaji kujua jinsi ya kuandika msimbo, kuelewa upangaji wa wavuti, au kusimamia seva. Ikiwa unaweza kutumia WhatsApp na barua pepe, unaweza kusimamia duka lako la MyPadiFood. Timu yetu ya msaada pia inapatikana kusaidia na maswali yoyote.",
+      "productLimitAnswer": "Hakuna kikomo cha idadi ya bidhaa unazoweza kuongeza kwenye duka lako. Iwe una bidhaa 10 au 10,000, MyPadiFood inaweza kushughulikia katalogi yako. Unaweza kupanga bidhaa katika makundi, kuongeza maelezo ya kina na picha, kuweka viwango vya hesabu, na kusimamia kila kitu kutoka kwenye dashibodi yako. Kadiri biashara yako inavyokua, duka lako linakua nawe.",
+      "migrationAnswer": "Ndiyo, tunaweza kukusaidia kuhamisha duka lako la mtandaoni lililopo kwenye MyPadiFood! Tunasaidia uhamishaji kutoka majukwaa mbalimbali ikiwa ni pamoja na Shopify, WooCommerce, na mifumo mingine ya biashara mtandaoni. Timu yetu inaweza kusaidia kuhamisha katalogi yako ya bidhaa, data ya wateja, na historia ya maagizo. Wasiliana na timu yetu ya msaada kupitia WhatsApp kujadili mahitaji yako maalum ya uhamishaji, ratiba, na mahitaji yoyote maalum. Tutafanya mpito kuwa laini iwezekanavyo.",
+      "customerSupportAnswer": "Tunatoa msaada wa kina kupitia njia nyingi: Msaada wa WhatsApp kwa maswali ya haraka na msaada wa wakati halisi, Msaada wa barua pepe kwa maswali ya kina, Kituo cha msaada chenye miongozo na mafunzo, na Video za maelezo kwa vipengele changamano. Timu yetu ya msaada inafanya kazi wakati wa masaa ya biashara na tunalenga kujibu maswali yote ndani ya masaa 24. Vifurushi vya msaada vya premium vyenye wasimamizi wa akaunti waliojitolea vinapatikana kwa biashara zinazokua.",
+      "trainingAnswer": "Ndiyo! Tunatoa rasilimali za mafunzo za kina kukusaidia kufanikiwa: Kipindi cha bure cha kuanza unaposajili, Mafunzo ya video yanayofunika vipengele vyote, Miongozo iliyoandikwa hatua kwa hatua, Semina za moja kwa moja za vipengele vipya, na Vikao vya mafunzo ya mtu kwa mtu (vinapatikana na mipango ya premium). Tunataka kuhakikisha unahisi kuwa na ujasiri wa kutumia kila kipengele cha jukwaa kukuza biashara yako.",
+      "updatesAnswer": "Tunaboresha MyPadiFood kwa kuendelea na masasisho ya kawaida na vipengele vipya. Uzinduzi mkubwa wa vipengele kwa kawaida hutokea kila robo mwaka, na maboresho madogo na marekebisho ya kasoro yanatolewa inavyohitajika. Masasisho yote yanajumuishwa katika usajili wako bila gharama ya ziada. Tunatangaza vipengele vipya kupitia barua pepe, arifa za programu, na njia zetu za mitandao ya kijamii. Maoni yako yanasaidia kuunda ramani yetu ya barabara, kwa hivyo tunajengea daima kile biashara zinachohitaji zaidi."
+    }
+  },
+  "onboarding": {
+    "title": "Anza Biashara Yako",
+    "subtitle": "Jaza fomu hapa chini na timu yetu itakusaidia kuanza",
+    "submitSuccess": "Maombi yamewasilishwa kwa mafanikio!",
+    "submitError": "Imeshindwa kuwasilisha maombi",
+    "submitting": "Inawasilisha...",
+    "submitButton": "Wasilisha Maombi",
+    "submitAnother": "Wasilisha Ombi Lingine",
+    "successTitle": "Asante!",
+    "successMessage": "Ombi lako la kuanza limewasilishwa kwa mafanikio. Timu yetu itawasiliana nawe ndani ya masaa 24.",
+    "categories": {
+      "foodDining": "🍽️ Chakula na Kuonja",
+      "agricultureFarming": "🌾 Kilimo",
+      "hospitality": "🏨 Ukarimu",
+      "retailShopping": "🛍️ Rejareja na Ununuzi",
+      "technologyElectronics": "💻 Teknolojia na Elektroniki",
+      "healthBeauty": "💄 Afya na Urembo",
+      "homeLiving": "🏠 Nyumba na Maisha",
+      "automotive": "🚗 Magari",
+      "educationLearning": "🎓 Elimu na Kujifunza",
+      "sportsRecreation": "⚽ Michezo na Burudani",
+      "professionalServices": "💼 Huduma za Kitaalamu",
+      "otherServices": "🔧 Huduma Zingine"
+    },
+    "businessInfo": {
+      "title": "Taarifa za Biashara",
+      "businessName": "Jina la Biashara",
+      "businessNamePlaceholder": "k.m., Mazao Safi ya Shamba",
+      "businessType": "Aina ya Biashara",
+      "other": "Nyingine",
+      "preferredSlug": "URL Inayopendelewa",
+      "slugPlaceholder": "shambasafi",
+      "slugHint": "Herufi ndogo tu, nambari, na vistari",
+      "urlPreviewLabel": "Biashara yako itapatikana kwenye:",
+      "description": "Maelezo",
+      "descriptionPlaceholder": "Tuambie kuhusu biashara yako..."
+    },
+    "ownerInfo": {
+      "title": "Taarifa za Mmiliki",
+      "fullName": "Jina Kamili",
+      "fullNamePlaceholder": "Juma Ally",
+      "email": "Barua Pepe",
+      "emailPlaceholder": "juma@mfano.com",
+      "phone": "Simu",
+      "phonePlaceholder": "+255 700 000 000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Biashara Zetu",
+    "subtitle": "Gundua biashara za karibu za ajabu kwenye jukwaa letu",
+    "noBusinesses": "Hakuna biashara zilizopatikana katika jamii hii",
+    "tryDifferent": "Jaribu kuchagua jamii tofauti ili kuchunguza biashara zaidi"
+  },
+  "businessFilter": {
+    "allBusinesses": "Biashara Zote"
+  },
+  "businessCard": {
+    "products": "Bidhaa",
+    "visitStore": "Tembelea Duka"
+  }
+}

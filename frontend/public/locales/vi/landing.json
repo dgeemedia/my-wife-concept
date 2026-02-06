@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Trang chủ",
+    "businesses": "Doanh nghiệp",
+    "startBusiness": "Bắt đầu kinh doanh",
+    "contactUs": "Liên hệ",
+    "login": "Đăng nhập"
+  },
+  "footer": {
+    "tagline": "Trao quyền cho doanh nghiệp toàn cầu với đặt hàng hỗ trợ AI và đa ngôn ngữ",
+    "quickLinks": {
+      "title": "Liên kết nhanh",
+      "home": "Trang chủ",
+      "businesses": "Doanh nghiệp",
+      "startBusiness": "Bắt đầu kinh doanh",
+      "faq": "Câu hỏi thường gặp"
+    },
+    "contact": {
+      "title": "Liên hệ",
+      "whatsappSupport": "Hỗ trợ WhatsApp"
+    },
+    "copyright": "© {{year}} MyPadiFood. Bảo lưu mọi quyền."
+  },
+  "hero": {
+    "badge": "Nền tảng kinh doanh toàn cầu",
+    "headline": "Khởi nghiệp",
+    "headlineHighlight": "Ở bất kỳ đâu, Bằng mọi ngôn ngữ",
+    "subtitle": "Nền tảng duy nhất cho phép khách hàng đặt hàng bằng ngôn ngữ của họ, thanh toán bằng tiền tệ của họ và đánh giá qua điện thoại - không cần tải ứng dụng.",
+    "features": {
+      "globalLanguage": {
+        "title": "Mọi ngôn ngữ",
+        "description": "Khách hàng đặt hàng bằng ngôn ngữ mẹ đẻ"
+      },
+      "multiCurrency": {
+        "title": "Đa tiền tệ",
+        "description": "Chấp nhận thanh toán bằng mọi loại tiền tệ"
+      },
+      "noSignUp": {
+        "title": "Không cần đăng ký",
+        "description": "Khách hàng đặt hàng ngay lập tức"
+      },
+      "whatsApp": {
+        "title": "Đặt hàng WhatsApp",
+        "description": "Nhận đơn hàng qua WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Đánh giá qua điện thoại",
+        "description": "Thu thập đánh giá bằng giọng nói tự động"
+      },
+      "fastSetup": {
+        "title": "Cài đặt nhanh",
+        "description": "Ra mắt trong vòng 24 giờ"
+      }
+    },
+    "quickStart": {
+      "title": "Bắt đầu dùng thử miễn phí",
+      "emailLabel": "Email doanh nghiệp",
+      "emailPlaceholder": "business@example.com",
+      "buttonText": "Bắt đầu miễn phí",
+      "disclaimer": "Không cần thẻ tín dụng. Cài đặt trong vài phút."
+    }
+  },
+  "aboutUs": {
+    "title": "Về MyPadiFood",
+    "subtitle": "Phá bỏ rào cản ngôn ngữ và tiền tệ để trao quyền cho doanh nghiệp toàn cầu",
+    "mission": {
+      "title": "Sứ mệnh",
+      "description": "Chúng tôi tin rằng mọi doanh nghiệp, bất kể quy mô hay vị trí, đều xứng đáng được tiếp cận khách hàng toàn cầu. MyPadiFood ra đời từ một quan sát đơn giản: rào cản ngôn ngữ và tiền tệ không nên giới hạn tiềm năng phục vụ khách hàng trên toàn thế giới của doanh nghiệp.",
+      "point1": "Cho phép doanh nghiệp tiếp cận khách hàng bằng mọi ngôn ngữ mà không cần phức tạp hóa việc dịch thủ công",
+      "point2": "Loại bỏ ma sát của việc chuyển đổi tiền tệ và xử lý thanh toán quốc tế"
+    },
+    "vision": {
+      "title": "Tầm nhìn",
+      "description": "Chúng tôi hình dung một thế giới nơi một trang trại nhỏ ở Nigeria có thể phục vụ khách hàng ở Nhật Bản một cách liền mạch, một cửa hàng thời trang ở Paris có thể dễ dàng vận chuyển đến Brazil, và một nhà hàng ở Mexico có thể nhận đơn hàng từ khách hàng ở Ấn Độ - tất cả mà không phải lo lắng về rào cản ngôn ngữ hoặc phức tạp thanh toán.",
+      "point1": "Hỗ trợ hơn 1 triệu doanh nghiệp toàn cầu vào năm 2030",
+      "point2": "Hỗ trợ thương mại bằng mọi ngôn ngữ và tiền tệ trên toàn thế giới"
+    },
+    "values": {
+      "title": "Điều thúc đẩy chúng tôi",
+      "value1": {
+        "title": "Khả năng tiếp cận",
+        "description": "Công nghệ nên trao quyền, không làm phức tạp. Không cần tải ứng dụng, không cần cài đặt phức tạp."
+      },
+      "value2": {
+        "title": "Đổi mới",
+        "description": "Dịch thuật và tự động hóa hỗ trợ AI hoạt động liền mạch ở chế độ nền."
+      },
+      "value3": {
+        "title": "Tính bao trùm",
+        "description": "Mọi doanh nghiệp đều xứng đáng có phạm vi toàn cầu, bất kể chuyên môn kỹ thuật hay ngân sách."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Câu chuyện thành công",
+    "subtitle": "Doanh nghiệp thực sự đạt được tăng trưởng phi thường với MyPadiFood",
+    "viewMore": "Xem thêm câu chuyện thành công"
+  },
+  "testimonials": {
+    "title": "Câu chuyện thành công",
+    "subtitle": "Doanh nghiệp thực, kết quả thực",
+    "aiPoweredAdvantage": "Lợi thế hỗ trợ AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Nông nghiệp",
+      "quote": "Hệ thống dịch thuật hỗ trợ AI và đa tiền tệ của MyPadiFood đã giúp trang trại của tôi tiếp cận khách hàng ở 5 quốc gia khác nhau. Doanh số tăng 300% chỉ trong 2 tháng!",
+      "highlight": "Kỹ năng AI: Phân loại sản phẩm thông minh và dự đoán nhu cầu theo mùa đã tối ưu hóa hàng tồn kho và tăng doanh số.",
+      "metrics": "Tăng 300% • 5 quốc gia • 2 tháng"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Thời trang & Quần áo",
+      "quote": "Khách hàng thích có thể đặt hàng bằng ngôn ngữ địa phương mà không cần đăng ký. Đơn hàng quốc tế của tôi tăng gấp ba ngay sau khi thiết lập cửa hàng.",
+      "highlight": "Kỹ năng AI: Phân tích xu hướng thời trang và đề xuất kích cỡ tự động giảm tỷ lệ trả hàng 40%.",
+      "metrics": "Tăng 200% • Giảm 40% trả hàng • 12 ngôn ngữ"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Khách sạn",
+      "quote": "Khách quốc tế giờ đây có thể đặt căn hộ của tôi bằng tiền tệ và ngôn ngữ của họ. Tích hợp WhatsApp làm cho việc xác nhận liền mạch!",
+      "highlight": "Kỹ năng AI: Định giá động và tối ưu hóa tính khả dụng tăng tỷ lệ lấp đầy 65% quanh năm.",
+      "metrics": "65% lấp đầy • Đặt ngay lập tức • Phạm vi toàn cầu"
+    },
+    "stats": {
+      "countries": "Quốc gia được phục vụ",
+      "setupTime": "Cài đặt trung bình",
+      "signUpRequired": "Đăng ký khách hàng",
+      "languagesSupported": "Ngôn ngữ"
+    }
+  },
+  "howItWorks": {
+    "title": "Cách hoạt động",
+    "subtitle": "Ra mắt doanh nghiệp toàn cầu của bạn trong ba bước đơn giản",
+    "step1": {
+      "title": "Khách hàng chọn ngôn ngữ",
+      "description": "Khách hàng duyệt menu bằng ngôn ngữ ưa thích. AI dịch ngay lập tức mọi thứ - mục menu, mô tả, giá cả."
+    },
+    "step2": {
+      "title": "Chọn tiền tệ",
+      "description": "Khách hàng xem giá bằng tiền tệ địa phương. Chuyển đổi thời gian thực xử lý tất cả các tính toán tự động."
+    },
+    "step3": {
+      "title": "Đặt hàng qua WhatsApp",
+      "description": "Đơn hàng đến trực tiếp WhatsApp của bạn. Không cần tải ứng dụng cho khách hàng. Đơn giản và tức thì."
+    }
+  },
+  "globalReach": {
+    "title": "Được xây dựng cho thương mại toàn cầu",
+    "subtitle": "Tham gia hàng ngàn doanh nghiệp phục vụ khách hàng trên toàn thế giới",
+    "stats": {
+      "businesses": "Doanh nghiệp hoạt động",
+      "transactions": "Giao dịch hàng tháng",
+      "languagesUsed": "Ngôn ngữ đang sử dụng",
+      "currenciesSupported": "Tiền tệ"
+    }
+  },
+  "finalCta": {
+    "badge": "Tham gia các doanh nghiệp thành công trên toàn thế giới",
+    "title": "Sẵn sàng toàn cầu hóa?",
+    "primaryButton": "Bắt đầu dùng thử miễn phí",
+    "secondaryButton": "Xem câu chuyện thành công",
+    "subtitle": "Không cần thẻ tín dụng • Cài đặt trong 24 giờ • Hủy bất cứ lúc nào"
+  },
+  "languages": {
+    "en": "Tiếng Anh",
+    "es": "Tiếng Tây Ban Nha",
+    "fr": "Tiếng Pháp",
+    "de": "Tiếng Đức",
+    "zh": "Tiếng Trung",
+    "ar": "Tiếng Ả Rập",
+    "hi": "Tiếng Hindi",
+    "pt": "Tiếng Bồ Đào Nha",
+    "ru": "Tiếng Nga",
+    "ja": "Tiếng Nhật",
+    "ko": "Tiếng Hàn",
+    "it": "Tiếng Ý",
+    "nl": "Tiếng Hà Lan",
+    "tr": "Tiếng Thổ Nhĩ Kỳ",
+    "pl": "Tiếng Ba Lan",
+    "vi": "Tiếng Việt",
+    "th": "Tiếng Thái",
+    "id": "Tiếng Indonesia",
+    "ro": "Tiếng Romania",
+    "cs": "Tiếng Séc"
+  },
+  "whatsappWidget": {
+    "title": "Trò chuyện với chúng tôi",
+    "subtitle": "Hỗ trợ nền tảng",
+    "selectTopic": "Chọn chủ đề để bắt đầu trò chuyện:",
+    "customMessage": "Bắt đầu trò chuyện tùy chỉnh",
+    "opening": "Đang mở WhatsApp...",
+    "messages": {
+      "generalHelp": "Xin chào, tôi cần trợ giúp về nền tảng MyPadiFood",
+      "setupStore": "Tôi muốn thiết lập cửa hàng trực tuyến. Bạn có thể giúp tôi bắt đầu không?",
+      "pricing": "Các gói giá của bạn là gì? Tôi muốn biết chi phí và tính năng.",
+      "technicalIssue": "Tôi đang gặp sự cố kỹ thuật với cửa hàng của mình. Bạn có thể hỗ trợ không?",
+      "multiLanguage": "Tính năng dịch đa ngôn ngữ hoạt động như thế nào?",
+      "payments": "Tôi có câu hỏi về xử lý thanh toán và hỗ trợ đa tiền tệ.",
+      "whatsappIntegration": "Làm cách nào để tích hợp đơn hàng WhatsApp với cửa hàng của tôi?",
+      "customDomain": "Tôi có thể sử dụng tên miền tùy chỉnh riêng cho cửa hàng không?",
+      "migration": "Tôi muốn chuyển doanh nghiệp hiện tại sang MyPadiFood. Nó hoạt động như thế nào?",
+      "bulkOrders": "Làm cách nào để xử lý đơn hàng số lượng lớn và khách hàng bán sỉ?",
+      "custom": "Xin chào, tôi có câu hỏi về nền tảng MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Câu hỏi thường gặp",
+    "subtitle": "Mọi thứ bạn cần biết về MyPadiFood",
+    "backToHome": "Quay lại trang chủ",
+    "stillHaveQuestions": "Vẫn còn câu hỏi?",
+    "contactSupport": "Đội ngũ hỗ trợ của chúng tôi sẵn sàng giúp bạn thành công",
+    "chatWithSupport": "Trò chuyện với hỗ trợ trên WhatsApp",
+    "whatsappMessage": "Xin chào, tôi có câu hỏi về MyPadiFood không được đề cập trong FAQ",
+    "categories": {
+      "general": "Thông tin chung",
+      "pricing": "Giá & Thanh toán",
+      "features": "Tính năng & Khả năng",
+      "gettingStarted": "Bắt đầu",
+      "support": "Hỗ trợ & Đào tạo"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "MyPadiFood là gì?",
+      "whoCanUse": "Ai có thể sử dụng MyPadiFood?",
+      "howDifferent": "MyPadiFood khác với các nền tảng thương mại điện tử khác như thế nào?",
+      "freeTrial": "Bạn có cung cấp bản dùng thử miễn phí không?",
+      "subscriptionPlans": "Bạn cung cấp những gói đăng ký nào?",
+      "paymentMethods": "Bạn chấp nhận phương thức thanh toán nào cho đăng ký?",
+      "cancelAnytime": "Tôi có thể hủy đăng ký bất cứ lúc nào không?",
+      "languagesSupported": "MyPadiFood hỗ trợ bao nhiêu ngôn ngữ?",
+      "currenciesSupported": "Tôi có thể chấp nhận thanh toán bằng tiền tệ nào?",
+      "whatsappOrders": "Đơn hàng WhatsApp hoạt động như thế nào?",
+      "customDomain": "Tôi có thể sử dụng tên miền tùy chỉnh riêng không?",
+      "cashPayments": "MyPadiFood có xử lý thanh toán bằng tiền mặt cho doanh nghiệp của tôi không?",
+      "setupTime": "Mất bao lâu để thiết lập cửa hàng?",
+      "technicalKnowledge": "Tôi có cần kiến thức kỹ thuật để sử dụng MyPadiFood không?",
+      "productLimit": "Có giới hạn số lượng sản phẩm tôi có thể thêm không?",
+      "migration": "Tôi có thể chuyển cửa hàng trực tuyến hiện tại sang MyPadiFood không?",
+      "customerSupport": "Bạn cung cấp loại hỗ trợ khách hàng nào?",
+      "training": "Bạn có cung cấp đào tạo hoặc hỗ trợ giới thiệu không?",
+      "updates": "Bạn phát hành tính năng và cập nhật mới bao lâu một lần?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood là nền tảng thương mại điện tử toàn cầu cho phép doanh nghiệp bán sản phẩm và dịch vụ cho khách hàng trên toàn thế giới. Nền tảng hỗ trợ AI của chúng tôi tự động dịch cửa hàng của bạn sang nhiều ngôn ngữ, xử lý thanh toán đa tiền tệ và cho phép khách hàng đặt hàng qua WhatsApp mà không cần tải ứng dụng. Chúng tôi phá bỏ rào cản ngôn ngữ và tiền tệ để bạn có thể tập trung vào phát triển doanh nghiệp toàn cầu.",
+      "whoCanUseAnswer": "MyPadiFood hoàn hảo cho bất kỳ doanh nghiệp nào muốn mở rộng toàn cầu - từ trang trại nhỏ và nhà hàng đến cửa hàng thời trang, dịch vụ khách sạn và nhà cung cấp bán sỉ. Dù bạn là doanh nhân độc lập, chủ doanh nghiệp nhỏ hay doanh nghiệp đang phát triển, nền tảng của chúng tôi mở rộng theo nhu cầu của bạn. Nếu bạn có sản phẩm hoặc dịch vụ để bán và muốn tiếp cận khách hàng quốc tế, MyPadiFood được xây dựng cho bạn.",
+      "howDifferentAnswer": "Không giống như các nền tảng thương mại điện tử truyền thống, MyPadiFood được thiết kế đặc biệt cho thương mại toàn cầu. Các tính năng độc đáo của chúng tôi bao gồm: (1) Dịch thuật hỗ trợ AI sang hơn 20 ngôn ngữ mà không cần nỗ lực thủ công, (2) Khách hàng có thể đặt hàng mà không cần tạo tài khoản hoặc tải ứng dụng, (3) Tích hợp WhatsApp để quản lý đơn hàng liền mạch, (4) Hỗ trợ đa tiền tệ với chuyển đổi tự động, (5) Thu thập đánh giá khách hàng qua điện thoại, và (6) Không cần chuyên môn kỹ thuật để bắt đầu.",
+      "freeTrialAnswer": "Có! Chúng tôi cung cấp bản dùng thử miễn phí 14 ngày hào phóng với quyền truy cập đầy đủ vào tất cả các tính năng. Không cần thẻ tín dụng để bắt đầu dùng thử. Điều này cho bạn nhiều thời gian để thiết lập cửa hàng, thêm sản phẩm, tùy chỉnh cài đặt và kiểm tra tất cả các tính năng của chúng tôi. Sau khi bản dùng thử 14 ngày kết thúc, cửa hàng của bạn sẽ tạm thời bị tạm ngưng cho đến khi bạn chọn gói đăng ký phù hợp với bạn. Bạn có thể kích hoạt lại bất cứ lúc nào bằng cách đăng ký.",
+      "subscriptionPlansAnswer": "Chúng tôi cung cấp các gói đăng ký linh hoạt để phù hợp với nhu cầu doanh nghiệp của bạn: Đăng ký hàng tháng để linh hoạt tối đa, Gói hàng quý với tiết kiệm chi phí, Đăng ký nửa năm (6 tháng) để có giá trị tốt hơn, và Gói hàng năm cho mức giá tốt nhất. Phí đăng ký thay đổi theo quốc gia chủ nhà của bạn để đảm bảo giá cả công bằng dựa trên điều kiện kinh tế địa phương. Liên hệ với đội ngũ hỗ trợ của chúng tôi qua WhatsApp để nhận giá cụ thể cho quốc gia của bạn và thảo luận về gói nào phù hợp nhất với mục tiêu kinh doanh của bạn.",
+      "paymentMethodsAnswer": "Chúng tôi chấp nhận nhiều phương thức thanh toán cho phí đăng ký tùy thuộc vào quốc gia của bạn, bao gồm thẻ tín dụng/thẻ ghi nợ, chuyển khoản ngân hàng, ví điện tử và các tùy chọn thanh toán địa phương khác. Mục tiêu của chúng tôi là làm cho việc đăng ký và duy trì tài khoản của bạn dễ dàng nhất có thể. Liên hệ với đội ngũ hỗ trợ của chúng tôi để tìm hiểu về các phương thức thanh toán cụ thể có sẵn trong khu vực của bạn.",
+      "cancelAnytimeAnswer": "Hoàn toàn có thể! Bạn có toàn quyền kiểm soát đăng ký của mình. Bạn có thể hủy bất cứ lúc nào mà không bị phạt hoặc phí ẩn. Nếu bạn hủy trong chu kỳ thanh toán, bạn sẽ tiếp tục có quyền truy cập vào cửa hàng của mình cho đến khi kết thúc khoảng thời gian đã thanh toán đó. Chúng tôi tin vào việc kiếm được doanh nghiệp của bạn mỗi tháng, không khóa bạn vào hợp đồng dài hạn mà bạn không muốn.",
+      "languagesSupportedAnswer": "MyPadiFood hiện hỗ trợ hơn 20 ngôn ngữ chính bao gồm Tiếng Anh, Tiếng Tây Ban Nha, Tiếng Pháp, Tiếng Đức, Tiếng Trung, Tiếng Ả Rập, Tiếng Hindi, Tiếng Bồ Đào Nha, Tiếng Nga, Tiếng Nhật, Tiếng Hàn, Tiếng Ý, Tiếng Hà Lan, Tiếng Thổ Nhĩ Kỳ, Tiếng Ba Lan, Tiếng Việt, Tiếng Thái, Tiếng Indonesia, Tiếng Romania và Tiếng Séc. Hệ thống dịch thuật AI của chúng tôi đảm bảo mô tả sản phẩm, menu và nội dung cửa hàng của bạn được dịch chính xác theo thời gian thực. Chúng tôi liên tục thêm nhiều ngôn ngữ hơn dựa trên nhu cầu của khách hàng.",
+      "currenciesSupportedAnswer": "Bạn có thể chấp nhận thanh toán bằng hầu hết mọi loại tiền tệ chính trên toàn thế giới. Nền tảng của chúng tôi tự động xử lý chuyển đổi tiền tệ theo thời gian thực, vì vậy khách hàng xem giá bằng tiền tệ địa phương trong khi bạn nhận thanh toán bằng tiền tệ ưa thích của mình. Điều này bao gồm USD, EUR, GBP, NGN, JPY, CNY, INR và nhiều hơn nữa. Hệ thống cập nhật tỷ giá hối đoái thường xuyên để đảm bảo giá chính xác.",
+      "whatsappOrdersAnswer": "Khi khách hàng đặt hàng trên cửa hàng MyPadiFood của bạn, bạn nhận được thông báo ngay lập tức trực tiếp đến số WhatsApp doanh nghiệp của bạn. Chi tiết đơn hàng được định dạng rõ ràng với thông tin khách hàng, mặt hàng đã đặt, địa chỉ giao hàng và trạng thái thanh toán. Bạn có thể xác nhận đơn hàng, cập nhật khách hàng về trạng thái đơn hàng và giao tiếp trực tiếp qua WhatsApp - không cần học hệ thống mới. Đơn giản như trò chuyện với khách hàng của bạn.",
+      "customDomainAnswer": "Có! Bạn có thể kết nối tên miền tùy chỉnh riêng với cửa hàng MyPadiFood của bạn để có trải nghiệm thương hiệu chuyên nghiệp. Ví dụ: thay vì yourbusiness.mypadifood.com, bạn có thể sử dụng shop.yourbusiness.com hoặc bất kỳ tên miền nào bạn sở hữu. Tính năng này có sẵn trong các gói đăng ký được chọn. Đội ngũ hỗ trợ của chúng tôi có thể hướng dẫn bạn qua quy trình thiết lập đơn giản.",
+      "cashPaymentsAnswer": "MyPadiFood KHÔNG chấp nhận, xử lý hoặc quản lý thanh toán bằng tiền mặt thay mặt cho doanh nghiệp của bạn. Tất cả các giao dịch liên quan đến tiền mặt được quản lý trực tiếp giữa bạn và khách hàng của bạn. Bạn duy trì toàn quyền kiểm soát các khoản thanh toán bằng tiền mặt, thu tiền và đối chiếu của mình. MyPadiFood chỉ tạo điều kiện cho nền tảng đặt hàng và xử lý thanh toán kỹ thuật số. Bất kỳ thỏa thuận thanh toán bằng tiền mặt nào là trách nhiệm của bạn để quản lý độc lập.",
+      "setupTimeAnswer": "Hầu hết các doanh nghiệp có thể thiết lập đầy đủ cửa hàng và sẵn sàng chấp nhận đơn hàng trong vòng 24 giờ hoặc ít hơn. Quy trình giới thiệu hợp lý của chúng tôi hướng dẫn bạn qua: tạo tài khoản, thêm sản phẩm, thiết lập phương thức thanh toán, tùy chỉnh giao diện cửa hàng và kết nối WhatsApp của bạn. Nhiều người dùng hoàn thành thiết lập cơ bản trong vòng chưa đầy 2 giờ. Chúng tôi cung cấp hướng dẫn từng bước và hỗ trợ để giúp bạn khởi chạy nhanh chóng.",
+      "technicalKnowledgeAnswer": "Không cần kiến thức kỹ thuật! MyPadiFood được thiết kế cho chủ doanh nghiệp, không phải nhà phát triển. Giao diện trực quan của chúng tôi hướng dẫn bạn qua từng bước với hướng dẫn rõ ràng. Bạn không cần biết cách lập trình, hiểu lưu trữ web hoặc quản lý máy chủ. Nếu bạn có thể sử dụng WhatsApp và email, bạn có thể quản lý cửa hàng MyPadiFood của mình. Đội ngũ hỗ trợ của chúng tôi cũng có sẵn để giúp đỡ với bất kỳ câu hỏi nào.",
+      "productLimitAnswer": "Không có giới hạn về số lượng sản phẩm bạn có thể thêm vào cửa hàng của mình. Cho dù bạn có 10 sản phẩm hay 10.000, MyPadiFood có thể xử lý danh mục của bạn. Bạn có thể sắp xếp sản phẩm thành danh mục, thêm mô tả và hình ảnh chi tiết, đặt mức tồn kho và quản lý mọi thứ từ bảng điều khiển của bạn. Khi doanh nghiệp của bạn phát triển, cửa hàng của bạn cũng phát triển theo.",
+      "migrationAnswer": "Có, chúng tôi có thể giúp bạn chuyển cửa hàng trực tuyến hiện tại sang MyPadiFood! Chúng tôi hỗ trợ di chuyển từ nhiều nền tảng khác nhau bao gồm Shopify, WooCommerce và các hệ thống thương mại điện tử khác. Đội ngũ của chúng tôi có thể hỗ trợ chuyển danh mục sản phẩm, dữ liệu khách hàng và lịch sử đơn hàng của bạn. Liên hệ với đội ngũ hỗ trợ của chúng tôi qua WhatsApp để thảo luận về nhu cầu di chuyển cụ thể, lịch trình và bất kỳ yêu cầu tùy chỉnh nào của bạn. Chúng tôi sẽ làm cho quá trình chuyển đổi diễn ra suôn sẻ nhất có thể.",
+      "customerSupportAnswer": "Chúng tôi cung cấp hỗ trợ toàn diện qua nhiều kênh: Hỗ trợ WhatsApp cho các câu hỏi nhanh và hỗ trợ thời gian thực, Hỗ trợ email cho các câu hỏi chi tiết, Trung tâm trợ giúp với hướng dẫn và hướng dẫn sử dụng, và Hướng dẫn video cho các tính năng phức tạp. Đội ngũ hỗ trợ của chúng tôi hoạt động trong giờ làm việc và chúng tôi nhằm mục đích trả lời tất cả các câu hỏi trong vòng 24 giờ. Gói hỗ trợ cao cấp với quản lý tài khoản chuyên dụng có sẵn cho các doanh nghiệp đang phát triển.",
+      "trainingAnswer": "Có! Chúng tôi cung cấp các tài nguyên đào tạo mở rộng để giúp bạn thành công: Phiên giới thiệu miễn phí khi bạn đăng ký, Hướng dẫn video bao gồm tất cả các tính năng, Hướng dẫn từng bước được viết, Hội thảo trực tuyến trực tiếp cho các tính năng mới, và Phiên đào tạo một đối một (có sẵn với các gói cao cấp). Chúng tôi muốn đảm bảo bạn cảm thấy tự tin sử dụng mọi khía cạnh của nền tảng để phát triển doanh nghiệp của mình.",
+      "updatesAnswer": "Chúng tôi liên tục cải thiện MyPadiFood với các bản cập nhật và tính năng mới thường xuyên. Các bản phát hành tính năng chính thường xảy ra hàng quý, với các cải tiến nhỏ và sửa lỗi được phát hành khi cần thiết. Tất cả các bản cập nhật được bao gồm trong đăng ký của bạn mà không tốn thêm chi phí. Chúng tôi thông báo các tính năng mới qua email, thông báo trong ứng dụng và các kênh truyền thông xã hội của chúng tôi. Phản hồi của bạn giúp định hình lộ trình của chúng tôi, vì vậy chúng tôi luôn xây dựng những gì doanh nghiệp cần nhất."
+    }
+  },
+  "onboarding": {
+    "title": "Bắt đầu kinh doanh",
+    "subtitle": "Điền vào biểu mẫu bên dưới và đội ngũ của chúng tôi sẽ giúp bạn bắt đầu",
+    "submitSuccess": "Đơn đăng ký đã được gửi thành công!",
+    "submitError": "Không thể gửi đơn đăng ký",
+    "submitting": "Đang gửi...",
+    "submitButton": "Gửi đơn đăng ký",
+    "submitAnother": "Gửi yêu cầu khác",
+    "successTitle": "Cảm ơn bạn!",
+    "successMessage": "Yêu cầu giới thiệu của bạn đã được gửi thành công. Đội ngũ của chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ.",
+    "categories": {
+      "foodDining": "🍽️ Thức ăn & Ăn uống",
+      "agricultureFarming": "🌾 Nông nghiệp & Canh tác",
+      "hospitality": "🏨 Khách sạn",
+      "retailShopping": "🛍️ Bán lẻ & Mua sắm",
+      "technologyElectronics": "💻 Công nghệ & Điện tử",
+      "healthBeauty": "💄 Sức khỏe & Làm đẹp",
+      "homeLiving": "🏠 Nhà & Sinh hoạt",
+      "automotive": "🚗 Ô tô",
+      "educationLearning": "🎓 Giáo dục & Học tập",
+      "sportsRecreation": "⚽ Thể thao & Giải trí",
+      "professionalServices": "💼 Dịch vụ chuyên nghiệp",
+      "otherServices": "🔧 Dịch vụ khác"
+    },
+    "businessInfo": {
+      "title": "Thông tin doanh nghiệp",
+      "businessName": "Tên doanh nghiệp",
+      "businessNamePlaceholder": "ví dụ: Nông sản tươi",
+      "businessType": "Loại hình kinh doanh",
+      "other": "Khác",
+      "preferredSlug": "URL Slug ưa thích",
+      "slugPlaceholder": "freshfarm",
+      "slugHint": "Chỉ chữ thường, số và dấu gạch ngang",
+      "urlPreviewLabel": "Doanh nghiệp của bạn sẽ có thể truy cập tại:",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Cho chúng tôi biết về doanh nghiệp của bạn..."
+    },
+    "ownerInfo": {
+      "title": "Thông tin chủ sở hữu",
+      "fullName": "Họ và tên",
+      "fullNamePlaceholder": "Nguyễn Văn A",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Điện thoại",
+      "phonePlaceholder": "+234 800 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Doanh nghiệp của chúng tôi",
+    "subtitle": "Khám phá các doanh nghiệp địa phương tuyệt vời trên nền tảng của chúng tôi",
+    "noBusinesses": "Không tìm thấy doanh nghiệp nào trong danh mục này",
+    "tryDifferent": "Thử chọn một danh mục khác để khám phá thêm doanh nghiệp"
+  },
+  "businessFilter": {
+    "allBusinesses": "Tất cả doanh nghiệp"
+  },
+  "businessCard": {
+    "products": "Sản phẩm",
+    "visitStore": "Ghé thăm cửa hàng"
+  }
+}

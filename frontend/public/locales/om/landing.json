@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Mana",
+    "businesses": "Daldaltoonni",
+    "startBusiness": "Daldala Kee Jalqabi",
+    "contactUs": "Nu Qunnamii",
+    "login": "Seeni"
+  },
+  "footer": {
+    "tagline": "Daldaltoonni addunyaa guutuu humna AI ajaja kennuu fi deeggarsa afaan hedduu waliin humneessuu",
+    "quickLinks": {
+      "title": "Hidhannoo Saffisaa",
+      "home": "Mana",
+      "businesses": "Daldaltoonni",
+      "startBusiness": "Daldala Kee Jalqabi",
+      "faq": "Gaaffii Yeroo Baay'ee Gaafataman"
+    },
+    "contact": {
+      "title": "Nu Qunnamii",
+      "whatsappSupport": "Deeggarsi WhatsApp Ni Jira"
+    },
+    "copyright": "© {{year}} MyPadiFood. Mirgi hundi kan eegame."
+  },
+  "hero": {
+    "badge": "Waltajjii Daldala Addunyaa",
+    "headline": "Daldala Kee Jalqabsiisi",
+    "headlineHighlight": "Bakka Kamiyyuu, Afaan Kamiin Iyyuu",
+    "subtitle": "Waltajjiin kana qofti maamiltoonni afaan isaanii keessatti ajaja akka kennan, maallaqa isaanii keessatti akka kaffalan, fi bilbila karaa gamaaggama akka kennan kan taasisu - appilikeeshiniiwwan buufachuun hin barbaachisu.",
+    "features": {
+      "globalLanguage": {
+        "title": "Afaan Kamiyyuu",
+        "description": "Maamiltoonni afaan dhalootaa isaanii keessatti ajaja kennu"
+      },
+      "multiCurrency": {
+        "title": "Maallaqa Hedduu",
+        "description": "Kafaltii maallaqa kamiin iyyuu fudhadhu"
+      },
+      "noSignUp": {
+        "title": "Galmaa'uu Hin Barbaachisu",
+        "description": "Maamiltoonni battalumatti ajaja kennu"
+      },
+      "whatsApp": {
+        "title": "Ajajawwan WhatsApp",
+        "description": "Ajajawwan karaa WhatsApp fudhadhu"
+      },
+      "phoneReviews": {
+        "title": "Gamaaggama Bilbilaa",
+        "description": "Walitti qabama gamaaggama sagalee ofumaan"
+      },
+      "fastSetup": {
+        "title": "Qophii Saffisaa",
+        "description": "Sa'aa 24 gadi keessatti jalqabsiisi"
+      }
+    },
+    "quickStart": {
+      "title": "Yaalii Bilisaa Kee Jalqabi",
+      "emailLabel": "Iimeelii Daldala Keetii",
+      "emailPlaceholder": "daldala@fakkeenyaa.com",
+      "buttonText": "Bilisaan Jalqabi",
+      "disclaimer": "Kaardiin liqaa hin barbaachisu. Daqiiqoota keessatti qopheessi."
+    }
+  },
+  "aboutUs": {
+    "title": "Waa'ee MyPadiFood",
+    "subtitle": "Gufuuwwan afaanii fi maallaqa caccabsuun daldaltoonni addunyaa guutuu humneessuu",
+    "mission": {
+      "title": "Ergama Keenya",
+      "description": "Daldalli kamiyyuu, guddinaa fi bakka osoo hin ilalin, maamiltota addunyaa argachuuf mirga akka qabu amanna. MyPadiFood ilaalcha salphaa irraa kan ka'e: gufuuwwan afaanii fi maallaqa dandeettii daldala maamiltota addunyaa tajaajiluu dhorkuu hin qaban.",
+      "point1": "Daldaltoonni afaan kamiin iyyuu maamiltota akka argatan walxaxiinsa hiikkaa harkaan malee taasisu",
+      "point2": "Hanqina jijjiirraa maallaqa idil-addunyaa fi adeemsa kafaltii balleessuu"
+    },
+    "vision": {
+      "title": "Mul'anni Keenya",
+      "description": "Addunyaa qonna xiqqoon Naayijeeriyaa keessa jiru maamiltota Jaappaan keessa jiran salphaan tajaajiluu danda'u, butaaqqiin Paaris keessa jiru salphaatti gara Biraazilitti erguu danda'u, fi mana nyaataa Meeksikoo keessa jiru ajajawwan maamiltota Indiyaa keessaa fudhachu danda'u - gufuuwwan afaanii ykn walxaxiinsa kaffaltii osoo hin yaaddeessin mul'anna.",
+      "point1": "Bara 2030tti daldaltoonni miiliyoona 1 ol addunyaa irratti humnaan dhiheessuu",
+      "point2": "Daldalaa afaan fi maallaqa kamiin iyyuu addunyaa guutuu keessatti deeggaruu"
+    },
+    "values": {
+      "title": "Wanti Nu Oofuu",
+      "value1": {
+        "title": "Dhaqqabummaa",
+        "description": "Teeknooloojiin humneessuu qaba, walxaxinaan hin taasisu. Appilikeeshiniiwwan buufachuun, qophii walxaxaa hin jiru."
+      },
+      "value2": {
+        "title": "Kalaqtiinsa",
+        "description": "Hiikkaa fi ofumaa hojii AI humna qabu kan duubaan salphaan hojjetu."
+      },
+      "value3": {
+        "title": "Hammachuu",
+        "description": "Daldalli kamiyyuu dhihaachuu addunyaa ni mala, beekumsa teeknikaa ykn baajata osoo hin ilalin."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Seenaa Milkaa'ina",
+    "subtitle": "Daldaltoonni dhugaa guddinaa addaa MyPadiFood waliin argachaa jiran",
+    "viewMore": "Seenaa Milkaa'ina Dabalataa Ilaali"
+  },
+  "testimonials": {
+    "title": "Seenaa Milkaa'ina",
+    "subtitle": "Daldaltoonni dhugaa, bu'aa dhugaa",
+    "aiPoweredAdvantage": "Faayidaa AI Humna Qabu",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Qonna",
+      "quote": "Sirni hiikkaa fi maallaqa hedduu AI humna qabu MyPadiFood qonnaan bulaa koo maamiltota biyyoota 5 adda addaa keessa jiran akka argatu na gargaare. Gurgurtaan ji'oota 2 qofa keessatti %300 guddateera!",
+      "highlight": "Ogummaa AI: Ramaddii oomisha ogeessaa fi tilmaama fedhii yeroo kan inveentarii koo fooyyessee fi gurgurtaa dabaluu taasise.",
+      "metrics": "Guddina %300 • Biyyoota 5 • Ji'oota 2"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Faashinii fi Uffata",
+      "quote": "Maamiltoonni afaan naannoo isaanii keessatti osoo hin galma'iin ajaja kennuu isaanii ni jaalatu. Ajajawwan idil-addunyaa koo yeroo tokko dukkanaa koo erga qopheesseen booda sadii guddataniiru.",
+      "highlight": "Ogummaa AI: Xiinxala adeemsa faashinii fi gorsa guddina ofumaan kan deebii %40tti hir'ise.",
+      "metrics": "Dabala %200 • Deebii %40 hir'ate • Afaanota 12"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Keessummeessitummaa",
+      "quote": "Keessummoonni idil-addunyaa amma mana koo maallaqa fi afaan isaanii keessatti buukuu danda'u. Walitti makamuu WhatsApp mirkaneessaa salphaa taasisa!",
+      "highlight": "Ogummaa AI: Gatii daayinamiksii fi fooyyeessuu argamummaa kan sadarkaa jireenya %65 bara guutuu dabaluu taasise.",
+      "metrics": "Jireenya %65 • Buukuu battalumaa • Dhihaachuu addunyaa"
+    },
+    "stats": {
+      "countries": "Biyyoota Tajaajilaman",
+      "setupTime": "Qophii Giddugaleessaa",
+      "signUpRequired": "Galmaa'uu Maamilaa",
+      "languagesSupported": "Afaanota"
+    }
+  },
+  "howItWorks": {
+    "title": "Akkamitti Akka Hojjetu",
+    "subtitle": "Daldala kee addunyaa tarkaanfii sadi salphaa keessatti jalqabsiisi",
+    "step1": {
+      "title": "Maamiltoonni Afaan Filatu",
+      "description": "Maamiltoonni kee tarree kee afaan isaanii filatan keessatti daawwatu. AI battalumatti waan hunda hiika - meeshaalee tarree, ibsa, gatii."
+    },
+    "step2": {
+      "title": "Maallaqa Isaanii Filatu",
+      "description": "Maamiltoonni gatii maallaqa naannoo isaanii keessatti argu. Jijjiirraan yeroo qabatamaa shallaggii hunda ofumaan raawwata."
+    },
+    "step3": {
+      "title": "Karaa WhatsApp Ajaja Kennuu",
+      "description": "Ajajawwan kallattiin WhatsApp kee dhufu. Maamiltoonni kee appilikeeshiniiwwan buufachuun hin barbaachisu. Salphaa fi battalumaa."
+    }
+  },
+  "globalReach": {
+    "title": "Daldalaa Addunyaa Hundaaf Ijaarame",
+    "subtitle": "Daldaltoonni kumaatama maamiltota addunyaa guutuu tajaajilaa jiran waliin makamuu",
+    "stats": {
+      "businesses": "Daldaltoonni Socho'aa",
+      "transactions": "Daldala Ji'aa",
+      "languagesUsed": "Afaanota Fayyadamaa Jiran",
+      "currenciesSupported": "Maallaqawwan"
+    }
+  },
+  "finalCta": {
+    "badge": "Daldaltoonni milkaa'oo addunyaa guutuu waliin makamuu",
+    "title": "Addunyaa Deemuu Qophiidha?",
+    "primaryButton": "Yaalii Bilisaa Jalqabi",
+    "secondaryButton": "Seenaa Milkaa'ina Ilaali",
+    "subtitle": "Kaardiin liqaa hin barbaachisu • Sa'aa 24 keessatti qopheessi • Yeroo kamiyyuu dhiisi"
+  },
+  "languages": {
+    "en": "Ingiliffaa",
+    "es": "Ispaanikaa",
+    "fr": "Faransaayii",
+    "de": "Jarmanaa",
+    "zh": "Chaayinaa",
+    "ar": "Arabiffaa",
+    "hi": "Hindii",
+    "pt": "Poorchugaalii",
+    "ru": "Raashaayaa",
+    "ja": "Jaappanaa",
+    "ko": "Kooriyaa",
+    "it": "Xaaliyaanaa",
+    "nl": "Dachii",
+    "tr": "Tarkii",
+    "pl": "Poolandii",
+    "vi": "Viitinaamaa",
+    "th": "Taayii",
+    "id": "Indooneezhaa",
+    "ro": "Roomaaniyaa",
+    "cs": "Chekii"
+  },
+  "whatsappWidget": {
+    "title": "Nu Waliin Haasa'i",
+    "subtitle": "Deeggarsa Waltajjii",
+    "selectTopic": "Haasawa jalqabuuf mata duree filadhu:",
+    "customMessage": "Haasawa Addaa Jalqabi",
+    "opening": "WhatsApp banaa jira...",
+    "messages": {
+      "generalHelp": "Akkam, waltajjii MyPadiFood irratti gargaarsa barbaada",
+      "setupStore": "Dukkaana koo onlaayinii qopheessuu barbaada. Jalqabuu keessatti na gargaaruu dandeessaa?",
+      "pricing": "Karoora gatii keessan maali? Gatii fi amaloota beekuu barbaada.",
+      "technicalIssue": "Dukkaana koo keessatti rakkoo teeknikaa mudachaa jira. Gargaaruu dandeessaa?",
+      "multiLanguage": "Amalli hiikkaa afaan hedduu akkamitti hojjeta?",
+      "payments": "Waa'ee adeemsa kaffaltii fi deeggarsa maallaqa hedduu gaaffii qaba.",
+      "whatsappIntegration": "Ajajawwan WhatsApp dukkaana koo waliin akkamitti walitti qindaa'a?",
+      "customDomain": "Domeeyin addaa koo dukkaana kootiif fayyadamuu nan danda'aa?",
+      "migration": "Daldala ammaa koo gara MyPadiFood godaansuu barbaada. Akkamitti hojjeta?",
+      "bulkOrders": "Ajajawwan baay'inaa fi maamiltota gurgurtaa guddaa akkamitti qabachuu danda'a?",
+      "custom": "Akkam, waltajjii MyPadiFood irratti gaaffii qaba"
+    }
+  },
+  "faq": {
+    "title": "Gaaffilee Yeroo Baay'ee Gaafataman",
+    "subtitle": "Wanti MyPadiFood irratti beekuu qabdan hundi",
+    "backToHome": "Gara Manatti Deebi'i",
+    "stillHaveQuestions": "Ammallee Gaaffii Qabduu?",
+    "contactSupport": "Gareen deeggarsa keenyaa milkaa'uu keessan irratti isin gargaaruuf qophaa'aa dha",
+    "chatWithSupport": "WhatsApp irratti Deeggarsa Waliin Haasa'i",
+    "whatsappMessage": "Akkam, FAQ keessatti hin hammatamne MyPadiFood irratti gaaffii qaba",
+    "categories": {
+      "general": "Odeeffannoo Waliigalaa",
+      "pricing": "Gatii fi Kaffaltii",
+      "features": "Amaloota fi Dandeettii",
+      "gettingStarted": "Jalqabuu",
+      "support": "Deeggarsa fi Leenjii"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "MyPadiFood maali?",
+      "whoCanUse": "Eenyutu MyPadiFood fayyadamuu danda'a?",
+      "howDifferent": "MyPadiFood waltajjiiwwan daldala-elektirooniksii biroo irraa akkamitti adda?",
+      "freeTrial": "Yaalii bilisaa ni kennituu?",
+      "subscriptionPlans": "Karoora maallaqa maali kan qabdan?",
+      "paymentMethods": "Malawwan kaffaltii akkamii maallaqa galmaa'uuf fudhattuu?",
+      "cancelAnytime": "Maallaqa koo yeroo kamiyyuu dhiisuu nan danda'aa?",
+      "languagesSupported": "MyPadiFood afaanota meeqa deeggaraa?",
+      "currenciesSupported": "Kafaltii maallaqa kamiin fudhadhuu danda'a?",
+      "whatsappOrders": "Ajajawwan WhatsApp akkamitti hojjetu?",
+      "customDomain": "Domeeyin addaa koo fayyadamuu nan danda'aa?",
+      "cashPayments": "MyPadiFood kaffaltii kireensaa daldala kootiif ni qabataa?",
+      "setupTime": "Dukkaana koo qopheessuuf yeroo hangam fudhata?",
+      "technicalKnowledge": "MyPadiFood fayyadamuuf beekumsa teeknikaa barbaadaa?",
+      "productLimit": "Daangaa oomishaalee dabaluu danda'u ni jiraa?",
+      "migration": "Dukkaana koo onlaayinii ammaa gara MyPadiFood godaansuu nan danda'aa?",
+      "customerSupport": "Gosa deeggarsa maamiltootaa akkamii ni kennituu?",
+      "training": "Gargaarsa leenjii ykn seensaa ni kennituu?",
+      "updates": "Amaloota fi fooyya'iinsa haaraa yeroo meeqaan gadhiiftuu?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood waltajjii daldala-elektirooniksii addunyaa kan daldaltoonni oomisha fi tajaajila maamiltota addunyaa guutuu gurguruu dandeessisudha. Waltajjiin keenya AI humna qabu ofumaan dukkaana kee gara afaanota hedduutti hiika, kafaltii maallaqa hedduu qabata, fi maamiltoonni appilikeeshiniiwwan osoo hin buufatin karaa WhatsApp ajaja kennuu danda'u. Gufuuwwan afaanii fi maallaqa caccabsinee akka daldala kee addunyaa guddisuu irratti xiyyeeffattan isin gargaarra.",
+      "whoCanUseAnswer": "MyPadiFood daldala kamiyyuu addunyaa babal'achu barbaadu hundaaf gaariidha - qonna xiqqoo fi mana nyaataatii kaasee hanga butaaqqii faashinii, tajaajiloota keessummeessitummaa, fi dhiyeessitoota gurgurtaa guddaatti. Abbootiin qabeenyaa kophaa, abbootiin daldala xiqqoo, ykn dhaabbata guddachaa jirtu taatanii, waltajjiin keenya fedhii keessan waliin guddataa. Yoo oomisha ykn tajaajila gurgurtaniif qabdanii fi maamiltota idil-addunyaa argachuu barbaaddan, MyPadiFood isiniif ijaarame.",
+      "howDifferentAnswer": "Waltajjiiwwan daldala-elektirooniksii aadaa irraa adda ta'ee, MyPadiFood addatti daldalaa addunyaaf kan qophaa'edha. Amaloota keenya addaa keessaa: (1) Hiikkaa AI humna qabu gara afaanota 20+ carraaqii harkaan malee, (2) Maamiltoonni herreegaa uumuu ykn appilikeeshiniiwwan buufachuu malee ajaja kennuu danda'u, (3) Walitti makamuu WhatsApp bulchiinsa ajajaa salphaa ta'eef, (4) Deeggarsa maallaqa hedduu jijjiirraa ofumaan waliin, (5) Walitti qabama gamaaggama maamilaa bilbila irratti hundaa'e, fi (6) Ogummaan teeknikaa jalqabuuf hin barbaachisu.",
+      "freeTrialAnswer": "Eeyyee! Yaalii bilisaa guyyaa 14 amaloota hunda argachuu waliin kennitaa. Kaardiin liqaa yaalii kee jalqabuuf hin barbaachisu. Kun yeroo gahaa dukkaana kee qopheessuu, oomisha dabaluu, qindaa'inoota kee haala barbaaddetti qopheessuu, fi amaloota keenya hunda yaaluu siif kenna. Yaalii guyyaa 14 erga xumurteen booda, dukkaanni kee hanga karoora maallaqa siif ta'u filattutitti yeroof ni dhaabata. Yeroo kamiyyuu maallaqa galuu dhaan deebi'anii kakaasuu dandeessa.",
+      "subscriptionPlansAnswer": "Karoora maallaqa jijjiiramaa fedhii daldala kee waliin wal simsiisuuf ni kennitaa: Maallaqa ji'aa jijjiiramummaa guddaaf, Karoora kurmaanaa qusannaa gatii waliin, Maallaqa waggaa-walakkaa (ji'a 6) gatii fooyya'eef, fi Karoora waggaa gatii gaggaarii ta'eef. Kaffaltiin maallaqa biyya keessan keessaa jirtan akkaataa gatii haqa qabeessa haala dinagdee naannoo irratti hundaa'ee mirkaneessuuf ni garaagaraa. Gatii biyyaa keessaniif addaa fi karoora daldala isin galmeessa fedhii keessan waliin walsimsiisu mari'achuuf garee deeggarsa keenyaa karaa WhatsApp qunamaa.",
+      "paymentMethodsAnswer": "Malawwan kaffaltii hedduu kaffaltii maallaqa biyya keessaniif fudhanna, kaardii liqaa/debiitii, dabarsa baankii, maallaqa moobaayilaa, fi filannoo kaffaltii naannoo biroo dabalatee. Kaayyoon keenya akka salphaa ta'ee maallaqa galtanii fi herreega keessan kunuunsitaniif taasisuudha. Garee deeggarsa keenyaa qunamanii waa'ee malawwan kaffaltii addaa naannoo keessanitti argaman barachuu dandeessu.",
+      "cancelAnytimeAnswer": "Dhugumaan! To'annaa guutuu maallaqa keessan irratti qabdu. Yeroo kamiyyuu adabbii ykn kaffaltii dhokfame malee dhiisuu dandeessu. Yoo marsaa kaffaltii keessan keessatti dhiiftan, hanga dhumaa yeroo kaffaltame sanaatti dukkaana keessan argachuu itti fuftu. Daldala keessan ji'a hunda argachuutti amanna malee walii-galtee yeroo dheeraa hin barbaachisnetti isin hidhuu hin jiru.",
+      "languagesSupportedAnswer": "MyPadiFood ammaa afaanota gurguddoo 20 ol deeggaraa Ingiliffaa, Ispaanikaa, Faransaayii, Jarmanaa, Chaayinaa, Arabiffaa, Hindii, Poorchugaalii, Raashaayaa, Jaappanaa, Kooriyaa, Xaaliyaanaa, Dachii, Tarkii, Poolandii, Viitinaamaa, Taayii, Indooneezhaa, Roomaaniyaa, fi Chekii dabalatee. Sirni hiikkaa AI keenya ibsa oomisha keessanii, tarree, fi qabiyyee dukkaana keessanii yeroo qabatamaa sirriitti akka hiikaman mirkaneessa. Fedhii maamiltotaa irratti hundaa'uun afaanota dabalataa yeroo hunda dabalaa jirra.",
+      "currenciesSupportedAnswer": "Kafaltii maallaqa guddaa kamiyyuu addunyaa keessatti fudhachuu dandeessu. Waltajjiin keenya jijjiirraa maallaqa yeroo qabatamaa ofumaan qabata, kanaaf maamiltoonni gatii maallaqa naannoo isaanii keessatti arganii osoo jiranii isin kafaltii maallaqa filattan keessatti fudhatu. Kun USD, EUR, GBP, NGN, JPY, CNY, INR, fi kkf dabalata. Sirni gatii jijjiirraa yeroo hunda haaromsee gatii sirrii mirkaneessa.",
+      "whatsappOrdersAnswer": "Maamiltoonni dukkaana MyPadiFood keessan irratti ajaja yeroo kennan, beeksisa battalumaa kallattiin lakkoofsa WhatsApp daldala keessaniitti fudhattan. Ibsi ajajaa odeeffannoo maamilaa, meeshaalee ajajaman, teessoo geejjibaa, fi haala kaffaltii waliin ifa ta'een kan bocameef. Ajaja mirkaneessuu, maamiltota haala ajajaa irratti haaromsuu, fi kallattiin karaa WhatsApp quunnamuu dandeessu - sirna haaraa barachuu hin barbaachisu. Maamilaa keessan waliin haasawa gochuu akka salphaa ta'e.",
+      "customDomainAnswer": "Eeyyee! Domeeyin addaa mataa keessanii dukkaana MyPadiFood keessaniitti walqabsiisuu dandeessu muuxannoo maqaa daldala ogeessaaf. Fakkeenyaaf, daldalakeessan.mypadifood.com osoo hin taane, dukkaana.daldalakeessan.com ykn domeeyin kamiyyuu qabdan fayyadamuu dandeessu. Amalli kun karoora maallaqa filataman irratti ni jira. Gareen deeggarsa keenyaa adeemsa qophii salphaa dhaan isin qajeelchuu danda'a.",
+      "cashPaymentsAnswer": "MyPadiFood kafaltii kireensaa bakka daldala keessaniitiin hin fudhattu, hin qabatu, ykn hin bulchu. Daldalli kireensaa waliin wal qabate hundi kallattiin isinii fi maamiltota keessan gidduutti ni bulchama. To'annaa guutuu kafaltii kireensaa keessanii, walitti qabama, fi walsimsiisuun irratti ni qabdu. MyPadiFood waltajjii ajajaa fi adeemsa kaffaltii dijitaalaa qofa ni mijeessa. Waliigaltee kafaltii kireensaa kamiyyuu itti gaafatamummaa mataa keessaniin bulchuudha.",
+      "setupTimeAnswer": "Daldaltoonni baay'een dukkaana isaanii guutummaatti qopheessanii ajaja fudhachuuf qophii sa'aa 24 ykn gadi keessatti raawwachuu danda'u. Adeemsi seensaa keenya salphaan qophaa'e: herreega keessan uumuu, oomisha keessan dabaluu, malawwan kaffaltii qopheessuu, bifti dukkaana keessanii haala barbaaddetti qopheessuu, fi WhatsApp keessan walqabsiisuu keessa isin qajeelcha. Fayyadamtoonni hedduun qophii bu'uuraa sa'aa 2 gadi keessatti xumuran. Qajeelfama tartiiba fi deeggarsa saffisaa jalqabsuuf isin gargaaruuf ni kennitaa.",
+      "technicalKnowledgeAnswer": "Beekumsi teeknikaa hin barbaachisu! MyPadiFood abbootii daldalaaf kan qophaa'e malee qopheessitootaaf miti. Fuula keenya hubatamaan tarkaanfii hunda qajeelfama ifa ta'een isin qajeelcha. Koodii baruu, weeb hoostingii hubachuu, ykn sarvaroota bulchuu hin barbaachisu. Yoo WhatsApp fi iimeelii fayyadamuu dandeessan, dukkaana MyPadiFood keessan bulchuu dandeessu. Gareen deeggarsa keenyaa gaaffii kamiifiyyuu gargaaruuf ni jira.",
+      "productLimitAnswer": "Daangaan oomisha dukkaana keessaniitti dabaluu dandeessan hin jiru. Oomisha 10 ykn 10,000 yoo qabdan, MyPadiFood kaataaloogii keessan qabachuu danda'a. Oomisha ramaddiitti qindeessuu, ibsa bal'aa fi suuraa dabaluu, sadarkaa inveentarii qindeessuu, fi waan hunda dashboord keessanii irraa bulchuu dandeessu. Daldalli keessan akkuma guddatuun dukkaanni keessanis ni guddataa.",
+      "migrationAnswer": "Eeyyee, dukkaana keessan onlaayinii ammaa gara MyPadiFood godaansuuf isin gargaaruu dandeenyaa! Godaansuu waltajjiiwwan adda addaa irraa deeggarraa Shopify, WooCommerce, fi sirnoota daldala-elektirooniksii biroo dabalatee. Gareen keenya kaataaloogii oomisha keessanii, daataa maamiltootaa, fi seenaa ajajaa dabarsuuf gargaaruu danda'a. Fedhii godaansuu keessanii addaa, yeroo, fi ulaagaa addaa kamiyyuu mari'achuuf garee deeggarsa keenyaa karaa WhatsApp qunamaa. Jijjiirraa akka salphaa ta'etti ni taasifnaa.",
+      "customerSupportAnswer": "Deeggarsa bal'aa karaa hedduu dhaan ni kennitaa: Deeggarsa WhatsApp gaaffii saffisaa fi gargaarsa yeroo qabatamaaf, Deeggarsa iimeelii gaaffii bal'aaf, Giddugala gargaarsa qajeelfama fi barumsa waliin, fi Daawwannoo viidiyoo amaloota walxaxaa ta'aniif. Gareen deeggarsa keenyaa sa'aatii hojii keessatti hojjeta fi gaaffii hundatti sa'aa 24 keessatti deebii kennuuf yaalla. Paakeejiin deeggarsa premium bulchitoota herreegaa addaa waliin daldaltoonni guddachaa jiraniif ni jiru.",
+      "trainingAnswer": "Eeyyee! Qabeenya leenjii bal'aa milkaa'uuf isin gargaaruuf ni kennitaa: Seeshan seensaa bilisaa yeroo galma'attan, Barumsa viidiyoo amaloota hunda haguugu, Qajeelfama tarkaantaa-tarkaantaa barreeffame, Webinaara kallattii amaloota haaraa, fi Seeshan leenjii nama-tokkoof-nama-tokko (karoora priimiyeemiin waliin). Akka kallattii hunda waltajjichaa fayyadamuun itti amantan mirkaneessuuf barbaanna daldala keessan guddisuu.",
+      "updatesAnswer": "MyPadiFood fooyya'iinsa yeroo yeroon fi amaloota haaraa waliin itti fufsinaan ni fooyyeessaa. Gadhiifaman amaloota gurguddoo akkaataa idileetti kurmaanaatti kan ta'u, fooyya'iinsa xiqqaa fi sirreeffama dogongora akka barbaachisummaa isaaniitti gadhiifamu. Fooyya'iinsi hundi maallaqa keessan keessatti kaffaltii dabalataa malee ni hammatama. Amaloota haaraa karaa iimeelii, beeksisa app keessaa, fi chaanaalii miidiyaa hawaasaa keenyaan ni beeksifnaa. Yaadni keessan karoora keenyaa bocuuf gargaara, kanaafuu yeroo hunda waan daldaltoonni baay'ee barbaadan ijaaraa jirra."
+    }
+  },
+  "onboarding": {
+    "title": "Daldala Kee Jalqabi",
+    "subtitle": "Unka armaan gadii guuti fi gareen keenya jalqabuu keessatti si gargaara",
+    "submitSuccess": "Iyyanni milkaa'inaan dhiyaate!",
+    "submitError": "Iyyata dhiyeessuun kufteera",
+    "submitting": "Dhiyeessaa jira...",
+    "submitButton": "Iyyata Dhiyeessi",
+    "submitAnother": "Gaaffii Biraa Dhiyeessi",
+    "successTitle": "Galatoomaa!",
+    "successMessage": "Gaaffiin seensaa keessanii milkaa'inaan dhiyaateera. Gareen keenya sa'aa 24 keessatti isin quunnamaa.",
+    "categories": {
+      "foodDining": "🍽️ Nyaata fi Nyaachuu",
+      "agricultureFarming": "🌾 Qonna fi Qonnaan Bulaa",
+      "hospitality": "🏨 Keessummeessitummaa",
+      "retailShopping": "🛍️ Daldalaa fi Bittaa",
+      "technologyElectronics": "💻 Teeknooloojii fi Elektirooniksii",
+      "healthBeauty": "💄 Fayyaa fi Miidhagina",
+      "homeLiving": "🏠 Mana fi Jiraachuu",
+      "automotive": "🚗 Ootoomootivii",
+      "educationLearning": "🎓 Barnoota fi Barachuu",
+      "sportsRecreation": "⚽ Ispoortii fi Boqonnaa",
+      "professionalServices": "💼 Tajaajiloota Ogeessaa",
+      "otherServices": "🔧 Tajaajiloota Biroo"
+    },
+    "businessInfo": {
+      "title": "Odeeffannoo Daldala",
+      "businessName": "Maqaa Daldala",
+      "businessNamePlaceholder": "fakkeenyaaf, Oomisha Qonnaa Haaraa",
+      "businessType": "Gosa Daldala",
+      "other": "Kan Biraa",
+      "preferredSlug": "Slug URL Filatamaa",
+      "slugPlaceholder": "qonnaahaaraa",
+      "slugHint": "Qubee xiqqaa, lakkoofsa, fi hyphens qofa",
+      "urlPreviewLabel": "Daldalli keessan kana irratti argamuu danda'a:",
+      "description": "Ibsa",
+      "descriptionPlaceholder": "Waa'ee daldala keessanii nutti himaa..."
+    },
+    "ownerInfo": {
+      "title": "Odeeffannoo Abbaa Qabeenyaa",
+      "fullName": "Maqaa Guutuu",
+      "fullNamePlaceholder": "Daawit Taadasaa",
+      "email": "Iimeelii",
+      "emailPlaceholder": "daawit@fakkeenyaa.com",
+      "phone": "Bilbila",
+      "phonePlaceholder": "+251 900 000 000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Daldaltoonni Keenya",
+    "subtitle": "Daldaltoonni naannoo ajaa'ibsiisoo waltajjii keenyaa irratti argaman bira gahuun",
+    "noBusinesses": "Ramaddii kana keessatti daldaltoonni hin argamne",
+    "tryDifferent": "Daldaltoonni dabalataa qorachuuf ramaddii adda ta'e filachuu yaali"
+  },
+  "businessFilter": {
+    "allBusinesses": "Daldaltoonni Hunda"
+  },
+  "businessCard": {
+    "products": "Oomisha",
+    "visitStore": "Dukkaana Daawwadhu"
+  }
+}

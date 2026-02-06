@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Home",
+    "businesses": "Attività",
+    "startBusiness": "Avvia la Tua Attività",
+    "contactUs": "Contattaci",
+    "login": "Accedi"
+  },
+  "footer": {
+    "tagline": "Potenziare le imprese in tutto il mondo con ordinazioni basate su AI e supporto multilingue",
+    "quickLinks": {
+      "title": "Link Rapidi",
+      "home": "Home",
+      "businesses": "Attività",
+      "startBusiness": "Avvia la Tua Attività",
+      "faq": "FAQ"
+    },
+    "contact": {
+      "title": "Contattaci",
+      "whatsappSupport": "Supporto WhatsApp Disponibile"
+    },
+    "copyright": "© {{year}} MyPadiFood. Tutti i diritti riservati."
+  },
+  "hero": {
+    "badge": "Piattaforma Aziendale Globale",
+    "headline": "Lancia la Tua Attività",
+    "headlineHighlight": "Ovunque, In Qualsiasi Lingua",
+    "subtitle": "L'unica piattaforma che permette ai clienti di ordinare nella loro lingua, pagare nella loro valuta e recensire tramite telefonata - senza bisogno di scaricare app.",
+    "features": {
+      "globalLanguage": {
+        "title": "Qualsiasi Lingua",
+        "description": "I clienti ordinano nella loro lingua madre"
+      },
+      "multiCurrency": {
+        "title": "Multi-Valuta",
+        "description": "Accetta pagamenti in qualsiasi valuta"
+      },
+      "noSignUp": {
+        "title": "Nessuna Registrazione Necessaria",
+        "description": "I clienti ordinano istantaneamente"
+      },
+      "whatsApp": {
+        "title": "Ordini WhatsApp",
+        "description": "Ricevi ordini tramite WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Recensioni Telefoniche",
+        "description": "Raccolta automatizzata di recensioni vocali"
+      },
+      "fastSetup": {
+        "title": "Configurazione Rapida",
+        "description": "Lancia in meno di 24 ore"
+      }
+    },
+    "quickStart": {
+      "title": "Inizia la Tua Prova Gratuita",
+      "emailLabel": "Email Aziendale",
+      "emailPlaceholder": "azienda@esempio.com",
+      "buttonText": "Inizia Gratis",
+      "disclaimer": "Nessuna carta di credito richiesta. Configurazione in pochi minuti."
+    }
+  },
+  "aboutUs": {
+    "title": "Chi Siamo - MyPadiFood",
+    "subtitle": "Abbattere le barriere linguistiche e valutarie per potenziare le imprese in tutto il mondo",
+    "mission": {
+      "title": "La Nostra Missione",
+      "description": "Crediamo che ogni attività, indipendentemente dalle dimensioni o dalla posizione, meriti l'accesso a clienti globali. MyPadiFood nasce da una semplice osservazione: le barriere linguistiche e valutarie non dovrebbero limitare il potenziale di un'impresa di servire clienti in tutto il mondo.",
+      "point1": "Permettere alle imprese di raggiungere clienti in qualsiasi lingua senza la complessità della traduzione manuale",
+      "point2": "Eliminare l'attrito della conversione valutaria e dell'elaborazione dei pagamenti internazionali"
+    },
+    "vision": {
+      "title": "La Nostra Visione",
+      "description": "Immaginiamo un mondo in cui una piccola fattoria in Nigeria può servire senza problemi clienti in Giappone, una boutique a Parigi può spedire facilmente in Brasile e un ristorante in Messico può ricevere ordini da clienti in India - tutto senza preoccuparsi di barriere linguistiche o complicazioni di pagamento.",
+      "point1": "Potenziare oltre 1 milione di imprese a livello globale entro il 2030",
+      "point2": "Supportare il commercio in ogni lingua e valuta del mondo"
+    },
+    "values": {
+      "title": "Cosa Ci Guida",
+      "value1": {
+        "title": "Accessibilità",
+        "description": "La tecnologia dovrebbe potenziare, non complicare. Nessuna app da scaricare, nessuna configurazione complessa."
+      },
+      "value2": {
+        "title": "Innovazione",
+        "description": "Traduzione basata su AI e automazione che funziona perfettamente in background."
+      },
+      "value3": {
+        "title": "Inclusività",
+        "description": "Ogni impresa merita una portata globale, indipendentemente dalle competenze tecniche o dal budget."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Storie di Successo",
+    "subtitle": "Imprese reali che raggiungono una crescita straordinaria con MyPadiFood",
+    "viewMore": "Visualizza Altre Storie di Successo"
+  },
+  "testimonials": {
+    "title": "Storie di Successo",
+    "subtitle": "Imprese reali, risultati reali",
+    "aiPoweredAdvantage": "Vantaggio Basato su AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Agricoltura",
+      "quote": "Il sistema di traduzione basato su AI e multi-valuta di MyPadiFood ha aiutato la mia fattoria a raggiungere clienti in 5 paesi diversi. Le vendite sono cresciute del 300% in soli 2 mesi!",
+      "highlight": "Competenza AI: Categorizzazione intelligente dei prodotti e previsione della domanda stagionale che ha ottimizzato il mio inventario e aumentato le vendite.",
+      "metrics": "300% di crescita • 5 paesi • 2 mesi"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Moda e Abbigliamento",
+      "quote": "I clienti adorano poter ordinare nella loro lingua locale senza registrarsi. I miei ordini internazionali sono triplicati immediatamente dopo aver configurato il mio negozio.",
+      "highlight": "Competenza AI: Analisi delle tendenze della moda e raccomandazioni automatiche delle taglie che hanno ridotto i resi del 40%.",
+      "metrics": "200% di aumento • 40% meno resi • 12 lingue"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Ospitalità",
+      "quote": "Gli ospiti internazionali ora possono prenotare i miei appartamenti nella loro valuta e lingua. L'integrazione WhatsApp rende le conferme perfette!",
+      "highlight": "Competenza AI: Prezzi dinamici e ottimizzazione della disponibilità che hanno aumentato i tassi di occupazione del 65% tutto l'anno.",
+      "metrics": "65% di occupazione • Prenotazioni istantanee • Portata globale"
+    },
+    "stats": {
+      "countries": "Paesi Serviti",
+      "setupTime": "Configurazione Media",
+      "signUpRequired": "Registrazione Cliente",
+      "languagesSupported": "Lingue"
+    }
+  },
+  "howItWorks": {
+    "title": "Come Funziona",
+    "subtitle": "Lancia la tua attività globale in tre semplici passaggi",
+    "step1": {
+      "title": "Il Cliente Seleziona la Lingua",
+      "description": "I tuoi clienti navigano il tuo menu nella loro lingua preferita. L'AI traduce istantaneamente tutto - voci del menu, descrizioni, prezzi."
+    },
+    "step2": {
+      "title": "Scegliere la Loro Valuta",
+      "description": "I clienti vedono i prezzi nella loro valuta locale. La conversione in tempo reale gestisce tutti i calcoli automaticamente."
+    },
+    "step3": {
+      "title": "Ordinare tramite WhatsApp",
+      "description": "Gli ordini arrivano direttamente al tuo WhatsApp. Nessun download di app necessario per i tuoi clienti. Semplice e istantaneo."
+    }
+  },
+  "globalReach": {
+    "title": "Costruito per il Commercio Globale",
+    "subtitle": "Unisciti a migliaia di imprese che servono clienti in tutto il mondo",
+    "stats": {
+      "businesses": "Attività Attive",
+      "transactions": "Transazioni Mensili",
+      "languagesUsed": "Lingue in Uso",
+      "currenciesSupported": "Valute"
+    }
+  },
+  "finalCta": {
+    "badge": "Unisciti a imprese di successo in tutto il mondo",
+    "title": "Pronto a Diventare Globale?",
+    "primaryButton": "Inizia Prova Gratuita",
+    "secondaryButton": "Visualizza Storie di Successo",
+    "subtitle": "Nessuna carta di credito richiesta • Configurazione in 24 ore • Annulla in qualsiasi momento"
+  },
+  "languages": {
+    "en": "Inglese",
+    "es": "Spagnolo",
+    "fr": "Francese",
+    "de": "Tedesco",
+    "zh": "Cinese",
+    "ar": "Arabo",
+    "hi": "Hindi",
+    "pt": "Portoghese",
+    "ru": "Russo",
+    "ja": "Giapponese",
+    "ko": "Coreano",
+    "it": "Italiano",
+    "nl": "Olandese",
+    "tr": "Turco",
+    "pl": "Polacco",
+    "vi": "Vietnamita",
+    "th": "Thailandese",
+    "id": "Indonesiano",
+    "ro": "Rumeno",
+    "cs": "Ceco"
+  },
+  "whatsappWidget": {
+    "title": "Chatta con Noi",
+    "subtitle": "Supporto Piattaforma",
+    "selectTopic": "Seleziona un argomento per iniziare a chattare:",
+    "customMessage": "Inizia Chat Personalizzata",
+    "opening": "Apertura WhatsApp...",
+    "messages": {
+      "generalHelp": "Ciao, ho bisogno di aiuto con la piattaforma MyPadiFood",
+      "setupStore": "Voglio configurare il mio negozio online. Puoi aiutarmi a iniziare?",
+      "pricing": "Quali sono i vostri piani tariffari? Vorrei conoscere i costi e le funzionalità.",
+      "technicalIssue": "Sto riscontrando un problema tecnico con il mio negozio. Puoi aiutarmi?",
+      "multiLanguage": "Come funziona la funzione di traduzione multilingue?",
+      "payments": "Ho domande sull'elaborazione dei pagamenti e sul supporto multi-valuta.",
+      "whatsappIntegration": "Come integro gli ordini WhatsApp con il mio negozio?",
+      "customDomain": "Posso usare il mio dominio personalizzato per il mio negozio?",
+      "migration": "Voglio migrare la mia attività esistente su MyPadiFood. Come funziona?",
+      "bulkOrders": "Come posso gestire ordini all'ingrosso e clienti all'ingrosso?",
+      "custom": "Ciao, ho una domanda sulla piattaforma MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Domande Frequenti",
+    "subtitle": "Tutto quello che devi sapere su MyPadiFood",
+    "backToHome": "Torna alla Home",
+    "stillHaveQuestions": "Hai Ancora Domande?",
+    "contactSupport": "Il nostro team di supporto è pronto ad aiutarti ad avere successo",
+    "chatWithSupport": "Chatta con il Supporto su WhatsApp",
+    "whatsappMessage": "Ciao, ho una domanda su MyPadiFood che non era coperta nelle FAQ",
+    "categories": {
+      "general": "Informazioni Generali",
+      "pricing": "Prezzi e Fatturazione",
+      "features": "Funzionalità e Capacità",
+      "gettingStarted": "Iniziare",
+      "support": "Supporto e Formazione"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Cos'è MyPadiFood?",
+      "whoCanUse": "Chi può usare MyPadiFood?",
+      "howDifferent": "In che modo MyPadiFood è diverso dalle altre piattaforme e-commerce?",
+      "freeTrial": "Offrite una prova gratuita?",
+      "subscriptionPlans": "Quali piani di abbonamento offrite?",
+      "paymentMethods": "Quali metodi di pagamento accettate per gli abbonamenti?",
+      "cancelAnytime": "Posso annullare il mio abbonamento in qualsiasi momento?",
+      "languagesSupported": "Quante lingue supporta MyPadiFood?",
+      "currenciesSupported": "In quali valute posso accettare pagamenti?",
+      "whatsappOrders": "Come funzionano gli ordini WhatsApp?",
+      "customDomain": "Posso usare il mio dominio personalizzato?",
+      "cashPayments": "MyPadiFood gestisce i pagamenti in contanti per la mia attività?",
+      "setupTime": "Quanto tempo ci vuole per configurare il mio negozio?",
+      "technicalKnowledge": "Ho bisogno di conoscenze tecniche per usare MyPadiFood?",
+      "productLimit": "C'è un limite al numero di prodotti che posso aggiungere?",
+      "migration": "Posso migrare il mio negozio online esistente su MyPadiFood?",
+      "customerSupport": "Che tipo di supporto clienti fornite?",
+      "training": "Fornite formazione o assistenza all'onboarding?",
+      "updates": "Con quale frequenza rilasciate nuove funzionalità e aggiornamenti?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood è una piattaforma e-commerce globale che permette alle imprese di vendere prodotti e servizi a clienti in tutto il mondo. La nostra piattaforma basata su AI traduce automaticamente il tuo negozio in più lingue, gestisce pagamenti multi-valuta e consente ai clienti di ordinare tramite WhatsApp senza scaricare app. Abbattiamo le barriere linguistiche e valutarie in modo che tu possa concentrarti sulla crescita della tua attività a livello globale.",
+      "whoCanUseAnswer": "MyPadiFood è perfetto per qualsiasi attività che cerca di espandersi a livello globale - dalle piccole fattorie e ristoranti alle boutique di moda, servizi di ospitalità e fornitori all'ingrosso. Che tu sia un imprenditore individuale, proprietario di una piccola impresa o un'impresa in crescita, la nostra piattaforma si adatta alle tue esigenze. Se hai prodotti o servizi da vendere e vuoi raggiungere clienti internazionali, MyPadiFood è costruito per te.",
+      "howDifferentAnswer": "A differenza delle piattaforme e-commerce tradizionali, MyPadiFood è specificamente progettato per il commercio globale. Le nostre funzionalità uniche includono: (1) Traduzione basata su AI in oltre 20 lingue senza sforzo manuale, (2) I clienti possono ordinare senza creare account o scaricare app, (3) Integrazione WhatsApp per una gestione degli ordini senza soluzione di continuità, (4) Supporto multi-valuta con conversione automatica, (5) Raccolta di recensioni dei clienti basata su telefono, e (6) Nessuna competenza tecnica richiesta per iniziare.",
+      "freeTrialAnswer": "Sì! Offriamo una generosa prova gratuita di 14 giorni con accesso completo a tutte le funzionalità. Non è richiesta alcuna carta di credito per iniziare la prova. Questo ti dà tutto il tempo per configurare il tuo negozio, aggiungere prodotti, personalizzare le impostazioni e testare tutte le nostre funzionalità. Dopo la fine della prova di 14 giorni, il tuo negozio sarà temporaneamente sospeso fino a quando non scegli un piano di abbonamento che funziona per te. Puoi riattivare in qualsiasi momento iscrivendoti.",
+      "subscriptionPlansAnswer": "Offriamo piani di abbonamento flessibili per soddisfare le esigenze della tua attività: abbonamenti mensili per la massima flessibilità, piani trimestrali con risparmio sui costi, abbonamenti semestrali (6 mesi) per un valore migliore e piani annuali per le migliori tariffe. Le tariffe di abbonamento variano in base al tuo paese ospitante per garantire prezzi equi basati sulle condizioni economiche locali. Contatta il nostro team di supporto tramite WhatsApp per ottenere i prezzi specifici per il tuo paese e discutere quale piano si adatta meglio ai tuoi obiettivi aziendali.",
+      "paymentMethodsAnswer": "Accettiamo più metodi di pagamento per le tariffe di abbonamento a seconda del tuo paese, tra cui carte di credito/debito, bonifici bancari, mobile money e altre opzioni di pagamento locali. Il nostro obiettivo è rendere il più facile possibile per te iscriverti e mantenere il tuo account. Contatta il nostro team di supporto per conoscere i metodi di pagamento specifici disponibili nella tua regione.",
+      "cancelAnytimeAnswer": "Assolutamente! Hai il controllo completo sul tuo abbonamento. Puoi annullare in qualsiasi momento senza penalità o costi nascosti. Se annulli durante il tuo ciclo di fatturazione, continuerai ad avere accesso al tuo negozio fino alla fine di quel periodo pagato. Crediamo nel guadagnarci la tua attività ogni mese, non nel bloccarti in contratti a lungo termine che non vuoi.",
+      "languagesSupportedAnswer": "MyPadiFood attualmente supporta oltre 20 lingue principali tra cui inglese, spagnolo, francese, tedesco, cinese, arabo, hindi, portoghese, russo, giapponese, coreano, italiano, olandese, turco, polacco, vietnamita, thailandese, indonesiano, rumeno e ceco. Il nostro sistema di traduzione AI garantisce che le descrizioni dei tuoi prodotti, i menu e i contenuti del negozio siano tradotti accuratamente in tempo reale. Stiamo costantemente aggiungendo più lingue in base alla domanda dei clienti.",
+      "currenciesSupportedAnswer": "Puoi accettare pagamenti in praticamente qualsiasi valuta principale in tutto il mondo. La nostra piattaforma gestisce la conversione valutaria in tempo reale automaticamente, quindi i clienti vedono i prezzi nella loro valuta locale mentre tu ricevi i pagamenti nella tua valuta preferita. Questo include USD, EUR, GBP, NGN, JPY, CNY, INR e molte altre. Il sistema aggiorna i tassi di cambio regolarmente per garantire prezzi accurati.",
+      "whatsappOrdersAnswer": "Quando i clienti effettuano ordini sul tuo negozio MyPadiFood, ricevi notifiche istantanee direttamente al tuo numero WhatsApp aziendale. I dettagli dell'ordine sono formattati chiaramente con informazioni sul cliente, articoli ordinati, indirizzo di consegna e stato del pagamento. Puoi confermare gli ordini, aggiornare i clienti sullo stato dell'ordine e comunicare direttamente tramite WhatsApp - non c'è bisogno di imparare un nuovo sistema. È semplice come avere una conversazione con il tuo cliente.",
+      "customDomainAnswer": "Sì! Puoi connettere il tuo dominio personalizzato al tuo negozio MyPadiFood per un'esperienza professionale di marca. Ad esempio, invece di tuaattività.mypadifood.com, puoi usare negozio.tuaattività.com o qualsiasi dominio che possiedi. Questa funzionalità è disponibile su piani di abbonamento selezionati. Il nostro team di supporto può guidarti attraverso il semplice processo di configurazione.",
+      "cashPaymentsAnswer": "MyPadiFood NON accetta, gestisce o amministra pagamenti in contanti per conto della tua attività. Tutte le transazioni in contanti sono gestite direttamente tra te e i tuoi clienti. Mantieni il controllo completo sui tuoi pagamenti in contanti, riscossioni e riconciliazioni. MyPadiFood facilita solo la piattaforma di ordinazione e l'elaborazione dei pagamenti digitali. Qualsiasi accordo di pagamento in contanti è tua responsabilità gestire in modo indipendente.",
+      "setupTimeAnswer": "La maggior parte delle imprese può avere il proprio negozio completamente configurato e pronto ad accettare ordini entro 24 ore o meno. Il nostro processo di onboarding semplificato ti guida attraverso: creazione del tuo account, aggiunta dei tuoi prodotti, configurazione dei metodi di pagamento, personalizzazione dell'aspetto del negozio e connessione del tuo WhatsApp. Molti utenti completano la configurazione di base in meno di 2 ore. Forniamo guida passo-passo e supporto per aiutarti a lanciare rapidamente.",
+      "technicalKnowledgeAnswer": "Non è richiesta alcuna conoscenza tecnica! MyPadiFood è progettato per i proprietari di imprese, non per gli sviluppatori. La nostra interfaccia intuitiva ti guida attraverso ogni passaggio con istruzioni chiare. Non hai bisogno di sapere come programmare, capire l'hosting web o gestire server. Se puoi usare WhatsApp ed email, puoi gestire il tuo negozio MyPadiFood. Il nostro team di supporto è anche disponibile per aiutarti con qualsiasi domanda.",
+      "productLimitAnswer": "Non c'è limite al numero di prodotti che puoi aggiungere al tuo negozio. Che tu abbia 10 prodotti o 10.000, MyPadiFood può gestire il tuo catalogo. Puoi organizzare i prodotti in categorie, aggiungere descrizioni e immagini dettagliate, impostare livelli di inventario e gestire tutto dal tuo pannello di controllo. Man mano che la tua attività cresce, il tuo negozio cresce con te.",
+      "migrationAnswer": "Sì, possiamo aiutarti a migrare il tuo negozio online esistente su MyPadiFood! Supportiamo la migrazione da varie piattaforme tra cui Shopify, WooCommerce e altri sistemi e-commerce. Il nostro team può aiutarti a trasferire il tuo catalogo prodotti, dati dei clienti e cronologia degli ordini. Contatta il nostro team di supporto tramite WhatsApp per discutere le tue esigenze specifiche di migrazione, tempistiche e eventuali requisiti personalizzati. Renderemo la transizione il più fluida possibile.",
+      "customerSupportAnswer": "Forniamo supporto completo attraverso più canali: supporto WhatsApp per domande rapide e assistenza in tempo reale, supporto email per richieste dettagliate, centro assistenza con guide e tutorial e video tutorial per funzionalità complesse. Il nostro team di supporto opera durante l'orario lavorativo e miriamo a rispondere a tutte le richieste entro 24 ore. Pacchetti di supporto premium con account manager dedicati sono disponibili per le imprese in crescita.",
+      "trainingAnswer": "Sì! Forniamo ampie risorse di formazione per aiutarti ad avere successo: sessione di onboarding gratuita quando ti iscrivi, video tutorial che coprono tutte le funzionalità, guide scritte passo-passo, webinar dal vivo per nuove funzionalità e sessioni di formazione individuali (disponibili con piani premium). Vogliamo assicurarci che ti senta sicuro nell'utilizzare ogni aspetto della piattaforma per far crescere la tua attività.",
+      "updatesAnswer": "Miglioriamo continuamente MyPadiFood con aggiornamenti regolari e nuove funzionalità. I rilasci di funzionalità principali avvengono tipicamente trimestralmente, con miglioramenti minori e correzioni di bug rilasciati secondo necessità. Tutti gli aggiornamenti sono inclusi nel tuo abbonamento senza costi aggiuntivi. Annunciamo nuove funzionalità tramite email, notifiche in-app e i nostri canali social media. Il tuo feedback aiuta a plasmare la nostra roadmap, quindi stiamo sempre costruendo ciò di cui le imprese hanno più bisogno."
+    }
+  },
+  "onboarding": {
+    "title": "Avvia la Tua Attività",
+    "subtitle": "Compila il modulo qui sotto e il nostro team ti aiuterà a iniziare",
+    "submitSuccess": "Richiesta inviata con successo!",
+    "submitError": "Impossibile inviare la richiesta",
+    "submitting": "Invio in corso...",
+    "submitButton": "Invia Richiesta",
+    "submitAnother": "Invia Un'altra Richiesta",
+    "successTitle": "Grazie!",
+    "successMessage": "La tua richiesta di onboarding è stata inviata con successo. Il nostro team ti contatterà entro 24 ore.",
+    "categories": {
+      "foodDining": "🍽️ Cibo e Ristorazione",
+      "agricultureFarming": "🌾 Agricoltura e Allevamento",
+      "hospitality": "🏨 Ospitalità",
+      "retailShopping": "🛍️ Vendita al Dettaglio e Shopping",
+      "technologyElectronics": "💻 Tecnologia ed Elettronica",
+      "healthBeauty": "💄 Salute e Bellezza",
+      "homeLiving": "🏠 Casa e Abitare",
+      "automotive": "🚗 Automotive",
+      "educationLearning": "🎓 Istruzione e Apprendimento",
+      "sportsRecreation": "⚽ Sport e Ricreazione",
+      "professionalServices": "💼 Servizi Professionali",
+      "otherServices": "🔧 Altri Servizi"
+    },
+    "businessInfo": {
+      "title": "Informazioni sull'Attività",
+      "businessName": "Nome Attività",
+      "businessNamePlaceholder": "es., Prodotti Agricoli Freschi",
+      "businessType": "Tipo di Attività",
+      "other": "Altro",
+      "preferredSlug": "Slug URL Preferito",
+      "slugPlaceholder": "prodottifreschi",
+      "slugHint": "Solo lettere minuscole, numeri e trattini",
+      "urlPreviewLabel": "La tua attività sarà accessibile su:",
+      "description": "Descrizione",
+      "descriptionPlaceholder": "Parlaci della tua attività..."
+    },
+    "ownerInfo": {
+      "title": "Informazioni sul Proprietario",
+      "fullName": "Nome Completo",
+      "fullNamePlaceholder": "Mario Rossi",
+      "email": "Email",
+      "emailPlaceholder": "mario@esempio.com",
+      "phone": "Telefono",
+      "phonePlaceholder": "+39 123 456 7890"
+    }
+  },
+  "businessDirectory": {
+    "title": "Le Nostre Attività",
+    "subtitle": "Scopri fantastiche attività locali sulla nostra piattaforma",
+    "noBusinesses": "Nessuna attività trovata in questa categoria",
+    "tryDifferent": "Prova a selezionare una categoria diversa per esplorare più attività"
+  },
+  "businessFilter": {
+    "allBusinesses": "Tutte le Attività"
+  },
+  "businessCard": {
+    "products": "Prodotti",
+    "visitStore": "Visita il Negozio"
+  }
+}

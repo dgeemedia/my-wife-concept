@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Strona główna",
+    "businesses": "Firmy",
+    "startBusiness": "Rozpocznij swoją firmę",
+    "contactUs": "Skontaktuj się z nami",
+    "login": "Zaloguj się"
+  },
+  "footer": {
+    "tagline": "Wspieramy firmy na całym świecie dzięki zamawianiu opartemu na AI i obsłudze wielojęzycznej",
+    "quickLinks": {
+      "title": "Szybkie linki",
+      "home": "Strona główna",
+      "businesses": "Firmy",
+      "startBusiness": "Rozpocznij swoją firmę",
+      "faq": "Najczęściej zadawane pytania"
+    },
+    "contact": {
+      "title": "Skontaktuj się z nami",
+      "whatsappSupport": "Dostępna pomoc przez WhatsApp"
+    },
+    "copyright": "© {{year}} MyPadiFood. Wszelkie prawa zastrzeżone."
+  },
+  "hero": {
+    "badge": "Globalna platforma biznesowa",
+    "headline": "Uruchom swoją firmę",
+    "headlineHighlight": "Wszędzie, w dowolnym języku",
+    "subtitle": "Jedyna platforma, która pozwala klientom zamawiać w ich języku, płacić w ich walucie i zostawiać recenzje przez telefon - bez konieczności pobierania aplikacji.",
+    "features": {
+      "globalLanguage": {
+        "title": "Dowolny język",
+        "description": "Klienci zamawiają w swoim ojczystym języku"
+      },
+      "multiCurrency": {
+        "title": "Wiele walut",
+        "description": "Akceptuj płatności w dowolnej walucie"
+      },
+      "noSignUp": {
+        "title": "Bez rejestracji",
+        "description": "Klienci zamawiają natychmiast"
+      },
+      "whatsApp": {
+        "title": "Zamówienia przez WhatsApp",
+        "description": "Otrzymuj zamówienia przez WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Recenzje telefoniczne",
+        "description": "Automatyczne zbieranie recenzji głosowych"
+      },
+      "fastSetup": {
+        "title": "Szybka konfiguracja",
+        "description": "Uruchomienie w ciągu 24 godzin"
+      }
+    },
+    "quickStart": {
+      "title": "Rozpocznij bezpłatny okres próbny",
+      "emailLabel": "Twój firmowy e-mail",
+      "emailPlaceholder": "firma@przyklad.pl",
+      "buttonText": "Rozpocznij za darmo",
+      "disclaimer": "Karta kredytowa nie jest wymagana. Konfiguracja w kilka minut."
+    }
+  },
+  "aboutUs": {
+    "title": "O MyPadiFood",
+    "subtitle": "Przełamywanie barier językowych i walutowych, aby wspierać firmy na całym świecie",
+    "mission": {
+      "title": "Nasza misja",
+      "description": "Wierzymy, że każda firma, niezależnie od wielkości czy lokalizacji, zasługuje na dostęp do globalnych klientów. MyPadiFood narodził się z prostej obserwacji: bariery językowe i walutowe nie powinny ograniczać potencjału firmy w obsłudze klientów na całym świecie.",
+      "point1": "Umożliwić firmom dotarcie do klientów w dowolnym języku bez złożoności ręcznego tłumaczenia",
+      "point2": "Wyeliminować trudności związane z konwersją walut i przetwarzaniem płatności międzynarodowych"
+    },
+    "vision": {
+      "title": "Nasza wizja",
+      "description": "Wyobrażamy sobie świat, w którym mała farma w Nigerii może bezproblemowo obsługiwać klientów w Japonii, butik w Paryżu może bez wysiłku wysyłać towary do Brazylii, a restauracja w Meksyku może przyjmować zamówienia od klientów w Indiach - wszystko to bez obaw o bariery językowe czy komplikacje płatnicze.",
+      "point1": "Wspierać ponad 1 milion firm na całym świecie do 2030 roku",
+      "point2": "Wspierać handel we wszystkich językach i walutach na całym świecie"
+    },
+    "values": {
+      "title": "Co nami kieruje",
+      "value1": {
+        "title": "Dostępność",
+        "description": "Technologia powinna wzmacniać, a nie komplikować. Bez aplikacji do pobrania, bez skomplikowanych konfiguracji."
+      },
+      "value2": {
+        "title": "Innowacja",
+        "description": "Tłumaczenie i automatyzacja oparte na AI, które działają bezproblemowo w tle."
+      },
+      "value3": {
+        "title": "Inkluzywność",
+        "description": "Każda firma zasługuje na globalny zasięg, niezależnie od wiedzy technicznej czy budżetu."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Historie sukcesu",
+    "subtitle": "Prawdziwe firmy osiągające nadzwyczajny wzrost dzięki MyPadiFood",
+    "viewMore": "Zobacz więcej historii sukcesu"
+  },
+  "testimonials": {
+    "title": "Historie sukcesu",
+    "subtitle": "Prawdziwe firmy, prawdziwe wyniki",
+    "aiPoweredAdvantage": "Przewaga AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Rolnictwo",
+      "quote": "System tłumaczenia i wielu walut oparty na AI od MyPadiFood pomógł mojej farmie dotrzeć do klientów w 5 różnych krajach. Sprzedaż wzrosła o 300% w zaledwie 2 miesiące!",
+      "highlight": "Umiejętność AI: Inteligentna kategoryzacja produktów i prognozowanie sezonowego popytu, które zoptymalizowały moje zapasy i zwiększyły sprzedaż.",
+      "metrics": "Wzrost o 300% • 5 krajów • 2 miesiące"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Moda i odzież",
+      "quote": "Klienci uwielbiają, że mogą zamawiać w swoim lokalnym języku bez rejestracji. Moje międzynarodowe zamówienia potroiły się natychmiast po skonfigurowaniu mojego sklepu.",
+      "highlight": "Umiejętność AI: Analiza trendów modowych i automatyczne rekomendacje rozmiarów, które zmniejszyły wskaźnik zwrotów o 40%.",
+      "metrics": "Wzrost o 200% • O 40% mniej zwrotów • 12 języków"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Hotelarstwo",
+      "quote": "Międzynarodowi goście mogą teraz rezerwować moje apartamenty w swojej walucie i języku. Integracja z WhatsApp sprawia, że potwierdzenia są bezproblemowe!",
+      "highlight": "Umiejętność AI: Dynamiczne ceny i optymalizacja dostępności, która zwiększyła wskaźnik obłożenia o 65% przez cały rok.",
+      "metrics": "65% obłożenie • Natychmiastowe rezerwacje • Globalny zasięg"
+    },
+    "stats": {
+      "countries": "Obsłużonych krajów",
+      "setupTime": "Średnia konfiguracja",
+      "signUpRequired": "Rejestracja klienta",
+      "languagesSupported": "Języki"
+    }
+  },
+  "howItWorks": {
+    "title": "Jak to działa",
+    "subtitle": "Uruchom swoją globalną firmę w trzech prostych krokach",
+    "step1": {
+      "title": "Klient wybiera język",
+      "description": "Twoi klienci przeglądają Twoje menu w preferowanym języku. AI natychmiast tłumaczy wszystko - pozycje menu, opisy, ceny."
+    },
+    "step2": {
+      "title": "Wybierają walutę",
+      "description": "Klienci widzą ceny w swojej lokalnej walucie. Konwersja w czasie rzeczywistym automatycznie wykonuje wszystkie obliczenia."
+    },
+    "step3": {
+      "title": "Zamówienie przez WhatsApp",
+      "description": "Zamówienia trafiają bezpośrednio na Twój WhatsApp. Twoi klienci nie muszą pobierać aplikacji. Proste i natychmiastowe."
+    }
+  },
+  "globalReach": {
+    "title": "Stworzone dla globalnego handlu",
+    "subtitle": "Dołącz do tysięcy firm obsługujących klientów na całym świecie",
+    "stats": {
+      "businesses": "Aktywnych firm",
+      "transactions": "Miesięcznych transakcji",
+      "languagesUsed": "Używanych języków",
+      "currenciesSupported": "Walut"
+    }
+  },
+  "finalCta": {
+    "badge": "Dołącz do odnoszących sukcesy firm na całym świecie",
+    "title": "Gotowy na wejście na rynek globalny?",
+    "primaryButton": "Rozpocznij bezpłatny okres próbny",
+    "secondaryButton": "Zobacz historie sukcesu",
+    "subtitle": "Karta kredytowa nie jest wymagana • Konfiguracja w 24 godziny • Anuluj w dowolnym momencie"
+  },
+  "languages": {
+    "en": "Angielski",
+    "es": "Hiszpański",
+    "fr": "Francuski",
+    "de": "Niemiecki",
+    "zh": "Chiński",
+    "ar": "Arabski",
+    "hi": "Hindi",
+    "pt": "Portugalski",
+    "ru": "Rosyjski",
+    "ja": "Japoński",
+    "ko": "Koreański",
+    "it": "Włoski",
+    "nl": "Holenderski",
+    "tr": "Turecki",
+    "pl": "Polski",
+    "vi": "Wietnamski",
+    "th": "Tajski",
+    "id": "Indonezyjski",
+    "ro": "Rumuński",
+    "cs": "Czeski"
+  },
+  "whatsappWidget": {
+    "title": "Czat z nami",
+    "subtitle": "Wsparcie platformy",
+    "selectTopic": "Wybierz temat, aby rozpocząć czat:",
+    "customMessage": "Rozpocznij niestandardowy czat",
+    "opening": "Otwieranie WhatsApp...",
+    "messages": {
+      "generalHelp": "Cześć, potrzebuję pomocy z platformą MyPadiFood",
+      "setupStore": "Chcę skonfigurować mój sklep internetowy. Czy możesz mi pomóc zacząć?",
+      "pricing": "Jakie są wasze plany cenowe? Chciałbym poznać koszty i funkcje.",
+      "technicalIssue": "Mam problem techniczny z moim sklepem. Czy możesz pomóc?",
+      "multiLanguage": "Jak działa funkcja tłumaczenia wielojęzycznego?",
+      "payments": "Mam pytania dotyczące przetwarzania płatności i obsługi wielu walut.",
+      "whatsappIntegration": "Jak zintegrować zamówienia WhatsApp z moim sklepem?",
+      "customDomain": "Czy mogę użyć własnej domeny dla mojego sklepu?",
+      "migration": "Chcę przenieść moją istniejącą firmę do MyPadiFood. Jak to działa?",
+      "bulkOrders": "Jak mogę obsługiwać zamówienia hurtowe i klientów hurtowych?",
+      "custom": "Cześć, mam pytanie dotyczące platformy MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Najczęściej zadawane pytania",
+    "subtitle": "Wszystko, co musisz wiedzieć o MyPadiFood",
+    "backToHome": "Powrót do strony głównej",
+    "stillHaveQuestions": "Nadal masz pytania?",
+    "contactSupport": "Nasz zespół wsparcia jest gotowy pomóc Ci odnieść sukces",
+    "chatWithSupport": "Czat ze wsparciem na WhatsApp",
+    "whatsappMessage": "Cześć, mam pytanie o MyPadiFood, które nie zostało omówione w FAQ",
+    "categories": {
+      "general": "Informacje ogólne",
+      "pricing": "Ceny i płatności",
+      "features": "Funkcje i możliwości",
+      "gettingStarted": "Rozpoczęcie pracy",
+      "support": "Wsparcie i szkolenie"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Co to jest MyPadiFood?",
+      "whoCanUse": "Kto może korzystać z MyPadiFood?",
+      "howDifferent": "Czym MyPadiFood różni się od innych platform e-commerce?",
+      "freeTrial": "Czy oferujecie bezpłatny okres próbny?",
+      "subscriptionPlans": "Jakie plany subskrypcji oferujecie?",
+      "paymentMethods": "Jakie metody płatności akceptujecie w przypadku subskrypcji?",
+      "cancelAnytime": "Czy mogę anulować subskrypcję w dowolnym momencie?",
+      "languagesSupported": "Ile języków obsługuje MyPadiFood?",
+      "currenciesSupported": "W jakich walutach mogę przyjmować płatności?",
+      "whatsappOrders": "Jak działają zamówienia przez WhatsApp?",
+      "customDomain": "Czy mogę użyć własnej domeny?",
+      "cashPayments": "Czy MyPadiFood obsługuje płatności gotówkowe dla mojej firmy?",
+      "setupTime": "Ile czasu zajmuje skonfigurowanie mojego sklepu?",
+      "technicalKnowledge": "Czy potrzebuję wiedzy technicznej, aby korzystać z MyPadiFood?",
+      "productLimit": "Czy istnieje limit liczby produktów, które mogę dodać?",
+      "migration": "Czy mogę przenieść mój istniejący sklep internetowy do MyPadiFood?",
+      "customerSupport": "Jakiego rodzaju wsparcie dla klientów zapewniacie?",
+      "training": "Czy zapewniacie szkolenie lub pomoc przy wdrażaniu?",
+      "updates": "Jak często publikujecie nowe funkcje i aktualizacje?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood to globalna platforma e-commerce, która umożliwia firmom sprzedaż produktów i usług klientom na całym świecie. Nasza platforma oparta na AI automatycznie tłumaczy Twój sklep na wiele języków, obsługuje płatności w wielu walutach i pozwala klientom zamawiać przez WhatsApp bez pobierania aplikacji. Eliminujemy bariery językowe i walutowe, abyś mógł skupić się na globalnym rozwoju swojej firmy.",
+      "whoCanUseAnswer": "MyPadiFood jest idealny dla każdej firmy dążącej do globalnej ekspansji - od małych farm i restauracji po butiki modowe, usługi hotelarskie i dostawców hurtowych. Niezależnie od tego, czy jesteś indywidualnym przedsiębiorcą, właścicielem małej firmy, czy rozwijającym się przedsiębiorstwem, nasza platforma skaluje się zgodnie z Twoimi potrzebami. Jeśli masz produkty lub usługi do sprzedaży i chcesz dotrzeć do międzynarodowych klientów, MyPadiFood jest stworzony dla Ciebie.",
+      "howDifferentAnswer": "W przeciwieństwie do tradycyjnych platform e-commerce, MyPadiFood został specjalnie zaprojektowany do globalnego handlu. Nasze unikalne funkcje obejmują: (1) Tłumaczenie oparte na AI na ponad 20 języków bez ręcznego wysiłku, (2) Klienci mogą zamawiać bez tworzenia kont lub pobierania aplikacji, (3) Integracja z WhatsApp dla bezproblemowego zarządzania zamówieniami, (4) Obsługa wielu walut z automatyczną konwersją, (5) Telefoniczne zbieranie recenzji klientów i (6) Nie jest wymagana wiedza techniczna do rozpoczęcia.",
+      "freeTrialAnswer": "Tak! Oferujemy hojny 14-dniowy bezpłatny okres próbny z pełnym dostępem do wszystkich funkcji. Do rozpoczęcia okresu próbnego nie jest wymagana karta kredytowa. Daje to wystarczająco dużo czasu na skonfigurowanie sklepu, dodanie produktów, dostosowanie ustawień i przetestowanie wszystkich naszych funkcji. Po zakończeniu 14-dniowego okresu próbnego Twój sklep zostanie tymczasowo zawieszony, dopóki nie wybierzesz planu subskrypcji, który Ci odpowiada. Możesz ponownie aktywować w dowolnym momencie, subskrybując.",
+      "subscriptionPlansAnswer": "Oferujemy elastyczne plany subskrypcji dopasowane do potrzeb Twojej firmy: Subskrypcje miesięczne dla maksymalnej elastyczności, Plany kwartalne z oszczędnościami kosztów, Subskrypcje półroczne (6-miesięczne) dla lepszej wartości i Plany roczne po najlepszych stawkach. Opłaty za subskrypcję różnią się w zależności od kraju gospodarza, aby zapewnić uczciwe ceny w oparciu o lokalne warunki ekonomiczne. Skontaktuj się z naszym zespołem wsparcia przez WhatsApp, aby uzyskać konkretne ceny dla swojego kraju i omówić, który plan najlepiej odpowiada Twoim celom biznesowym.",
+      "paymentMethodsAnswer": "Akceptujemy wiele metod płatności za subskrypcje w zależności od Twojego kraju, w tym karty kredytowe/debetowe, przelewy bankowe, pieniądze mobilne i inne lokalne opcje płatności. Naszym celem jest maksymalne ułatwienie procesu subskrypcji i utrzymania konta. Skontaktuj się z naszym zespołem wsparcia, aby dowiedzieć się o konkretnych metodach płatności dostępnych w Twoim regionie.",
+      "cancelAnytimeAnswer": "Absolutnie! Masz pełną kontrolę nad swoją subskrypcją. Możesz anulować w dowolnym momencie bez kar lub ukrytych opłat. Jeśli anulujesz w trakcie cyklu rozliczeniowego, zachowasz dostęp do swojego sklepu do końca tego opłaconego okresu. Wierzymy w zasługiwanie na Twój biznes co miesiąc, a nie zamykanie Cię w długoterminowych umowach, których nie chcesz.",
+      "languagesSupportedAnswer": "MyPadiFood obecnie obsługuje ponad 20 głównych języków, w tym angielski, hiszpański, francuski, niemiecki, chiński, arabski, hindi, portugalski, rosyjski, japoński, koreański, włoski, holenderski, turecki, polski, wietnamski, tajski, indonezyjski, rumuński i czeski. Nasz system tłumaczenia oparty na AI zapewnia dokładne tłumaczenie opisów Twoich produktów, menu i treści sklepu w czasie rzeczywistym. Stale dodajemy więcej języków w oparciu o zapotrzebowanie klientów.",
+      "currenciesSupportedAnswer": "Możesz przyjmować płatności w praktycznie każdej głównej walucie na świecie. Nasza platforma automatycznie obsługuje konwersję walut w czasie rzeczywistym, więc klienci widzą ceny w swojej lokalnej walucie, podczas gdy Ty otrzymujesz płatności w preferowanej walucie. Obejmuje to USD, EUR, GBP, NGN, JPY, CNY, INR i wiele innych. System regularnie aktualizuje kursy wymiany, aby zapewnić dokładne ceny.",
+      "whatsappOrdersAnswer": "Gdy klienci składają zamówienia w Twoim sklepie MyPadiFood, otrzymujesz natychmiastowe powiadomienia bezpośrednio na swój firmowy numer WhatsApp. Szczegóły zamówienia są wyraźnie sformatowane z informacjami o kliencie, zamówionych produktach, adresie dostawy i statusie płatności. Możesz potwierdzać zamówienia, aktualizować klientów o statusie zamówienia i komunikować się bezpośrednio przez WhatsApp - nie musisz uczyć się nowego systemu. To tak proste jak rozmowa z klientem.",
+      "customDomainAnswer": "Tak! Możesz podłączyć własną domenę do swojego sklepu MyPadiFood, aby uzyskać profesjonalne doświadczenie marki. Na przykład, zamiast twojafirma.mypadifood.com możesz użyć sklep.twojafirma.pl lub dowolnej posiadanej domeny. Ta funkcja jest dostępna w wybranych planach subskrypcji. Nasz zespół wsparcia poprowadzi Cię przez prosty proces konfiguracji.",
+      "cashPaymentsAnswer": "MyPadiFood NIE przyjmuje, NIE obsługuje ani NIE zarządza płatnościami gotówkowymi w imieniu Twojej firmy. Wszystkie transakcje gotówkowe są zarządzane bezpośrednio między Tobą a Twoimi klientami. Zachowujesz pełną kontrolę nad swoimi płatnościami gotówkowymi, inkasowaniem i uzgadnianiem. MyPadiFood tylko ułatwia działanie platformy zamówień i przetwarzanie płatności cyfrowych. Wszelkie uzgodnienia płatności gotówkowych to Twoja odpowiedzialność do samodzielnego zarządzania.",
+      "setupTimeAnswer": "Większość firm może mieć swój sklep w pełni skonfigurowany i gotowy do przyjmowania zamówień w ciągu 24 godzin lub mniej. Nasz usprawniony proces wdrażania prowadzi Cię przez: utworzenie konta, dodanie produktów, konfigurację metod płatności, dostosowanie wyglądu sklepu i podłączenie WhatsApp. Wielu użytkowników kończy podstawową konfigurację w mniej niż 2 godziny. Zapewniamy instrukcje krok po kroku i wsparcie, które pomoże Ci szybko uruchomić.",
+      "technicalKnowledgeAnswer": "Wiedza techniczna nie jest wymagana! MyPadiFood został zaprojektowany dla właścicieli firm, a nie dla programistów. Nasz intuicyjny interfejs prowadzi Cię przez każdy krok z jasnymi instrukcjami. Nie musisz wiedzieć, jak kodować, rozumieć hostingu internetowego ani zarządzać serwerami. Jeśli potrafisz używać WhatsApp i poczty e-mail, możesz zarządzać swoim sklepem MyPadiFood. Nasz zespół wsparcia jest również dostępny, aby pomóc z wszelkimi pytaniami.",
+      "productLimitAnswer": "Nie ma limitu liczby produktów, które możesz dodać do swojego sklepu. Niezależnie od tego, czy masz 10 produktów, czy 10 000, MyPadiFood poradzi sobie z Twoim katalogiem. Możesz organizować produkty w kategorie, dodawać szczegółowe opisy i obrazy, ustawiać poziomy zapasów i zarządzać wszystkim z panelu kontrolnego. W miarę rozwoju Twojej firmy, Twój sklep rośnie razem z Tobą.",
+      "migrationAnswer": "Tak, możemy pomóc Ci przenieść istniejący sklep internetowy do MyPadiFood! Wspieramy migrację z różnych platform, w tym Shopify, WooCommerce i innych systemów e-commerce. Nasz zespół może pomóc w przeniesieniu katalogu produktów, danych klientów i historii zamówień. Skontaktuj się z naszym zespołem wsparcia przez WhatsApp, aby omówić swoje konkretne potrzeby migracyjne, harmonogram i wszelkie niestandardowe wymagania. Uczynimy przejście tak płynnym, jak to możliwe.",
+      "customerSupportAnswer": "Zapewniamy kompleksowe wsparcie przez wiele kanałów: Wsparcie WhatsApp dla szybkich pytań i pomocy w czasie rzeczywistym, Wsparcie e-mailowe dla szczegółowych zapytań, Centrum pomocy z przewodnikami i samouczkami oraz Instrukcje wideo dla złożonych funkcji. Nasz zespół wsparcia działa w godzinach pracy i staramy się odpowiadać na wszystkie zapytania w ciągu 24 godzin. Pakiety premium wsparcia z dedykowanymi menedżerami kont są dostępne dla rozwijających się firm.",
+      "trainingAnswer": "Tak! Zapewniamy obszerne zasoby szkoleniowe, aby pomóc Ci odnieść sukces: Bezpłatna sesja wdrożeniowa przy rejestracji, Samouczki wideo obejmujące wszystkie funkcje, Pisemne przewodniki krok po kroku, Webinary na żywo dla nowych funkcji i Indywidualne sesje szkoleniowe (dostępne w planach premium). Chcemy mieć pewność, że czujesz się pewnie używając każdego aspektu platformy do rozwoju swojej firmy.",
+      "updatesAnswer": "Nieustannie ulepszamy MyPadiFood dzięki regularnym aktualizacjom i nowym funkcjom. Główne wydania funkcji zwykle odbywają się kwartalnie, z mniejszymi ulepszeniami i poprawkami błędów wydawanymi w razie potrzeby. Wszystkie aktualizacje są wliczone w cenę subskrypcji bez dodatkowych kosztów. Ogłaszamy nowe funkcje przez e-mail, powiadomienia w aplikacji i nasze media społecznościowe. Twoja opinia pomaga kształtować naszą mapę drogową, więc zawsze budujemy to, czego firmy potrzebują najbardziej."
+    }
+  },
+  "onboarding": {
+    "title": "Rozpocznij swoją firmę",
+    "subtitle": "Wypełnij poniższy formularz, a nasz zespół pomoże Ci zacząć",
+    "submitSuccess": "Zgłoszenie zostało pomyślnie wysłane!",
+    "submitError": "Nie udało się wysłać zgłoszenia",
+    "submitting": "Wysyłanie...",
+    "submitButton": "Wyślij zgłoszenie",
+    "submitAnother": "Wyślij kolejne zgłoszenie",
+    "successTitle": "Dziękujemy!",
+    "successMessage": "Twoje zgłoszenie wdrożeniowe zostało pomyślnie wysłane. Nasz zespół skontaktuje się z Tobą w ciągu 24 godzin.",
+    "categories": {
+      "foodDining": "🍽️ Jedzenie i gastronomia",
+      "agricultureFarming": "🌾 Rolnictwo i gospodarstwo",
+      "hospitality": "🏨 Hotelarstwo",
+      "retailShopping": "🛍️ Handel detaliczny i zakupy",
+      "technologyElectronics": "💻 Technologia i elektronika",
+      "healthBeauty": "💄 Zdrowie i uroda",
+      "homeLiving": "🏠 Dom i życie",
+      "automotive": "🚗 Motoryzacja",
+      "educationLearning": "🎓 Edukacja i nauka",
+      "sportsRecreation": "⚽ Sport i rekreacja",
+      "professionalServices": "💼 Usługi profesjonalne",
+      "otherServices": "🔧 Inne usługi"
+    },
+    "businessInfo": {
+      "title": "Informacje o firmie",
+      "businessName": "Nazwa firmy",
+      "businessNamePlaceholder": "np. Świeże produkty z gospodarstwa",
+      "businessType": "Typ firmy",
+      "other": "Inne",
+      "preferredSlug": "Preferowany adres URL",
+      "slugPlaceholder": "swiezegospodarstwo",
+      "slugHint": "Tylko małe litery, cyfry i myślniki",
+      "urlPreviewLabel": "Twoja firma będzie dostępna pod adresem:",
+      "description": "Opis",
+      "descriptionPlaceholder": "Opowiedz nam o swojej firmie..."
+    },
+    "ownerInfo": {
+      "title": "Informacje o właścicielu",
+      "fullName": "Imię i nazwisko",
+      "fullNamePlaceholder": "Jan Kowalski",
+      "email": "E-mail",
+      "emailPlaceholder": "jan@przyklad.pl",
+      "phone": "Telefon",
+      "phonePlaceholder": "+48 800 000 000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Nasze firmy",
+    "subtitle": "Odkryj niesamowite lokalne firmy na naszej platformie",
+    "noBusinesses": "Nie znaleziono firm w tej kategorii",
+    "tryDifferent": "Spróbuj wybrać inną kategorię, aby odkryć więcej firm"
+  },
+  "businessFilter": {
+    "allBusinesses": "Wszystkie firmy"
+  },
+  "businessCard": {
+    "products": "Produkty",
+    "visitStore": "Odwiedź sklep"
+  }
+}

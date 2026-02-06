@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Domů",
+    "businesses": "Podniky",
+    "startBusiness": "Zahajte svůj podnik",
+    "contactUs": "Kontaktujte nás",
+    "login": "Přihlásit se"
+  },
+  "footer": {
+    "tagline": "Posilujeme podniky po celém světě pomocí objednávek řízených AI a vícejazyčné podpory",
+    "quickLinks": {
+      "title": "Rychlé odkazy",
+      "home": "Domů",
+      "businesses": "Podniky",
+      "startBusiness": "Zahajte svůj podnik",
+      "faq": "Často kladené otázky"
+    },
+    "contact": {
+      "title": "Kontaktujte nás",
+      "whatsappSupport": "K dispozici podpora přes WhatsApp"
+    },
+    "copyright": "© {{year}} MyPadiFood. Všechna práva vyhrazena."
+  },
+  "hero": {
+    "badge": "Globální obchodní platforma",
+    "headline": "Spusťte svůj podnik",
+    "headlineHighlight": "Kdekoli, v jakémkoli jazyce",
+    "subtitle": "Jediná platforma, která umožňuje zákazníkům objednávat ve svém jazyce, platit ve své měně a hodnotit prostřednictvím telefonního hovoru - bez nutnosti stahování aplikace.",
+    "features": {
+      "globalLanguage": {
+        "title": "Jakýkoli jazyk",
+        "description": "Zákazníci objednávají ve svém rodném jazyce"
+      },
+      "multiCurrency": {
+        "title": "Více měn",
+        "description": "Přijímejte platby v jakékoli měně"
+      },
+      "noSignUp": {
+        "title": "Bez registrace",
+        "description": "Zákazníci objednávají okamžitě"
+      },
+      "whatsApp": {
+        "title": "Objednávky přes WhatsApp",
+        "description": "Přijímejte objednávky přes WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Telefonické recenze",
+        "description": "Automatizované sbírání hlasových recenzí"
+      },
+      "fastSetup": {
+        "title": "Rychlé nastavení",
+        "description": "Spuštění do 24 hodin"
+      }
+    },
+    "quickStart": {
+      "title": "Zahajte bezplatnou zkušební verzi",
+      "emailLabel": "Váš firemní e-mail",
+      "emailPlaceholder": "podnik@priklad.cz",
+      "buttonText": "Začít zdarma",
+      "disclaimer": "Není vyžadována kreditní karta. Nastavení během několika minut."
+    }
+  },
+  "aboutUs": {
+    "title": "O MyPadiFood",
+    "subtitle": "Bourání jazykových a měnových bariér k posílení podniků po celém světě",
+    "mission": {
+      "title": "Naše mise",
+      "description": "Věříme, že každý podnik, bez ohledu na velikost nebo umístění, si zaslouží přístup ke globálním zákazníkům. MyPadiFood vznikl z jednoduchého pozorování: jazykové a měnové bariéry by neměly omezovat potenciál podniku sloužit zákazníkům po celém světě.",
+      "point1": "Umožnit podnikům oslovit zákazníky v jakémkoli jazyce bez složitosti manuálního překladu",
+      "point2": "Odstranit překážky při převodu měn a zpracování mezinárodních plateb"
+    },
+    "vision": {
+      "title": "Naše vize",
+      "description": "Představujeme si svět, kde malá farma v Nigérii může bezproblémově obsluhovat zákazníky v Japonsku, butik v Paříži může bez námahy dodávat do Brazílie a restaurace v Mexiku může přijímat objednávky od zákazníků v Indii - to vše bez obav z jazykových bariér nebo platebních komplikací.",
+      "point1": "Do roku 2030 podpořit více než 1 milion podniků po celém světě",
+      "point2": "Podporovat obchod ve všech jazycích a měnách po celém světě"
+    },
+    "values": {
+      "title": "Co nás pohání",
+      "value1": {
+        "title": "Dostupnost",
+        "description": "Technologie by měla posilovat, ne komplikovat. Žádné aplikace ke stažení, žádné složité nastavení."
+      },
+      "value2": {
+        "title": "Inovace",
+        "description": "Překlad a automatizace řízená AI, která funguje bezproblémově na pozadí."
+      },
+      "value3": {
+        "title": "Inkluzivita",
+        "description": "Každý podnik si zaslouží globální dosah, bez ohledu na technické znalosti nebo rozpočet."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Příběhy úspěchu",
+    "subtitle": "Skutečné podniky dosahující mimořádného růstu s MyPadiFood",
+    "viewMore": "Zobrazit více příběhů úspěchu"
+  },
+  "testimonials": {
+    "title": "Příběhy úspěchu",
+    "subtitle": "Skutečné podniky, skutečné výsledky",
+    "aiPoweredAdvantage": "Výhoda AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Zemědělství",
+      "quote": "Systém překladu a více měn řízený AI od MyPadiFood pomohl mé farmě oslovit zákazníky v 5 různých zemích. Tržby vzrostly o 300 % za pouhé 2 měsíce!",
+      "highlight": "AI dovednost: Inteligentní kategorizace produktů a předpověď sezónní poptávky, která optimalizovala mé zásoby a zvýšila prodej.",
+      "metrics": "Růst o 300 % • 5 zemí • 2 měsíce"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Móda a oblečení",
+      "quote": "Zákazníci milují, že mohou objednávat ve svém místním jazyce bez registrace. Mé mezinárodní objednávky se okamžitě ztrojnásobily po nastavení mého obchodu.",
+      "highlight": "AI dovednost: Analýza módních trendů a automatizovaná doporučení velikostí, která snížila míru vrácení o 40 %.",
+      "metrics": "Nárůst o 200 % • O 40 % méně vrácení • 12 jazyků"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Pohostinství",
+      "quote": "Mezinárodní hosté si nyní mohou rezervovat mé apartmány ve své měně a jazyce. Integrace WhatsApp činí potvrzení bezproblémovým!",
+      "highlight": "AI dovednost: Dynamické ceny a optimalizace dostupnosti, která zvýšila míru obsazenosti o 65 % po celý rok.",
+      "metrics": "65% obsazenost • Okamžité rezervace • Globální dosah"
+    },
+    "stats": {
+      "countries": "Obsloužených zemí",
+      "setupTime": "Průměrné nastavení",
+      "signUpRequired": "Registrace zákazníka",
+      "languagesSupported": "Jazyky"
+    }
+  },
+  "howItWorks": {
+    "title": "Jak to funguje",
+    "subtitle": "Spusťte svůj globální podnik ve třech jednoduchých krocích",
+    "step1": {
+      "title": "Zákazník vybere jazyk",
+      "description": "Vaši zákazníci procházejí vaše menu ve svém preferovaném jazyce. AI okamžitě překládá vše - položky menu, popisy, ceny."
+    },
+    "step2": {
+      "title": "Vyberou si měnu",
+      "description": "Zákazníci vidí ceny ve své místní měně. Převod v reálném čase provádí všechny výpočty automaticky."
+    },
+    "step3": {
+      "title": "Objednávka přes WhatsApp",
+      "description": "Objednávky přicházejí přímo na váš WhatsApp. Pro vaše zákazníky není nutné stahování aplikací. Jednoduché a okamžité."
+    }
+  },
+  "globalReach": {
+    "title": "Vytvořeno pro globální obchod",
+    "subtitle": "Připojte se k tisícům podniků obsluhujících zákazníky po celém světě",
+    "stats": {
+      "businesses": "Aktivních podniků",
+      "transactions": "Měsíčních transakcí",
+      "languagesUsed": "Používaných jazyků",
+      "currenciesSupported": "Měn"
+    }
+  },
+  "finalCta": {
+    "badge": "Připojte se k úspěšným podnikům po celém světě",
+    "title": "Jste připraveni jít do světa?",
+    "primaryButton": "Začít bezplatnou zkušební verzi",
+    "secondaryButton": "Zobrazit příběhy úspěchu",
+    "subtitle": "Není vyžadována kreditní karta • Nastavení do 24 hodin • Kdykoli zrušit"
+  },
+  "languages": {
+    "en": "Angličtina",
+    "es": "Španělština",
+    "fr": "Francouzština",
+    "de": "Němčina",
+    "zh": "Čínština",
+    "ar": "Arabština",
+    "hi": "Hindština",
+    "pt": "Portugalština",
+    "ru": "Ruština",
+    "ja": "Japonština",
+    "ko": "Korejština",
+    "it": "Italština",
+    "nl": "Holandština",
+    "tr": "Turečtina",
+    "pl": "Polština",
+    "vi": "Vietnamština",
+    "th": "Thajština",
+    "id": "Indonéština",
+    "ro": "Rumunština",
+    "cs": "Čeština"
+  },
+  "whatsappWidget": {
+    "title": "Chatujte s námi",
+    "subtitle": "Podpora platformy",
+    "selectTopic": "Vyberte téma pro zahájení chatu:",
+    "customMessage": "Zahájit vlastní chat",
+    "opening": "Otevírání WhatsApp...",
+    "messages": {
+      "generalHelp": "Ahoj, potřebuji pomoc s platformou MyPadiFood",
+      "setupStore": "Chci založit svůj online obchod. Můžete mi pomoci začít?",
+      "pricing": "Jaké jsou vaše cenové plány? Chtěl bych znát náklady a funkce.",
+      "technicalIssue": "Mám technický problém se svým obchodem. Můžete mi pomoci?",
+      "multiLanguage": "Jak funguje vícejazyčná překladová funkce?",
+      "payments": "Mám otázky ohledně zpracování plateb a podpory více měn.",
+      "whatsappIntegration": "Jak integruji objednávky WhatsApp do svého obchodu?",
+      "customDomain": "Mohu použít svou vlastní doménu pro svůj obchod?",
+      "migration": "Chci migrovat svůj stávající podnik na MyPadiFood. Jak to funguje?",
+      "bulkOrders": "Jak mohu zpracovat hromadné objednávky a velkoobchodní zákazníky?",
+      "custom": "Ahoj, mám otázku ohledně platformy MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Často kladené otázky",
+    "subtitle": "Vše, co potřebujete vědět o MyPadiFood",
+    "backToHome": "Zpět na domovskou stránku",
+    "stillHaveQuestions": "Stále máte otázky?",
+    "contactSupport": "Náš tým podpory je připraven vám pomoci uspět",
+    "chatWithSupport": "Chatujte s podporou na WhatsApp",
+    "whatsappMessage": "Ahoj, mám otázku o MyPadiFood, která nebyla pokryta v FAQ",
+    "categories": {
+      "general": "Obecné informace",
+      "pricing": "Ceny a fakturace",
+      "features": "Funkce a možnosti",
+      "gettingStarted": "Začínáme",
+      "support": "Podpora a školení"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Co je MyPadiFood?",
+      "whoCanUse": "Kdo může používat MyPadiFood?",
+      "howDifferent": "Jak se MyPadiFood liší od jiných e-commerce platforem?",
+      "freeTrial": "Nabízíte bezplatnou zkušební verzi?",
+      "subscriptionPlans": "Jaké předplatné plány nabízíte?",
+      "paymentMethods": "Jaké platební metody přijímáte pro předplatné?",
+      "cancelAnytime": "Mohu kdykoli zrušit své předplatné?",
+      "languagesSupported": "Kolik jazyků MyPadiFood podporuje?",
+      "currenciesSupported": "V jakých měnách mohu přijímat platby?",
+      "whatsappOrders": "Jak fungují objednávky přes WhatsApp?",
+      "customDomain": "Mohu použít svou vlastní doménu?",
+      "cashPayments": "Zpracovává MyPadiFood hotovostní platby pro můj podnik?",
+      "setupTime": "Jak dlouho trvá nastavení mého obchodu?",
+      "technicalKnowledge": "Potřebuji technické znalosti pro použití MyPadiFood?",
+      "productLimit": "Existuje limit pro počet produktů, které mohu přidat?",
+      "migration": "Mohu migrovat svůj stávající online obchod na MyPadiFood?",
+      "customerSupport": "Jaký druh zákaznické podpory poskytujete?",
+      "training": "Poskytujete školení nebo pomoc při nástupu?",
+      "updates": "Jak často vydáváte nové funkce a aktualizace?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood je globální e-commerce platforma, která umožňuje podnikům prodávat produkty a služby zákazníkům po celém světě. Naše platforma řízená AI automaticky překládá váš obchod do více jazyků, zpracovává platby ve více měnách a umožňuje zákazníkům objednávat přes WhatsApp bez stahování aplikací. Odstraňujeme jazykové a měnové bariéry, abyste se mohli soustředit na růst vašeho podniku globálně.",
+      "whoCanUseAnswer": "MyPadiFood je ideální pro jakýkoli podnik, který chce expandovat globálně - od malých farem a restaurací po módní butiky, pohostinské služby a velkoobchodní dodavatele. Ať už jste samostatný podnikatel, majitel malého podniku nebo rostoucí podnik, naše platforma roste s vašimi potřebami. Pokud máte produkty nebo služby k prodeji a chcete oslovit mezinárodní zákazníky, MyPadiFood je vytvořen pro vás.",
+      "howDifferentAnswer": "Na rozdíl od tradičních e-commerce platforem je MyPadiFood speciálně navržen pro globální obchod. Naše jedinečné funkce zahrnují: (1) Překlad řízený AI do více než 20 jazyků bez manuálního úsilí, (2) Zákazníci mohou objednávat bez vytváření účtů nebo stahování aplikací, (3) Integrace WhatsApp pro bezproblémovou správu objednávek, (4) Podpora více měn s automatickým převodem, (5) Telefonické sbírání zákaznických recenzí a (6) Není vyžadována technická odbornost pro začátek.",
+      "freeTrialAnswer": "Ano! Nabízíme velkorysou 14denní bezplatnou zkušební verzi s plným přístupem ke všem funkcím. K zahájení zkušební verze není vyžadována kreditní karta. To vám dává dostatek času na nastavení vašeho obchodu, přidání produktů, přizpůsobení nastavení a otestování všech našich funkcí. Po skončení 14denní zkušební verze bude váš obchod dočasně pozastaven, dokud si nevyberete předplatné, které vám vyhovuje. Kdykoli můžete obchod znovu aktivovat přihlášením se k odběru.",
+      "subscriptionPlansAnswer": "Nabízíme flexibilní předplatné plány přizpůsobené vašim obchodním potřebám: Měsíční předplatné pro maximální flexibilitu, Čtvrtletní plány s úsporou nákladů, Pololetní (6měsíční) předplatné pro lepší hodnotu a Roční plány pro nejlepší sazby. Poplatky za předplatné se liší podle vaší hostitelské země, aby bylo zajištěno spravedlivé oceňování na základě místních ekonomických podmínek. Kontaktujte náš tým podpory přes WhatsApp, abyste získali konkrétní ceny pro vaši zemi a prodiskutovali, který plán nejlépe vyhovuje vašim obchodním cílům.",
+      "paymentMethodsAnswer": "Přijímáme více platebních metod pro poplatky za předplatné v závislosti na vaší zemi, včetně kreditních/debetních karet, bankovních převodů, mobilních peněz a dalších místních platebních možností. Naším cílem je, aby bylo pro vás co nejjednodušší přihlásit se k odběru a udržovat si váš účet. Kontaktujte náš tým podpory a zjistěte konkrétní platební metody dostupné ve vašem regionu.",
+      "cancelAnytimeAnswer": "Rozhodně! Máte plnou kontrolu nad svým předplatným. Můžete zrušit kdykoli bez penále nebo skrytých poplatků. Pokud zrušíte během svého fakturačního cyklu, budete mít přístup ke svému obchodu až do konce tohoto placeného období. Věříme, že si každý měsíc zasloužíme vaše podnikání, ne že vás zavřeme do dlouhodobých smluv, které nechcete.",
+      "languagesSupportedAnswer": "MyPadiFood v současné době podporuje více než 20 hlavních jazyků včetně angličtiny, španělštiny, francouzštiny, němčiny, čínštiny, arabštiny, hindštiny, portugalštiny, ruštiny, japonštiny, korejštiny, italštiny, holandštiny, turečtiny, polštiny, vietnamštiny, thajštiny, indonéštiny, rumunštiny a češtiny. Náš překladový systém AI zajišťuje, že popisy vašich produktů, menu a obsah obchodu jsou přesně přeloženy v reálném čase. Neustále přidáváme další jazyky na základě poptávky zákazníků.",
+      "currenciesSupportedAnswer": "Můžete přijímat platby prakticky v jakékoli hlavní měně na světě. Naše platforma zpracovává převod měn v reálném čase automaticky, takže zákazníci vidí ceny ve své místní měně, zatímco vy přijímáte platby ve své preferované měně. To zahrnuje USD, EUR, GBP, NGN, JPY, CNY, INR a mnoho dalších. Systém pravidelně aktualizuje směnné kurzy, aby zajistil přesné oceňování.",
+      "whatsappOrdersAnswer": "Když zákazníci zadají objednávky ve vašem obchodě MyPadiFood, obdržíte okamžitá oznámení přímo na vaše firemní číslo WhatsApp. Podrobnosti objednávky jsou jasně formátovány s informacemi o zákazníkovi, objednávaných položkách, doručovací adresou a stavem platby. Můžete potvrzovat objednávky, aktualizovat zákazníky o stavu objednávky a komunikovat přímo přes WhatsApp - není třeba se učit nový systém. Je to stejně jednoduché jako konverzace se zákazníkem.",
+      "customDomainAnswer": "Ano! Můžete připojit svou vlastní doménu ke svému obchodu MyPadiFood pro profesionální značkovou zkušenost. Například místo vaspodnik.mypadifood.com můžete použít obchod.vaspodnik.cz nebo jakoukoli doménu, kterou vlastníte. Tato funkce je k dispozici u vybraných předplatných plánů. Náš tým podpory vás provede jednoduchým procesem nastavení.",
+      "cashPaymentsAnswer": "MyPadiFood NEPŘIJÍMÁ, NEZPRACOVÁVÁ ani NESPRAVUJE hotovostní platby jménem vašeho podniku. Všechny hotovostní transakce jsou spravovány přímo mezi vámi a vašimi zákazníky. Zachováváte si plnou kontrolu nad svými hotovostními platbami, inkasem a odsouhlasením. MyPadiFood pouze usnadňuje objednávkovou platformu a zpracování digitálních plateb. Jakákoli hotovostní platební ujednání jsou vaší odpovědností spravovat samostatně.",
+      "setupTimeAnswer": "Většina podniků může mít svůj obchod plně nastavený a připravený přijímat objednávky během 24 hodin nebo méně. Náš zjednodušený proces nástupu vás provede: vytvořením účtu, přidáním produktů, nastavením platebních metod, přizpůsobením vzhledu obchodu a připojením vašeho WhatsApp. Mnoho uživatelů dokončí základní nastavení za méně než 2 hodiny. Poskytujeme krok za krokem pokyny a podporu, která vám pomůže rychle spustit.",
+      "technicalKnowledgeAnswer": "Nejsou vyžadovány žádné technické znalosti! MyPadiFood je navržen pro majitele podniků, ne pro vývojáře. Naše intuitivní rozhraní vás provede každým krokem s jasnými pokyny. Nemusíte vědět, jak kódovat, rozumět webhostingu nebo spravovat servery. Pokud umíte používat WhatsApp a e-mail, můžete spravovat svůj obchod MyPadiFood. Náš tým podpory je také k dispozici, aby pomohl s jakýmikoli dotazy.",
+      "productLimitAnswer": "Neexistuje žádný limit pro počet produktů, které můžete přidat do svého obchodu. Ať už máte 10 produktů nebo 10 000, MyPadiFood zvládne váš katalog. Můžete organizovat produkty do kategorií, přidávat podrobné popisy a obrázky, nastavovat úrovně zásob a spravovat vše z vašeho ovládacího panelu. Jak váš podnik roste, váš obchod roste s vámi.",
+      "migrationAnswer": "Ano, můžeme vám pomoci migrovat váš stávající online obchod na MyPadiFood! Podporujeme migraci z různých platforem včetně Shopify, WooCommerce a dalších e-commerce systémů. Náš tým vám může pomoci s přenosem vašeho katalogu produktů, zákaznických dat a historie objednávek. Kontaktujte náš tým podpory přes WhatsApp a promluvte si o vašich konkrétních potřebách migrace, časovém plánu a jakýchkoli vlastních požadavcích. Učiníme přechod co nejplynulejším.",
+      "customerSupportAnswer": "Poskytujeme komplexní podporu prostřednictvím více kanálů: Podpora WhatsApp pro rychlé dotazy a pomoc v reálném čase, E-mailová podpora pro podrobné dotazy, Centrum nápovědy s průvodci a návody a Video návody pro složité funkce. Náš tým podpory pracuje během pracovní doby a snažíme se odpovědět na všechny dotazy do 24 hodin. Prémiové balíčky podpory s vyhrazenými account manažery jsou k dispozici pro rostoucí podniky.",
+      "trainingAnswer": "Ano! Poskytujeme rozsáhlé školicí zdroje, které vám pomohou uspět: Bezplatné úvodní sezení při přihlášení, Video návody pokrývající všechny funkce, Psané krok za krokem průvodce, Živé webináře pro nové funkce a Individuální školicí sezení (dostupné s prémiovými plány). Chceme zajistit, abyste se cítili sebevědomě při používání každého aspektu platformy k růstu vašeho podniku.",
+      "updatesAnswer": "Nepřetržitě vylepšujeme MyPadiFood s pravidelnými aktualizacemi a novými funkcemi. Hlavní vydání funkcí obvykle probíhají čtvrtletně, s menšími vylepšeními a opravami chyb vydávanými podle potřeby. Všechny aktualizace jsou zahrnuty ve vašem předplatném bez dodatečných nákladů. Oznamujeme nové funkce prostřednictvím e-mailu, oznámení v aplikaci a našich sociálních médií. Vaše zpětná vazba pomáhá formovat naši plánovanou cestu, takže vždy vytváříme to, co podniky nejvíce potřebují."
+    }
+  },
+  "onboarding": {
+    "title": "Zahajte svůj podnik",
+    "subtitle": "Vyplňte níže uvedený formulář a náš tým vám pomůže začít",
+    "submitSuccess": "Žádost byla úspěšně odeslána!",
+    "submitError": "Odeslání žádosti se nezdařilo",
+    "submitting": "Odesílání...",
+    "submitButton": "Odeslat žádost",
+    "submitAnother": "Odeslat další žádost",
+    "successTitle": "Děkujeme!",
+    "successMessage": "Vaše žádost o nástup byla úspěšně odeslána. Náš tým vás bude kontaktovat do 24 hodin.",
+    "categories": {
+      "foodDining": "🍽️ Jídlo a stravování",
+      "agricultureFarming": "🌾 Zemědělství a farmaření",
+      "hospitality": "🏨 Pohostinství",
+      "retailShopping": "🛍️ Maloobchod a nakupování",
+      "technologyElectronics": "💻 Technologie a elektronika",
+      "healthBeauty": "💄 Zdraví a krása",
+      "homeLiving": "🏠 Domov a bydlení",
+      "automotive": "🚗 Automobilový průmysl",
+      "educationLearning": "🎓 Vzdělávání a učení",
+      "sportsRecreation": "⚽ Sport a rekreace",
+      "professionalServices": "💼 Profesionální služby",
+      "otherServices": "🔧 Další služby"
+    },
+    "businessInfo": {
+      "title": "Informace o podniku",
+      "businessName": "Název podniku",
+      "businessNamePlaceholder": "např. Čerstvé farmářské produkty",
+      "businessType": "Typ podniku",
+      "other": "Jiné",
+      "preferredSlug": "Preferovaná URL adresa",
+      "slugPlaceholder": "cerstvafarma",
+      "slugHint": "Pouze malá písmena, čísla a pomlčky",
+      "urlPreviewLabel": "Váš podnik bude přístupný na:",
+      "description": "Popis",
+      "descriptionPlaceholder": "Řekněte nám o svém podniku..."
+    },
+    "ownerInfo": {
+      "title": "Informace o majiteli",
+      "fullName": "Celé jméno",
+      "fullNamePlaceholder": "Jan Novák",
+      "email": "E-mail",
+      "emailPlaceholder": "jan@priklad.cz",
+      "phone": "Telefon",
+      "phonePlaceholder": "+420 800 000 000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Naše podniky",
+    "subtitle": "Objevte úžasné místní podniky na naší platformě",
+    "noBusinesses": "V této kategorii nebyly nalezeny žádné podniky",
+    "tryDifferent": "Zkuste vybrat jinou kategorii pro prozkoumání více podniků"
+  },
+  "businessFilter": {
+    "allBusinesses": "Všechny podniky"
+  },
+  "businessCard": {
+    "products": "Produkty",
+    "visitStore": "Navštívit obchod"
+  }
+}

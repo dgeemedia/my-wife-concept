@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Acasă",
+    "businesses": "Afaceri",
+    "startBusiness": "Începe-ți Afacerea",
+    "contactUs": "Contactează-ne",
+    "login": "Autentificare"
+  },
+  "footer": {
+    "tagline": "Împuternicim afaceri în întreaga lume cu comenzi bazate pe AI și suport multilingv",
+    "quickLinks": {
+      "title": "Link-uri Rapide",
+      "home": "Acasă",
+      "businesses": "Afaceri",
+      "startBusiness": "Începe-ți Afacerea",
+      "faq": "Întrebări Frecvente"
+    },
+    "contact": {
+      "title": "Contactează-ne",
+      "whatsappSupport": "Asistență WhatsApp Disponibilă"
+    },
+    "copyright": "© {{year}} MyPadiFood. Toate drepturile rezervate."
+  },
+  "hero": {
+    "badge": "Platformă Globală de Afaceri",
+    "headline": "Lansează-ți Afacerea",
+    "headlineHighlight": "Oriunde, În Orice Limbă",
+    "subtitle": "Singura platformă care permite clienților să comande în limba lor, să plătească în moneda lor și să evalueze prin apel telefonic - fără descărcare de aplicație necesară.",
+    "features": {
+      "globalLanguage": {
+        "title": "Orice Limbă",
+        "description": "Clienții comandă în limba lor nativă"
+      },
+      "multiCurrency": {
+        "title": "Multi-Valută",
+        "description": "Acceptă plăți în orice monedă"
+      },
+      "noSignUp": {
+        "title": "Fără Înregistrare",
+        "description": "Clienții comandă instant"
+      },
+      "whatsApp": {
+        "title": "Comenzi WhatsApp",
+        "description": "Primește comenzi prin WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Recenzii Telefonice",
+        "description": "Colectare automată de recenzii vocale"
+      },
+      "fastSetup": {
+        "title": "Configurare Rapidă",
+        "description": "Lansează în mai puțin de 24 de ore"
+      }
+    },
+    "quickStart": {
+      "title": "Începe Perioada de Probă Gratuită",
+      "emailLabel": "Email-ul Afacerii Tale",
+      "emailPlaceholder": "afacere@exemplu.com",
+      "buttonText": "Începe Gratuit",
+      "disclaimer": "Nu este necesară cardul de credit. Configurare în câteva minute."
+    }
+  },
+  "aboutUs": {
+    "title": "Despre MyPadiFood",
+    "subtitle": "Eliminăm barierele de limbă și valută pentru a împuternici afaceri în întreaga lume",
+    "mission": {
+      "title": "Misiunea Noastră",
+      "description": "Credem că fiecare afacere, indiferent de dimensiune sau locație, merită acces la clienți globali. MyPadiFood s-a născut dintr-o observație simplă: barierele de limbă și valută nu ar trebui să limiteze potențialul unei afaceri de a servi clienți din întreaga lume.",
+      "point1": "Permite afacerilor să ajungă la clienți în orice limbă fără complexitatea traducerii manuale",
+      "point2": "Elimină frecarea conversiei valutare și procesării plăților internaționale"
+    },
+    "vision": {
+      "title": "Viziunea Noastră",
+      "description": "Vizăm o lume în care o fermă mică din Nigeria poate servi fără probleme clienți din Japonia, o boutique din Paris poate livra cu ușurință în Brazilia, iar un restaurant din Mexic poate primi comenzi de la clienți din India - toate fără să se îngrijoreze de bariere lingvistice sau complicații de plată.",
+      "point1": "Să deservim peste 1 milion de afaceri global până în 2030",
+      "point2": "Să susținem comerțul în fiecare limbă și monedă din lume"
+    },
+    "values": {
+      "title": "Ce Ne Motivează",
+      "value1": {
+        "title": "Accesibilitate",
+        "description": "Tehnologia ar trebui să împuternicească, nu să complice. Fără aplicații de descărcat, fără configurări complexe."
+      },
+      "value2": {
+        "title": "Inovație",
+        "description": "Traducere și automatizare bazate pe AI care funcționează perfect în fundal."
+      },
+      "value3": {
+        "title": "Incluziune",
+        "description": "Fiecare afacere merită acoperire globală, indiferent de expertiză tehnică sau buget."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Povești de Succes",
+    "subtitle": "Afaceri reale care obțin creștere extraordinară cu MyPadiFood",
+    "viewMore": "Vezi Mai Multe Povești de Succes"
+  },
+  "testimonials": {
+    "title": "Povești de Succes",
+    "subtitle": "Afaceri reale, rezultate reale",
+    "aiPoweredAdvantage": "Avantaj Bazat pe AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Agricultură",
+      "quote": "Sistemul de traducere bazat pe AI și multi-valută al MyPadiFood a ajutat ferma mea să ajungă la clienți în 5 țări diferite. Vânzările au crescut cu 300% în doar 2 luni!",
+      "highlight": "Abilitate AI: Categorizare inteligentă a produselor și predicție a cererii sezoniere care mi-a optimizat inventarul și a crescut vânzările.",
+      "metrics": "300% creștere • 5 țări • 2 luni"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Modă & Îmbrăcăminte",
+      "quote": "Clienților le place că pot comanda în limba lor locală fără să se înregistreze. Comenzile mele internaționale s-au triplat imediat după configurarea magazinului.",
+      "highlight": "Abilitate AI: Analiză a tendințelor în modă și recomandări automate de mărime care au redus ratele de returnare cu 40%.",
+      "metrics": "200% creștere • 40% mai puține returnări • 12 limbi"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Ospitalitate",
+      "quote": "Oaspeții internaționali pot acum să rezerve apartamentele mele în moneda și limba lor. Integrarea WhatsApp face confirmările fără probleme!",
+      "highlight": "Abilitate AI: Prețuri dinamice și optimizare a disponibilității care a crescut ratele de ocupare cu 65% pe tot parcursul anului.",
+      "metrics": "65% ocupare • Rezervări instant • Acoperire globală"
+    },
+    "stats": {
+      "countries": "Țări Deservite",
+      "setupTime": "Configurare Medie",
+      "signUpRequired": "Înregistrare Client",
+      "languagesSupported": "Limbi"
+    }
+  },
+  "howItWorks": {
+    "title": "Cum Funcționează",
+    "subtitle": "Lansează-ți afacerea globală în trei pași simpli",
+    "step1": {
+      "title": "Clientul Selectează Limba",
+      "description": "Clienții tăi navighează meniul în limba preferată. AI traduce instant totul - articole din meniu, descrieri, prețuri."
+    },
+    "step2": {
+      "title": "Aleg Moneda Lor",
+      "description": "Clienții văd prețurile în moneda lor locală. Conversia în timp real gestionează automat toate calculele."
+    },
+    "step3": {
+      "title": "Comandă prin WhatsApp",
+      "description": "Comenzile vin direct pe WhatsApp-ul tău. Nu sunt necesare descărcări de aplicații pentru clienții tăi. Simplu și instant."
+    }
+  },
+  "globalReach": {
+    "title": "Construit pentru Comerț Global",
+    "subtitle": "Alătură-te miilor de afaceri care deservesc clienți în întreaga lume",
+    "stats": {
+      "businesses": "Afaceri Active",
+      "transactions": "Tranzacții Lunare",
+      "languagesUsed": "Limbi În Utilizare",
+      "currenciesSupported": "Monede"
+    }
+  },
+  "finalCta": {
+    "badge": "Alătură-te afacerilor de succes din întreaga lume",
+    "title": "Gata să Mergi Global?",
+    "primaryButton": "Începe Perioada de Probă Gratuită",
+    "secondaryButton": "Vezi Povești de Succes",
+    "subtitle": "Nu este necesară cardul de credit • Configurare în 24 de ore • Anulează oricând"
+  },
+  "languages": {
+    "en": "Engleză",
+    "es": "Spaniolă",
+    "fr": "Franceză",
+    "de": "Germană",
+    "zh": "Chineză",
+    "ar": "Arabă",
+    "hi": "Hindi",
+    "pt": "Portugheză",
+    "ru": "Rusă",
+    "ja": "Japoneză",
+    "ko": "Coreeană",
+    "it": "Italiană",
+    "nl": "Olandeză",
+    "tr": "Turcă",
+    "pl": "Poloneză",
+    "vi": "Vietnameză",
+    "th": "Thailandeză",
+    "id": "Indoneziană",
+    "ro": "Română",
+    "cs": "Cehă"
+  },
+  "whatsappWidget": {
+    "title": "Discută cu Noi",
+    "subtitle": "Asistență Platformă",
+    "selectTopic": "Selectează un subiect pentru a începe conversația:",
+    "customMessage": "Începe Chat Personalizat",
+    "opening": "Se deschide WhatsApp...",
+    "messages": {
+      "generalHelp": "Bună, am nevoie de ajutor cu platforma MyPadiFood",
+      "setupStore": "Vreau să îmi configurez magazinul online. Mă poți ajuta să încep?",
+      "pricing": "Care sunt planurile dvs. de prețuri? Aș dori să știu costurile și caracteristicile.",
+      "technicalIssue": "Întâmpin o problemă tehnică cu magazinul meu. Mă poți ajuta?",
+      "multiLanguage": "Cum funcționează caracteristica de traducere multilingvă?",
+      "payments": "Am întrebări despre procesarea plăților și suportul multi-valută.",
+      "whatsappIntegration": "Cum integrez comenzile WhatsApp cu magazinul meu?",
+      "customDomain": "Pot folosi propriul meu domeniu personalizat pentru magazin?",
+      "migration": "Vreau să migrez afacerea mea existentă către MyPadiFood. Cum funcționează?",
+      "bulkOrders": "Cum pot gestiona comenzi în vrac și clienți angrosști?",
+      "custom": "Bună, am o întrebare despre platforma MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Întrebări Frecvente",
+    "subtitle": "Tot ce trebuie să știi despre MyPadiFood",
+    "backToHome": "Înapoi la Pagina Principală",
+    "stillHaveQuestions": "Mai Ai Întrebări?",
+    "contactSupport": "Echipa noastră de asistență este gata să te ajute să reușești",
+    "chatWithSupport": "Discută cu Asistența pe WhatsApp",
+    "whatsappMessage": "Bună, am o întrebare despre MyPadiFood care nu a fost acoperită în FAQ",
+    "categories": {
+      "general": "Informații Generale",
+      "pricing": "Prețuri & Facturare",
+      "features": "Caracteristici & Capabilități",
+      "gettingStarted": "Primii Pași",
+      "support": "Asistență & Formare"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Ce este MyPadiFood?",
+      "whoCanUse": "Cine poate folosi MyPadiFood?",
+      "howDifferent": "Cu ce diferă MyPadiFood de alte platforme de e-commerce?",
+      "freeTrial": "Oferiți o perioadă de probă gratuită?",
+      "subscriptionPlans": "Ce planuri de abonament oferiți?",
+      "paymentMethods": "Ce metode de plată acceptați pentru abonamente?",
+      "cancelAnytime": "Pot anula abonamentul oricând?",
+      "languagesSupported": "Câte limbi suportă MyPadiFood?",
+      "currenciesSupported": "În ce monede pot accepta plăți?",
+      "whatsappOrders": "Cum funcționează comenzile WhatsApp?",
+      "customDomain": "Pot folosi propriul meu domeniu personalizat?",
+      "cashPayments": "MyPadiFood gestionează plățile în numerar pentru afacerea mea?",
+      "setupTime": "Cât durează să configurez magazinul?",
+      "technicalKnowledge": "Am nevoie de cunoștințe tehnice pentru a folosi MyPadiFood?",
+      "productLimit": "Există o limită pentru câte produse pot adăuga?",
+      "migration": "Pot migra magazinul meu online existent către MyPadiFood?",
+      "customerSupport": "Ce fel de asistență pentru clienți oferiți?",
+      "training": "Oferiți formare sau asistență la integrare?",
+      "updates": "Cât de des lansați caracteristici și actualizări noi?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood este o platformă globală de e-commerce care permite afacerilor să vândă produse și servicii clienților din întreaga lume. Platforma noastră bazată pe AI traduce automat magazinul în multiple limbi, gestionează plățile multi-valută și permite clienților să comande prin WhatsApp fără a descărca aplicații. Eliminăm barierele de limbă și valută astfel încât să te poți concentra pe creșterea afacerii tale la nivel global.",
+      "whoCanUseAnswer": "MyPadiFood este perfect pentru orice afacere care dorește să se extindă global - de la ferme mici și restaurante la boutique-uri de modă, servicii de ospitalitate și furnizori angro. Fie că ești antreprenor individual, proprietar de afacere mică sau întreprindere în creștere, platforma noastră se adaptează nevoilor tale. Dacă ai produse sau servicii de vândut și vrei să ajungi la clienți internaționali, MyPadiFood este construit pentru tine.",
+      "howDifferentAnswer": "Spre deosebire de platformele tradiționale de e-commerce, MyPadiFood este conceput special pentru comerțul global. Caracteristicile noastre unice includ: (1) Traducere bazată pe AI în peste 20 de limbi fără efort manual, (2) Clienții pot comanda fără a crea conturi sau descărca aplicații, (3) Integrare WhatsApp pentru gestionarea ușoară a comenzilor, (4) Suport multi-valută cu conversie automată, (5) Colectare de recenzii clienți prin telefon, și (6) Nu este necesară expertiză tehnică pentru a începe.",
+      "freeTrialAnswer": "Da! Oferim o perioadă de probă generoasă de 14 zile cu acces complet la toate caracteristicile. Nu este necesar card de credit pentru a începe perioada de probă. Aceasta îți oferă suficient timp să configurezi magazinul, să adaugi produse, să personalizezi setările și să testezi toate caracteristicile noastre. După ce perioada de probă de 14 zile se termină, magazinul tău va fi suspendat temporar până când alegi un plan de abonament care funcționează pentru tine. Poți reactiva oricând prin abonare.",
+      "subscriptionPlansAnswer": "Oferim planuri de abonament flexibile pentru a se potrivi nevoilor afacerii tale: Abonamente lunare pentru flexibilitate maximă, Planuri trimestriale cu economii de costuri, Abonamente semestriale (6 luni) pentru valoare mai bună, și Planuri anuale pentru cele mai bune tarife. Taxele de abonament variază în funcție de țara gazdă pentru a asigura prețuri corecte bazate pe condițiile economice locale. Contactează echipa noastră de asistență prin WhatsApp pentru a obține prețurile specifice pentru țara ta și pentru a discuta care plan se potrivește cel mai bine obiectivelor afacerii tale.",
+      "paymentMethodsAnswer": "Acceptăm multiple metode de plată pentru taxele de abonament în funcție de țara ta, inclusiv carduri de credit/debit, transferuri bancare, bani mobili și alte opțiuni locale de plată. Scopul nostru este să facem cât mai ușor posibil pentru tine să te abonezi și să îți menții contul. Contactează echipa noastră de asistență pentru a afla despre metodele specifice de plată disponibile în regiunea ta.",
+      "cancelAnytimeAnswer": "Absolut! Ai control complet asupra abonamentului tău. Poți anula oricând fără penalități sau taxe ascunse. Dacă anulezi în timpul ciclului de facturare, vei continua să ai acces la magazinul tău până la sfârșitul perioadei plătite respective. Credem în a câștiga afacerea ta în fiecare lună, nu în a te bloca în contracte pe termen lung pe care nu le dorești.",
+      "languagesSupportedAnswer": "MyPadiFood suportă în prezent peste 20 de limbi majore inclusiv engleză, spaniolă, franceză, germană, chineză, arabă, hindi, portugheză, rusă, japoneză, coreeană, italiană, olandeză, turcă, poloneză, vietnameză, thailandeză, indoneziană, română și cehă. Sistemul nostru de traducere AI asigură că descrierile produselor, meniurile și conținutul magazinului sunt traduse corect în timp real. Adăugăm constant mai multe limbi bazate pe cererea clienților.",
+      "currenciesSupportedAnswer": "Poți accepta plăți în practic orice monedă majoră din lume. Platforma noastră gestionează conversia valutară în timp real automat, astfel încât clienții văd prețurile în moneda lor locală în timp ce tu primești plăți în moneda ta preferată. Aceasta include USD, EUR, GBP, NGN, JPY, CNY, INR și multe altele. Sistemul actualizează ratele de schimb regulat pentru a asigura prețuri corecte.",
+      "whatsappOrdersAnswer": "Când clienții plasează comenzi în magazinul tău MyPadiFood, primești notificări instantanee direct pe numărul tău de afaceri WhatsApp. Detaliile comenzii sunt formatate clar cu informații despre client, articole comandate, adresă de livrare și stare de plată. Poți confirma comenzi, actualiza clienții despre starea comenzii și comunica direct prin WhatsApp - nu este nevoie să înveți un sistem nou. Este la fel de simplu ca și o conversație cu clientul tău.",
+      "customDomainAnswer": "Da! Poți conecta propriul tău domeniu personalizat la magazinul tău MyPadiFood pentru o experiență profesională de brand. De exemplu, în loc de afacereatau.mypadifood.com, poți folosi magazin.afacereatau.com sau orice domeniu deții. Această caracteristică este disponibilă pe planuri selectate de abonament. Echipa noastră de asistență te poate ghida prin procesul simplu de configurare.",
+      "cashPaymentsAnswer": "MyPadiFood NU acceptă, gestionează sau administrează plăți în numerar în numele afacerii tale. Toate tranzacțiile legate de numerar sunt gestionate direct între tine și clienții tăi. Menții controlul complet asupra plăților tale în numerar, colectărilor și reconcilierii. MyPadiFood facilitează doar platforma de comandă și procesarea plăților digitale. Orice aranjamente de plată în numerar sunt responsabilitatea ta de a gestiona independent.",
+      "setupTimeAnswer": "Majoritatea afacerilor pot avea magazinul complet configurat și gata să accepte comenzi în 24 de ore sau mai puțin. Procesul nostru eficient de integrare te ghidează prin: crearea contului tău, adăugarea produselor tale, configurarea metodelor de plată, personalizarea aspectului magazinului și conectarea WhatsApp-ului tău. Mulți utilizatori completează configurarea de bază în mai puțin de 2 ore. Oferim îndrumări pas cu pas și asistență pentru a te ajuta să lansezi rapid.",
+      "technicalKnowledgeAnswer": "Nu sunt necesare cunoștințe tehnice! MyPadiFood este conceput pentru proprietarii de afaceri, nu pentru dezvoltatori. Interfața noastră intuitivă te ghidează prin fiecare pas cu instrucțiuni clare. Nu trebuie să știi cum să programezi, să înțelegi hosting-ul web sau să gestionezi servere. Dacă poți folosi WhatsApp și email-ul, poți gestiona magazinul tău MyPadiFood. Echipa noastră de asistență este de asemenea disponibilă pentru a ajuta cu orice întrebări.",
+      "productLimitAnswer": "Nu există limită pentru numărul de produse pe care le poți adăuga în magazin. Fie că ai 10 produse sau 10.000, MyPadiFood poate gestiona catalogul tău. Poți organiza produsele în categorii, adăuga descrieri și imagini detaliate, seta niveluri de inventar și gestiona totul din tabloul de bord. Pe măsură ce afacerea ta crește, magazinul tău crește cu tine.",
+      "migrationAnswer": "Da, te putem ajuta să migrezi magazinul tău online existent către MyPadiFood! Suportăm migrarea de pe diverse platforme inclusiv Shopify, WooCommerce și alte sisteme de e-commerce. Echipa noastră poate ajuta cu transferul catalogului de produse, datelor clienților și istoricului comenzilor. Contactează echipa noastră de asistență prin WhatsApp pentru a discuta nevoile tale specifice de migrare, cronologie și orice cerințe personalizate. Vom face tranziția cât mai ușoară posibil.",
+      "customerSupportAnswer": "Oferim asistență cuprinzătoare prin multiple canale: Asistență WhatsApp pentru întrebări rapide și asistență în timp real, Asistență email pentru întrebări detaliate, Centru de ajutor cu ghiduri și tutoriale, și Demonstrații video pentru caracteristici complexe. Echipa noastră de asistență operează în timpul orelor de lucru și ne propunem să răspundem la toate solicitările în 24 de ore. Pachete de asistență premium cu manageri de cont dedicați sunt disponibile pentru afaceri în creștere.",
+      "trainingAnswer": "Da! Oferim resurse extensive de formare pentru a te ajuta să reușești: Sesiune gratuită de integrare când te înscrii, Tutoriale video acoperind toate caracteristicile, Ghiduri scrise pas cu pas, Webinare live pentru caracteristici noi, și Sesiuni de formare individuală (disponibile cu planuri premium). Vrem să ne asigurăm că te simți încrezător folosind fiecare aspect al platformei pentru a-ți crește afacerea.",
+      "updatesAnswer": "Îmbunătățim continuu MyPadiFood cu actualizări regulate și caracteristici noi. Lansările majore de caracteristici au loc de obicei trimestrial, cu îmbunătățiri minore și remedieri de erori lansate după necesitate. Toate actualizările sunt incluse în abonamentul tău fără cost suplimentar. Anunțăm caracteristici noi prin email, notificări în aplicație și canalele noastre de social media. Feedback-ul tău ajută la modelarea foii de parcurs, astfel încât construim întotdeauna ceea ce afacerile au cel mai mult nevoie."
+    }
+  },
+  "onboarding": {
+    "title": "Începe-ți Afacerea",
+    "subtitle": "Completează formularul de mai jos și echipa noastră te va ajuta să începi",
+    "submitSuccess": "Aplicație trimisă cu succes!",
+    "submitError": "Eroare la trimiterea aplicației",
+    "submitting": "Se trimite...",
+    "submitButton": "Trimite Aplicația",
+    "submitAnother": "Trimite Altă Cerere",
+    "successTitle": "Mulțumim!",
+    "successMessage": "Cererea ta de integrare a fost trimisă cu succes. Echipa noastră te va contacta în 24 de ore.",
+    "categories": {
+      "foodDining": "🍽️ Mâncare & Restaurant",
+      "agricultureFarming": "🌾 Agricultură & Fermă",
+      "hospitality": "🏨 Ospitalitate",
+      "retailShopping": "🛍️ Retail & Cumpărături",
+      "technologyElectronics": "💻 Tehnologie & Electronice",
+      "healthBeauty": "💄 Sănătate & Frumusețe",
+      "homeLiving": "🏠 Casă & Viață",
+      "automotive": "🚗 Automotiv",
+      "educationLearning": "🎓 Educație & Învățare",
+      "sportsRecreation": "⚽ Sport & Recreere",
+      "professionalServices": "💼 Servicii Profesionale",
+      "otherServices": "🔧 Alte Servicii"
+    },
+    "businessInfo": {
+      "title": "Informații Afacere",
+      "businessName": "Nume Afacere",
+      "businessNamePlaceholder": "ex., Produse Proaspete de Fermă",
+      "businessType": "Tip Afacere",
+      "other": "Altele",
+      "preferredSlug": "Slug URL Preferat",
+      "slugPlaceholder": "fermaproaspata",
+      "slugHint": "Doar litere mici, numere și cratime",
+      "urlPreviewLabel": "Afacerea ta va fi accesibilă la:",
+      "description": "Descriere",
+      "descriptionPlaceholder": "Spune-ne despre afacerea ta..."
+    },
+    "ownerInfo": {
+      "title": "Informații Proprietar",
+      "fullName": "Nume Complet",
+      "fullNamePlaceholder": "Ion Popescu",
+      "email": "Email",
+      "emailPlaceholder": "ion@exemplu.com",
+      "phone": "Telefon",
+      "phonePlaceholder": "+40 700 000 000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Afacerile Noastre",
+    "subtitle": "Descoperă afaceri locale uimitoare pe platforma noastră",
+    "noBusinesses": "Nu s-au găsit afaceri în această categorie",
+    "tryDifferent": "Încearcă să selectezi o altă categorie pentru a explora mai multe afaceri"
+  },
+  "businessFilter": {
+    "allBusinesses": "Toate Afacerile"
+  },
+  "businessCard": {
+    "products": "Produse",
+    "visitStore": "Vizitează Magazinul"
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Beranda",
+    "businesses": "Bisnis",
+    "startBusiness": "Mulai Bisnis Anda",
+    "contactUs": "Hubungi Kami",
+    "login": "Masuk"
+  },
+  "footer": {
+    "tagline": "Memberdayakan bisnis di seluruh dunia dengan pemesanan berbasis AI dan dukungan multi-bahasa",
+    "quickLinks": {
+      "title": "Tautan Cepat",
+      "home": "Beranda",
+      "businesses": "Bisnis",
+      "startBusiness": "Mulai Bisnis Anda",
+      "faq": "FAQ"
+    },
+    "contact": {
+      "title": "Hubungi Kami",
+      "whatsappSupport": "Dukungan WhatsApp Tersedia"
+    },
+    "copyright": "© {{year}} MyPadiFood. Hak cipta dilindungi."
+  },
+  "hero": {
+    "badge": "Platform Bisnis Global",
+    "headline": "Luncurkan Bisnis Anda",
+    "headlineHighlight": "Di Mana Saja, Dalam Bahasa Apa Pun",
+    "subtitle": "Satu-satunya platform yang memungkinkan pelanggan memesan dalam bahasa mereka, membayar dalam mata uang mereka, dan memberikan ulasan melalui panggilan telepon - tanpa perlu mengunduh aplikasi.",
+    "features": {
+      "globalLanguage": {
+        "title": "Semua Bahasa",
+        "description": "Pelanggan memesan dalam bahasa ibu mereka"
+      },
+      "multiCurrency": {
+        "title": "Multi-Mata Uang",
+        "description": "Terima pembayaran dalam mata uang apa pun"
+      },
+      "noSignUp": {
+        "title": "Tanpa Pendaftaran",
+        "description": "Pelanggan memesan secara instan"
+      },
+      "whatsApp": {
+        "title": "Pesanan WhatsApp",
+        "description": "Terima pesanan melalui WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Ulasan Telepon",
+        "description": "Pengumpulan ulasan suara otomatis"
+      },
+      "fastSetup": {
+        "title": "Pengaturan Cepat",
+        "description": "Luncurkan dalam 24 jam"
+      }
+    },
+    "quickStart": {
+      "title": "Mulai Uji Coba Gratis Anda",
+      "emailLabel": "Email Bisnis Anda",
+      "emailPlaceholder": "business@example.com",
+      "buttonText": "Mulai Gratis",
+      "disclaimer": "Tidak perlu kartu kredit. Siap dalam hitungan menit."
+    }
+  },
+  "aboutUs": {
+    "title": "Tentang MyPadiFood",
+    "subtitle": "Menghancurkan hambatan bahasa dan mata uang untuk memberdayakan bisnis di seluruh dunia",
+    "mission": {
+      "title": "Misi Kami",
+      "description": "Kami percaya bahwa setiap bisnis, terlepas dari ukuran atau lokasi, layak mendapatkan akses ke pelanggan global. MyPadiFood lahir dari pengamatan sederhana: hambatan bahasa dan mata uang tidak boleh membatasi potensi bisnis untuk melayani pelanggan di seluruh dunia.",
+      "point1": "Memungkinkan bisnis menjangkau pelanggan dalam bahasa apa pun tanpa kompleksitas terjemahan manual",
+      "point2": "Menghilangkan kendala konversi mata uang dan pemrosesan pembayaran internasional"
+    },
+    "vision": {
+      "title": "Visi Kami",
+      "description": "Kami membayangkan dunia di mana peternakan kecil di Nigeria dapat melayani pelanggan di Jepang dengan mulus, butik di Paris dapat mengirim ke Brasil dengan mudah, dan restoran di Meksiko dapat menerima pesanan dari pelanggan di India - semuanya tanpa khawatir tentang hambatan bahasa atau komplikasi pembayaran.",
+      "point1": "Mendukung lebih dari 1 juta bisnis secara global pada tahun 2030",
+      "point2": "Mendukung perdagangan dalam setiap bahasa dan mata uang di seluruh dunia"
+    },
+    "values": {
+      "title": "Apa yang Mendorong Kami",
+      "value1": {
+        "title": "Aksesibilitas",
+        "description": "Teknologi harus memberdayakan, bukan memperumit. Tidak ada aplikasi untuk diunduh, tidak ada pengaturan yang rumit."
+      },
+      "value2": {
+        "title": "Inovasi",
+        "description": "Terjemahan dan otomasi berbasis AI yang bekerja dengan mulus di latar belakang."
+      },
+      "value3": {
+        "title": "Inklusivitas",
+        "description": "Setiap bisnis layak jangkauan global, terlepas dari keahlian teknis atau anggaran."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Kisah Sukses",
+    "subtitle": "Bisnis nyata mencapai pertumbuhan luar biasa dengan MyPadiFood",
+    "viewMore": "Lihat Lebih Banyak Kisah Sukses"
+  },
+  "testimonials": {
+    "title": "Kisah Sukses",
+    "subtitle": "Bisnis nyata, hasil nyata",
+    "aiPoweredAdvantage": "Keunggulan Berbasis AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Pertanian",
+      "quote": "Sistem terjemahan dan multi-mata uang berbasis AI MyPadiFood membantu peternakan saya menjangkau pelanggan di 5 negara berbeda. Penjualan tumbuh 300% hanya dalam 2 bulan!",
+      "highlight": "Keahlian AI: Kategorisasi produk pintar dan prediksi permintaan musiman yang mengoptimalkan inventaris dan meningkatkan penjualan.",
+      "metrics": "Pertumbuhan 300% • 5 negara • 2 bulan"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Fashion & Pakaian",
+      "quote": "Pelanggan suka bisa memesan dalam bahasa lokal mereka tanpa mendaftar. Pesanan internasional saya bertiga lipat segera setelah membuka toko.",
+      "highlight": "Keahlian AI: Analisis tren fashion dan rekomendasi ukuran otomatis yang mengurangi tingkat pengembalian sebesar 40%.",
+      "metrics": "Peningkatan 200% • Pengembalian 40% lebih sedikit • 12 bahasa"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Perhotelan",
+      "quote": "Tamu internasional sekarang dapat memesan apartemen saya dalam mata uang dan bahasa mereka. Integrasi WhatsApp membuat konfirmasi menjadi mulus!",
+      "highlight": "Keahlian AI: Penetapan harga dinamis dan optimalisasi ketersediaan yang meningkatkan tingkat hunian sebesar 65% sepanjang tahun.",
+      "metrics": "Hunian 65% • Pemesanan instan • Jangkauan global"
+    },
+    "stats": {
+      "countries": "Negara yang Dilayani",
+      "setupTime": "Pengaturan Rata-rata",
+      "signUpRequired": "Pendaftaran Pelanggan",
+      "languagesSupported": "Bahasa"
+    }
+  },
+  "howItWorks": {
+    "title": "Cara Kerjanya",
+    "subtitle": "Luncurkan bisnis global Anda dalam tiga langkah sederhana",
+    "step1": {
+      "title": "Pelanggan Memilih Bahasa",
+      "description": "Pelanggan Anda menjelajahi menu dalam bahasa pilihan mereka. AI langsung menerjemahkan semuanya - item menu, deskripsi, harga."
+    },
+    "step2": {
+      "title": "Pilih Mata Uang Mereka",
+      "description": "Pelanggan melihat harga dalam mata uang lokal mereka. Konversi real-time menangani semua perhitungan secara otomatis."
+    },
+    "step3": {
+      "title": "Pesan via WhatsApp",
+      "description": "Pesanan datang langsung ke WhatsApp Anda. Tidak perlu mengunduh aplikasi untuk pelanggan Anda. Sederhana dan instan."
+    }
+  },
+  "globalReach": {
+    "title": "Dibangun untuk Perdagangan Global",
+    "subtitle": "Bergabunglah dengan ribuan bisnis yang melayani pelanggan di seluruh dunia",
+    "stats": {
+      "businesses": "Bisnis Aktif",
+      "transactions": "Transaksi Bulanan",
+      "languagesUsed": "Bahasa yang Digunakan",
+      "currenciesSupported": "Mata Uang"
+    }
+  },
+  "finalCta": {
+    "badge": "Bergabunglah dengan bisnis sukses di seluruh dunia",
+    "title": "Siap Go Global?",
+    "primaryButton": "Mulai Uji Coba Gratis",
+    "secondaryButton": "Lihat Kisah Sukses",
+    "subtitle": "Tidak perlu kartu kredit • Siap dalam 24 jam • Batalkan kapan saja"
+  },
+  "languages": {
+    "en": "Inggris",
+    "es": "Spanyol",
+    "fr": "Prancis",
+    "de": "Jerman",
+    "zh": "Tionghoa",
+    "ar": "Arab",
+    "hi": "Hindi",
+    "pt": "Portugis",
+    "ru": "Rusia",
+    "ja": "Jepang",
+    "ko": "Korea",
+    "it": "Italia",
+    "nl": "Belanda",
+    "tr": "Turki",
+    "pl": "Polandia",
+    "vi": "Vietnam",
+    "th": "Thai",
+    "id": "Indonesia",
+    "ro": "Rumania",
+    "cs": "Ceko"
+  },
+  "whatsappWidget": {
+    "title": "Chat dengan Kami",
+    "subtitle": "Dukungan Platform",
+    "selectTopic": "Pilih topik untuk mulai chat:",
+    "customMessage": "Mulai Chat Kustom",
+    "opening": "Membuka WhatsApp...",
+    "messages": {
+      "generalHelp": "Hai, saya butuh bantuan dengan platform MyPadiFood",
+      "setupStore": "Saya ingin menyiapkan toko online saya. Bisakah Anda membantu saya memulai?",
+      "pricing": "Apa saja paket harga Anda? Saya ingin tahu biaya dan fiturnya.",
+      "technicalIssue": "Saya mengalami masalah teknis dengan toko saya. Bisakah Anda membantu?",
+      "multiLanguage": "Bagaimana cara kerja fitur terjemahan multi-bahasa?",
+      "payments": "Saya punya pertanyaan tentang pemrosesan pembayaran dan dukungan multi-mata uang.",
+      "whatsappIntegration": "Bagaimana cara mengintegrasikan pesanan WhatsApp dengan toko saya?",
+      "customDomain": "Bisakah saya menggunakan domain kustom saya sendiri untuk toko saya?",
+      "migration": "Saya ingin memigrasikan bisnis yang ada ke MyPadiFood. Bagaimana cara kerjanya?",
+      "bulkOrders": "Bagaimana saya dapat menangani pesanan dalam jumlah besar dan pelanggan grosir?",
+      "custom": "Hai, saya punya pertanyaan tentang platform MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "subtitle": "Semua yang perlu Anda ketahui tentang MyPadiFood",
+    "backToHome": "Kembali ke Beranda",
+    "stillHaveQuestions": "Masih Punya Pertanyaan?",
+    "contactSupport": "Tim dukungan kami siap membantu Anda sukses",
+    "chatWithSupport": "Chat dengan Dukungan di WhatsApp",
+    "whatsappMessage": "Hai, saya punya pertanyaan tentang MyPadiFood yang tidak tercakup dalam FAQ",
+    "categories": {
+      "general": "Informasi Umum",
+      "pricing": "Harga & Penagihan",
+      "features": "Fitur & Kemampuan",
+      "gettingStarted": "Memulai",
+      "support": "Dukungan & Pelatihan"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Apa itu MyPadiFood?",
+      "whoCanUse": "Siapa yang bisa menggunakan MyPadiFood?",
+      "howDifferent": "Apa perbedaan MyPadiFood dengan platform e-commerce lainnya?",
+      "freeTrial": "Apakah Anda menawarkan uji coba gratis?",
+      "subscriptionPlans": "Paket berlangganan apa yang Anda tawarkan?",
+      "paymentMethods": "Metode pembayaran apa yang Anda terima untuk berlangganan?",
+      "cancelAnytime": "Bisakah saya membatalkan langganan kapan saja?",
+      "languagesSupported": "Berapa banyak bahasa yang didukung MyPadiFood?",
+      "currenciesSupported": "Mata uang apa yang bisa saya terima untuk pembayaran?",
+      "whatsappOrders": "Bagaimana cara kerja pesanan WhatsApp?",
+      "customDomain": "Bisakah saya menggunakan domain kustom saya sendiri?",
+      "cashPayments": "Apakah MyPadiFood menangani pembayaran tunai untuk bisnis saya?",
+      "setupTime": "Berapa lama waktu yang dibutuhkan untuk menyiapkan toko saya?",
+      "technicalKnowledge": "Apakah saya perlu pengetahuan teknis untuk menggunakan MyPadiFood?",
+      "productLimit": "Apakah ada batasan jumlah produk yang bisa saya tambahkan?",
+      "migration": "Bisakah saya memigrasikan toko online yang ada ke MyPadiFood?",
+      "customerSupport": "Dukungan pelanggan seperti apa yang Anda berikan?",
+      "training": "Apakah Anda menyediakan pelatihan atau bantuan orientasi?",
+      "updates": "Seberapa sering Anda merilis fitur dan pembaruan baru?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood adalah platform e-commerce global yang memungkinkan bisnis menjual produk dan layanan kepada pelanggan di seluruh dunia. Platform berbasis AI kami secara otomatis menerjemahkan toko Anda ke dalam berbagai bahasa, menangani pembayaran multi-mata uang, dan memungkinkan pelanggan memesan melalui WhatsApp tanpa mengunduh aplikasi apa pun. Kami menghancurkan hambatan bahasa dan mata uang sehingga Anda dapat fokus mengembangkan bisnis Anda secara global.",
+      "whoCanUseAnswer": "MyPadiFood sempurna untuk bisnis apa pun yang ingin berkembang secara global - dari peternakan kecil dan restoran hingga butik fashion, layanan perhotelan, dan pemasok grosir. Baik Anda pengusaha tunggal, pemilik usaha kecil, atau perusahaan yang berkembang, platform kami dapat menyesuaikan dengan kebutuhan Anda. Jika Anda memiliki produk atau layanan untuk dijual dan ingin menjangkau pelanggan internasional, MyPadiFood dibuat untuk Anda.",
+      "howDifferentAnswer": "Tidak seperti platform e-commerce tradisional, MyPadiFood dirancang khusus untuk perdagangan global. Fitur unik kami meliputi: (1) Terjemahan berbasis AI ke 20+ bahasa tanpa upaya manual, (2) Pelanggan dapat memesan tanpa membuat akun atau mengunduh aplikasi, (3) Integrasi WhatsApp untuk manajemen pesanan yang mulus, (4) Dukungan multi-mata uang dengan konversi otomatis, (5) Pengumpulan ulasan pelanggan berbasis telepon, dan (6) Tidak diperlukan keahlian teknis untuk memulai.",
+      "freeTrialAnswer": "Ya! Kami menawarkan uji coba gratis 14 hari dengan akses penuh ke semua fitur. Tidak diperlukan kartu kredit untuk memulai uji coba Anda. Ini memberi Anda banyak waktu untuk menyiapkan toko, menambahkan produk, menyesuaikan pengaturan, dan menguji semua fitur kami. Setelah uji coba 14 hari berakhir, toko Anda akan ditangguhkan sementara sampai Anda memilih paket berlangganan yang sesuai untuk Anda. Anda dapat mengaktifkan kembali kapan saja dengan berlangganan.",
+      "subscriptionPlansAnswer": "Kami menawarkan paket berlangganan yang fleksibel untuk memenuhi kebutuhan bisnis Anda: Langganan bulanan untuk fleksibilitas maksimum, Paket kuartalan dengan penghematan biaya, Langganan setengah tahunan (6 bulan) untuk nilai lebih baik, dan Paket tahunan untuk tarif terbaik. Biaya berlangganan bervariasi menurut negara host Anda untuk memastikan harga yang adil berdasarkan kondisi ekonomi lokal. Hubungi tim dukungan kami melalui WhatsApp untuk mendapatkan harga spesifik untuk negara Anda dan mendiskusikan paket mana yang paling sesuai dengan tujuan bisnis Anda.",
+      "paymentMethodsAnswer": "Kami menerima berbagai metode pembayaran untuk biaya berlangganan tergantung pada negara Anda, termasuk kartu kredit/debit, transfer bank, uang seluler, dan opsi pembayaran lokal lainnya. Tujuan kami adalah membuat Anda berlangganan dan memelihara akun Anda semudah mungkin. Hubungi tim dukungan kami untuk mempelajari tentang metode pembayaran spesifik yang tersedia di wilayah Anda.",
+      "cancelAnytimeAnswer": "Tentu saja! Anda memiliki kontrol penuh atas langganan Anda. Anda dapat membatalkan kapan saja tanpa penalti atau biaya tersembunyi. Jika Anda membatalkan selama siklus penagihan, Anda akan terus memiliki akses ke toko Anda hingga akhir periode yang dibayar. Kami percaya dalam mendapatkan bisnis Anda setiap bulan, bukan mengunci Anda dalam kontrak jangka panjang yang tidak Anda inginkan.",
+      "languagesSupportedAnswer": "MyPadiFood saat ini mendukung 20+ bahasa utama termasuk Inggris, Spanyol, Prancis, Jerman, Tionghoa, Arab, Hindi, Portugis, Rusia, Jepang, Korea, Italia, Belanda, Turki, Polandia, Vietnam, Thai, Indonesia, Rumania, dan Ceko. Sistem terjemahan AI kami memastikan deskripsi produk, menu, dan konten toko Anda diterjemahkan secara akurat secara real-time. Kami terus menambahkan lebih banyak bahasa berdasarkan permintaan pelanggan.",
+      "currenciesSupportedAnswer": "Anda dapat menerima pembayaran dalam hampir semua mata uang utama di seluruh dunia. Platform kami menangani konversi mata uang real-time secara otomatis, sehingga pelanggan melihat harga dalam mata uang lokal mereka sementara Anda menerima pembayaran dalam mata uang pilihan Anda. Ini termasuk USD, EUR, GBP, NGN, JPY, CNY, INR, dan banyak lagi. Sistem memperbarui nilai tukar secara teratur untuk memastikan harga yang akurat.",
+      "whatsappOrdersAnswer": "Ketika pelanggan melakukan pesanan di toko MyPadiFood Anda, Anda menerima notifikasi instan langsung ke nomor WhatsApp bisnis Anda. Detail pesanan diformat dengan jelas dengan informasi pelanggan, item yang dipesan, alamat pengiriman, dan status pembayaran. Anda dapat mengonfirmasi pesanan, memperbarui pelanggan tentang status pesanan, dan berkomunikasi langsung melalui WhatsApp - tidak perlu mempelajari sistem baru. Ini sesederhana berbicara dengan pelanggan Anda.",
+      "customDomainAnswer": "Ya! Anda dapat menghubungkan domain kustom Anda sendiri ke toko MyPadiFood Anda untuk pengalaman merek yang profesional. Misalnya, alih-alih yourbusiness.mypadifood.com, Anda dapat menggunakan shop.yourbusiness.com atau domain apa pun yang Anda miliki. Fitur ini tersedia pada paket berlangganan tertentu. Tim dukungan kami dapat memandu Anda melalui proses pengaturan yang sederhana.",
+      "cashPaymentsAnswer": "MyPadiFood TIDAK menerima, menangani, atau mengelola pembayaran tunai atas nama bisnis Anda. Semua transaksi terkait tunai dikelola langsung antara Anda dan pelanggan Anda. Anda mempertahankan kontrol penuh atas pembayaran tunai, pengumpulan, dan rekonsiliasi Anda. MyPadiFood hanya memfasilitasi platform pemesanan dan pemrosesan pembayaran digital. Pengaturan pembayaran tunai apa pun adalah tanggung jawab Anda untuk mengelola secara independen.",
+      "setupTimeAnswer": "Sebagian besar bisnis dapat memiliki toko mereka sepenuhnya siap dan siap menerima pesanan dalam waktu 24 jam atau kurang. Proses orientasi kami yang efisien memandu Anda melalui: membuat akun Anda, menambahkan produk Anda, mengatur metode pembayaran, menyesuaikan tampilan toko Anda, dan menghubungkan WhatsApp Anda. Banyak pengguna menyelesaikan pengaturan dasar dalam waktu kurang dari 2 jam. Kami menyediakan panduan langkah demi langkah dan dukungan untuk membantu Anda meluncurkan dengan cepat.",
+      "technicalKnowledgeAnswer": "Tidak diperlukan pengetahuan teknis! MyPadiFood dirancang untuk pemilik bisnis, bukan pengembang. Antarmuka intuitif kami memandu Anda melalui setiap langkah dengan instruksi yang jelas. Anda tidak perlu tahu cara membuat kode, memahami hosting web, atau mengelola server. Jika Anda bisa menggunakan WhatsApp dan email, Anda bisa mengelola toko MyPadiFood Anda. Tim dukungan kami juga tersedia untuk membantu dengan pertanyaan apa pun.",
+      "productLimitAnswer": "Tidak ada batasan jumlah produk yang dapat Anda tambahkan ke toko Anda. Baik Anda memiliki 10 produk atau 10.000, MyPadiFood dapat menangani katalog Anda. Anda dapat mengatur produk ke dalam kategori, menambahkan deskripsi dan gambar yang detail, mengatur level inventaris, dan mengelola semuanya dari dasbor Anda. Saat bisnis Anda tumbuh, toko Anda tumbuh bersama Anda.",
+      "migrationAnswer": "Ya, kami dapat membantu Anda memigrasikan toko online yang ada ke MyPadiFood! Kami mendukung migrasi dari berbagai platform termasuk Shopify, WooCommerce, dan sistem e-commerce lainnya. Tim kami dapat membantu mentransfer katalog produk, data pelanggan, dan riwayat pesanan Anda. Hubungi tim dukungan kami melalui WhatsApp untuk mendiskusikan kebutuhan migrasi spesifik Anda, timeline, dan persyaratan khusus. Kami akan membuat transisi semulus mungkin.",
+      "customerSupportAnswer": "Kami menyediakan dukungan komprehensif melalui berbagai saluran: Dukungan WhatsApp untuk pertanyaan cepat dan bantuan real-time, Dukungan email untuk pertanyaan detail, Pusat bantuan dengan panduan dan tutorial, dan Tutorial video untuk fitur yang kompleks. Tim dukungan kami beroperasi selama jam kerja dan kami bertujuan untuk merespons semua pertanyaan dalam 24 jam. Paket dukungan premium dengan manajer akun khusus tersedia untuk bisnis yang berkembang.",
+      "trainingAnswer": "Ya! Kami menyediakan sumber daya pelatihan yang luas untuk membantu Anda sukses: Sesi orientasi gratis saat Anda mendaftar, Tutorial video yang mencakup semua fitur, Panduan tertulis langkah demi langkah, Webinar langsung untuk fitur baru, dan Sesi pelatihan satu lawan satu (tersedia dengan paket premium). Kami ingin memastikan Anda merasa percaya diri menggunakan setiap aspek platform untuk mengembangkan bisnis Anda.",
+      "updatesAnswer": "Kami terus meningkatkan MyPadiFood dengan pembaruan dan fitur baru secara teratur. Rilis fitur utama biasanya terjadi setiap kuartal, dengan perbaikan kecil dan perbaikan bug yang dirilis sesuai kebutuhan. Semua pembaruan termasuk dalam langganan Anda tanpa biaya tambahan. Kami mengumumkan fitur baru melalui email, notifikasi dalam aplikasi, dan saluran media sosial kami. Umpan balik Anda membantu membentuk roadmap kami, jadi kami selalu membangun apa yang paling dibutuhkan bisnis."
+    }
+  },
+  "onboarding": {
+    "title": "Mulai Bisnis Anda",
+    "subtitle": "Isi formulir di bawah ini dan tim kami akan membantu Anda memulai",
+    "submitSuccess": "Aplikasi berhasil dikirim!",
+    "submitError": "Gagal mengirim aplikasi",
+    "submitting": "Mengirim...",
+    "submitButton": "Kirim Aplikasi",
+    "submitAnother": "Kirim Permintaan Lain",
+    "successTitle": "Terima Kasih!",
+    "successMessage": "Permintaan orientasi Anda telah berhasil dikirim. Tim kami akan menghubungi Anda dalam 24 jam.",
+    "categories": {
+      "foodDining": "🍽️ Makanan & Restoran",
+      "agricultureFarming": "🌾 Pertanian & Perkebunan",
+      "hospitality": "🏨 Perhotelan",
+      "retailShopping": "🛍️ Ritel & Belanja",
+      "technologyElectronics": "💻 Teknologi & Elektronik",
+      "healthBeauty": "💄 Kesehatan & Kecantikan",
+      "homeLiving": "🏠 Rumah & Hunian",
+      "automotive": "🚗 Otomotif",
+      "educationLearning": "🎓 Pendidikan & Pembelajaran",
+      "sportsRecreation": "⚽ Olahraga & Rekreasi",
+      "professionalServices": "💼 Layanan Profesional",
+      "otherServices": "🔧 Layanan Lainnya"
+    },
+    "businessInfo": {
+      "title": "Informasi Bisnis",
+      "businessName": "Nama Bisnis",
+      "businessNamePlaceholder": "mis., Fresh Farm Produce",
+      "businessType": "Jenis Bisnis",
+      "other": "Lainnya",
+      "preferredSlug": "URL Slug Pilihan",
+      "slugPlaceholder": "freshfarm",
+      "slugHint": "Hanya huruf kecil, angka, dan tanda hubung",
+      "urlPreviewLabel": "Bisnis Anda akan dapat diakses di:",
+      "description": "Deskripsi",
+      "descriptionPlaceholder": "Ceritakan tentang bisnis Anda..."
+    },
+    "ownerInfo": {
+      "title": "Informasi Pemilik",
+      "fullName": "Nama Lengkap",
+      "fullNamePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Telepon",
+      "phonePlaceholder": "+234 800 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Bisnis Kami",
+    "subtitle": "Temukan bisnis lokal yang luar biasa di platform kami",
+    "noBusinesses": "Tidak ada bisnis yang ditemukan dalam kategori ini",
+    "tryDifferent": "Coba pilih kategori yang berbeda untuk menjelajahi lebih banyak bisnis"
+  },
+  "businessFilter": {
+    "allBusinesses": "Semua Bisnis"
+  },
+  "businessCard": {
+    "products": "Produk",
+    "visitStore": "Kunjungi Toko"
+  }
+}

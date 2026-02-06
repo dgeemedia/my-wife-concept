@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Ikhaya",
+    "businesses": "Amabhizinisi",
+    "startBusiness": "Qala Ibhizinisi Lakho",
+    "contactUs": "Xhumana Nathi",
+    "login": "Ngena"
+  },
+  "footer": {
+    "tagline": "Sinika amandla amabhizinisi emhlabeni wonke nge-AI kanye nokusekela izilimi eziningi",
+    "quickLinks": {
+      "title": "Izixhumanisi Ezisheshayo",
+      "home": "Ikhaya",
+      "businesses": "Amabhizinisi",
+      "startBusiness": "Qala Ibhizinisi Lakho",
+      "faq": "Imibuzo Evame Ukubuzwa"
+    },
+    "contact": {
+      "title": "Xhumana Nathi",
+      "whatsappSupport": "Usizo Lwe-WhatsApp Luyatholakala"
+    },
+    "copyright": "© {{year}} MyPadiFood. Wonke amalungelo agodliwe."
+  },
+  "hero": {
+    "badge": "Inkundla Yebhizinisi Lomhlaba",
+    "headline": "Qalisa Ibhizinisi Lakho",
+    "headlineHighlight": "Noma Kuphi, Nangaluphi Ulimi",
+    "subtitle": "Inkundla kuphela evumela amakhasimende ukuthi a-oda ngolimi lwawo, akhokhe ngemali yawo, futhi abuyekeze ngocingo - akudingeki ukudownloada uhlelo lokusebenza.",
+    "features": {
+      "globalLanguage": {
+        "title": "Noma Iluphi Ulimi",
+        "description": "Amakhasimende a-oda ngolimi lwawo lwebele"
+      },
+      "multiCurrency": {
+        "title": "Izimali Eziningi",
+        "description": "Yamukela izinkokhelo nganoma iyiphi imali"
+      },
+      "noSignUp": {
+        "title": "Akudingeki Ukubhalisa",
+        "description": "Amakhasimende a-oda ngokushesha"
+      },
+      "whatsApp": {
+        "title": "Ama-oda We-WhatsApp",
+        "description": "Thola ama-oda nge-WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Ukubuyekezwa Ngocingo",
+        "description": "Ukuqoqwa kokubuyekezwa kwezwi okuzenzakalelayo"
+      },
+      "fastSetup": {
+        "title": "Ukusetha Okusheshayo",
+        "description": "Qalisa ngaphansi kwamahora angu-24"
+      }
+    },
+    "quickStart": {
+      "title": "Qala Ukuhlola Kwamahhala Kwakho",
+      "emailLabel": "I-imeyili Yebhizinisi Lakho",
+      "emailPlaceholder": "ibhizinisi@isibonelo.com",
+      "buttonText": "Qala Mahhala",
+      "disclaimer": "Akudingeki ikhadi lokuthenga. Setha emaminithini."
+    }
+  },
+  "aboutUs": {
+    "title": "Mayelana Ne-MyPadiFood",
+    "subtitle": "Sidiliza izihibhe zolimi nezimali ukuze sinike amandla amabhizinisi emhlabeni wonke",
+    "mission": {
+      "title": "Umsebenzi Wethu",
+      "description": "Sikholelwa ukuthi ibhizinisi ngalinye, kungakhathaliseki ubungako noma indawo, lifanele ukufinyelela kumakhasimende womhlaba. I-MyPadiFood yazalwa ngokubuka okulula: izihibhe zolimi nezimali akufanele zikhawulele amandla ebhizinisi okukhonza amakhasimende emhlabeni wonke.",
+      "point1": "Nika amandla amabhizinisi ukufinyelela amakhasimende nganoma iluphi ulimi ngaphandle kobunzima bokuhumusha ngesandla",
+      "point2": "Susa ukuxegana kokuguqula imali nokucubungula izinkokhelo zamazwe ngamazwe"
+    },
+    "vision": {
+      "title": "Umbono Wethu",
+      "description": "Sibona umhlaba lapho ipulazi elincane eNigeria lingakhonza amakhasimende eJapan ngokungenakunqamuka, isitolo saseParis singathuma eBrazil kalula, futhi indawo yokudlela eMexico ingathatha ama-oda kumakhasimende ase-India - konke ngaphandle kokukhathazeka ngezihibhe zolimi noma ubunzima bezinkokhelo.",
+      "point1": "Nika amandla amabhizinisi angaphezu kwesigidi ezingu-1 emhlabeni wonke ngo-2030",
+      "point2": "Sekela uhwebo ngawo wonke ulimi kanye nemali emhlabeni wonke"
+    },
+    "values": {
+      "title": "Yini Esishukumisayo",
+      "value1": {
+        "title": "Ukufinyelela",
+        "description": "Ubuchwepheshe kufanele bunike amandla, bungayenzi inzima. Azikho izinhlelo zokusebenza zokudownloada, azikho izilungiselelo eziyinkimbinkimbi."
+      },
+      "value2": {
+        "title": "Ukusungula Okutsha",
+        "description": "Ukuhumusha okunamandla kwe-AI kanye noku-automation okusebenza ngokungenakunqamuka ngemuva."
+      },
+      "value3": {
+        "title": "Ukufaka Konke",
+        "description": "Ibhizinisi ngalinye lifanele ukufinyelela emhlabeni wonke, kungakhathaliseki ubuchule bobuchwepheshe noma isabelomali."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Izindaba Zempumelelo",
+    "subtitle": "Amabhizinisi angempela afinyelela ukukhula okumangalisayo nge-MyPadiFood",
+    "viewMore": "Buka Ezinye Izindaba Zempumelelo"
+  },
+  "testimonials": {
+    "title": "Izindaba Zempumelelo",
+    "subtitle": "Amabhizinisi angempela, imiphumela yangempela",
+    "aiPoweredAdvantage": "Inzuzo Enamandla Kwe-AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Ezolimo",
+      "quote": "Isistimu yokuhumusha enamandla kwe-AI ye-MyPadiFood kanye nemali eziningi yasiza ipulazi lami ukufinyelela amakhasimende emazweni ayi-5 ahlukene. Ukuthengisa kwakhula ngo-300% ezinyangeni ezi-2 kuphela!",
+      "highlight": "Ikhono le-AI: Ukuhlelwa kwe-smart yemikhiqizo kanye nokubikezela kwesidingo sesikhathi esithuthukiswe umkhiqizo wami futhi kwandisa ukuthengisa.",
+      "metrics": "Ukukhula okungu-300% • Amazwe ayi-5 • Izinyanga ezi-2"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Imfashini Nezingubo",
+      "quote": "Amakhasimende athanda ukuthi angakwazi uku-oda ngolimi lwawo lwendawo ngaphandle kokubhalisa. Ama-oda ami wamazwe ngamazwe aphindwe kathathu ngokushesha ngemuva kokumisa isitolo sami.",
+      "highlight": "Ikhono le-AI: Ukuhlaziywa kwemithelela yemfashini kanye nezincomo ezenziwa ngokuzenzakalelayo zosayizi ezinciphise amazinga okubuyiswa ngo-40%.",
+      "metrics": "Ukwanda okungu-200% • Ukubuyiswa okuncane ngo-40% • Izilimi eyi-12"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Ubungane",
+      "quote": "Izivakashi zamazwe ngamazwe manje zingakwazi ukubhuka amafulethi ami ngemali yabo nolimi. Ukuhlanganiswa kwe-WhatsApp kwenza ukuqinisekisa kube lula!",
+      "highlight": "Ikhono le-AI: Amanani aguquguqukayo kanye nokuthuthukiswa kokutholakala okwandise amazinga okuhlala ngo-65% unyaka wonke.",
+      "metrics": "Ukuhlala okungu-65% • Ukubhuka okusheshayo • Ukufinyelela emhlabeni wonke"
+    },
+    "stats": {
+      "countries": "Amazwe Akhonzwayo",
+      "setupTime": "Ukusetha Okujwayelekile",
+      "signUpRequired": "Ukubhalisa Kwamakhasimende",
+      "languagesSupported": "Izilimi"
+    }
+  },
+  "howItWorks": {
+    "title": "Kusebenza Kanjani",
+    "subtitle": "Qalisa ibhizinisi lakho lomhlaba ezinyathelweni ezilula ezintathu",
+    "step1": {
+      "title": "Ikhasimende Likhetha Ulimi",
+      "description": "Amakhasimende akho abheke imenyu yakho ngolimi aluthandayo. I-AI ihumusha ngokushesha konke - izinto zenmenyu, izincazelo, amanani."
+    },
+    "step2": {
+      "title": "Khetha Imali Yabo",
+      "description": "Amakhasimende abona amanani ngemali yabo yendawo. Ukuguqula kwesikhathi sangempela kulawula zonke izibalo ngokuzenzakalelayo."
+    },
+    "step3": {
+      "title": "Oda Nge-WhatsApp",
+      "description": "Ama-oda afika ngqo ku-WhatsApp yakho. Akudingeki ukudownloada uhlelo lokusebenza kumakhasimende akho. Kulula futhi kusheshayo."
+    }
+  },
+  "globalReach": {
+    "title": "Yakhiwe Yohwebo Lomhlaba",
+    "subtitle": "Joyina amabhizinisi azinkulungwane akhonza amakhasimende emhlabeni wonke",
+    "stats": {
+      "businesses": "Amabhizinisi Asebenzayo",
+      "transactions": "Ukushintshaniswa Kwenyanga",
+      "languagesUsed": "Izilimi Ezisetshenziswa",
+      "currenciesSupported": "Izimali"
+    }
+  },
+  "finalCta": {
+    "badge": "Joyina amabhizinisi aphumelelayo emhlabeni wonke",
+    "title": "Ukulungele Ukuya Emhlabeni Wonke?",
+    "primaryButton": "Qala Ukuhlola Kwamahhala",
+    "secondaryButton": "Buka Izindaba Zempumelelo",
+    "subtitle": "Akudingeki ikhadi lokuthenga • Ukusetha emahora angu-24 • Khansela noma nini"
+  },
+  "languages": {
+    "en": "IsiNgisi",
+    "es": "IsiSpanishi",
+    "fr": "IsiFulentshi",
+    "de": "IsiJalimane",
+    "zh": "IsiShayina",
+    "ar": "Isi-Arabic",
+    "hi": "IsiHindi",
+    "pt": "IsiPutukezi",
+    "ru": "IsiRashiya",
+    "ja": "IsiJapane",
+    "ko": "IsiKoriya",
+    "it": "Isi-Italiyane",
+    "nl": "IsiDashi",
+    "tr": "IsiTurkey",
+    "pl": "IsiPolishi",
+    "vi": "IsiVietnam",
+    "th": "IsiThai",
+    "id": "Isi-Indonesian",
+    "ro": "IsiRomania",
+    "cs": "IsiCzech"
+  },
+  "whatsappWidget": {
+    "title": "Xoxa Nathi",
+    "subtitle": "Ukusekela Kwendawo",
+    "selectTopic": "Khetha isihloko ukuze uqale ukuxoxa:",
+    "customMessage": "Qala Ingxoxo Eyenziwe Ngezifiso",
+    "opening": "Ivula i-WhatsApp...",
+    "messages": {
+      "generalHelp": "Sawubona, ngidinga usizo ngenkundla ye-MyPadiFood",
+      "setupStore": "Ngifuna ukumisa isitolo sami se-inthanethi. Ungangisiza ukuqala?",
+      "pricing": "Yiziphi izinhlelo zakho zamanani? Ngingathanda ukwazi izindleko nezici.",
+      "technicalIssue": "Ngibhekene nenkinga yobuchwepheshe ngesitolo sami. Ungasiza?",
+      "multiLanguage": "Isici sokuhumusha izilimi eziningi sisebenza kanjani?",
+      "payments": "Nginemibuzo mayelana nokucubungula izinkokhelo kanye nokusekela imali eziningi.",
+      "whatsappIntegration": "Ngihlanganisa kanjani ama-oda e-WhatsApp ngesitolo sami?",
+      "customDomain": "Ngingasebenzisa igama lami lesizinda elenzelwe mina ngesitolo sami?",
+      "migration": "Ngifuna ukufudukisa ibhizinisi lami elikhona ku-MyPadiFood. Kusebenza kanjani?",
+      "bulkOrders": "Ngingakwazi kanjani ukuphatha ama-oda amaningi namakhasimende okuthengisa ngobuningi?",
+      "custom": "Sawubona, nginombuzo mayelana nenkundla ye-MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Imibuzo Evame Ukubuzwa",
+    "subtitle": "Konke okudingayo ukwazi nge-MyPadiFood",
+    "backToHome": "Buyela Ekhaya",
+    "stillHaveQuestions": "Usanemibuzo?",
+    "contactSupport": "Ithimba lethu lokusekela lilungele ukukusiza uphumelele",
+    "chatWithSupport": "Xoxa Nosizo Ku-WhatsApp",
+    "whatsappMessage": "Sawubona, nginombuzo mayelana ne-MyPadiFood ongakavezwa ku-FAQ",
+    "categories": {
+      "general": "Ulwazi Oluvamile",
+      "pricing": "Amanani Nokukhokhiswa",
+      "features": "Izici Namakhono",
+      "gettingStarted": "Ukuqala",
+      "support": "Ukusekela Nokuqeqeshwa"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Yini i-MyPadiFood?",
+      "whoCanUse": "Ubani ongasebenzisa i-MyPadiFood?",
+      "howDifferent": "I-MyPadiFood ihlukile kanjani kwezinye izinkundla ze-e-commerce?",
+      "freeTrial": "Ninikeza ukuhlola kwamahhala?",
+      "subscriptionPlans": "Iziphi izinhlelo zokubhalisela eninazo?",
+      "paymentMethods": "Iziphi izindlela zokukhokha enizamukelayo zokubhalisela?",
+      "cancelAnytime": "Ngingakhansela okubhaliselwe kukho noma nini?",
+      "languagesSupported": "I-MyPadiFood isekela izilimi ezingaki?",
+      "currenciesSupported": "Yimiphi imali engingayamukela izinkokhelo kuyo?",
+      "whatsappOrders": "Ama-oda e-WhatsApp asebenza kanjani?",
+      "customDomain": "Ngingasebenzisa igama lami lesizinda elenzelwe mina?",
+      "cashPayments": "I-MyPadiFood iphatha izinkokhelo zemali yebhizinisi lami?",
+      "setupTime": "Kuthatha isikhathi esingakanani ukumisa isitolo sami?",
+      "technicalKnowledge": "Ngidinga ulwazi lobuchwepheshe ukuze ngisebenzise i-MyPadiFood?",
+      "productLimit": "Kukhona umkhawulo wemikhiqizo engingayengeza?",
+      "migration": "Ngingakwazi ukufudukisa isitolo sami esise-inthanethi ku-MyPadiFood?",
+      "customerSupport": "Hlobo luni lokusekela amakhasimende enilunikezayo?",
+      "training": "Ninikeza ukuqeqeshwa noma usizo lokuqalisa?",
+      "updates": "Nikhipha izici ezintsha nezibuyekezo kangaki?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "I-MyPadiFood iyinkundla ye-e-commerce yomhlaba enika amandla amabhizinisi ukuthengisa imikhiqizo namasevisi kumakhasimende emhlabeni wonke. Inkundla yethu enamandla kwe-AI ihumusha isitolo sakho ngokuzenzakalelayo ezilimini eziningi, ilawula izinkokhelo zemali eziningi, futhi ivumela amakhasimende ukuthi a-oda nge-WhatsApp ngaphandle kokudownloada izinhlelo zokusebenza. Sidiliza izihibhe zolimi nezimali ukuze ugxile ekukhuliseni ibhizinisi lakho emhlabeni wonke.",
+      "whoCanUseAnswer": "I-MyPadiFood ilungele noma iliphi ibhizinisi elifuna ukwandisa emhlabeni wonke - kusukela emapulazini amancane nasezindaweni zokudlela kuya ezitolo zemfashini, amasevisi obungane, nababoneleli bokuthengisa ngobuningi. Noma ungusomabhizinisi oyedwa, umnikazi webhizinisi elincane, noma inkampani ekhulayo, inkundla yethu ikhula nezidingo zakho. Uma unemikhiqizo noma amasevisi okuthengisa futhi ufuna ukufinyelela kumakhasimende bamazwe ngamazwe, i-MyPadiFood yakhiwe wena.",
+      "howDifferentAnswer": "Ngokungafani nezinkundla zendabuko ze-e-commerce, i-MyPadiFood yenzelwe ngokukhethekile uhwebo lomhlaba. Izici zethu ezihlukile zihlanganisa: (1) Ukuhumusha okunamandla kwe-AI ezilimini ezingaphezu kweyi-20 ngaphandle komzamo wesandla, (2) Amakhasimende angakwazi uku-oda ngaphandle kokudala ama-akhawunti noma ukukhotha izinhlelo zokusebenza, (3) Ukuhlanganiswa kwe-WhatsApp ukuze kulawulwe kalula ama-oda, (4) Ukusekela imali eziningi ngokuguqulwa okuzenzakalelayo, (5) Ukuqoqwa kokubuyekezwa kwamakhasimende ngocingo, futhi (6) Akudingeki ubuchule bobuchwepheshe ukuze uqale.",
+      "freeTrialAnswer": "Yebo! Sinikeza ukuhlola kwamahhala kwezinsuku eziyi-14 ngokufinyelela okugcwele kuzo zonke izici. Akudingeki ikhadi lokuthenga ukuze uqale ukuhlola kwakho. Lokhu kukunika isikhathi esanele sokumisa isitolo sakho, engeza imikhiqizo, lungisa izilungiselelo zakho, futhi uhlole zonke izici zethu. Ngemva kokuphela kokuhlola kwezinsuku eziyi-14, isitolo sakho sizomiswa okwesikhashana uze ukhethe uhlelo lokubhalisela olusebenzayo kuwe. Ungavuselela noma nini ngokubhalisa.",
+      "subscriptionPlansAnswer": "Sinikeza izinhlelo zokubhalisela eziguquguqukayo ukuze zifane nezidingo zakho zebhizinisi: Okubhaliselwe konyaka ukuze kube nokuvumelana okuphezulu, Izinhlelo zekota ngokonga izindleko, Okubhaliselwe kwezinyanga eziyi-6 ukuze kutholakale inani elingcono, kanye Nezinhlelo zonyaka ukuze kutholakale amazinga angcono kakhulu. Imali yokubhalisela iyahlukahluka ngokwezwe lakho lomakhelwane ukuze kuqinisekiswe amanani afanele ngokusekelwe ezimeni zomnotho wendawo. Xhumana nethimba lethu lokusekela nge-WhatsApp ukuze uthole amanani athile ezwe lakho futhi uxoxe ukuthi yiluphi uhlelo oluhambisana kahle nezinhloso zakho zebhizinisi.",
+      "paymentMethodsAnswer": "Samukela izindlela eziningi zokukhokha imali yokubhalisela kuye ngezwe lakho, kuhlanganise amakhadi okuthenga/ama-debit, ukudluliswa kwebhange, imali yeselula, nezinye izindleko zendawo zokukhokha. Inhloso yethu ukwenza kube lula kangangoko ukuze ubhalisele futhi ugcine i-akhawunti yakho. Xhumana nethimba lethu lokusekela ukuze ufunde ngezindlela ezithile zokukhokha ezitholakalayo esifundeni sakho.",
+      "cancelAnytimeAnswer": "Impela! Unelawulo eligcwele phezu kokubhaliselwe kukho. Ungakhansela noma nini ngaphandle kwezinhlawulo noma izimali ezifihlekile. Uma ukhansela ngesikhathi sokubhalisela kwakho, uzoba nokufinyelela esitolo sakho kuze kube sekupheleni kwaleso sikhathi esikhokhelwe. Sikholelwa ekuzuzeni ibhizinisi lakho inyanga zonke, singakuvaleli ezinkontilekeni zesikhathi eside ongafuni zona.",
+      "languagesSupportedAnswer": "I-MyPadiFood manje isekela izilimi ezingaphezu kweyi-20 ezinkulu kuhlanganise IsiNgisi, IsiSpanishi, IsiFulentshi, IsiJalimane, IsiShayina, Isi-Arabic, IsiHindi, IsiPutukezi, IsiRashiya, IsiJapane, IsiKoriya, Isi-Italiyane, IsiDashi, IsiTurkey, IsiPolishi, IsiVietnam, IsiThai, Isi-Indonesian, IsiRomania, ne-Czech. Isistimu yethu yokuhumusha ye-AI iqinisekisa ukuthi izincazelo zakho zemikhiqizo, amenyu, nokuqukethwe kwesitolo kuhunyushwe ngokunembile ngesikhathi sangempela. Sihlala sengeza ezinye izilimi ngokusekelwe esidingweni samakhasimende.",
+      "currenciesSupportedAnswer": "Ungamukela izinkokhelo kunoma iyiphi imali enkulu yomhlaba wonke. Inkundla yethu ilawula ukuguqulwa kwemali ngesikhathi sangempela ngokuzenzakalelayo, ngakho amakhasimende abona amanani ngemali yawo yendawo ngenkathi wena uthola izinkokhelo ngemali oyithandayo. Lokhu kuhlanganisa i-USD, EUR, GBP, NGN, JPY, CNY, INR, nokunye okuningi. Isistimu ibuyekeza amazinga okushintshanisa njalo ukuze iqinisekise amanani anembile.",
+      "whatsappOrdersAnswer": "Uma amakhasimende ebeka ama-oda esitolo sakho se-MyPadiFood, uthola izaziso ngokushesha ngqo kunombolo yakho yebhizinisi ye-WhatsApp. Imininingwane ye-oda ifakwe kalula ngolwazi lwekhasimende, izinto ezi-odiwe, ikheli lokulethwa, nesimo senkokhelo. Ungaqinisekisa ama-oda, ubuyekeze amakhasimende ngesimo se-oda, futhi uxhumane ngqo nge-WhatsApp - akudingeki ukufunda isistimu entsha. Kulula njengokuba nengxoxo nekhasimende lakho.",
+      "customDomainAnswer": "Yebo! Ungaxhuma igama lakho lesizinda elenzelwe wena esitolo sakho se-MyPadiFood ukuze uthole ulwazi lobuchwepheshe lobumba. Ngokwesibonelo, kunalokho ibhizinisi lakho.mypadifood.com, ungasebenzisa isitolo.ibhizinisi lakho.com noma noma iliphi igama lesizinda olinayo. Lesi sici sitholakala ezinhlelweni ezithile zokubhalisela. Ithimba lethu lokusekela lingakuhola ngenqubo elula yokusetha.",
+      "cashPaymentsAnswer": "I-MyPadiFood AYAMUKELI, AYILAWULI, noma AYIPHATHE izinkokhelo zemali egameni lebhizinisi lakho. Zonke ukushintshaniswa okuhlobene nemali kulawulwa ngqo phakathi kwakho namakhasimende akho. Ugcina ulawulo olugcwele phezu kwezinkokhelo zakho zemali, ukuqoqwa, nokuvumelanisa. I-MyPadiFood ithuthukisa kuphela inkundla yoku-oda kanye nokucubungula izinkokhelo zedijithali. Noma yiziphi izilungiselelo zenkokhelo yemali ziwumthwalo wakho wokulawula ngokuzimele.",
+      "setupTimeAnswer": "Amabhizinisi amaningi angakwazi ukuba nesitolo sawo esimisiwe ngokugcwele futhi silungele ukwamukela ama-oda ngaphakathi kwamahora angu-24 noma ngaphansi. Inqubo yethu elula yokuqalisa ikuhola kuzo zonke: ukudala i-akhawunti yakho, ukwengeza imikhiqizo yakho, ukumisa izindlela zokukhokha, ukwenza isimo sesitolo sakho, nokuxhuma i-WhatsApp yakho. Abasebenzisi abaningi baqeda ukusetha okuyisisekelo ngaphansi kwamahora ama-2. Sinikeza isiqondiso esinyathelo ngesinyathelo nosizo ukuze sikusize uqalise ngokushesha.",
+      "technicalKnowledgeAnswer": "Akudingeki ulwazi lobuchwepheshe! I-MyPadiFood yenzelwe abanikazi bamabhizinisi, hhayi abathuthukisi. Isixhumi sethu esinomqondo sikuhola esinyathelweni ngasinye ngeziyalezo ezicacile. Akudingeki ukwazi ukubhala ikhodi, uqonde ukulondoloza iwebhu, noma ukuphatha amaseva. Uma ungasebenzisa i-WhatsApp ne-imeyili, ungaphatha isitolo sakho se-MyPadiFood. Ithimba lethu lokusekela futhi litholakala ukuze lisize nganoma yimiphi imibuzo.",
+      "productLimitAnswer": "Akukho mkhawulo wenani lemikhiqizo ongayengeza esitolo sakho. Noma unemikhiqizo eyi-10 noma eyi-10,000, i-MyPadiFood ingakwazi ukulawula ikhathalogi yakho. Ungahlela imikhiqizo ngezigaba, wengeze izincazelo eziningiliziwe nezithombe, usethe amazinga omkhiqizo, futhi ulawule konke kudashbhodi yakho. Njengoba ibhizinisi lakho likhula, isitolo sakho sikhula nawe.",
+      "migrationAnswer": "Yebo, singakusiza ukufudukisa isitolo sakho esise-inthanethi ku-MyPadiFood! Sisekela ukufuduka kusuka ezinkundleni ezihlukahlukene kuhlanganise i-Shopify, i-WooCommerce, nezinye izistimu ze-e-commerce. Ithimba lethu lingakusiza ngokudlulisa ikhathalogi yakho yemikhiqizo, idatha yamakhasimende, nomlando we-oda. Xhumana nethimba lethu lokusekela nge-WhatsApp ukuze uxoxe ngezidingo zakho ezithile zokufuduka, isikhathi, nanoma yiziphi izimfuneko ezenzelwe. Sizokwenza ukuguqula kube lula kangangoko.",
+      "customerSupportAnswer": "Sinikeza ukusekela okubanzi ngeziteshi eziningi: Ukusekela kwe-WhatsApp ukuze kubuzwe imibuzo esheshayo nosizo lwangempela, Ukusekela i-imeyili ukuze kubuze okuminingiliziwe, Isikhungo sosizo ngeziqondiso nezifundo, kanye Nokubukwa kwevidiyo kwezici eziyinkimbinkimbi. Ithimba lethu lokusekela lisebenza ngamahora ebhizinisi futhi sihlose ukuphendula kuzo zonke imibuzo ngaphakathi kwamahora angu-24. Amaphakeji okusekela i-premium ngabaphathi be-akhawunti abazinikele atholakala kumabhizinisi akhulayo.",
+      "trainingAnswer": "Yebo! Sinikeza izinsiza zokuqeqesha ezibanzi ukuze sikusize uphumelele: Iseshini yamahhala yokuqalisa uma ubhalisa, Izifundo zevidiyo ezihlanganisa zonke izici, Iziqondiso ezibhaliwe ezinyathelo ngesinyathelo, Ama-webinar aphilayo ezici ezintsha, kanye Nezikhathi zokuqeqesha zoyedwa-noyedwa (ziyatholakala ngezinhlelo ze-premium). Sifuna ukuqinisekisa ukuthi uzizwa uqinisekile usebenzisa zonke izici zenkundla ukuze ukhulise ibhizinisi lakho.",
+      "updatesAnswer": "Siqhubeka nokwenza ngcono i-MyPadiFood ngezibuyekezo ezivamile nezici ezintsha. Ukukhishwa kwezici ezinkulu kuvame ukwenzeka kwekota, nezilungiso ezincane nokudiliziselwa kwamaphutha zikhishwa njengoba kudingeka. Zonke izibuyekezo zifakiwe ekubhaliseleni kwakho ngaphandle kwenani elengeziwe. Simemezela izici ezintsha nge-imeyili, izaziso ku-app, neziteshi zethu zokuxhumana. Impendulo yakho isiza ukubumba imephu yethu yomgwaqo, ngakho sihlala sakha lokho amabhizinisi akudinga kakhulu."
+    }
+  },
+  "onboarding": {
+    "title": "Qala Ibhizinisi Lakho",
+    "subtitle": "Gcwalisa ifomu elingezansi bese ithimba lethu likusiza ukuqala",
+    "submitSuccess": "Isicelo sithunyelwe ngempumelelo!",
+    "submitError": "Kuhlulekile ukuthumela isicelo",
+    "submitting": "Iyathumela...",
+    "submitButton": "Thumela Isicelo",
+    "submitAnother": "Thumela Esinye Isicelo",
+    "successTitle": "Siyabonga!",
+    "successMessage": "Isicelo sakho sokuqala sithunyelwe ngempumelelo. Ithimba lethu lizokuthinta ngaphakathi kwamahora angu-24.",
+    "categories": {
+      "foodDining": "🍽️ Ukudla Nokudla",
+      "agricultureFarming": "🌾 Ezolimo Nokulima",
+      "hospitality": "🏨 Ubungane",
+      "retailShopping": "🛍️ Ukuthengisa Nokushopha",
+      "technologyElectronics": "💻 Ubuchwepheshe Nezinto Zikagesi",
+      "healthBeauty": "💄 Ezempilo Nobuhle",
+      "homeLiving": "🏠 Ikhaya Nokuphila",
+      "automotive": "🚗 Izimoto",
+      "educationLearning": "🎓 Imfundo Nokufunda",
+      "sportsRecreation": "⚽ Ezemidlalo Nokuzijabulisa",
+      "professionalServices": "💼 Amasevisi Obuchwepheshe",
+      "otherServices": "🔧 Amanye Amasevisi"
+    },
+    "businessInfo": {
+      "title": "Ulwazi Ngebhizinisi",
+      "businessName": "Igama Lebhizinisi",
+      "businessNamePlaceholder": "isb., Imikhiqizo Yepulazi Elisha",
+      "businessType": "Uhlobo Lwebhizinisi",
+      "other": "Okunye",
+      "preferredSlug": "I-URL Slug Othandayo",
+      "slugPlaceholder": "ipulazielisha",
+      "slugHint": "Izinhlamvu ezincane kuphela, izinombolo, nama-hyphens",
+      "urlPreviewLabel": "Ibhizinisi lakho lizotholakala ku:",
+      "description": "Incazelo",
+      "descriptionPlaceholder": "Sitshele ngebhizinisi lakho..."
+    },
+    "ownerInfo": {
+      "title": "Ulwazi Lomnikazi",
+      "fullName": "Igama Eligcwele",
+      "fullNamePlaceholder": "John Doe",
+      "email": "I-imeyili",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Ucingo",
+      "phonePlaceholder": "+234 800 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Amabhizinisi Ethu",
+    "subtitle": "Thola amabhizinisi endawo amangalisayo enkundleni yethu",
+    "noBusinesses": "Awekho amabhizinisi atholakele kulesi sigaba",
+    "tryDifferent": "Zama ukukhetha isigaba esihlukile ukuze uhlole amabhizinisi amaningi"
+  },
+  "businessFilter": {
+    "allBusinesses": "Wonke Amabhizinisi"
+  },
+  "businessCard": {
+    "products": "Imikhiqizo",
+    "visitStore": "Vakashela Isitolo"
+  }
+}

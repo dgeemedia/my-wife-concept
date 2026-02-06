@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Ile",
+    "businesses": "Awọn Iṣowo",
+    "startBusiness": "Bẹrẹ Iṣowo Rẹ",
+    "contactUs": "Kan Si Wa",
+    "login": "Wọle"
+  },
+  "footer": {
+    "tagline": "Fifun awọn iṣowo agbaye lagbara pẹlu ọna ṣiṣe AI ati atilẹyin ẹdẹ pupọ",
+    "quickLinks": {
+      "title": "Awọn Ọna Iyara",
+      "home": "Ile",
+      "businesses": "Awọn Iṣowo",
+      "startBusiness": "Bẹrẹ Iṣowo Rẹ",
+      "faq": "Awọn Ibeere Gbogbogbo"
+    },
+    "contact": {
+      "title": "Kan Si Wa",
+      "whatsappSupport": "Iranlọwọ WhatsApp Wa"
+    },
+    "copyright": "© {{year}} MyPadiFood. Gbogbo ẹtọ ni a daabobo."
+  },
+  "hero": {
+    "badge": "Pẹpẹ Iṣowo Agbaye",
+    "headline": "Ṣe Ifilọlẹ Iṣowo Rẹ",
+    "headlineHighlight": "Nibikibi, Ni Ẹdẹ Eyikeyi",
+    "subtitle": "Pẹpẹ kan ṣoṣo ti o jẹ ki awọn alabara paṣẹ ni ẹdẹ wọn, sanwo ni owo wọn, ki o si ṣe atunyẹwo nipasẹ ipe foonu - ko si aini lati ṣe igbasilẹ app.",
+    "features": {
+      "globalLanguage": {
+        "title": "Ẹdẹ Eyikeyi",
+        "description": "Awọn alabara paṣẹ ni ẹdẹ abinibi wọn"
+      },
+      "multiCurrency": {
+        "title": "Owo Pupọ",
+        "description": "Gba awọn isanwo ni owo eyikeyi"
+      },
+      "noSignUp": {
+        "title": "Ko Si Iforukọsilẹ Ti O Nilo",
+        "description": "Awọn alabara paṣẹ lẹsẹkẹsẹ"
+      },
+      "whatsApp": {
+        "title": "Awọn Aṣẹ WhatsApp",
+        "description": "Gba awọn aṣẹ nipasẹ WhatsApp"
+      },
+      "phoneReviews": {
+        "title": "Awọn Atunyẹwo Foonu",
+        "description": "Gbigba atunyẹwo ohun adaṣe laifọwọyi"
+      },
+      "fastSetup": {
+        "title": "Eto Iyara",
+        "description": "Ṣe ifilọlẹ ni kere ju wakati 24"
+      }
+    },
+    "quickStart": {
+      "title": "Bẹrẹ Idanwo Ọfẹ Rẹ",
+      "emailLabel": "Imeeli Iṣowo Rẹ",
+      "emailPlaceholder": "iṣowo@apẹẹrẹ.com",
+      "buttonText": "Bẹrẹ Ọfẹ",
+      "disclaimer": "Ko si kaadi kirẹditi ti o nilo. Eto ni iṣẹju diẹ."
+    }
+  },
+  "aboutUs": {
+    "title": "Nipa MyPadiFood",
+    "subtitle": "Fifọ awọn idiwọ ẹdẹ ati owo kuro lati fun awọn iṣowo agbaye lagbara",
+    "mission": {
+      "title": "Iṣẹ-apinfunni Wa",
+      "description": "A gbagbọ pe gbogbo iṣowo, laibikita iwọn tabi ipo, yẹ ki o ni iraye si si awọn alabara agbaye. MyPadiFood jade lati akiyesi ti o rọrun: awọn idiwọ ẹdẹ ati owo ko yẹ ki o din agbara iṣowo kan ni ṣiṣe iranṣẹ awọn alabara agbaye.",
+      "point1": "Jẹ ki awọn iṣowo de ọdọ awọn alabara ni ẹdẹ eyikeyi laisi idiju ti itumo afọwọṣe",
+      "point2": "Mu iyọrisi ti iyipada owo ati sisẹ isanwo agbaye kuro"
+    },
+    "vision": {
+      "title": "Iran Wa",
+      "description": "A fojuran agbaye kan nibiti oko kekere kan ni Naijiria le ṣe iranṣẹ awọn alabara ni Japan lai ni iṣoro, ile itaja kan ni Parisi le firanṣẹ ni irọrun si Brazil, ati ile ounjẹ kan ni Mexico le gba awọn aṣẹ lati ọdọ awọn alabara ni India - gbogbo laisi aniyan nipa awọn idiwọ ẹdẹ tabi awọn idiju isanwo.",
+      "point1": "Fun awọn iṣowo 1 million ni agbara ni agbaye ni ọdun 2030",
+      "point2": "Ṣe atilẹyin iṣowo ni gbogbo ẹdẹ ati owo agbaye"
+    },
+    "values": {
+      "title": "Kini O N Dari Wa",
+      "value1": {
+        "title": "Iraye si",
+        "description": "Imọ-ẹrọ yẹ ki o fun ni agbara, kii ṣe idiju. Ko si awọn app lati ṣe igbasilẹ, ko si awọn eto ti o ṣoro."
+      },
+      "value2": {
+        "title": "Imudara",
+        "description": "Itumo ti o da lori AI ati adaṣe ti o ṣiṣẹ ni aiṣoro ni ẹhin."
+      },
+      "value3": {
+        "title": "Ifisi",
+        "description": "Gbogbo iṣowo yẹ ki o ni iraye si agbaye, laibikita imọ imọ-ẹrọ tabi eto inawo."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Awọn Itan Aṣeyọri",
+    "subtitle": "Awọn iṣowo gidi ti n ṣaṣeyọri idagbasoke iyalẹnu pẹlu MyPadiFood",
+    "viewMore": "Wo Awọn Itan Aṣeyọri Diẹ Sii"
+  },
+  "testimonials": {
+    "title": "Awọn Itan Aṣeyọri",
+    "subtitle": "Awọn iṣowo gidi, awọn abajade gidi",
+    "aiPoweredAdvantage": "Anfani Ti O Da Lori AI",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Iṣẹ-ogbin",
+      "quote": "Eto itumo ti o da lori AI ati owo pupọ ti MyPadiFood ran oko mi lọwọ lati de ọdọ awọn alabara ni awọn orilẹ-ede 5 ti o yatọ. Awọn tita dagba 300% ni oṣu 2 nikan!",
+      "highlight": "Ọgbọn AI: Ipin ọja to gbọn ati asọtẹlẹ ibeere akoko ti o mu iṣura mi dara julọ ti o si mu awọn tita pọ si.",
+      "metrics": "300% idagbasoke • 5 awọn orilẹ-ede • 2 oṣu"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Aṣa ati Aṣọ",
+      "quote": "Awọn alabara fẹran pe wọn le paṣẹ ni ẹdẹ agbegbe wọn lai forukọsilẹ. Awọn aṣẹ agbaye mi pọ si ni ilọpo mẹta lẹsẹkẹsẹ lẹhin ti mo ṣeto ile itaja mi.",
+      "highlight": "Ọgbọn AI: Itupalẹ aṣa aṣa ati awọn iṣeduro iwọn adaṣe ti o dinku awọn ipadabọ 40%.",
+      "metrics": "200% alekun • 40% awọn ipadabọ kere • 12 awọn ẹdẹ"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Itọju Alejo",
+      "quote": "Awọn alejo agbaye le bayi ṣe ifiṣura awọn iyẹwu mi ni owo ati ẹdẹ wọn. Iṣọpọ WhatsApp jẹ ki awọn ijẹrisi dara pipe!",
+      "highlight": "Ọgbọn AI: Idiyele oniyipada ati imudara wiwa ti o mu awọn oṣuwọn igbagbogbo pọ si 65% ni gbogbo ọdun.",
+      "metrics": "65% igbagbogbo • Awọn ifiṣura lẹsẹkẹsẹ • Iraye si agbaye"
+    },
+    "stats": {
+      "countries": "Awọn Orilẹ-ede Ti A Ṣe Iranṣẹ",
+      "setupTime": "Eto Apapọ",
+      "signUpRequired": "Iforukọsilẹ Onibara",
+      "languagesSupported": "Awọn Ẹdẹ"
+    }
+  },
+  "howItWorks": {
+    "title": "Bawo Ni O Ṣe N Ṣiṣẹ",
+    "subtitle": "Ṣe ifilọlẹ iṣowo agbaye rẹ ni awọn igbesẹ rọrun mẹta",
+    "step1": {
+      "title": "Onibara Yan Ẹdẹ",
+      "description": "Awọn alabara rẹ ṣabẹwo atokọ ounjẹ rẹ ni ẹdẹ ti wọn fẹran. AI tumọ ohun gbogbo lẹsẹkẹsẹ - awọn nkan atokọ ounjẹ, awọn apejuwe, awọn idiyele."
+    },
+    "step2": {
+      "title": "Yan Owo Wọn",
+      "description": "Awọn alabara ri awọn idiyele ni owo agbegbe wọn. Iyipada akoko gidi n ṣakoso gbogbo awọn iṣiro laifọwọyi."
+    },
+    "step3": {
+      "title": "Paṣẹ Nipasẹ WhatsApp",
+      "description": "Awọn aṣẹ wa taara si WhatsApp rẹ. Ko si awọn igbasilẹ app ti o nilo fun awọn alabara rẹ. O rọrun o si yara."
+    }
+  },
+  "globalReach": {
+    "title": "Ti A Kọ Fun Iṣowo Agbaye",
+    "subtitle": "Darapọ mọ awọn ẹgbẹẹgbẹrun awọn iṣowo ti n ṣe iranṣẹ awọn alabara agbaye",
+    "stats": {
+      "businesses": "Awọn Iṣowo Ti O Nṣiṣẹ",
+      "transactions": "Awọn Iṣowo Oṣooṣu",
+      "languagesUsed": "Awọn Ẹdẹ Ni Lilo",
+      "currenciesSupported": "Awọn Owo"
+    }
+  },
+  "finalCta": {
+    "badge": "Darapọ mọ awọn iṣowo aṣeyọri agbaye",
+    "title": "Ṣetan Lati Lọ Si Agbaye?",
+    "primaryButton": "Bẹrẹ Idanwo Ọfẹ",
+    "secondaryButton": "Wo Awọn Itan Aṣeyọri",
+    "subtitle": "Ko si kaadi kirẹditi ti o nilo • Eto ni wakati 24 • Fagile nigbakugba"
+  },
+  "languages": {
+    "en": "Gẹẹsi",
+    "es": "Sipeeni",
+    "fr": "Faranse",
+    "de": "Jamani",
+    "zh": "Kannada",
+    "ar": "Larubawa",
+    "hi": "Hindi",
+    "pt": "Pọtugi",
+    "ru": "Rọṣia",
+    "ja": "Japanese",
+    "ko": "Koria",
+    "it": "Itali",
+    "nl": "Dọọti",
+    "tr": "Tọki",
+    "pl": "Poliṣi",
+    "vi": "Fẹtinamu",
+    "th": "Tai",
+    "id": "Indonesian",
+    "ro": "Romania",
+    "cs": "Seeki"
+  },
+  "whatsappWidget": {
+    "title": "Sọrọ Pẹlu Wa",
+    "subtitle": "Atilẹyin Pẹpẹ",
+    "selectTopic": "Yan koko-ọrọ kan lati bẹrẹ ibaraẹnisọrọ:",
+    "customMessage": "Bẹrẹ Ibaraẹnisọrọ Adani",
+    "opening": "Ṣiṣi WhatsApp...",
+    "messages": {
+      "generalHelp": "Pẹlẹ o, Mo nilo iranlọwọ pẹlu pẹpẹ MyPadiFood",
+      "setupStore": "Mo fẹ ṣeto ile itaja ori ayelujara mi. Ṣe o le ran mi lọwọ lati bẹrẹ?",
+      "pricing": "Kini awọn ero idiyele rẹ? Emi yoo fẹ mọ awọn idiyele ati awọn ẹya.",
+      "technicalIssue": "Mo n ni iṣoro imọ-ẹrọ pẹlu ile itaja mi. Ṣe o le ran mi lọwọ?",
+      "multiLanguage": "Bawo ni ẹya itumo ẹdẹ pupọ ṣe n ṣiṣẹ?",
+      "payments": "Mo ni awọn ibeere nipa sisẹ isanwo ati atilẹyin owo pupọ.",
+      "whatsappIntegration": "Bawo ni Mo ṣe ṣe iṣọpọ awọn aṣẹ WhatsApp pẹlu ile itaja mi?",
+      "customDomain": "Ṣe Mo le lo aaye akanṣe ti ara mi fun ile itaja mi?",
+      "migration": "Mo fẹ ṣi iṣowo mi ti o wa tẹlẹ si MyPadiFood. Bawo ni o ṣe n ṣiṣẹ?",
+      "bulkOrders": "Bawo ni Mo ṣe le ṣakoso awọn aṣẹ olopọ ati awọn alabara olopọ?",
+      "custom": "Pẹlẹ o, Mo ni ibeere nipa pẹpẹ MyPadiFood"
+    }
+  },
+  "faq": {
+    "title": "Awọn Ibeere Ti A Beere Nigbagbogbo",
+    "subtitle": "Ohun gbogbo ti o nilo lati mọ nipa MyPadiFood",
+    "backToHome": "Pada Si Ile",
+    "stillHaveQuestions": "Ṣe O Tun Ni Awọn Ibeere?",
+    "contactSupport": "Ẹgbẹ atilẹyin wa ṣetan lati ran ọ lọwọ lati ṣaṣeyọri",
+    "chatWithSupport": "Sọrọ Pẹlu Atilẹyin Lori WhatsApp",
+    "whatsappMessage": "Pẹlẹ o, Mo ni ibeere nipa MyPadiFood ti ko si ninu FAQ",
+    "categories": {
+      "general": "Alaye Gbogbogbo",
+      "pricing": "Idiyele ati Iṣiro",
+      "features": "Awọn Ẹya ati Agbara",
+      "gettingStarted": "Bibẹrẹ",
+      "support": "Atilẹyin ati Ikẹkọ"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "Kini MyPadiFood?",
+      "whoCanUse": "Tani o le lo MyPadiFood?",
+      "howDifferent": "Bawo ni MyPadiFood ṣe yatọ si awọn pẹpẹ e-iṣowo miiran?",
+      "freeTrial": "Ṣe ẹ nfunni ni idanwo ọfẹ?",
+      "subscriptionPlans": "Awọn ero alabapin wo ni ẹ nfunni?",
+      "paymentMethods": "Awọn ọna isanwo wo ni ẹ gba fun awọn alabapin?",
+      "cancelAnytime": "Ṣe Mo le fagile alabapin mi nigbakugba?",
+      "languagesSupported": "Ẹdẹ melo ni MyPadiFood ṣe atilẹyin?",
+      "currenciesSupported": "Awọn owo wo ni Mo le gba awọn isanwo ninu?",
+      "whatsappOrders": "Bawo ni awọn aṣẹ WhatsApp ṣe n ṣiṣẹ?",
+      "customDomain": "Ṣe Mo le lo aaye akanṣe ti ara mi?",
+      "cashPayments": "Ṣe MyPadiFood ṣakoso awọn isanwo owo fun iṣowo mi?",
+      "setupTime": "Bawo ni o ṣe pẹ to lati ṣeto ile itaja mi?",
+      "technicalKnowledge": "Ṣe Mo nilo imọ imọ-ẹrọ lati lo MyPadiFood?",
+      "productLimit": "Ṣe opin wa si iye awọn ọja ti Mo le fikun?",
+      "migration": "Ṣe Mo le ṣi ile itaja ori ayelujara mi ti o wa tẹlẹ si MyPadiFood?",
+      "customerSupport": "Iru atilẹyin onibara wo ni ẹ nfunni?",
+      "training": "Ṣe ẹ nfunni ni ikẹkọ tabi iranlọwọ iṣagbekale?",
+      "updates": "Nigbamelo ni ẹ ṣe ifilọlẹ awọn ẹya tuntun ati awọn imudojuiwọn?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood jẹ pẹpẹ e-iṣowo agbaye ti o jẹ ki awọn iṣowo ta awọn ọja ati awọn iṣẹ si awọn alabara agbaye. Pẹpẹ wa ti o da lori AI tumọ ile itaja rẹ laifọwọyi si awọn ẹdẹ pupọ, ṣakoso awọn isanwo owo pupọ, ati gba awọn alabara laaye lati paṣẹ nipasẹ WhatsApp lai ṣe igbasilẹ awọn app. A mu awọn idiwọ ẹdẹ ati owo kuro ki o le dojukọ idagbasoke iṣowo rẹ ni agbaye.",
+      "whoCanUseAnswer": "MyPadiFood jẹ pipe fun iṣowo eyikeyi ti o n wa lati fẹ si agbaye - lati awọn oko kekere ati awọn ile ounjẹ si awọn ile itaja aṣa, awọn iṣẹ itọju alejo, ati awọn olupese olopọ. Boya o jẹ oṣiṣẹ-ara-ẹni, oniwun iṣowo kekere tabi iṣowo ti o dagba, pẹpẹ wa ṣe atunṣe si awọn aini rẹ. Ti o ba ni awọn ọja tabi awọn iṣẹ lati ta ati pe o fẹ de ọdọ awọn alabara agbaye, MyPadiFood ti a kọ fun ọ.",
+      "howDifferentAnswer": "Ko dabi awọn pẹpẹ e-iṣowo ibile, MyPadiFood jẹ kikọ pataki fun iṣowo agbaye. Awọn ẹya wa alailẹgbẹ pẹlu: (1) Itumo ti o da lori AI si awọn ẹdẹ 20+ lai ṣe igbiyanju afọwọṣe, (2) Awọn alabara le paṣẹ lai ṣẹda awọn akọọlẹ tabi igbasilẹ awọn app, (3) Iṣọpọ WhatsApp fun iṣakoso aṣẹ ti ko ni idiwọ, (4) Atilẹyin owo pupọ pẹlu iyipada laifọwọyi, (5) Gbigba atunyẹwo onibara ti o da lori foonu, ati (6) Ko si imọ imọ-ẹrọ ti o nilo lati bẹrẹ.",
+      "freeTrialAnswer": "Bẹẹni! A nfunni ni idanwo ọfẹ ọlọrọ ọjọ 14 pẹlu iraye si ni kikun si gbogbo awọn ẹya. Ko si kaadi kirẹditi ti o nilo lati bẹrẹ idanwo rẹ. Eyi fun ọ ni akoko to pọ lati ṣeto ile itaja rẹ, fikun awọn ọja, ṣe adani awọn eto rẹ, ati idanwo gbogbo awọn ẹya wa. Lẹhin idanwo ọjọ 14 pari, ile itaja rẹ yoo wa ni idaduro fun igba diẹ titi iwọ yoo fi yan ero alabapin ti o ṣiṣẹ fun ọ. O le tun ṣiṣẹ nigbakugba nipa alabapin.",
+      "subscriptionPlansAnswer": "A nfunni ni awọn ero alabapin ti o ni irọrun lati baamu awọn aini iṣowo rẹ: awọn alabapin oṣooṣu fun irọrun ti o pọju, awọn ero mẹta-oṣu pẹlu awọn ifowopamọ idiyele, awọn alabapin oṣu-mẹfa (oṣu 6) fun iye to dara julọ, ati awọn ero ọdọdun fun awọn oṣuwọn to dara julọ. Awọn owo alabapin yatọ nipasẹ orilẹ-ede agbalejo rẹ lati rii daju idiyele ti o tọ ti o da lori awọn ipo eto-ọrọ aje agbegbe. Kan si ẹgbẹ atilẹyin wa nipasẹ WhatsApp lati gba idiyele pato fun orilẹ-ede rẹ ati jiroro ero wo ti o baamu awọn ibi-afẹde iṣowo rẹ dara julọ.",
+      "paymentMethodsAnswer": "A gba awọn ọna isanwo pupọ fun awọn owo alabapin da lori orilẹ-ede rẹ, pẹlu awọn kaadi kirẹditi/giroolu, awọn gbigbe banki, owo alagbeka, ati awọn aṣayan isanwo agbegbe miiran. Ibi-afẹde wa ni lati jẹ ki o rọrun bi o ti ṣee ṣe fun ọ lati ṣe alabapin ati ṣetọju akọọlẹ rẹ. Kan si ẹgbẹ atilẹyin wa lati kọ nipa awọn ọna isanwo pato ti o wa ni agbegbe rẹ.",
+      "cancelAnytimeAnswer": "Dajudaju! O ni iṣakoso pipe lori alabapin rẹ. O le fagile nigbakugba lai jiya tabi awọn owo ti o pamọ. Ti o ba fagile lakoko iyipo iṣiro rẹ, iwọ yoo tẹsiwaju lati ni iraye si si ile itaja rẹ titi di opin akoko ti o sanwo yẹn. A gbagbọ ninu jije iṣowo rẹ ni oṣooṣu kọọkan, kii ṣe titii ọ sinu awọn adehun igba pipẹ ti o ko fẹ.",
+      "languagesSupportedAnswer": "MyPadiFood ni bayi ṣe atilẹyin si awọn ẹdẹ pataki 20+ pẹlu Gẹẹsi, Sipeeni, Faranse, Jamani, Kannada, Larubawa, Hindi, Pọtugi, Rọṣia, Japanese, Koria, Itali, Dọọti, Tọki, Poliṣi, Fẹtinamu, Tai, Indonesian, Romania, ati Seeki. Eto itumo AI wa rii daju pe awọn apejuwe ọja rẹ, awọn atokọ ounjẹ, ati akoonu ile itaja wa ni itumo deede ni akoko gidi. A n fikun awọn ẹdẹ diẹ sii nigbagbogbo da lori ibeere onibara.",
+      "currenciesSupportedAnswer": "O le gba awọn isanwo ni fere eyikeyi owo pataki agbaye. Pẹpẹ wa ṣakoso iyipada owo akoko gidi laifọwọyi, nitorinaa awọn alabara ri awọn idiyele ni owo agbegbe wọn lakoko ti o gba awọn isanwo ni owo ti o fẹran. Eyi pẹlu USD, EUR, GBP, NGN, JPY, CNY, INR, ati ọpọlọpọ diẹ sii. Eto naa ṣe imudojuiwọn awọn oṣuwọn paṣipaarọ nigbagbogbo lati rii daju idiyele deede.",
+      "whatsappOrdersAnswer": "Nigbati awọn alabara ṣe awọn aṣẹ lori ile itaja MyPadiFood rẹ, o gba awọn iwifunni lẹsẹkẹsẹ taara si nọmba WhatsApp iṣowo rẹ. Awọn alaye aṣẹ jẹ kikọ ni kedere pẹlu alaye onibara, awọn ohun ti a paṣẹ, adirẹsi ifijiṣẹ, ati ipo isanwo. O le jẹrisi awọn aṣẹ, ṣe imudojuiwọn awọn alabara lori ipo aṣẹ, ati ibaraẹnisọrọ taara nipasẹ WhatsApp - ko si aini lati kọ eto tuntun. O rọrun bi nini ibaraẹnisọrọ pẹlu onibara rẹ.",
+      "customDomainAnswer": "Bẹẹni! O le so aaye akanṣe tirẹ si ile itaja MyPadiFood rẹ fun iriri ọjọgbọn ti ami iyasọtọ. Fun apẹẹrẹ, dipo iṣowo-rẹ.mypadifood.com, o le lo itaja.iṣowo-rẹ.com tabi aaye eyikeyi ti o ni. Ẹya yii wa lori awọn ero alabapin ti a yan. Ẹgbẹ atilẹyin wa le ṣe itọsọna rẹ nipasẹ ilana eto ti o rọrun.",
+      "cashPaymentsAnswer": "MyPadiFood KO gba, ṣakoso, tabi ṣakoso awọn isanwo owo ni orukọ iṣowo rẹ. Gbogbo awọn iṣowo ti o jẹmọ owo jẹ iṣakoso taara laarin iwọ ati awọn alabara rẹ. O ṣetọju iṣakoso pipe lori awọn isanwo owo rẹ, awọn gbigba, ati imuṣepọ. MyPadiFood nikan ṣe irọrun pẹpẹ ipaṣẹ ati sisẹ isanwo oni-nọmba. Eyikeyi adehun isanwo owo jẹ ojuṣe rẹ lati ṣakoso lominira.",
+      "setupTimeAnswer": "Ọpọlọpọ awọn iṣowo le ni ile itaja wọn ti o ti ṣeto ni kikun ati ti o ṣetan lati gba awọn aṣẹ laarin wakati 24 tabi kere. Ilana iṣagbekale wa ti o rọrun ṣe itọsọna rẹ nipasẹ: ṣiṣẹda akọọlẹ rẹ, fifikun awọn ọja rẹ, ṣeto awọn ọna isanwo, ṣe adani irisi ile itaja, ati sisopọ WhatsApp rẹ. Ọpọlọpọ awọn olumulo pari eto ipilẹ ni kere ju wakati 2. A pese itọsọna igbesẹ-nipasẹ-igbesẹ ati atilẹyin lati ran ọ lọwọ lati ṣe ifilọlẹ ni iyara.",
+      "technicalKnowledgeAnswer": "Ko si imọ imọ-ẹrọ ti o nilo! MyPadiFood jẹ apẹrẹ fun awọn oniwun iṣowo, kii ṣe awọn olupilẹṣẹ. Wiwo oye wa ṣe itọsọna rẹ nipasẹ gbogbo igbesẹ pẹlu awọn ilana ti o han gbangba. O ko nilo lati mọ bii o ṣe le koodu, loye agbalejo wẹẹbu, tabi ṣakoso awọn olupin. Ti o ba le lo WhatsApp ati imeeli, o le ṣakoso ile itaja MyPadiFood rẹ. Ẹgbẹ atilẹyin wa tun wa lati ṣe iranlọwọ pẹlu eyikeyi awọn ibeere.",
+      "productLimitAnswer": "Ko si opin si nọmba awọn ọja ti o le fikun si ile itaja rẹ. Boya o ni awọn ọja 10 tabi 10,000, MyPadiFood le ṣakoso katalogi rẹ. O le ṣeto awọn ọja sinu awọn ẹka, fikun awọn apejuwe ati awọn aworan alaye, ṣeto awọn ipele iṣura, ati ṣakoso ohun gbogbo lati dashboard rẹ. Bi iṣowo rẹ ṣe dagba, ile itaja rẹ dagba pẹlu rẹ.",
+      "migrationAnswer": "Bẹẹni, a le ran ọ lọwọ lati ṣi ile itaja ori ayelujara rẹ ti o wa tẹlẹ si MyPadiFood! A ṣe atilẹyin ifun lati awọn pẹpẹ oriṣiriṣi pẹlu Shopify, WooCommerce, ati awọn eto e-iṣowo miiran. Ẹgbẹ wa le ṣe iranlọwọ pẹlu gbigbe katalogi ọja rẹ, data onibara, ati itan aṣẹ. Kan si ẹgbẹ atilẹyin wa nipasẹ WhatsApp lati jiroro awọn aini ifun pato rẹ, akoko, ati eyikeyi awọn ibeere adani. A yoo jẹ ki iyipada dara bi o ti ṣee ṣe.",
+      "customerSupportAnswer": "A pese atilẹyin okeerẹ nipasẹ awọn ikanni pupọ: atilẹyin WhatsApp fun awọn ibeere iyara ati iranlọwọ akoko gidi, atilẹyin Imeeli fun awọn ibeere alaye, ile-iṣẹ iranlọwọ pẹlu awọn itọsọna ati awọn ikẹkọ, ati awọn ifiwoyi fidio fun awọn ẹya idiju. Ẹgbẹ atilẹyin wa n ṣiṣẹ lakoko awọn wakati iṣowo ati a pinnu lati dahun si gbogbo awọn ibeere laarin wakati 24. Awọn package atilẹyin alagbero pẹlu awọn oluṣakoso akọọlẹ iyasọtọ wa fun awọn iṣowo ti o dagba.",
+      "trainingAnswer": "Bẹẹni! A pese awọn orisun ikẹkọ ti o gbooro lati ran ọ lọwọ lati ṣaṣeyọri: Ipade iṣagbekale ọfẹ nigbati o forukọsilẹ, awọn ikẹkọ fidio ti o bo gbogbo awọn ẹya, awọn itọsọna kikọ igbesẹ-nipasẹ-igbesẹ, awọn apejọ ori ayelujara laaye fun awọn ẹya tuntun, ati awọn ipade ikẹkọ ẹni-si-ẹni (wa pẹlu awọn ero alagbero). A fẹ lati rii daju pe o ni igboya lilo gbogbo apakan pẹpẹ lati dagba iṣowo rẹ.",
+      "updatesAnswer": "A n mu MyPadiFood dara ni ilọsiwaju pẹlu awọn imudojuiwọn deede ati awọn ẹya tuntun. Awọn ifilọlẹ ẹya pataki maa n ṣẹlẹ ni mẹta-oṣu, pẹlu awọn ilọsiwaju kekere ati awọn atunṣe aṣiṣe ti a fisilẹ bi o ṣe nilo. Gbogbo awọn imudojuiwọn wa ninu alabapin rẹ lai ṣe idiyele afikun. A kede awọn ẹya tuntun nipasẹ imeeli, awọn iwifunni inu app, ati awọn ikanni media awujọ wa. Esi rẹ ṣe iranlọwọ lati ṣe apẹrẹ ọna-ọna wa, nitorinaa a n kọ ohun ti awọn iṣowo nilo julọ nigbagbogbo."
+    }
+  },
+  "onboarding": {
+    "title": "Bẹrẹ Iṣowo Rẹ",
+    "subtitle": "Ṣe iwadi fọọmu ni isalẹ ati ẹgbẹ wa yoo ran ọ lọwọ lati bẹrẹ",
+    "submitSuccess": "Ohun elo fisilẹ ni aṣeyọri!",
+    "submitError": "O kuna lati fisilẹ ohun elo",
+    "submitting": "N fisilẹ...",
+    "submitButton": "Fisilẹ Ibeere",
+    "submitAnother": "Fisilẹ Ibeere Miiran",
+    "successTitle": "O Ṣeun!",
+    "successMessage": "Ibeere iṣagbekale rẹ ti fisilẹ ni aṣeyọri. Ẹgbẹ wa yoo kan si ọ laarin wakati 24.",
+    "categories": {
+      "foodDining": "🍽️ Ounjẹ ati Ile-ounjẹ",
+      "agricultureFarming": "🌾 Iṣẹ-ogbin ati Ọgbin",
+      "hospitality": "🏨 Itọju Alejo",
+      "retailShopping": "🛍️ Tita ati Rira",
+      "technologyElectronics": "💻 Imọ-ẹrọ ati Ẹrọ Itanna",
+      "healthBeauty": "💄 Ilera ati Ẹwa",
+      "homeLiving": "🏠 Ile ati Igbesi-aye",
+      "automotive": "🚗 Ọkọ Ayọkẹlẹ",
+      "educationLearning": "🎓 Ẹkọ ati Kikọ",
+      "sportsRecreation": "⚽ Ere-idaraya ati Ere",
+      "professionalServices": "💼 Awọn Iṣẹ Alamọdaju",
+      "otherServices": "🔧 Awọn Iṣẹ Miiran"
+    },
+    "businessInfo": {
+      "title": "Alaye Iṣowo",
+      "businessName": "Orukọ Iṣowo",
+      "businessNamePlaceholder": "apeere, Awọn Ọja Oko Tuntun",
+      "businessType": "Iru Iṣowo",
+      "other": "Miiran",
+      "preferredSlug": "Slug URL Ti O Fẹran",
+      "slugPlaceholder": "okotuntun",
+      "slugHint": "Awọn lẹta kekere nikan, awọn nọmba, ati awọn ifamọra",
+      "urlPreviewLabel": "Iṣowo rẹ yoo wa ni iraye si ni:",
+      "description": "Apejuwe",
+      "descriptionPlaceholder": "Sọ fun wa nipa iṣowo rẹ..."
+    },
+    "ownerInfo": {
+      "title": "Alaye Oniwun",
+      "fullName": "Orukọ Kikun",
+      "fullNamePlaceholder": "Ade Bello",
+      "email": "Imeeli",
+      "emailPlaceholder": "ade@apẹẹrẹ.com",
+      "phone": "Foonu",
+      "phonePlaceholder": "+234 800 000 0000"
+    }
+  },
+  "businessDirectory": {
+    "title": "Awọn Iṣowo Wa",
+    "subtitle": "Ṣe awari awọn iṣowo agbegbe iyalẹnu lori pẹpẹ wa",
+    "noBusinesses": "Ko si awọn iṣowo ti a rii ninu ẹka yii",
+    "tryDifferent": "Gbiyanju yan ẹka ti o yatọ lati ṣawari awọn iṣowo diẹ sii"
+  },
+  "businessFilter": {
+    "allBusinesses": "Gbogbo Awọn Iṣowo"
+  },
+  "businessCard": {
+    "products": "Awọn Ọja",
+    "visitStore": "Ṣabẹwo Ile Itaja"
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "header": {
+    "home": "Ana Sayfa",
+    "businesses": "İşletmeler",
+    "startBusiness": "İşinizi Başlatın",
+    "contactUs": "Bize Ulaşın",
+    "login": "Giriş Yap"
+  },
+  "footer": {
+    "tagline": "Dünya çapında işletmeleri yapay zeka destekli sipariş ve çok dilli destek ile güçlendiriyoruz",
+    "quickLinks": {
+      "title": "Hızlı Bağlantılar",
+      "home": "Ana Sayfa",
+      "businesses": "İşletmeler",
+      "startBusiness": "İşinizi Başlatın",
+      "faq": "SSS"
+    },
+    "contact": {
+      "title": "Bize Ulaşın",
+      "whatsappSupport": "WhatsApp Desteği Mevcut"
+    },
+    "copyright": "© {{year}} MyPadiFood. Tüm hakları saklıdır."
+  },
+  "hero": {
+    "badge": "Küresel İş Platformu",
+    "headline": "İşinizi Başlatın",
+    "headlineHighlight": "Her Yerde, Her Dilde",
+    "subtitle": "Müşterilerin kendi dillerinde sipariş vermelerine, kendi para birimlerinde ödeme yapmalarına ve telefonla değerlendirme yapmalarına olanak tanıyan tek platform - uygulama indirmesi gerekmez.",
+    "features": {
+      "globalLanguage": {
+        "title": "Her Dil",
+        "description": "Müşteriler ana dillerinde sipariş verir"
+      },
+      "multiCurrency": {
+        "title": "Çoklu Para Birimi",
+        "description": "Her para biriminde ödeme kabul edin"
+      },
+      "noSignUp": {
+        "title": "Kayıt Gerektirmez",
+        "description": "Müşteriler anında sipariş verir"
+      },
+      "whatsApp": {
+        "title": "WhatsApp Siparişleri",
+        "description": "WhatsApp üzerinden sipariş alın"
+      },
+      "phoneReviews": {
+        "title": "Telefonla Değerlendirmeler",
+        "description": "Otomatik sesli değerlendirme toplama"
+      },
+      "fastSetup": {
+        "title": "Hızlı Kurulum",
+        "description": "24 saatten kısa sürede başlatın"
+      }
+    },
+    "quickStart": {
+      "title": "Ücretsiz Denemenizi Başlatın",
+      "emailLabel": "İş E-postanız",
+      "emailPlaceholder": "isletme@ornek.com",
+      "buttonText": "Ücretsiz Başlayın",
+      "disclaimer": "Kredi kartı gerekmez. Dakikalar içinde kurulum."
+    }
+  },
+  "aboutUs": {
+    "title": "MyPadiFood Hakkında",
+    "subtitle": "Dünya çapında işletmeleri güçlendirmek için dil ve para birimi engellerini kaldırıyoruz",
+    "mission": {
+      "title": "Misyonumuz",
+      "description": "Her işletmenin, büyüklüğü veya konumu ne olursa olsun, küresel müşterilere erişmeyi hak ettiğine inanıyoruz. MyPadiFood basit bir gözlemden doğdu: dil ve para birimi engelleri, bir işletmenin dünya çapında müşterilere hizmet verme potansiyelini sınırlamamalıdır.",
+      "point1": "İşletmelerin manuel çeviri karmaşıklığı olmadan her dilde müşterilere ulaşmasını sağlamak",
+      "point2": "Para birimi dönüştürme ve uluslararası ödeme işleme sürtünmesini ortadan kaldırmak"
+    },
+    "vision": {
+      "title": "Vizyonumuz",
+      "description": "Nijerya'daki küçük bir çiftliğin Japonya'daki müşterilere sorunsuzca hizmet verebildiği, Paris'teki bir butiğin Brezilya'ya kolayca gönderebildiği ve Meksika'daki bir restoranın Hindistan'daki müşterilerden sipariş alabileceği bir dünya hayal ediyoruz - hepsi dil engelleri veya ödeme komplikasyonları konusunda endişelenmeden.",
+      "point1": "2030 yılına kadar dünya çapında 1 milyondan fazla işletmeye güç sağlamak",
+      "point2": "Dünya çapında her dilde ve para biriminde ticareti desteklemek"
+    },
+    "values": {
+      "title": "Bizi Yönlendiren Değerler",
+      "value1": {
+        "title": "Erişilebilirlik",
+        "description": "Teknoloji güçlendirmeli, karmaşıklaştırmamalı. İndirilecek uygulama yok, karmaşık kurulum yok."
+      },
+      "value2": {
+        "title": "İnovasyon",
+        "description": "Arka planda sorunsuz çalışan yapay zeka destekli çeviri ve otomasyon."
+      },
+      "value3": {
+        "title": "Kapsayıcılık",
+        "description": "Her işletme, teknik uzmanlık veya bütçeden bağımsız olarak küresel erişimi hak eder."
+      }
+    }
+  },
+  "successStories": {
+    "title": "Başarı Hikayeleri",
+    "subtitle": "MyPadiFood ile olağanüstü büyüme elde eden gerçek işletmeler",
+    "viewMore": "Daha Fazla Başarı Hikayesini Görüntüle"
+  },
+  "testimonials": {
+    "title": "Başarı Hikayeleri",
+    "subtitle": "Gerçek işletmeler, gerçek sonuçlar",
+    "aiPoweredAdvantage": "Yapay Zeka Destekli Avantaj",
+    "business1": {
+      "name": "Christiana Isola",
+      "business": "Chrenis Farm",
+      "industry": "Tarım",
+      "quote": "MyPadiFood'un yapay zeka destekli çeviri ve çoklu para birimi sistemi çiftliğimin 5 farklı ülkedeki müşterilere ulaşmasına yardımcı oldu. Satışlar sadece 2 ayda %300 büyüdü!",
+      "highlight": "Yapay Zeka Becerisi: Envanterimi optimize eden ve satışları artıran akıllı ürün kategorilendirmesi ve mevsimsel talep tahmini.",
+      "metrics": "%300 büyüme • 5 ülke • 2 ay"
+    },
+    "business2": {
+      "name": "Regina Olumah",
+      "business": "House of QG",
+      "industry": "Moda ve Giyim",
+      "quote": "Müşteriler kayıt olmadan yerel dillerinde sipariş verebilmelerini çok seviyor. Mağazamı kurduktan hemen sonra uluslararası siparişlerim üç katına çıktı.",
+      "highlight": "Yapay Zeka Becerisi: İade oranlarını %40 azaltan moda trend analizi ve otomatik beden önerileri.",
+      "metrics": "%200 artış • %40 daha az iade • 12 dil"
+    },
+    "business3": {
+      "name": "Hunsu Mercy",
+      "business": "Mecap Apartment",
+      "industry": "Konaklama",
+      "quote": "Uluslararası misafirler artık dairelerimi kendi para birimleri ve dillerinde rezerve edebiliyor. WhatsApp entegrasyonu onayları kusursuz hale getiriyor!",
+      "highlight": "Yapay Zeka Becerisi: Doluluk oranlarını yıl boyunca %65 artıran dinamik fiyatlandırma ve kullanılabilirlik optimizasyonu.",
+      "metrics": "%65 doluluk • Anında rezervasyonlar • Küresel erişim"
+    },
+    "stats": {
+      "countries": "Hizmet Verilen Ülkeler",
+      "setupTime": "Ortalama Kurulum",
+      "signUpRequired": "Müşteri Kaydı",
+      "languagesSupported": "Diller"
+    }
+  },
+  "howItWorks": {
+    "title": "Nasıl Çalışır",
+    "subtitle": "Küresel işinizi üç basit adımda başlatın",
+    "step1": {
+      "title": "Müşteri Dil Seçer",
+      "description": "Müşterileriniz menünüze tercih ettikleri dilde göz atar. Yapay zeka her şeyi anında çevirir - menü öğeleri, açıklamalar, fiyatlar."
+    },
+    "step2": {
+      "title": "Para Birimlerini Seçin",
+      "description": "Müşteriler fiyatları yerel para birimlerinde görür. Gerçek zamanlı dönüştürme tüm hesaplamaları otomatik olarak yapar."
+    },
+    "step3": {
+      "title": "WhatsApp ile Sipariş Verin",
+      "description": "Siparişler doğrudan WhatsApp'ınıza gelir. Müşterileriniz için uygulama indirmesi gerekmez. Basit ve anında."
+    }
+  },
+  "globalReach": {
+    "title": "Küresel Ticaret İçin Oluşturuldu",
+    "subtitle": "Dünya çapında müşterilere hizmet veren binlerce işletmeye katılın",
+    "stats": {
+      "businesses": "Aktif İşletmeler",
+      "transactions": "Aylık İşlemler",
+      "languagesUsed": "Kullanılan Diller",
+      "currenciesSupported": "Para Birimleri"
+    }
+  },
+  "finalCta": {
+    "badge": "Dünya çapında başarılı işletmelere katılın",
+    "title": "Küresel Olmaya Hazır Mısınız?",
+    "primaryButton": "Ücretsiz Denemeyi Başlat",
+    "secondaryButton": "Başarı Hikayelerini Görüntüle",
+    "subtitle": "Kredi kartı gerekmez • 24 saatte kurulum • İstediğiniz zaman iptal edin"
+  },
+  "languages": {
+    "en": "İngilizce",
+    "es": "İspanyolca",
+    "fr": "Fransızca",
+    "de": "Almanca",
+    "zh": "Çince",
+    "ar": "Arapça",
+    "hi": "Hintçe",
+    "pt": "Portekizce",
+    "ru": "Rusça",
+    "ja": "Japonca",
+    "ko": "Korece",
+    "it": "İtalyanca",
+    "nl": "Felemenkçe",
+    "tr": "Türkçe",
+    "pl": "Lehçe",
+    "vi": "Vietnamca",
+    "th": "Tayca",
+    "id": "Endonezce",
+    "ro": "Rumence",
+    "cs": "Çekçe"
+  },
+  "whatsappWidget": {
+    "title": "Bizimle Sohbet Edin",
+    "subtitle": "Platform Desteği",
+    "selectTopic": "Sohbet başlatmak için bir konu seçin:",
+    "customMessage": "Özel Sohbet Başlat",
+    "opening": "WhatsApp açılıyor...",
+    "messages": {
+      "generalHelp": "Merhaba, MyPadiFood platformu ile ilgili yardıma ihtiyacım var",
+      "setupStore": "Çevrimiçi mağazamı kurmak istiyorum. Başlamama yardımcı olabilir misiniz?",
+      "pricing": "Fiyatlandırma planlarınız nelerdir? Maliyetleri ve özellikleri öğrenmek istiyorum.",
+      "technicalIssue": "Mağazamda teknik bir sorun yaşıyorum. Yardımcı olabilir misiniz?",
+      "multiLanguage": "Çok dilli çeviri özelliği nasıl çalışır?",
+      "payments": "Ödeme işleme ve çoklu para birimi desteği hakkında sorularım var.",
+      "whatsappIntegration": "WhatsApp siparişlerini mağazamla nasıl entegre ederim?",
+      "customDomain": "Mağazam için kendi özel alan adımı kullanabilir miyim?",
+      "migration": "Mevcut işletmemi MyPadiFood'a taşımak istiyorum. Nasıl çalışır?",
+      "bulkOrders": "Toplu siparişleri ve toptan müşterileri nasıl idare edebilirim?",
+      "custom": "Merhaba, MyPadiFood platformu hakkında bir sorum var"
+    }
+  },
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "subtitle": "MyPadiFood hakkında bilmeniz gereken her şey",
+    "backToHome": "Ana Sayfaya Dön",
+    "stillHaveQuestions": "Hala Sorularınız mı Var?",
+    "contactSupport": "Destek ekibimiz başarılı olmanıza yardımcı olmaya hazır",
+    "chatWithSupport": "WhatsApp'ta Destek ile Sohbet Edin",
+    "whatsappMessage": "Merhaba, SSS'de ele alınmayan MyPadiFood hakkında bir sorum var",
+    "categories": {
+      "general": "Genel Bilgi",
+      "pricing": "Fiyatlandırma ve Faturalandırma",
+      "features": "Özellikler ve Yetenekler",
+      "gettingStarted": "Başlarken",
+      "support": "Destek ve Eğitim"
+    },
+    "questions": {
+      "whatIsMyPadiFood": "MyPadiFood nedir?",
+      "whoCanUse": "MyPadiFood'u kimler kullanabilir?",
+      "howDifferent": "MyPadiFood diğer e-ticaret platformlarından nasıl farklıdır?",
+      "freeTrial": "Ücretsiz deneme sunuyor musunuz?",
+      "subscriptionPlans": "Hangi abonelik planlarını sunuyorsunuz?",
+      "paymentMethods": "Abonelikler için hangi ödeme yöntemlerini kabul ediyorsunuz?",
+      "cancelAnytime": "Aboneliğimi istediğim zaman iptal edebilir miyim?",
+      "languagesSupported": "MyPadiFood kaç dili destekliyor?",
+      "currenciesSupported": "Hangi para birimlerinde ödeme kabul edebilirim?",
+      "whatsappOrders": "WhatsApp siparişleri nasıl çalışır?",
+      "customDomain": "Kendi özel alan adımı kullanabilir miyim?",
+      "cashPayments": "MyPadiFood işletmem için nakit ödemeleri işliyor mu?",
+      "setupTime": "Mağazamı kurmak ne kadar sürer?",
+      "technicalKnowledge": "MyPadiFood'u kullanmak için teknik bilgiye ihtiyacım var mı?",
+      "productLimit": "Ekleyebileceğim ürün sayısında bir sınır var mı?",
+      "migration": "Mevcut çevrimiçi mağazamı MyPadiFood'a taşıyabilir miyim?",
+      "customerSupport": "Ne tür müşteri desteği sağlıyorsunuz?",
+      "training": "Eğitim veya işe alıştırma yardımı sağlıyor musunuz?",
+      "updates": "Ne sıklıkla yeni özellikler ve güncellemeler yayınlıyorsunuz?"
+    },
+    "answers": {
+      "whatIsMyPadiFoodAnswer": "MyPadiFood, işletmelerin dünya çapında müşterilere ürün ve hizmet satmasını sağlayan küresel bir e-ticaret platformudur. Yapay zeka destekli platformumuz mağazanızı otomatik olarak birden fazla dile çevirir, çoklu para birimi ödemelerini işler ve müşterilerin uygulama indirmeden WhatsApp üzerinden sipariş vermesine olanak tanır. Dil ve para birimi engellerini kaldırıyoruz, böylece işinizi küresel olarak büyütmeye odaklanabilirsiniz.",
+      "whoCanUseAnswer": "MyPadiFood, küresel olarak genişlemek isteyen her işletme için mükemmeldir - küçük çiftlikler ve restoranlardan moda butiklerine, konaklama hizmetlerine ve toptan tedarikçilere kadar. İster tek başına bir girişimci, ister küçük bir işletme sahibi veya büyüyen bir işletme olun, platformumuz ihtiyaçlarınıza göre ölçeklenir. Satılacak ürün veya hizmetleriniz varsa ve uluslararası müşterilere ulaşmak istiyorsanız, MyPadiFood sizin için oluşturuldu.",
+      "howDifferentAnswer": "Geleneksel e-ticaret platformlarının aksine, MyPadiFood özellikle küresel ticaret için tasarlanmıştır. Benzersiz özelliklerimiz şunları içerir: (1) Manuel çaba gerektirmeyen 20+ dile yapay zeka destekli çeviri, (2) Müşteriler hesap oluşturmadan veya uygulama indirmeden sipariş verebilir, (3) Sorunsuz sipariş yönetimi için WhatsApp entegrasyonu, (4) Otomatik dönüştürme ile çoklu para birimi desteği, (5) Telefon tabanlı müşteri değerlendirme toplama ve (6) Başlamak için teknik uzmanlık gerekmez.",
+      "freeTrialAnswer": "Evet! Tüm özelliklere tam erişim ile cömert 14 günlük ücretsiz deneme sunuyoruz. Denemenizi başlatmak için kredi kartı gerekmez. Bu size mağazanızı kurmanız, ürün eklemeniz, ayarlarınızı özelleştirmeniz ve tüm özelliklerimizi test etmeniz için bolca zaman verir. 14 günlük deneme sona erdikten sonra, size uygun bir abonelik planı seçene kadar mağazanız geçici olarak askıya alınacaktır. Abone olarak istediğiniz zaman yeniden etkinleştirebilirsiniz.",
+      "subscriptionPlansAnswer": "İş ihtiyaçlarınıza uygun esnek abonelik planları sunuyoruz: maksimum esneklik için aylık abonelikler, maliyet tasarrufu sağlayan üç aylık planlar, daha iyi değer için altı aylık (6 ay) abonelikler ve en iyi oranlar için yıllık planlar. Abonelik ücretleri, yerel ekonomik koşullara dayalı adil fiyatlandırmayı garanti etmek için ev sahibi ülkenize göre değişir. Ülkeniz için belirli fiyatlandırmayı almak ve hangi planın iş hedeflerinize en uygun olduğunu tartışmak için WhatsApp üzerinden destek ekibimizle iletişime geçin.",
+      "paymentMethodsAnswer": "Ülkenize bağlı olarak abonelik ücretleri için kredi/banka kartları, banka havaleleri, mobil para ve diğer yerel ödeme seçenekleri dahil olmak üzere birden fazla ödeme yöntemini kabul ediyoruz. Amacımız, abone olmanızı ve hesabınızı sürdürmenizi mümkün olduğunca kolaylaştırmaktır. Bölgenizde mevcut olan belirli ödeme yöntemleri hakkında bilgi edinmek için destek ekibimizle iletişime geçin.",
+      "cancelAnytimeAnswer": "Kesinlikle! Aboneliğiniz üzerinde tam kontrole sahipsiniz. Ceza veya gizli ücret olmadan istediğiniz zaman iptal edebilirsiniz. Fatura döngünüz sırasında iptal ederseniz, ödenen dönem sonuna kadar mağazanıza erişmeye devam edeceksiniz. Her ay işinizi kazanmaya inanıyoruz, istemediğiniz uzun vadeli sözleşmelere kilitlenmek değil.",
+      "languagesSupportedAnswer": "MyPadiFood şu anda İngilizce, İspanyolca, Fransızca, Almanca, Çince, Arapça, Hintçe, Portekizce, Rusça, Japonca, Korece, İtalyanca, Felemenkçe, Türkçe, Lehçe, Vietnamca, Tayca, Endonezce, Rumence ve Çekçe dahil olmak üzere 20'den fazla ana dili desteklemektedir. Yapay zeka çeviri sistemimiz, ürün açıklamalarınızın, menülerinizin ve mağaza içeriğinizin gerçek zamanlı olarak doğru şekilde çevrilmesini sağlar. Müşteri talebine göre sürekli olarak daha fazla dil ekliyoruz.",
+      "currenciesSupportedAnswer": "Dünya çapında hemen hemen her büyük para biriminde ödeme kabul edebilirsiniz. Platformumuz gerçek zamanlı para birimi dönüşümünü otomatik olarak gerçekleştirir, böylece müşteriler fiyatları yerel para birimlerinde görürken siz tercih ettiğiniz para biriminde ödeme alırsınız. Bu USD, EUR, GBP, NGN, JPY, CNY, INR ve çok daha fazlasını içerir. Sistem, doğru fiyatlandırmayı garanti etmek için döviz kurlarını düzenli olarak günceller.",
+      "whatsappOrdersAnswer": "Müşteriler MyPadiFood mağazanızda sipariş verdiğinde, işletme WhatsApp numaranıza doğrudan anında bildirimler alırsınız. Sipariş detayları müşteri bilgileri, sipariş edilen ürünler, teslimat adresi ve ödeme durumu ile net bir şekilde biçimlendirilir. WhatsApp üzerinden siparişleri onaylayabilir, müşterileri sipariş durumu hakkında bilgilendirebilir ve doğrudan iletişim kurabilirsiniz - yeni bir sistem öğrenmenize gerek yok. Müşterinizle sohbet etmek kadar basit.",
+      "customDomainAnswer": "Evet! Profesyonel bir markalı deneyim için kendi özel alan adınızı MyPadiFood mağazanıza bağlayabilirsiniz. Örneğin, isletmeniz.mypadifood.com yerine magaza.isletmeniz.com veya sahip olduğunuz herhangi bir alan adını kullanabilirsiniz. Bu özellik seçili abonelik planlarında mevcuttur. Destek ekibimiz basit kurulum sürecinde size rehberlik edebilir.",
+      "cashPaymentsAnswer": "MyPadiFood işletmeniz adına nakit ödemeleri KABUL ETMEZ, işlemez veya yönetmez. Nakit ile ilgili tüm işlemler doğrudan sizinle müşterileriniz arasında yönetilir. Nakit ödemeleriniz, tahsilatlarınız ve mutabakatlarınız üzerinde tam kontrolü korursunuz. MyPadiFood yalnızca sipariş platformunu ve dijital ödeme işlemlerini kolaylaştırır. Herhangi bir nakit ödeme düzenlemesi, bağımsız olarak yönetmek sizin sorumluluğunuzdur.",
+      "setupTimeAnswer": "Çoğu işletme, mağazalarını tamamen kurmuş ve 24 saat veya daha kısa sürede sipariş kabul etmeye hazır hale getirebilir. Kolaylaştırılmış işe alım sürecimiz sizi şu adımlardan geçirir: hesabınızı oluşturmak, ürünlerinizi eklemek, ödeme yöntemlerini ayarlamak, mağaza görünümünüzü özelleştirmek ve WhatsApp'ınızı bağlamak. Birçok kullanıcı temel kurulumu 2 saatten kısa sürede tamamlar. Hızlı başlamanıza yardımcı olmak için adım adım rehberlik ve destek sağlıyoruz.",
+      "technicalKnowledgeAnswer": "Teknik bilgi gerekmez! MyPadiFood işletme sahipleri için tasarlanmıştır, geliştiriciler için değil. Sezgisel arayüzümüz sizi net talimatlarla her adımda yönlendirir. Nasıl kod yazacağınızı bilmenize, web barındırma hizmetini anlamanıza veya sunucuları yönetmenize gerek yok. WhatsApp ve e-posta kullanabiliyorsanız, MyPadiFood mağazanızı yönetebilirsiniz. Destek ekibimiz de herhangi bir sorunuzda yardımcı olmak için hazırdır.",
+      "productLimitAnswer": "Mağazanıza ekleyebileceğiniz ürün sayısında sınır yoktur. 10 ürününüz veya 10.000 ürününüz olsun, MyPadiFood kataloğunuzu idare edebilir. Ürünleri kategoriler halinde düzenleyebilir, ayrıntılı açıklamalar ve görseller ekleyebilir, envanter seviyelerini ayarlayabilir ve her şeyi kontrol panelinizden yönetebilirsiniz. İşletmeniz büyüdükçe, mağazanız da sizinle birlikte büyür.",
+      "migrationAnswer": "Evet, mevcut çevrimiçi mağazanızı MyPadiFood'a taşımanıza yardımcı olabiliriz! Shopify, WooCommerce ve diğer e-ticaret sistemleri dahil olmak üzere çeşitli platformlardan geçişi destekliyoruz. Ekibimiz ürün kataloğunuzu, müşteri verilerinizi ve sipariş geçmişinizi aktarmada yardımcı olabilir. Özel geçiş ihtiyaçlarınızı, zaman çizelgenizi ve herhangi bir özel gereksinimi görüşmek için WhatsApp üzerinden destek ekibimizle iletişime geçin. Geçişi mümkün olduğunca sorunsuz hale getireceğiz.",
+      "customerSupportAnswer": "Birden fazla kanal aracılığıyla kapsamlı destek sağlıyoruz: hızlı sorular ve gerçek zamanlı yardım için WhatsApp desteği, ayrıntılı sorular için e-posta desteği, kılavuzlar ve öğreticilerle yardım merkezi ve karmaşık özellikler için video anlatımlar. Destek ekibimiz mesai saatlerinde çalışır ve tüm sorulara 24 saat içinde cevap vermeyi hedefleriz. Büyüyen işletmeler için özel hesap yöneticileri ile premium destek paketleri mevcuttur.",
+      "trainingAnswer": "Evet! Başarılı olmanıza yardımcı olmak için kapsamlı eğitim kaynakları sağlıyoruz: kayıt olduğunuzda ücretsiz işe alım oturumu, tüm özellikleri kapsayan video eğitimleri, yazılı adım adım kılavuzlar, yeni özellikler için canlı webinarlar ve bire bir eğitim oturumları (premium planlarla birlikte mevcuttur). İşletmenizi büyütmek için platformun her yönünü kullanma konusunda kendinizi güvende hissetmenizi sağlamak istiyoruz.",
+      "updatesAnswer": "MyPadiFood'u düzenli güncellemeler ve yeni özelliklerle sürekli olarak geliştiriyoruz. Büyük özellik sürümleri genellikle üç ayda bir gerçekleşir, küçük iyileştirmeler ve hata düzeltmeleri gerektiğinde yayınlanır. Tüm güncellemeler aboneliğinize ekstra ücret olmadan dahildir. Yeni özellikleri e-posta, uygulama içi bildirimler ve sosyal medya kanallarımız aracılığıyla duyuruyoruz. Geri bildiriminiz yol haritamızı şekillendirmeye yardımcı olur, bu nedenle her zaman işletmelerin en çok ihtiyaç duyduğu şeyleri inşa ediyoruz."
+    }
+  },
+  "onboarding": {
+    "title": "İşinizi Başlatın",
+    "subtitle": "Aşağıdaki formu doldurun ve ekibimiz başlamanıza yardımcı olacak",
+    "submitSuccess": "Başvuru başarıyla gönderildi!",
+    "submitError": "Başvuru gönderilemedi",
+    "submitting": "Gönderiliyor...",
+    "submitButton": "Başvuru Gönder",
+    "submitAnother": "Başka Bir Başvuru Gönder",
+    "successTitle": "Teşekkürler!",
+    "successMessage": "İşe alım talebiniz başarıyla gönderildi. Ekibimiz 24 saat içinde sizinle iletişime geçecek.",
+    "categories": {
+      "foodDining": "🍽️ Yemek ve Restoran",
+      "agricultureFarming": "🌾 Tarım ve Çiftçilik",
+      "hospitality": "🏨 Konaklama",
+      "retailShopping": "🛍️ Perakende ve Alışveriş",
+      "technologyElectronics": "💻 Teknoloji ve Elektronik",
+      "healthBeauty": "💄 Sağlık ve Güzellik",
+      "homeLiving": "🏠 Ev ve Yaşam",
+      "automotive": "🚗 Otomotiv",
+      "educationLearning": "🎓 Eğitim ve Öğrenme",
+      "sportsRecreation": "⚽ Spor ve Eğlence",
+      "professionalServices": "💼 Profesyonel Hizmetler",
+      "otherServices": "🔧 Diğer Hizmetler"
+    },
+    "businessInfo": {
+      "title": "İşletme Bilgileri",
+      "businessName": "İşletme Adı",
+      "businessNamePlaceholder": "örn., Taze Çiftlik Ürünleri",
+      "businessType": "İşletme Türü",
+      "other": "Diğer",
+      "preferredSlug": "Tercih Edilen URL Slug",
+      "slugPlaceholder": "tazeciftlik",
+      "slugHint": "Yalnızca küçük harfler, sayılar ve tireler",
+      "urlPreviewLabel": "İşletmeniz şu adreste erişilebilir olacak:",
+      "description": "Açıklama",
+      "descriptionPlaceholder": "Bize işletmeniz hakkında bilgi verin..."
+    },
+    "ownerInfo": {
+      "title": "Sahip Bilgileri",
+      "fullName": "Tam Ad",
+      "fullNamePlaceholder": "Ahmet Yılmaz",
+      "email": "E-posta",
+      "emailPlaceholder": "ahmet@ornek.com",
+      "phone": "Telefon",
+      "phonePlaceholder": "+90 555 123 4567"
+    }
+  },
+  "businessDirectory": {
+    "title": "İşletmelerimiz",
+    "subtitle": "Platformumuzda harika yerel işletmeleri keşfedin",
+    "noBusinesses": "Bu kategoride işletme bulunamadı",
+    "tryDifferent": "Daha fazla işletme keşfetmek için farklı bir kategori seçmeyi deneyin"
+  },
+  "businessFilter": {
+    "allBusinesses": "Tüm İşletmeler"
+  },
+  "businessCard": {
+    "products": "Ürünler",
+    "visitStore": "Mağazayı Ziyaret Et"
+  }
+}

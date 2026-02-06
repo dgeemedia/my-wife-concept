@@ -3,7 +3,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Shield, Mail, Lock, AlertCircle } from 'lucide-react'
+import { Mail, Lock, AlertCircle } from 'lucide-react'
+import Image from 'next/image'
 import toast from 'react-hot-toast'
 
 export default function PlatformLoginPage() {
@@ -33,7 +34,7 @@ export default function PlatformLoginPage() {
       if (response.ok && data.ok && data.token) {
         // Check if user is super-admin
         if (data.user.role !== 'super-admin') {
-          setError('Access denied. Super admin credentials required.')
+          setError('Access denied. Authorized staff credentials required.')
           return
         }
 
@@ -64,10 +65,16 @@ export default function PlatformLoginPage() {
       <div className="max-w-md w-full p-4">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-xl mb-4">
-            <Shield className="w-12 h-12 text-blue-600" />
+            <Image 
+              src="/logo.svg" 
+              alt="MyPadiFood Logo" 
+              width={48} 
+              height={48}
+              className="object-contain"
+            />
           </div>
           <h1 className="text-4xl font-bold text-white mb-2">Platform Login</h1>
-          <p className="text-blue-100">Super Admin Access Only</p>
+          <p className="text-blue-100">Authorized Personnel Only</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-2xl p-8">
