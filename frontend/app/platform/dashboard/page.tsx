@@ -10,6 +10,7 @@ import SettingsTab from './components/SettingsTab'
 import CreateBusinessModal from './components/CreateBusinessModal'
 import { useDashboard } from './hooks/useDashboard'
 
+// This is the main dashboard page for the platform admin. It manages the state and logic for all tabs and modals.
 export default function PlatformDashboard() {
   const {
     user,
