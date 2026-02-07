@@ -333,6 +333,7 @@ export const useDashboard = () => {
     searchTerm,
     setSearchTerm,
     selectedRequest,
+    setSelectedRequest,
     showCreateModal,
     setShowCreateModal,
     dashboardStats,
