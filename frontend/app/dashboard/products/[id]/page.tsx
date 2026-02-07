@@ -40,7 +40,9 @@ export default function EditProductPage() {
     imageUrl: '',
     images: [],
     createdAt: '',
-    updatedAt: ''
+    updatedAt: '',
+    featured: false,
+    businessId: 0
   })
 
   const { symbol } = useCurrency()
