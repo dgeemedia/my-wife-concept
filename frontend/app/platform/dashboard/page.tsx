@@ -22,6 +22,7 @@ export default function PlatformDashboard() {
     searchTerm,
     setSearchTerm,
     selectedRequest,
+    setSelectedRequest,
     showCreateModal,
     setShowCreateModal,
     expiringSubscriptionsCount,
