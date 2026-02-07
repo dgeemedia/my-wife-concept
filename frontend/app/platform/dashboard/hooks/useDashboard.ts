@@ -276,6 +276,7 @@ export const useDashboard = () => {
     setShowCreateModal(true)
   }
 
+  // This function is called when the admin confirms creation in the modal
   const handleCreateBusiness = async () => {
     if (!selectedRequest) return
 
