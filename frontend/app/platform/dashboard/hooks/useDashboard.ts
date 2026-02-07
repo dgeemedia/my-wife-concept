@@ -284,6 +284,8 @@ export const useDashboard = () => {
       businessName: selectedRequest.businessName,
       businessType: selectedRequest.businessType,
       ownerEmail: selectedRequest.ownerEmail,
+      ownerName: selectedRequest.ownerName,        
+      ownerPhone: selectedRequest.ownerPhone,
       preferredSlug: selectedRequest.preferredSlug,
       sendWelcomeEmail: true
     }
