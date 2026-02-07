@@ -342,6 +342,7 @@ export const useDashboard = () => {
     setFilters,
     expiringSubscriptionsCount,
     handleToggleBusinessStatus,
+    fetchBusinesses,
     handleApproveRequest,
     handleRejectRequest,
     handleApproveAndCreate,
