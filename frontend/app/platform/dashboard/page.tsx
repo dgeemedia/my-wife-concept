@@ -26,7 +26,7 @@ export default function PlatformDashboard() {
     setShowCreateModal,
     expiringSubscriptionsCount,
     handleToggleBusinessStatus,
-    handleUpdateSubscription,
+    fetchBusinesses,
     handleApproveRequest,
     handleRejectRequest,
     handleApproveAndCreate,
@@ -77,7 +77,7 @@ export default function PlatformDashboard() {
             onSearchChange={setSearchTerm}
             onAddBusiness={() => router.push('/super-admin/businesses/new')}
             onToggleStatus={handleToggleBusinessStatus}
-            onUpdateSubscription={handleUpdateSubscription}
+            onRefresh={fetchBusinesses}
           />
         )}
 

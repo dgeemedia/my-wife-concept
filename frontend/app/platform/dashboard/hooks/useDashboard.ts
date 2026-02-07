@@ -211,29 +211,6 @@ export const useDashboard = () => {
     }
   }
 
-  const handleUpdateSubscription = async (businessId: number) => {
-    const newDate = prompt('Enter new subscription expiry date (YYYY-MM-DD):')
-    if (!newDate) return
-    
-    try {
-      const response = await fetch(`/api/business/${businessId}/update-subscription`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ subscriptionExpiry: newDate })
-      })
-
-      if (response.ok) {
-        toast.success('Subscription updated successfully')
-        fetchBusinesses()
-      } else {
-        throw new Error('Failed to update subscription')
-      }
-    } catch (error: any) {
-      toast.error(error.message)
-    }
-  }
-
   const handleApproveRequest = async (requestId: number) => {
     try {
       const response = await fetch(`/api/onboarding/requests/${requestId}/approve`, {
@@ -365,7 +342,6 @@ export const useDashboard = () => {
     setFilters,
     expiringSubscriptionsCount,
     handleToggleBusinessStatus,
-    handleUpdateSubscription,
     handleApproveRequest,
     handleRejectRequest,
     handleApproveAndCreate,
