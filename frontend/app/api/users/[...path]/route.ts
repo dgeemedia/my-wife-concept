@@ -1,6 +1,7 @@
 // frontend/app/api/users/[...path]/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 
+
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
 
 async function handler(
