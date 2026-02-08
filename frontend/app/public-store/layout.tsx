@@ -1,4 +1,3 @@
-// app/public-store/layout.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -9,7 +8,7 @@ import CartDrawer from '@/components/cart/CartDrawer'
 import WhatsAppWidget from '@/components/public/WhatsAppWidget'
 import { SettingsProvider } from '@/contexts/SettingsContext'
 import { CurrencyProvider } from '@/contexts/CurrencyContext'
-import { BusinessProvider } from '@/contexts/BusinessContext'
+import { BusinessProvider, useBusiness } from '@/contexts/BusinessContext' // Import useBusiness here
 import i18n, { detectAndSetLanguage } from '@/lib/i18n'
 import { applyThemeColors } from '@/lib/colorUtils'
 
@@ -70,7 +69,8 @@ export default function PublicStoreLayout({
 
 // Separate component to use business context
 function PublicStoreContent({ children }: { children: React.ReactNode }) {
-  const { business, loading: businessLoading, error: businessError } = BusinessProvider.useBusiness()
+  // ✅ CORRECT: Call useBusiness() directly, not as a static method
+  const { business, loading: businessLoading, error: businessError } = useBusiness()
   const [settings, setSettings] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
