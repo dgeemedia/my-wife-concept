@@ -1,4 +1,4 @@
-// middleware.ts - FIXED VERSION
+// middleware.ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -61,10 +61,8 @@ function getSubdomain(hostname: string): string | null {
   
   // Local development
   if (host.includes('localhost') || host.includes('127.0.0.1')) {
-    // For local testing, you can use query parameter
-    // Example: http://localhost:3000?subdomain=chrenisfarm
-    // OR use a cookie
-    return null // Return null for root domain in local dev
+    // For local testing, use query parameter or cookie
+    return null
   }
   
   // Production - extract from hostname
