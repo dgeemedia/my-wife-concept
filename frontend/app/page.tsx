@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { SettingsProvider } from '@/contexts/SettingsContext'
-import { CurrencyProvider } from '@/contexts/CurrencyProvider'
+import { CurrencyProvider } from '@/contexts/CurrencyContext'
 import { useBusiness } from '@/contexts/BusinessContext'
 import SuperAdminLanding from '@/components/super-admin/SuperAdminLanding'
 import i18n, { detectAndSetLanguage } from '@/lib/i18n'
@@ -32,10 +32,10 @@ export default function RootPage() {
   // Loading state
   if (businessLoading || !i18nReady) {
     return (
-      <div className=\"min-h-screen flex items-center justify-center bg-gray-50\">
-        <div className=\"text-center\">
-          <div className=\"animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4\"></div>
-          <p className=\"text-gray-600\">Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
         </div>
       </div>
     )
