@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
 
+export const dynamic = 'force-dynamic'
 /**
  * Extracts the business slug from the incoming request's Host header.
  *

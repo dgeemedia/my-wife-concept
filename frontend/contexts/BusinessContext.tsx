@@ -28,32 +28,25 @@ const BusinessContext = createContext<BusinessContextType | undefined>(undefined
 
 /**
  * Extracts the business slug from window.location.hostname.
- *
- * LOCAL DEV
- *   "houseofqg.localhost"      → "houseofqg"
- *   "chrenisfarm.localhost"    → "chrenisfarm"
- *   "localhost"                → null   (root / dashboard)
- *
- * PRODUCTION
- *   "chrenisfarm.mypadifood.com" → "chrenisfarm"
- *   "mypadifood.com"             → null
- *   "www.mypadifood.com"         → null
  */
 function extractSubdomain(): string | null {
   if (typeof window === 'undefined') return null
 
-  // Strip port  →  "houseofqg.localhost:3000" → "houseofqg.localhost"
   const host = window.location.hostname.split(':')[0]
   const parts = host.split('.')
 
-  // ── LOCAL DEV: *.localhost ──────────────────────────────────
+  // LOCAL DEV: *.localhost
   if (parts[parts.length - 1] === 'localhost') {
     return parts.length >= 2 ? parts[0] : null
   }
 
-  // ── PRODUCTION: *.domain.tld ─────────────────────────────────
+  // PRODUCTION: *.domain.tld
   if (parts.length <= 2) return null
   if (parts[0] === 'www') return null
+
+  // Ignore special subdomains
+  const ignoredSubdomains = ['platform', 'api', 'admin']
+  if (ignoredSubdomains.includes(parts[0])) return null
 
   return parts[0]
 }
@@ -71,7 +64,8 @@ export function BusinessProvider({ children }: { children: ReactNode }) {
       const subdomain = extractSubdomain()
 
       if (!subdomain) {
-        // Bare "localhost" or root production domain — no tenant context
+        // Root domain - no business context needed
+        setBusiness(null)
         setLoading(false)
         return
       }
@@ -79,14 +73,19 @@ export function BusinessProvider({ children }: { children: ReactNode }) {
       const response = await fetch(`/api/business/by-slug/${subdomain}`)
 
       if (!response.ok) {
-        throw new Error(`Business '${subdomain}' not found`)
+        if (response.status === 404) {
+          throw new Error(`Business '${subdomain}' not found`)
+        }
+        throw new Error(`Failed to load business: ${response.statusText}`)
       }
 
       const data = await response.json()
       setBusiness(data)
+      setError(null)
     } catch (err: any) {
       console.error('Failed to fetch business:', err)
       setError(err.message || 'Failed to load business')
+      setBusiness(null)
     } finally {
       setLoading(false)
     }
