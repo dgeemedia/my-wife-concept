@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
-
+export const dynamic = 'force-dynamic'
 // Get current user's business
 export async function GET(request: NextRequest) {
   try {
