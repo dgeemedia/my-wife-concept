@@ -3,19 +3,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:5000'
 
-/**
- * Extracts the business slug from the incoming request's Host header.
- *
- * LOCAL DEV
- *   "houseofqg.localhost:3000"   → "houseofqg"
- *   "chrenisfarm.localhost:3000" → "chrenisfarm"
- *   "localhost:3000"             → null
- *
- * PRODUCTION
- *   "chrenisfarm.mypadifood.com" → "chrenisfarm"
- *   "mypadifood.com"             → null
- *   "www.mypadifood.com"         → null
- */
+// Add at the top
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 function extractBusinessContext(request: NextRequest): string | null {
   const rawHost = request.headers.get('host') || ''
 

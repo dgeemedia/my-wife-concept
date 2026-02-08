@@ -1,0 +1,13 @@
+# .vercelignore
+.next/cache/
+*.log
+*.pem
+node_modules/.cache/
+*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.tsbuildinfo
+.next/static/chunks/fallback-*.js
+.DS_Store

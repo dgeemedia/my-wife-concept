@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": ".next",
+  "regions": ["fra1"],
+  "functions": {
+    "app/**/*.func": {
+      "maxDuration": 30,
+      "memory": 3008
+    }
+  }
+}

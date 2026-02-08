@@ -2,11 +2,14 @@
   "name": "mypadifood-frontend",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+    "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "set NODE_OPTIONS=--max-old-space-size=4096&& next build",
+    "build:clean": "rd /s /q .next 2>nul && set NODE_OPTIONS=--max-old-space-size=4096&& next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rd /s /q .next node_modules 2>nul",
+    "rebuild": "pnpm clean && pnpm install && pnpm build:clean"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
@@ -36,5 +39,10 @@
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3"
-  }
+  },
+  "engines": {
+    "node": "22.19.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
 }

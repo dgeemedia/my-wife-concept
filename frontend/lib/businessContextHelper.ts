@@ -1,8 +1,5 @@
 // frontend/lib/businessContextHelper.ts
-/**
- * Helper to extract business context from current domain
- * Use this in API routes and client-side fetches
- */
+
 
 export function extractBusinessSlugFromHostname(hostname?: string): string | null {
   const host = hostname || (typeof window !== 'undefined' ? window.location.hostname : '')

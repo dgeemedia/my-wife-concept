@@ -1,10 +1,8 @@
-// frontend/app/layout.tsx
+// app/layout.tsx
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { BusinessProvider } from '@/contexts/BusinessContext'
 import { Toaster } from 'react-hot-toast'
-import { CartProvider } from '@/components/cart/CartProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,36 +19,31 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <BusinessProvider>
-          <CartProvider>  
-          {children}
-          <Toaster 
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-              style: {
-                background: '#363636',
-                color: '#fff',
+        {children}
+        <Toaster 
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+            },
+            success: {
+              duration: 3000,
+              iconTheme: {
+                primary: '#10B981',
+                secondary: '#fff',
               },
-              success: {
-                duration: 3000,
-                iconTheme: {
-                  primary: '#10B981',
-                  secondary: '#fff',
-                },
+            },
+            error: {
+              duration: 4000,
+              iconTheme: {
+                primary: '#EF4444',
+                secondary: '#fff',
               },
-              error: {
-                duration: 4000,
-                iconTheme: {
-                  primary: '#EF4444',
-                  secondary: '#fff',
-                },
-              },
-            }}
-          />
-          </CartProvider>
-        </BusinessProvider>
-        
+            },
+          }}
+        />
       </body>
     </html>
   )

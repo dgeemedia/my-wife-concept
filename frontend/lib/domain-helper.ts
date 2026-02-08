@@ -1,11 +1,5 @@
 // frontend/lib/domain-helper.ts
-/**
- * Helper functions for domain management across environments
- */
 
-/**
- * Get the base domain based on environment
- */
 export function getBaseDomain(): string {
   const env = process.env.NODE_ENV
   const customDomain = process.env.NEXT_PUBLIC_DOMAIN

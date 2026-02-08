@@ -1,6 +1,7 @@
-// frontend/next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
     remotePatterns: [
       {
@@ -13,10 +14,10 @@ const nextConfig = {
       },
     ],
   },
-  i18n: {
-       locales: ['en', 'fr', 'yo', 'ig', 'ha', 'de', 'ar', 'sw'],
-       defaultLocale: 'en',
-     },
+  // Remove this line:
+  // output: 'standalone',
+  // Or comment it out:
+  // output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined,
 }
 
 module.exports = nextConfig
